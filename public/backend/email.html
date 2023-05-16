@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<!-- 
+Jampack
+Author: Hencework
+Contact: contact@hencework.com
+-->
+<html lang="en">
+<head>
+    <!-- Meta Tags -->
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email | Jampack - Admin CRM Dashboard Template</title>
+    <meta name="description" content="A modern CRM Dashboard Template with reusable and flexible components for your SaaS web applications by hencework. Based on Bootstrap."/>
+    
+	<!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+	
+	<!-- CSS -->
+    <link href="dist/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+   	<!-- Wrapper -->
+	<div class="hk-wrapper" data-layout="navbar" data-layout-style="default" data-menu="light" data-footer="simple">
+		<!-- Top Navbar -->
+		<nav class="hk-navbar navbar navbar-expand-xl navbar-light fixed-top">
+			<div class="container-fluid">
+				<!-- Start Nav -->
+				<div class="nav-start-wrap flex-fill">
+					<!-- Brand -->
+					<a class="navbar-brand d-xl-flex d-none flex-shrink-0" href="index.html">
+						<img class="brand-img img-fluid" src="dist/img/brand-sm.svg" alt="brand" />
+						<img class="brand-img img-fluid" src="dist/img/Jampack.svg" alt="brand" />
+					</a>
+					<!-- /Brand -->
+					<button class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover navbar-toggle d-xl-none"><span class="icon"><span class="feather-icon"><i data-feather="align-left"></i></span></span></button>
+					
+					<!-- Navbar Nav -->
+					<div class="hk-menu">
+						<!-- Brand -->
+						<div class="menu-header d-xl-none">
+							<span>
+								<a class="navbar-brand" href="index.html">
+									<img class="brand-img img-fluid" src="dist/img/brand-sm.svg" alt="brand" />
+									<img class="brand-img img-fluid" src="dist/img/Jampack.svg" alt="brand" />
+								</a>
+								<button class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover navbar-toggle">
+									<span class="icon">
+										<span class="svg-icon fs-5">
+											<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-bar-to-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+												<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+												<line x1="10" y1="12" x2="20" y2="12"></line>
+												<line x1="10" y1="12" x2="14" y2="16"></line>
+												<line x1="10" y1="12" x2="14" y2="8"></line>
+												<line x1="4" y1="4" x2="4" y2="20"></line>
+											</svg>
+										</span>
+									</span>
+								</button>
+							</span>
+						</div>
+						<!-- /Brand -->
+						
+						<!-- Main Menu -->
+						<div data-simplebar class="nicescroll-bar">
+							<div class="menu-content-wrap">
+								<div class="menu-group">
+									<ul class="navbar-nav flex-column">
+										<li class="nav-item">
+											<a class="nav-link" href="index.html">
+												<span class="nav-link-text">Dashboard</span>
+												<span class="badge badge-sm badge-soft-pink ms-xl-2 ms-auto">Hot</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_chat">
+												<span class="nav-link-text">Chat</span>
+											</a>
+											<ul id="dash_chat" class="nav flex-column collapse   nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="chats.html"><span class="nav-link-text">Chats</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="chats-group.html"><span class="nav-link-text">Groups</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="chats-contact.html"><span class="nav-link-text">Contacts</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_wizard">
+																<span class="nav-link-text">Chat Popup</span>
+															</a>
+															<ul id="dash_wizard" class="nav flex-column collapse   nav-children">
+																<li class="nav-item">
+																	<ul class="nav flex-column">
+																		<li class="nav-item">
+																			<a class="nav-link" href="chatpopup.html"><span class="nav-link-text">Direct Message</span></a>
+																		</li>
+																		<li class="nav-item">
+																			<a class="nav-link" href="chatbot.html"><span class="nav-link-text">Chatbot Chat</span></a>
+																		</li>
+																	</ul>
+																</li>
+															</ul>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item active">
+											<a class="nav-link" href="email.html">
+												<span class="nav-link-text">Email</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_scrumboard">
+												<span class="nav-link-text">Scrumboard</span>
+											</a>
+											<ul id="dash_scrumboard" class="nav flex-column collapse   nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="kanban-board.html"><span class="nav-link-text">Kanban</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="projects-board.html"><span class="nav-link-text">Boards</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="pipeline.html"><span class="nav-link-text">Pipeline</span></a>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_contact">
+												<span class="nav-link-text">Contact</span>
+											</a>
+											<ul id="dash_contact" class="nav flex-column collapse   nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="contact.html"><span class="nav-link-text">Contact List</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="contact-cards.html"><span class="nav-link-text">Contact Cards</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="edit-contact.html"><span class="nav-link-text">Edit Contact</span></a>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_task">
+												<span class="nav-link-text position-relative">Todo
+													<span class="badge badge-danger badge-indicator position-absolute top-0 start-100"></span>
+												</span>
+											</a>
+											<ul id="dash_task" class="nav flex-column collapse   nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="tasklist.html"><span class="nav-link-text">Tasklist</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="gantt.html"><span class="nav-link-text">Gantt</span></a>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_invoice">
+												<span class="nav-link-text">Invoices</span>
+											</a>
+											<ul id="dash_invoice" class="nav flex-column collapse   nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="invoice-list.html"><span class="nav-link-text">Invoice List</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="invoice-templates.html"><span class="nav-link-text">Invoice Templates</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="create-invoice.html"><span class="nav-link-text">Create Invoice</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="invoice-preview.html"><span class="nav-link-text">Invoice Preview</span></a>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="calendar.html">
+												<span class="nav-link-text">Calendar</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_file">
+												<span class="nav-link-text">File Manager</span>
+											</a>
+											<ul id="dash_file" class="nav flex-column collapse  nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="file-manager-list.html"><span class="nav-link-text">List</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="file-manager-grid.html"><span class="nav-link-text">Grid</span></a>
+														</li>
+													</ul>	
+												</li>	
+											</ul>	
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="gallery.html">
+												<span class="nav-link-text">Gallery</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_blog">
+												<span class="nav-link-text">Blog</span>
+											</a>
+											<ul id="dash_blog" class="nav flex-column collapse  nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="posts.html"><span class="nav-link-text">Posts</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="add-new-post.html"><span class="nav-link-text">Edit Posts</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="post-detail.html"><span class="nav-link-text">Post Detail</span></a>
+														</li>
+													</ul>	
+												</li>	
+											</ul>	
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_integ">
+												<span class="nav-link-text">Integrations</span>
+											</a>
+											<ul id="dash_integ" class="nav flex-column collapse  nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="all-apps.html"><span class="nav-link-text">All Apps</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="integrations-detail.html"><span class="nav-link-text">App Detail</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="integrations.html"><span class="nav-link-text">Integrations</span></a>
+														</li>
+													</ul>	
+												</li>	
+											</ul>	
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_pages">
+												<span class="nav-link-text">Authentication</span>
+											</a>
+											<ul id="dash_pages" class="nav flex-column collapse  nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_log">
+																<span class="nav-link-text">Log In</span> 
+															</a>
+															<ul id="dash_log" class="nav flex-column collapse  nav-children">
+																<li class="nav-item">
+																	<ul class="nav flex-column">
+																		<li class="nav-item">
+																			<a class="nav-link" href="login.html"><span class="nav-link-text">Login</span></a>
+																		</li>
+																		<li class="nav-item">
+																			<a class="nav-link" href="login-simple.html"><span class="nav-link-text">Login Simple</span></a>
+																		</li>
+																		<li class="nav-item">
+																			<a class="nav-link" href="login-classic.html"><span class="nav-link-text">Login Classic</span></a>
+																		</li>
+																	</ul>	
+																</li>	
+															</ul>	
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_sign">
+																<span class="nav-link-text">Sign Up</span>
+															</a>
+															<ul id="dash_sign" class="nav flex-column collapse  nav-children">
+																<li class="nav-item">
+																	<ul class="nav flex-column">
+																		<li class="nav-item">
+																			<a class="nav-link" href="signup.html"><span class="nav-link-text">Signup</span></a>
+																		</li>
+																		<li class="nav-item">
+																			<a class="nav-link" href="signup-simple.html"><span class="nav-link-text">Signup Simple</span></a>
+																		</li>
+																		<li class="nav-item">
+																			<a class="nav-link" href="signup-classic.html"><span class="nav-link-text">Signup Classic</span></a>
+																		</li>
+																	</ul>		
+																</li>	
+															</ul>	
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="lock-screen.html"><span class="nav-link-text">Lock Screen</span></a>
+														</li>
+														
+														<li class="nav-item">
+															<a class="nav-link" href="reset-password.html"><span class="nav-link-text">Reset Password</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="404.html"><span class="nav-link-text">Error 404</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="503.html"><span class="nav-link-text">Error 503</span></a>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_profile">
+												<span class="nav-link-text">Profile</span>
+											</a>
+											<ul id="dash_profile" class="nav flex-column collapse  nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="profile.html">
+																<span class="nav-link-text">Profile</span>
+															</a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="edit-profile.html">
+																<span class="nav-link-text">Edit Profile</span>
+															</a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="account.html">
+																<span class="nav-link-text">Account</span>
+															</a>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="https://nubra-ui.hencework.com/" target="_blank">
+												<span class="nav-link-text">Documentation</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="https://nubra-ui.hencework.com/avatar.html" target="_blank">
+												<span class="nav-link-text">Components</span>
+											</a>
+										</li>
+									</ul>	
+								</div>
+							</div>
+						</div>
+						<!-- /Main Menu -->
+					</div>
+					<div id="hk_menu_backdrop" class="hk-menu-backdrop"></div>
+					<!-- /Navbar Nav -->
+
+				</div>
+				<!-- /Start Nav -->
+				
+				<!-- End Nav -->
+				<div class="nav-end-wrap">
+					<!-- Search -->
+					<form class="dropdown navbar-search me-2">
+						<div class="dropdown-toggle no-caret" data-bs-toggle="dropdown" data-dropdown-animation data-bs-auto-close="outside">
+							<a href="#" class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover  d-xl-none"><span class="icon"><span class="feather-icon"><i data-feather="search"></i></span></span></a>
+							<div class="input-group d-xl-flex d-none">
+								<span class="input-affix-wrapper input-search affix-border">
+									<input type="text" class="form-control  bg-transparent"  data-navbar-search-close="false" placeholder="Search..." aria-label="Search">
+									<span class="input-suffix"><span>/</span>
+										<span class="btn-input-clear"><i class="bi bi-x-circle-fill"></i></span>
+										<span class="spinner-border spinner-border-sm input-loader text-primary" role="status">
+											<span class="sr-only">Loading...</span>
+										</span>
+									</span>
+								</span>
+							</div>
+						</div>
+						<div  class="dropdown-menu p-0">
+							<!-- Mobile Search -->
+							<div class="dropdown-item d-xl-none bg-transparent">
+								<div class="input-group mobile-search">
+									<span class="input-affix-wrapper input-search">
+										<input type="text" class="form-control" placeholder="Search..." aria-label="Search">
+										<span class="input-suffix">
+											<span class="btn-input-clear"><i class="bi bi-x-circle-fill"></i></span>
+											<span class="spinner-border spinner-border-sm input-loader text-primary" role="status">
+												<span class="sr-only">Loading...</span>
+											</span>
+										</span>
+									</span>
+								</div>
+							</div>
+							<!--/ Mobile Search -->
+							<div data-simplebar class="dropdown-body p-2">
+								<h6 class="dropdown-header">Recent Search
+								</h6>
+								<div class="dropdown-item bg-transparent">
+									<a href="#" class="badge badge-pill badge-soft-secondary">Grunt</a>
+									<a href="#" class="badge badge-pill badge-soft-secondary">Node JS</a>
+									<a href="#" class="badge badge-pill badge-soft-secondary">SCSS</a>
+								</div>
+								<div class="dropdown-divider"></div>
+								<h6 class="dropdown-header">Help
+								</h6>
+								<a href="javascript:void(0);" class="dropdown-item">
+									<div class="media align-items-center">
+										<div class="media-head me-2">
+											<div class="avatar avatar-icon avatar-xs avatar-soft-light avatar-rounded">
+												<span class="initial-wrap">
+													<span class="svg-icon">
+														<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-corner-down-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+															<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+															<path d="M6 6v6a3 3 0 0 0 3 3h10l-4 -4m0 8l4 -4"></path>
+														 </svg>
+													</span>
+												</span>
+											</div>
+										</div>
+										<div class="media-body">
+											How to setup theme?
+										</div>
+									</div>
+								</a>
+								<a href="javascript:void(0);" class="dropdown-item">
+									<div class="media align-items-center">
+										<div class="media-head me-2">
+											<div class="avatar avatar-icon avatar-xs avatar-soft-light avatar-rounded">
+												<span class="initial-wrap">
+													<span class="svg-icon">
+														<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-corner-down-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+															<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+															<path d="M6 6v6a3 3 0 0 0 3 3h10l-4 -4m0 8l4 -4"></path>
+														 </svg>
+													</span>
+												</span>
+											</div>
+										</div>
+										<div class="media-body">
+											View detail documentation
+										</div>
+									</div>
+								</a>
+								<div class="dropdown-divider"></div>
+								<h6 class="dropdown-header">Users
+								</h6>
+								<a href="javascript:void(0);" class="dropdown-item">
+									<div class="media align-items-center">
+										<div class="media-head me-2">
+											<div class="avatar avatar-xs avatar-rounded">
+												<img src="dist/img/avatar3.jpg" alt="user" class="avatar-img">
+											</div>
+										</div>
+										<div class="media-body">
+											Sarah Jone
+										</div>
+									</div>
+								</a>
+								<a href="javascript:void(0);" class="dropdown-item">
+									<div class="media align-items-center">
+										<div class="media-head me-2">
+											<div class="avatar avatar-xs avatar-soft-primary avatar-rounded">
+												<span class="initial-wrap">J</span>
+											</div>
+										</div>
+										<div class="media-body">
+											Joe Jackson
+										</div>
+									</div>
+								</a>
+								<a href="javascript:void(0);" class="dropdown-item">
+									<div class="media align-items-center">
+										<div class="media-head me-2">
+											<div class="avatar avatar-xs avatar-rounded">
+												<img src="dist/img/avatar4.jpg" alt="user" class="avatar-img">
+											</div>
+										</div>
+										<div class="media-body">
+											Maria Richard
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="dropdown-footer d-xl-flex d-none"><a href="#"><u>Search all</u></a></div>
+						</div>
+					</form>
+					<!-- /Search -->
+
+					<ul class="navbar-nav flex-row">
+						<li class="nav-item">
+							<a href="email.html" class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover"><span class="icon"><span class=" position-relative"><span class="feather-icon"><i data-feather="inbox"></i></span><span class="badge badge-sm badge-soft-primary badge-sm badge-pill position-top-end-overflow-1">4</span></span></span></a>
+						</li>
+						<li class="nav-item">
+							<div class="dropdown dropdown-notifications">
+								<a href="#" class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover dropdown-toggle no-caret" data-bs-toggle="dropdown" data-dropdown-animation role="button" aria-haspopup="true" aria-expanded="false"><span class="icon"><span class="position-relative"><span class="feather-icon"><i data-feather="bell"></i></span><span class="badge badge-success badge-indicator position-top-end-overflow-1"></span></span></span></a>
+								<div class="dropdown-menu dropdown-menu-end p-0">
+									<h6 class="dropdown-header px-4 fs-6">Notifications<a href="#" class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover"><span class="icon"><span class="feather-icon"><i data-feather="settings"></i></span></span></a>
+									</h6>
+									<div data-simplebar class="dropdown-body  p-2">
+										<a href="javascript:void(0);" class="dropdown-item">
+											<div class="media">
+												<div class="media-head">
+													<div class="avatar avatar-rounded avatar-sm">
+														<img src="dist/img/avatar2.jpg" alt="user" class="avatar-img">
+													</div>
+												</div>
+												<div class="media-body">
+													<div>
+														<div class="notifications-text">Morgan Freeman accepted your invitation to join the team</div>
+														<div class="notifications-info">
+															<span class="badge badge-soft-success">Collaboration</span>
+															<div class="notifications-time">Today, 10:14 PM</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+										<a href="javascript:void(0);" class="dropdown-item">
+											<div class="media">
+												<div class="media-head">
+													<div class="avatar  avatar-icon avatar-sm avatar-success avatar-rounded">
+														<span class="initial-wrap">
+															<span class="feather-icon"><i data-feather="inbox"></i></span>
+														</span>
+													</div>
+												</div>
+												<div class="media-body">
+													<div>
+														<div class="notifications-text">New message received from Alan Rickman</div>
+														<div class="notifications-info">
+															<div class="notifications-time">Today, 7:51 AM</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+										<a href="javascript:void(0);" class="dropdown-item">
+											<div class="media">
+												<div class="media-head">
+													<div class="avatar  avatar-icon avatar-sm avatar-pink avatar-rounded">
+														<span class="initial-wrap">
+															<span class="feather-icon"><i data-feather="clock"></i></span>
+														</span>
+													</div>
+												</div>
+												<div class="media-body">
+													<div>
+														<div class="notifications-text">You have a follow up with Jampack Head on Friday, Dec 19 at 9:30 am</div>
+														<div class="notifications-info">
+															<div class="notifications-time">Yesterday, 9:25 PM</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+										<a href="javascript:void(0);" class="dropdown-item">
+											<div class="media">
+												<div class="media-head">
+													<div class="avatar avatar-sm avatar-rounded">
+														<img src="dist/img/avatar3.jpg" alt="user" class="avatar-img">
+													</div>
+												</div>
+												<div class="media-body">
+													<div>
+														<div class="notifications-text">Application of Sarah Williams is waiting for your approval</div>
+														<div class="notifications-info">
+															<div class="notifications-time">Today 10:14 PM</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+										<a href="javascript:void(0);" class="dropdown-item">
+											<div class="media">
+												<div class="media-head">
+													<div class="avatar avatar-sm avatar-rounded">
+														<img src="dist/img/avatar10.jpg" alt="user" class="avatar-img">
+													</div>
+												</div>
+												<div class="media-body">
+													<div>	
+														<div class="notifications-text">Winston Churchil shared a document with you</div>
+														<div class="notifications-info">
+															<span class="badge badge-soft-violet">File Manager</span>
+															<div class="notifications-time">2 Oct, 2021</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+										<a href="javascript:void(0);" class="dropdown-item">
+											<div class="media">
+												<div class="media-head">
+													<div class="avatar  avatar-icon avatar-sm avatar-danger avatar-rounded">
+														<span class="initial-wrap">
+															<span class="feather-icon"><i data-feather="calendar"></i></span>
+														</span>
+													</div>
+												</div>
+												<div class="media-body">
+													<div>	
+														<div class="notifications-text">Last 2 days left for the project to be completed</div>
+														<div class="notifications-info">
+															<span class="badge badge-soft-orange">Updates</span>
+															<div class="notifications-time">14 Sep, 2021</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+									</div>
+									<div class="dropdown-footer"><a href="#"><u>View all notifications</u></a></div>
+								</div>
+							</div>
+						</li>
+						<li class="nav-item">
+							<div class="dropdown ps-2">
+								<a class=" dropdown-toggle no-caret" href="#" role="button" data-bs-display="static" data-bs-toggle="dropdown" data-dropdown-animation data-bs-auto-close="outside" aria-expanded="false">
+									<div class="avatar avatar-rounded avatar-xs">
+										<img src="dist/img/avatar12.jpg" alt="user" class="avatar-img">
+									</div>
+								</a>
+								<div class="dropdown-menu dropdown-menu-end">
+									<div class="p-2">
+										<div class="media">
+											<div class="media-head me-2">
+												<div class="avatar avatar-primary avatar-sm avatar-rounded">
+													<span class="initial-wrap">Hk</span>
+												</div>
+											</div>
+											<div class="media-body">
+												<div class="dropdown">
+													<a href="#" class="d-block dropdown-toggle link-dark fw-medium"  data-bs-toggle="dropdown" data-dropdown-animation data-bs-auto-close="inside">Hencework</a>
+													<div class="dropdown-menu dropdown-menu-end">
+														<div class="p-2">
+															<div class="media align-items-center active-user mb-3">
+																<div class="media-head me-2">
+																	<div class="avatar avatar-primary avatar-xs avatar-rounded">
+																		<span class="initial-wrap">Hk</span>
+																	</div>
+																</div>
+																<div class="media-body">
+																	<a href="#" class="d-flex align-items-center link-dark">Hencework <i class="ri-checkbox-circle-fill fs-7 text-primary ms-1"></i></a>
+																	<a href="#" class="d-block fs-8 link-secondary"><u>Manage your account</u></a>
+																</div>
+															</div>
+															<div class="media align-items-center mb-3">
+																<div class="media-head me-2">
+																	<div class="avatar avatar-xs avatar-rounded">
+																		<img src="dist/img/avatar12.jpg" alt="user" class="avatar-img">
+																	</div>
+																</div>
+																<div class="media-body">
+																	<a href="#" class="d-block link-dark">Jampack Team</a>
+																	<a href="#" class="d-block fs-8 link-secondary">contact@hencework.com</a>
+																</div>
+															</div>
+															<button class="btn btn-block btn-outline-light btn-sm">
+																<span><span class="icon"><span class="feather-icon"><i data-feather="plus"></i></span></span>
+																<span>Add Account</span></span>
+															</button>
+														</div>
+													</div>
+												</div>
+												<div class="fs-7">contact@hencework.com</div>
+												<a href="#" class="d-block fs-8 link-secondary"><u>Sign Out</u></a>
+											</div>
+										</div>
+									</div>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="profile.html">Profile</a>
+									<a class="dropdown-item" href="#"><span class="me-2">Offers</span><span class="badge badge-sm badge-soft-pink">2</span></a><div class="dropdown-divider"></div>
+									<h6 class="dropdown-header">Manage Account</h6>
+									<a class="dropdown-item" href="#"><span class="dropdown-icon feather-icon"><i data-feather="credit-card"></i></span><span>Payment methods</span></a>
+									<a class="dropdown-item" href="#"><span class="dropdown-icon feather-icon"><i data-feather="check-square"></i></span><span>Subscriptions</span></a>
+									<a class="dropdown-item" href="#"><span class="dropdown-icon feather-icon"><i data-feather="settings"></i></span><span>Settings</span></a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="#"><span class="dropdown-icon feather-icon"><i data-feather="tag"></i></span><span>Raise a ticket</span></a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="#">Terms & Conditions</a>
+									<a class="dropdown-item" href="#">Help & Support</a>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- /End Nav -->
+			</div>									
+		</nav>
+		<!-- /Top Navbar -->
+
+		<!-- Main Content -->
+		<div class="hk-pg-wrapper pb-0">
+			<!-- Page Body -->
+			<div class="hk-pg-body py-0">
+				<div class="emailapp-wrap">
+					<nav class="emailapp-sidebar">
+						<div data-simplebar class="nicescroll-bar">
+							<div class="menu-content-wrap">
+								<button type="button" class="btn btn-primary btn-rounded btn-block mb-4 show-compose-popup" id="show_compose_popup">
+									Compose email
+								</button>
+								<div class="menu-group">
+									<ul class="nav nav-light navbar-nav flex-column">
+										<li class="nav-item active">
+											<a class="nav-link" href="javascript:void(0);">
+												<span class="nav-icon-wrap"><span class="feather-icon"><i data-feather="inbox"></i></span></span>
+												<span class="nav-link-text">Inbox</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);">
+												<span class="nav-icon-wrap"><span class="feather-icon"><i data-feather="star"></i></span></span>
+												<span class="nav-link-text">Important</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);">
+												<span class="nav-icon-wrap"><span class="feather-icon"><i data-feather="send"></i></span></span>
+												<span class="nav-link-text">Sent</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);">
+												<span class="nav-icon-wrap"><span class="feather-icon"><i data-feather="archive"></i></span></span>
+												<span class="nav-link-text">Archive</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);">
+												<span class="nav-icon-wrap"><span class="feather-icon"><i data-feather="edit"></i></span></span>
+												<span class="nav-link-text">Draft</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);">
+												<span class="nav-icon-wrap"><span class="feather-icon"><i data-feather="trash-2"></i></span></span>
+												<span class="nav-link-text">Trash</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="separator separator-light"></div>
+								<div class="d-flex align-items-center justify-content-between mb-2">
+									<div class="title-sm text-primary mb-0">Categories</div>
+									<a href="#" class="btn btn-xs btn-icon btn-rounded btn-light" data-bs-toggle="modal" data-bs-target="#add_new_cat"><span class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Add Category"><span class="feather-icon"><i data-feather="plus"></i></span></span></a>
+								</div>
+								<div class="menu-group">
+									<ul class="nav nav-light navbar-nav flex-column">
+										<li class="nav-item">
+											<a class="nav-link" href="#">
+												<span class="badge badge-primary badge-indicator badge-indicator-lg me-2"></span>
+												<span class="nav-link-text">Team</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="#">
+												<span class="badge badge-success badge-indicator badge-indicator-lg me-2"></span>
+												<span class="nav-link-text">Support</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="#">
+												<span class="badge badge-orange badge-indicator badge-indicator-lg me-2"></span>
+												<span class="nav-link-text">Updates</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="#">
+												<span class="badge badge-pink badge-indicator badge-indicator-lg me-2"></span>
+												<span class="nav-link-text">Primary</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!--Sidebar Fixnav-->
+						<div class="emailapp-fixednav">
+							<div class="hk-toolbar">
+								<ul class="nav nav-light">
+									<li class="nav-item nav-link">
+										<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Settings" href="#"><span class="icon"><span class="feather-icon"><i data-feather="settings"></i></span></span></a>
+									</li>
+									<li class="nav-item nav-link">
+										<a href="#" class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Archive"><span class="icon"><span class="feather-icon"><i data-feather="archive"></i></span></span></a>
+									</li>
+									<li class="nav-item nav-link">
+										<a href="#" class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Help"><span class="icon"><span class="feather-icon"><i data-feather="book"></i></span></span></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<!--/ Sidebar Fixnav-->
+					</nav>
+					<div class="emailapp-content">
+						<div class="emailapp-aside">
+							<header class="aside-header">
+								<a class="emailapp-title dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+									<h1>Inbox</h1>
+								</a>
+								<div class="dropdown-menu">
+									<a class="dropdown-item" href="#"><span class="feather-icon dropdown-icon"><i data-feather="inbox"></i></span><span>Inbox</span></a>
+									<a class="dropdown-item" href="#"><span class="feather-icon dropdown-icon"><i data-feather="send"></i></span><span>Sent</span></a>
+									<a class="dropdown-item" href="#"><span class="feather-icon dropdown-icon"><i data-feather="archive"></i></span><span>Archive</span></a>
+									<a class="dropdown-item" href="#"><span class="feather-icon dropdown-icon"><i data-feather="edit"></i></span><span>Draft</span></a>
+									<a class="dropdown-item" href="#"><span class="feather-icon dropdown-icon"><i data-feather="trash-2"></i></span><span>Trash</span></a>
+								</div>
+								<div class="d-flex">
+									<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover me-0" href="#"><span class="icon"><span class="feather-icon"><i data-feather="refresh-cw"></i></span></span></a>
+									<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover dropdown-toggle no-caret" href="#" data-bs-toggle="dropdown"><span class="icon"><span class="feather-icon"><i data-feather="settings"></i></span></span></a>
+									<div class="dropdown-menu dropdown-menu-end">
+										<a class="dropdown-item" href="#"><span class="feather-icon dropdown-icon"><i data-feather="mail"></i></span><span>Show unread messages</span></a>
+										<a class="dropdown-item" href="#"><span class="feather-icon dropdown-icon"><i data-feather="star"></i></span><span>Show Starred Messages</span></a>
+										<a class="dropdown-item" href="#"><span class="feather-icon dropdown-icon"><i data-feather="calendar"></i></span><span>Sort by Date</span></a>
+										<a class="dropdown-item" href="#"><span class="feather-icon dropdown-icon"><i data-feather="layout"></i></span><span>Sort by Category</span></a>
+										<a class="dropdown-item" href="#"><span class="feather-icon dropdown-icon"><i data-feather="check"></i></span><span>Mark all as read</span></a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="#">Settings</a>
+										<a class="dropdown-item" href="#">Help</a>
+										<a class="dropdown-item" href="#">Report a problem	</a>
+									</div>
+									<a href="#" class="btn btn-icon btn-rounded show-compose-popup btn-primary"><span class="icon"><span class="feather-icon"><i data-feather="edit"></i></span></span></a>
+								</div>
+								<div class="hk-sidebar-togglable"></div>
+							</header>
+							<div data-simplebar class="aside-body">
+								<form class="aside-search" role="search">
+									<input type="text" class="form-control" placeholder="Search inbox">
+								</form>
+								<ul class="email-list list-group list-group-flush">
+									<li class="list-group-item">
+										<div class="media">
+											<div class="media-head">
+												<div class="avatar avatar-sm avatar-rounded">
+													<img src="dist/img/avatar2.jpg" alt="user" class="avatar-img">
+												</div>
+												<span class="badge badge-primary badge-indicator badge-indicator-nobdr"></span>
+											</div>
+											<div class="media-body">
+												<div>
+													<div>
+														<div class="email-head">Morgan Freeman</div>
+														<div>
+															<span class="email-star marked"><span class="feather-icon"><i data-feather="star"></i></span></span>
+															<div class="email-time">9:30 AM</div>
+														</div>
+													</div>
+													<div class="email-subject">Creation timelines for our forth</div>
+													<div class="email-text">
+														<p>Abilities or he perfectly pretended so strangers be exquisite. Oh to anothe.</p>
+													</div>
+												</div>	
+												
+											</div>
+										</div>
+									</li>
+									<li class="list-group-item">
+										<div class="media read-email">
+											<div class="media-head">
+												<div class="avatar avatar-sm avatar-rounded">
+													<img src="dist/img/avatar9.jpg" alt="user" class="avatar-img">
+												</div>
+											</div>
+											<div class="media-body">
+												<div>
+													<div>
+														<div class="email-head">Huma Therman</div>
+														<span class="badge badge-warning badge-sm badge-pill">updates</span>
+														<div>
+															<span class="email-star"><span class="feather-icon"><i data-feather="star"></i></span></span>
+															<div class="email-time">7:51 AM</div>
+														</div>
+													</div>
+													<div class="email-subject">Proposal for 3rd quarter.</div>
+													<div class="email-text">
+														<p>Excellent so to no sincerity smallness. Removal request delight if on he we can grow together.</p>
+													</div>
+												</div>	
+												
+											</div>
+										</div>
+									</li>
+									<li class="list-group-item">
+										<div class="media read-email active-user">
+											<div class="media-head">
+												<div class="avatar avatar-sm avatar-soft-success avatar-rounded">
+													<span class="initial-wrap">C</span>
+												</div>
+											</div>
+											<div class="media-body">
+												<div>
+													<div>
+														<div class="email-head">Charlie Chaplin</div>
+														<div>
+															<span class="email-star"><span class="feather-icon"><i data-feather="star"></i></span></span>
+															<div class="email-time">Yesterday</div>
+														</div>
+													</div>
+													<div class="email-subject">Built a robust platform for jampack.</div>
+													<div class="email-text">
+														<p>So how did the classical latin become so insensive about things tiy do things you change in the world that is insane.</p>
+													</div>
+												</div>	
+												
+											</div>
+										</div>
+									</li>
+									<li class="list-group-item">
+										<div class="media">
+											<div class="media-head">
+												<div class="avatar avatar-sm avatar-rounded">
+													<img src="dist/img/avatar10.jpg" alt="user" class="avatar-img">
+												</div>
+												<span class="badge badge-primary badge-indicator badge-indicator-nobdr"></span>
+											</div>
+											<div class="media-body">
+												<div>
+													<div>
+														<div class="email-head">Winston Churchil</div>
+														<div>
+															<span class="email-star marked"><span class="feather-icon"><i data-feather="star"></i></span></span>
+															<div class="email-time">3 Mar</div>
+														</div>
+													</div>
+													<div class="email-subject">Transactions in your account for.</div>
+													<div class="email-text">
+														<p>Letter wooded direct two men indeed income sister. Impression up admiration he by partiality is.</p>
+													</div>
+												</div>	
+												
+											</div>
+										</div>
+									</li>
+									<li class="list-group-item">
+										<div class="media read-email">
+											<div class="media-head">
+												<div class="avatar avatar-sm avatar-rounded">
+													<img src="dist/img/avatar3.jpg" alt="user" class="avatar-img">
+												</div>
+											</div>
+											<div class="media-body">
+												<div>
+													<div>
+														<div class="email-head">Jaquiline Joker</div><span class="badge badge-primary badge-sm badge-pill">Team</span>
+														<div>
+															<span class="email-star marked"><span class="feather-icon"><i data-feather="star"></i></span></span>
+															<div class="email-time">3 Mar</div>
+														</div>
+													</div>
+													<div class="email-subject">Launching jampack beta version</div>
+													<div class="email-text">
+														<p>Instantly immediate his saw one day perceived. Old blushes respect but offices hearted minutes effects.</p>
+													</div>
+												</div>	
+												
+											</div>
+										</div>
+									</li>
+									<li class="list-group-item">
+										<div class="media read-email">
+											<div class="media-head">
+												<div class="avatar avatar-sm avatar-rounded">
+													<img src="dist/img/avatar7.jpg" alt="user" class="avatar-img">
+												</div>
+											</div>
+											<div class="media-body">
+												<div>
+													<div>
+														<div class="email-head">Tom Cruz</div><span class="badge badge-success badge-sm badge-pill">support</span>
+														<div>
+															<span class="email-star"><span class="feather-icon"><i data-feather="star"></i></span></span>
+															<div class="email-time">28 Feb</div>
+														</div>
+													</div>
+													<div class="email-subject">Charges and brokerage plans issue.</div>
+													<div class="email-text">
+														<p>Son read such next see the rest two. Was use extent old entire sus. Curiosity remaining own see repulsive.</p>
+													</div>
+												</div>	
+												
+											</div>
+										</div>
+									</li>
+									<li class="list-group-item">
+										<div class="media">
+											<div class="media-head">
+												<div class="avatar avatar-sm avatar-soft-danger avatar-rounded">
+													<span class="initial-wrap">D</span>
+												</div>
+												<span class="badge badge-primary badge-indicator badge-indicator-nobdr"></span>
+											</div>
+											<div class="media-body">
+												<div>
+													<div>
+														<div class="email-head">Danial Craig</div>
+														<div>
+															<span class="email-star"><span class="feather-icon"><i data-feather="star"></i></span></span>
+															<div class="email-time">25 Feb</div>
+														</div>
+													</div>
+													<div class="email-subject">Invoice for design services.</div>
+													<div class="email-text">
+														<p>Supposing exquisite daughters eagerness why repulsive for. Praise turned it lovers be warmly by.</p>
+													</div>
+												</div>	
+												
+											</div>
+										</div>
+									</li>
+									<li class="list-group-item">
+										<div class="media read-email">
+											<div class="media-head">
+												<div class="avatar avatar-sm avatar-rounded">
+													<img src="dist/img/avatar8.jpg" alt="user" class="avatar-img">
+												</div>
+												<span class="badge badge-primary badge-indicator badge-indicator-nobdr"></span>
+											</div>
+											<div class="media-body">
+												<div>
+													<div>
+														<div class="email-head">Katherine Jones</div>
+														<div>
+															<span class="email-star marked"><span class="feather-icon"><i data-feather="star"></i></span></span>
+															<div class="email-time">22 Feb</div>
+														</div>
+													</div>
+													<div class="email-subject">Welcome to Jampack team.</div>
+													<div class="email-text">
+														<p>Incommode our not one ourselves residence. Shall there whose those stand she end.</p>
+													</div>
+												</div>	
+												
+											</div>
+										</div>
+									</li>
+									<li class="list-group-item">
+										<div class="media read-email">
+											<div class="media-head">
+												<div class="avatar avatar-sm avatar-success avatar-rounded">
+													<span class="initial-wrap">H</span>
+												</div>
+											</div>
+											<div class="media-body">
+												<div>
+													<div>
+														<div class="email-head">Hencework</div>
+														<div>
+															<span class="email-star marked"><span class="feather-icon"><i data-feather="star"></i></span></span>
+															<div class="email-time">30 Jan</div>
+														</div>
+													</div>
+													<div class="email-subject">Dear Danial, regarding reversal of.</div>
+													<div class="email-text">
+														<p>So unaffected partiality indulgence dispatched to of celebrated remarkably. Unfeeling are had allowance..</p>
+													</div>
+												</div>	
+												
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="emailapp-single-email">
+							<header class="email-header">
+								<a id="back_email_list" class="btn btn-sm btn-icon btn-flush-dark btn-rounded flush-soft-hover back-user-list" href="#">
+									<span class="icon"><span class="feather-icon"><i data-feather="chevron-left"></i></span></span>
+								</a>
+								<div class="email-options-wrap">	
+									<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover d-xl-inline-block d-none" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Add flag"><span class="icon"><span class="feather-icon"><i data-feather="flag"></i></span></span></a>
+									<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Archive"><span class="icon"><span class="feather-icon"><i data-feather="archive"></i></span></span></a>
+									<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover d-xl-inline-block d-none" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Folder"><span class="icon"><span class="feather-icon"><i data-feather="folder"></i></span></span></a>
+									<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover d-xl-inline-block d-none" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Snooze"><span class="icon"><span class="feather-icon"><i data-feather="clock"></i></span></span></a>
+									<div class="v-separator"></div>
+									<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover ms-0" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Print"><span class="icon"><span class="feather-icon"><i data-feather="printer"></i></span></span></a>
+									<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Delete"><span class="icon"><span class="feather-icon"><i data-feather="trash-2"></i></span></span></a>
+								</div>
+								<div class="email-options-wrap">	
+									<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover dropdown-toggle no-caret d-xl-inline-block d-none" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Previous"><span class="icon"><span class="feather-icon"><i data-feather="chevron-left"></i></span></span></a>
+									<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover emailapp-info-toggle d-xl-inline-block d-none" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Next"><span class="icon"><span class="feather-icon"><i data-feather="chevron-right"></i></span></span></a>
+									<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover dropdown-toggle no-caret" href="#" data-bs-toggle="dropdown"><span class="icon"><span class="feather-icon"><i data-feather="more-vertical"></i></span></span></a>
+									<div class="dropdown-menu dropdown-menu-right">
+										<a class="dropdown-item" href="#">Mark as read</a>
+										<a class="dropdown-item" href="#">Mark as important</a>
+										<a class="dropdown-item" href="#">Mute</a>
+										<a class="dropdown-item" href="#">Delete</a>
+										<a class="dropdown-item" href="#">Block Contact</a>
+									</div>
+									<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover hk-navbar-togglable" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Collapse">
+										<span class="icon">
+											<span class="feather-icon"><i data-feather="chevron-up"></i></span>
+											<span class="feather-icon d-none"><i data-feather="chevron-down"></i></span>
+										</span>
+									</a>
+								</div>
+							</header>
+							<div class="email-body">
+								<div data-simplebar class="nicescroll-bar">
+									<div class="single-email-subject">
+										<div>
+											<h4 class="fw-light">Update available for your purchased item.</h4><span class="badge badge-orange badge-sm badge-pill flex-shrink-0 ms-3">updates</span>
+										</div>
+										<div class="email-options-wrap">	
+											<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Print"><span class="icon"><span class="feather-icon"><i data-feather="printer"></i></span></span></a>
+											<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Reply"><span class="icon"><span class="feather-icon"><i data-feather="corner-up-left"></i></span></span></a>
+											<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Forward"><span class="icon"><span class="feather-icon"><i data-feather="arrow-right"></i></span></span></a>
+										</div>
+									</div>
+									<div id="accordionSimpleExample" class="accordion accordion-simple single-email-thread">
+										<div class="accordion-item">
+											<div id="simple-headingOne" class="accordion-header">
+												<div>
+													<div class="email-head">
+														<div  data-bs-toggle="collapse" data-bs-target="#simple-collapseOne" role="button" aria-expanded="false"></div>
+														<div class="media">
+															<div class="media-head">
+																<div class="avatar d-8">
+																	<img src="dist/img/avatar2.jpg" alt="user" class="avatar-img rounded-circle">
+																</div>
+															</div>
+															<div class="media-body">
+																<div>Morgan Freeman</div>
+																<div class="fs-7">
+																	<span>to</span>
+																	<div class="mail-desc-dropdown">
+																		<a href="#" class="dropdown-toggle link-dark" data-bs-toggle="dropdown">me</a>
+																		<div class="dropdown-menu">
+																			<div>
+																				<span>from :</span><span>Morgan <span>&lt;morganfreeman@jampack.com&gt;</span></span>
+																			</div>
+																			<div>
+																				<span>to :</span><span>Hencework <span>&lt;contact@hencework.com&gt;</span></span>
+																			</div>
+																			<div>
+																				<span>date :</span><span>Dec 30, 4:22 PM</span>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="email-head-action">
+															<div class="email-time">Dec 30, 4:22 PM</div>
+															<span class="email-star marked"><span class="feather-icon"><i data-feather="star"></i></span></span>
+															<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover btn-sm" href="#"><span class="icon"><span class="feather-icon"><i data-feather="corner-up-left"></i></span></span></a>
+															<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover btn-sm dropdown-toggle no-caret" href="#" data-bs-toggle="dropdown"><span class="icon"><span class="feather-icon"><i data-feather="more-vertical"></i></span></span></a>
+															<div class="dropdown-menu dropdown-menu-right">
+																<a class="dropdown-item" href="#">Forward</a>
+																<a class="dropdown-item" href="#">Delete</a>
+																<a class="dropdown-item" href="#">Report Spam</a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="simple-collapseOne" class="accordion-collapse collapse">
+												<div class="accordion-body">
+													<p>Hi Hencework,</p>
+													<p>We'd like to let you know that an update to your item Jampack - Admin Template by hencework is now available in your Downloads page.</p>
+													<p>Remember: you need to be logged in to download the update.</p>
+													<p class="mt-3 mb-4">You may manage notifications for your items from <a href="#"><u>your downloads.</u></a></p>
+													<p>Regards,<br>Envato Team</p>
+													<img class="d-block mt-2 mb-3" src="dist/img/signature-1.png" alt="signature" />
+													<div class="separator separator-light"></div>
+													<div class="text-end">
+														<a href="#" class="link-theme fs-7"><u>Download All</u></a>
+													</div>
+													<div class="email-attachment-wrap">
+														<div class="attachment-box">
+															<div>
+																<div class="media">
+																	<div class="avatar avatar-icon avatar-sm avatar-blue">
+																		<span class="initial-wrap fs-3">
+																			<i class="ri-file-excel-2-fill"></i>
+																		</span>
+																	</div>
+																	<div class="media-body">
+																		<p class="file-name">Website_content.xls</p>
+																		<p class="file-size">2,635 KB</p>
+																	</div>
+																</div>
+																<div class="file-overlay">
+																	<button class="btn btn-sm btn-icon btn-rounded btn-primary"><span class="icon"><i data-feather="arrow-down"></i></span></button>
+																</div>
+															</div>
+														</div>
+														<div class="attachment-box">
+															<div>
+																<div class="media">
+																	<div class="avatar avatar-icon avatar-sm avatar-warning">
+																		<span class="initial-wrap fs-3">
+																			<i class="ri-file-zip-fill"></i>
+																		</span>
+																	</div>
+																	<div class="media-body">
+																		<p class="file-name">themeforest-pack.zip</p>
+																		<p class="file-size">2.45 GB</p>
+																	</div>
+																</div>
+																<div class="file-overlay">
+																	<button class="btn btn-sm btn-icon btn-rounded btn-primary"><span class="icon"><i data-feather="arrow-down"></i></span></button>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="accordion-item">
+											<div id="simple-headingTwo" class="accordion-header">
+												<div>
+													<div class="email-head">
+														<div data-bs-toggle="collapse" data-bs-target="#simple-collapseTwo" role="button" aria-expanded="true"></div>
+														<div class="media">
+															<div class="media-head">
+																<div class="avatar d-8">
+																	<img src="dist/img/avatar2.jpg" alt="user" class="avatar-img rounded-circle">
+																</div>
+															</div>
+															<div class="media-body">
+																<div>Morgan Freeman</div>
+																<div class="fs-7">
+																	<span>to</span>
+																	<div class="mail-desc-dropdown">
+																		<a href="#" class="dropdown-toggle link-dark" data-bs-toggle="dropdown">me</a>
+																		<div class="dropdown-menu">
+																			<div>
+																				<span>from :</span><span>Morgan <span>&lt;morganfreeman@jampack.com&gt;</span></span>
+																			</div>
+																			<div>
+																				<span>to :</span><span>Hencework <span>&lt;contact@hencework.com&gt;</span></span>
+																			</div>
+																			<div>
+																				<span>date :</span><span>Jan 1, 9:30 AM</span>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														
+														<div class="email-head-action">
+															<div class="email-time">Jan 1, 9:30 AM</div>
+															<span class="email-star marked"><span class="feather-icon"><i data-feather="star"></i></span></span>
+															<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover btn-sm" href="#"><span class="icon"><span class="feather-icon"><i data-feather="corner-up-left"></i></span></span></a>
+															<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover btn-sm dropdown-toggle no-caret" href="#" data-bs-toggle="dropdown"><span class="icon"><span class="feather-icon"><i data-feather="more-vertical"></i></span></span></a>
+															<div class="dropdown-menu dropdown-menu-right">
+																<a class="dropdown-item" href="#">Forward</a>
+																<a class="dropdown-item" href="#">Delete</a>
+																<a class="dropdown-item" href="#">Report Spam</a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="simple-collapseTwo" class="collapse show">
+												<div class="accordion-body">
+													<p>Hello I have purchased the admin template, Please help me to install and host it. I want the site to function properly. Remember: you need to be logged in to download the update.</p>
+													<p class="mb-4">Remember: you need to be logged in to download the update.</p>
+													<p>Regards,<br>Envato Team</p>
+													<img class="d-block mt-2 mb-3" src="dist/img/signature-1.png" alt="signature" />
+												</div>
+											</div>
+										</div>
+										<div class="accordion-item">
+											<div id="simple-headingThree" class="accordion-header">
+												<div>
+													<div class="email-head">
+														<div data-bs-toggle="collapse" data-bs-target="#simple-collapseThree" role="button" aria-expanded="true"></div>
+														<div class="media">
+															<div class="media-head">
+																<div class="avatar d-8">
+																	<img src="dist/img/avatar10.jpg" alt="user" class="avatar-img rounded-circle">
+																</div>
+															</div>
+															<div class="media-body">
+																<div>Admin</div>
+																<div class="fs-7">
+																	<span>to</span>
+																	<div class="mail-desc-dropdown">
+																		<a href="#" class="dropdown-toggle link-dark" data-bs-toggle="dropdown">Morgan</a>
+																		<div class="dropdown-menu">
+																			<div>
+																				<span>from :</span><span>Admin <span>&lt;admin@jampack.com&gt;</span></span>
+																			</div>
+																			<div>
+																				<span>to :</span><span>Morgan <span>&lt;morganfreeman@jampack.com&gt;</span></span>
+																			</div>
+																			<div>
+																				<span>date :</span><span>Jan 2, 10:21 AM</span>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														
+														<div class="email-head-action">
+															<div class="email-time">Jan 2, 10:21 AM</div>
+															<span class="email-star"><span class="feather-icon"><i data-feather="star"></i></span></span>
+															<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover btn-sm" href="#"><span class="icon"><span class="feather-icon"><i data-feather="corner-up-left"></i></span></span></a>
+															<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover btn-sm dropdown-toggle no-caret" href="#" data-bs-toggle="dropdown"><span class="icon"><span class="feather-icon"><i data-feather="more-vertical"></i></span></span></a>
+															<div class="dropdown-menu dropdown-menu-right">
+																<a class="dropdown-item" href="#">Forward</a>
+																<a class="dropdown-item" href="#">Delete</a>
+																<a class="dropdown-item" href="#">Report Spam</a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="simple-collapseThree" class="collapse show">
+												<div class="accordion-body">
+													<p>Hello,</p>
+													<p>Could you please specify the pages, where you are getting the error?</p>
+													<div class="my-5">
+														<button class="btn btn-outline-light me-2" data-bs-toggle="collapse" data-bs-target="#compose_email" aria-expanded="false"><span><span class="icon"><span class="feather-icon"><i data-feather="corner-up-left"></i></span></span><span>Reply</span></span></button>
+														<button class="btn btn-outline-light" data-bs-toggle="collapse" data-bs-target="#compose_email" aria-expanded="false"><span><span class="icon"><span class="feather-icon"><i data-feather="arrow-right"></i></span></span><span>Forward</span></span></button>
+													</div>
+													<!-- Compose email -->
+													<div id="compose_email" class="collapse mt-7">
+														<div class="d-flex">
+															<div class="media">
+																<div class="media-head me-3">
+																	<div class="avatar avatar-icon avatar-soft-light avatar-rounded d-8">
+																		<span class="initial-wrap">
+																			<i class="ri-user-fill"></i>
+																		</span>
+																	</div>
+																</div>
+															</div>
+															<form class="card card-shadow w-100">
+																<div class="card-body">
+																	<div class="form-group">
+																		<div class="d-flex flex-wrap">
+																			<div class="chip chip-primary chip-dismissable user-chip mb-2 me-2">
+																				<span>
+																					<span class="avatar">
+																						<img src="dist/img/avatar11.jpg" alt="user" class="avatar-img">
+																					</span>
+																					<span class="chip-text">Morgan</span>
+																					<button type="button" class="btn-close"></button>
+																				</span>
+																			</div>
+																			<div class="chip chip-primary chip-dismissable user-chip mb-2 me-2">
+																				<span>
+																					<span class="avatar">
+																						<img src="dist/img/avatar12.jpg" alt="user" class="avatar-img">
+																					</span>
+																					<span class="chip-text">Charlie</span>
+																					<button type="button" class="btn-close"></button>
+																				</span>
+																			</div>
+																			<div class="chip chip-primary chip-dismissable user-chip mb-2 me-2">
+																				<span>
+																					<span class="avatar">
+																						<img src="dist/img/avatar13.jpg" alt="user" class="avatar-img">
+																					</span>
+																					<span class="chip-text">Winston</span>
+																					<button type="button" class="btn-close"></button>
+																				</span>
+																			</div>
+																			<input type="text" class="form-control border-0 p-0 shadow-none flex-1 mb-2 me-2" placeholder="Add recipients">
+																		</div>
+																	</div>
+																	<div class="form-group">
+																		<textarea class="form-control" rows="8" placeholder="Enter details"></textarea>
+																	</div>
+																	<div class="form-group d-flex justify-content-between mb-0">
+																		<div>
+																			<button class="btn btn-primary me-2" type="submit">Send</button>
+																			<button class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover"><span class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Add flag" data-bs-original-title="Add flag"><span class="feather-icon"><i data-feather="paperclip"></i></span></span></button>
+																		</div>
+																		<div>
+																			<button class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover"><span class="icon" data-bs-toggle="Save Draft" data-bs-placement="top" title="Save Draft" data-bs-original-title="Save Draft"><span class="feather-icon"><i data-feather="edit"></i></span></span></button>
+																			<button class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover"><span class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" data-bs-original-title="Delete"><span class="feather-icon"><i data-feather="trash-2"></i></span></span></button>
+																		</div>
+																	</div>
+																</div>
+															</form>
+														</div>
+													</div>
+													<!-- /Compose email -->
+												</div>
+											</div>
+										</div>
+									</div>
+								
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Compose email -->
+					<div class="compose-email-popup">
+						<div class="d-flex flex-column h-100">
+							<header class="d-flex align-items-center justify-content-between">
+								<h6 class="text-white mb-0">Compose Email</h6>
+								<div class="d-flex">
+									<button id="min_compose_popup" class="btn btn-sm btn-icon btn-dark btn-rounded d-lg-block d-none"><span class="icon"><span class="feather-icon"><i data-feather="minus"></i></span></span></button>
+									<button id="max_compose_popup" class="btn btn-sm btn-icon btn-dark btn-rounded d-lg-block d-none"><span class="icon"><span class="feather-icon"><i data-feather="maximize-2"></i></span><span class="feather-icon"><i data-feather="minimize-2"></i></span></span></button>
+									<button id="close_compose_popup" class="btn btn-sm btn-icon btn-dark btn-rounded"><span class="icon"><span class="feather-icon"><i data-feather="x"></i></span></span></button>
+								</div>
+							</header>
+							<form>
+								<div class="form-group">
+									<div class="d-flex flex-wrap">
+										<div class="chip chip-primary chip-dismissable user-chip mb-2 me-2">
+											<span>
+												<span class="avatar">
+													<img src="dist/img/avatar11.jpg" alt="user" class="avatar-img">
+												</span>
+												<span class="chip-text">Morgan</span>
+												<button type="button" class="btn-close"></button>
+											</span>
+										</div>
+										<div class="chip chip-primary chip-dismissable user-chip mb-2 me-2">
+											<span>
+												<span class="avatar">
+													<img src="dist/img/avatar12.jpg" alt="user" class="avatar-img">
+												</span>
+												<span class="chip-text">Charlie</span>
+												<button type="button" class="btn-close"></button>
+											</span>
+										</div>
+										<div class="chip chip-primary chip-dismissable user-chip mb-2 me-2">
+											<span>
+												<span class="avatar">
+													<img src="dist/img/avatar13.jpg" alt="user" class="avatar-img">
+												</span>
+												<span class="chip-text">Winston</span>
+												<button type="button" class="btn-close"></button>
+											</span>
+										</div>
+										<input type="text" class="form-control border-0 p-0 shadow-none flex-1 mb-2 me-2" placeholder="Add recipients">
+									</div>
+								</div>
+								<div class="form-group">
+									<input type="text" placeholder="Subject" class="form-control">
+								</div>
+								<div class="form-group">
+									<textarea class="form-control"></textarea>
+								</div>
+							</form>
+							<div class="compose-email-footer">
+								<div>
+									<button class="btn btn-primary me-2" type="submit">Send</button>
+									<button class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover"><span class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Add flag" data-bs-original-title="Add flag"><span class="feather-icon"><i data-feather="paperclip"></i></span></span></button>
+								</div>
+								<div>
+									<button class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover"><span class="icon" data-bs-toggle="Save Draft" data-bs-placement="top" title="Save Draft" data-bs-original-title="Save Draft"><span class="feather-icon"><i data-feather="edit"></i></span></span></button>
+									<button class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover"><span class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" data-bs-original-title="Delete"><span class="feather-icon"><i data-feather="trash-2"></i></span></span></button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /Compose email -->
+					
+					<!-- Add Category -->
+					<div id="add_new_cat" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+							<div class="modal-content">
+								<div class="modal-body">
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">×</span>
+									</button>
+									<h6 class="text-uppercase fw-bold mb-3">Add Category</h6>
+									<form>
+										<div class="row gx-3">
+											<div class="col-sm-12">
+												<div class="form-group">
+													<input class="form-control" type="text" placeholder="Category Name"/>
+												</div>
+											</div>
+										</div>
+										<button type="button" class="btn btn-primary float-end" data-bs-dismiss="modal">Add</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /Add Category -->
+				</div>
+			</div>
+			<!-- /Page Body -->
+		</div>
+		<!-- /Main Content -->
+	</div>
+    <!-- /Wrapper -->
+
+	<!-- jQuery -->
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JS -->
+   	<script src="vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- FeatherIcons JS -->
+    <script src="dist/js/feather.min.js"></script>
+
+    <!-- Fancy Dropdown JS -->
+    <script src="dist/js/dropdown-bootstrap-extended.js"></script>
+
+	<!-- Simplebar JS -->
+	<script src="vendors/simplebar/dist/simplebar.min.js"></script>
+	
+	<!-- Init JS -->
+	<script src="dist/js/init.js"></script>
+</body>
+</html>

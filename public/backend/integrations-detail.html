@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<!-- 
+Jampack
+Author: Hencework
+Contact: contact@hencework.com
+-->
+<html lang="en">
+<head>
+    <!-- Meta Tags -->
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Integration | Jampack - Admin CRM Dashboard Template</title>
+    <meta name="description" content="A modern CRM Dashboard Template with reusable and flexible components for your SaaS web applications by hencework. Based on Bootstrap."/>
+    
+	<!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+	
+	<!-- CSS -->
+    <link href="dist/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+   	<!-- Wrapper -->
+	<div class="hk-wrapper" data-layout="navbar" data-layout-style="default" data-menu="light" data-footer="simple">
+		<!-- Top Navbar -->
+		<nav class="hk-navbar navbar navbar-expand-xl navbar-light fixed-top">
+			<div class="container-fluid">
+				<!-- Start Nav -->
+				<div class="nav-start-wrap flex-fill">
+					<!-- Brand -->
+					<a class="navbar-brand d-xl-flex d-none flex-shrink-0" href="index.html">
+						<img class="brand-img img-fluid" src="dist/img/brand-sm.svg" alt="brand" />
+						<img class="brand-img img-fluid" src="dist/img/Jampack.svg" alt="brand" />
+					</a>
+					<!-- /Brand -->
+					<button class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover navbar-toggle d-xl-none"><span class="icon"><span class="feather-icon"><i data-feather="align-left"></i></span></span></button>
+					
+					<!-- Navbar Nav -->
+					<div class="hk-menu">
+						<!-- Brand -->
+						<div class="menu-header d-xl-none">
+							<span>
+								<a class="navbar-brand" href="index.html">
+									<img class="brand-img img-fluid" src="dist/img/brand-sm.svg" alt="brand" />
+									<img class="brand-img img-fluid" src="dist/img/Jampack.svg" alt="brand" />
+								</a>
+								<button class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover navbar-toggle">
+									<span class="icon">
+										<span class="svg-icon fs-5">
+											<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-bar-to-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+												<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+												<line x1="10" y1="12" x2="20" y2="12"></line>
+												<line x1="10" y1="12" x2="14" y2="16"></line>
+												<line x1="10" y1="12" x2="14" y2="8"></line>
+												<line x1="4" y1="4" x2="4" y2="20"></line>
+											</svg>
+										</span>
+									</span>
+								</button>
+							</span>
+						</div>
+						<!-- /Brand -->
+						
+						<!-- Main Menu -->
+						<div data-simplebar class="nicescroll-bar">
+							<div class="menu-content-wrap">
+								<div class="menu-group">
+									<ul class="navbar-nav flex-column">
+										<li class="nav-item">
+											<a class="nav-link" href="index.html">
+												<span class="nav-link-text">Dashboard</span>
+												<span class="badge badge-sm badge-soft-pink ms-xl-2 ms-auto">Hot</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_chat">
+												<span class="nav-link-text">Chat</span>
+											</a>
+											<ul id="dash_chat" class="nav flex-column collapse   nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="chats.html"><span class="nav-link-text">Chats</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="chats-group.html"><span class="nav-link-text">Groups</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="chats-contact.html"><span class="nav-link-text">Contacts</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_wizard">
+																<span class="nav-link-text">Chat Popup</span>
+															</a>
+															<ul id="dash_wizard" class="nav flex-column collapse   nav-children">
+																<li class="nav-item">
+																	<ul class="nav flex-column">
+																		<li class="nav-item">
+																			<a class="nav-link" href="chatpopup.html"><span class="nav-link-text">Direct Message</span></a>
+																		</li>
+																		<li class="nav-item">
+																			<a class="nav-link" href="chatbot.html"><span class="nav-link-text">Chatbot Chat</span></a>
+																		</li>
+																	</ul>
+																</li>
+															</ul>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="email.html">
+												<span class="nav-link-text">Email</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_scrumboard">
+												<span class="nav-link-text">Scrumboard</span>
+											</a>
+											<ul id="dash_scrumboard" class="nav flex-column collapse   nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="kanban-board.html"><span class="nav-link-text">Kanban</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="projects-board.html"><span class="nav-link-text">Boards</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="pipeline.html"><span class="nav-link-text">Pipeline</span></a>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_contact">
+												<span class="nav-link-text">Contact</span>
+											</a>
+											<ul id="dash_contact" class="nav flex-column collapse   nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="contact.html"><span class="nav-link-text">Contact List</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="contact-cards.html"><span class="nav-link-text">Contact Cards</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="edit-contact.html"><span class="nav-link-text">Edit Contact</span></a>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_task">
+												<span class="nav-link-text position-relative">Todo
+													<span class="badge badge-danger badge-indicator position-absolute top-0 start-100"></span>
+												</span>
+											</a>
+											<ul id="dash_task" class="nav flex-column collapse   nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="tasklist.html"><span class="nav-link-text">Tasklist</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="gantt.html"><span class="nav-link-text">Gantt</span></a>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_invoice">
+												<span class="nav-link-text">Invoices</span>
+											</a>
+											<ul id="dash_invoice" class="nav flex-column collapse   nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="invoice-list.html"><span class="nav-link-text">Invoice List</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="invoice-templates.html"><span class="nav-link-text">Invoice Templates</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="create-invoice.html"><span class="nav-link-text">Create Invoice</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="invoice-preview.html"><span class="nav-link-text">Invoice Preview</span></a>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="calendar.html">
+												<span class="nav-link-text">Calendar</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_file">
+												<span class="nav-link-text">File Manager</span>
+											</a>
+											<ul id="dash_file" class="nav flex-column collapse  nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="file-manager-list.html"><span class="nav-link-text">List</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="file-manager-grid.html"><span class="nav-link-text">Grid</span></a>
+														</li>
+													</ul>	
+												</li>	
+											</ul>	
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="gallery.html">
+												<span class="nav-link-text">Gallery</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_blog">
+												<span class="nav-link-text">Blog</span>
+											</a>
+											<ul id="dash_blog" class="nav flex-column collapse  nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="posts.html"><span class="nav-link-text">Posts</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="add-new-post.html"><span class="nav-link-text">Edit Posts</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="post-detail.html"><span class="nav-link-text">Post Detail</span></a>
+														</li>
+													</ul>	
+												</li>	
+											</ul>	
+										</li>
+										<li class="nav-item active">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_integ">
+												<span class="nav-link-text">Integrations</span>
+											</a>
+											<ul id="dash_integ" class="nav flex-column collapse  nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="all-apps.html"><span class="nav-link-text">All Apps</span></a>
+														</li>
+														<li class="nav-item active">
+															<a class="nav-link" href="integrations-detail.html"><span class="nav-link-text">App Detail</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="integrations.html"><span class="nav-link-text">Integrations</span></a>
+														</li>
+													</ul>	
+												</li>	
+											</ul>	
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_pages">
+												<span class="nav-link-text">Authentication</span>
+											</a>
+											<ul id="dash_pages" class="nav flex-column collapse  nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_log">
+																<span class="nav-link-text">Log In</span> 
+															</a>
+															<ul id="dash_log" class="nav flex-column collapse  nav-children">
+																<li class="nav-item">
+																	<ul class="nav flex-column">
+																		<li class="nav-item">
+																			<a class="nav-link" href="login.html"><span class="nav-link-text">Login</span></a>
+																		</li>
+																		<li class="nav-item">
+																			<a class="nav-link" href="login-simple.html"><span class="nav-link-text">Login Simple</span></a>
+																		</li>
+																		<li class="nav-item">
+																			<a class="nav-link" href="login-classic.html"><span class="nav-link-text">Login Classic</span></a>
+																		</li>
+																	</ul>	
+																</li>	
+															</ul>	
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_sign">
+																<span class="nav-link-text">Sign Up</span>
+															</a>
+															<ul id="dash_sign" class="nav flex-column collapse  nav-children">
+																<li class="nav-item">
+																	<ul class="nav flex-column">
+																		<li class="nav-item">
+																			<a class="nav-link" href="signup.html"><span class="nav-link-text">Signup</span></a>
+																		</li>
+																		<li class="nav-item">
+																			<a class="nav-link" href="signup-simple.html"><span class="nav-link-text">Signup Simple</span></a>
+																		</li>
+																		<li class="nav-item">
+																			<a class="nav-link" href="signup-classic.html"><span class="nav-link-text">Signup Classic</span></a>
+																		</li>
+																	</ul>		
+																</li>	
+															</ul>	
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="lock-screen.html"><span class="nav-link-text">Lock Screen</span></a>
+														</li>
+														
+														<li class="nav-item">
+															<a class="nav-link" href="reset-password.html"><span class="nav-link-text">Reset Password</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="404.html"><span class="nav-link-text">Error 404</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="503.html"><span class="nav-link-text">Error 503</span></a>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_profile">
+												<span class="nav-link-text">Profile</span>
+											</a>
+											<ul id="dash_profile" class="nav flex-column collapse  nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="profile.html">
+																<span class="nav-link-text">Profile</span>
+															</a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="edit-profile.html">
+																<span class="nav-link-text">Edit Profile</span>
+															</a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="account.html">
+																<span class="nav-link-text">Account</span>
+															</a>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="https://nubra-ui.hencework.com/" target="_blank">
+												<span class="nav-link-text">Documentation</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="https://nubra-ui.hencework.com/avatar.html" target="_blank">
+												<span class="nav-link-text">Components</span>
+											</a>
+										</li>
+									</ul>	
+								</div>
+							</div>
+						</div>
+						<!-- /Main Menu -->
+					</div>
+					<div id="hk_menu_backdrop" class="hk-menu-backdrop"></div>
+					<!-- /Navbar Nav -->
+
+				</div>
+				<!-- /Start Nav -->
+				
+				<!-- End Nav -->
+				<div class="nav-end-wrap">
+					<!-- Search -->
+					<form class="dropdown navbar-search me-2">
+						<div class="dropdown-toggle no-caret" data-bs-toggle="dropdown" data-dropdown-animation data-bs-auto-close="outside">
+							<a href="#" class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover  d-xl-none"><span class="icon"><span class="feather-icon"><i data-feather="search"></i></span></span></a>
+							<div class="input-group d-xl-flex d-none">
+								<span class="input-affix-wrapper input-search affix-border">
+									<input type="text" class="form-control  bg-transparent"  data-navbar-search-close="false" placeholder="Search..." aria-label="Search">
+									<span class="input-suffix"><span>/</span>
+										<span class="btn-input-clear"><i class="bi bi-x-circle-fill"></i></span>
+										<span class="spinner-border spinner-border-sm input-loader text-primary" role="status">
+											<span class="sr-only">Loading...</span>
+										</span>
+									</span>
+								</span>
+							</div>
+						</div>
+						<div  class="dropdown-menu p-0">
+							<!-- Mobile Search -->
+							<div class="dropdown-item d-xl-none bg-transparent">
+								<div class="input-group mobile-search">
+									<span class="input-affix-wrapper input-search">
+										<input type="text" class="form-control" placeholder="Search..." aria-label="Search">
+										<span class="input-suffix">
+											<span class="btn-input-clear"><i class="bi bi-x-circle-fill"></i></span>
+											<span class="spinner-border spinner-border-sm input-loader text-primary" role="status">
+												<span class="sr-only">Loading...</span>
+											</span>
+										</span>
+									</span>
+								</div>
+							</div>
+							<!--/ Mobile Search -->
+							<div data-simplebar class="dropdown-body p-2">
+								<h6 class="dropdown-header">Recent Search
+								</h6>
+								<div class="dropdown-item bg-transparent">
+									<a href="#" class="badge badge-pill badge-soft-secondary">Grunt</a>
+									<a href="#" class="badge badge-pill badge-soft-secondary">Node JS</a>
+									<a href="#" class="badge badge-pill badge-soft-secondary">SCSS</a>
+								</div>
+								<div class="dropdown-divider"></div>
+								<h6 class="dropdown-header">Help
+								</h6>
+								<a href="javascript:void(0);" class="dropdown-item">
+									<div class="media align-items-center">
+										<div class="media-head me-2">
+											<div class="avatar avatar-icon avatar-xs avatar-soft-light avatar-rounded">
+												<span class="initial-wrap">
+													<span class="svg-icon">
+														<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-corner-down-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+															<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+															<path d="M6 6v6a3 3 0 0 0 3 3h10l-4 -4m0 8l4 -4"></path>
+														 </svg>
+													</span>
+												</span>
+											</div>
+										</div>
+										<div class="media-body">
+											How to setup theme?
+										</div>
+									</div>
+								</a>
+								<a href="javascript:void(0);" class="dropdown-item">
+									<div class="media align-items-center">
+										<div class="media-head me-2">
+											<div class="avatar avatar-icon avatar-xs avatar-soft-light avatar-rounded">
+												<span class="initial-wrap">
+													<span class="svg-icon">
+														<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-corner-down-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+															<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+															<path d="M6 6v6a3 3 0 0 0 3 3h10l-4 -4m0 8l4 -4"></path>
+														 </svg>
+													</span>
+												</span>
+											</div>
+										</div>
+										<div class="media-body">
+											View detail documentation
+										</div>
+									</div>
+								</a>
+								<div class="dropdown-divider"></div>
+								<h6 class="dropdown-header">Users
+								</h6>
+								<a href="javascript:void(0);" class="dropdown-item">
+									<div class="media align-items-center">
+										<div class="media-head me-2">
+											<div class="avatar avatar-xs avatar-rounded">
+												<img src="dist/img/avatar3.jpg" alt="user" class="avatar-img">
+											</div>
+										</div>
+										<div class="media-body">
+											Sarah Jone
+										</div>
+									</div>
+								</a>
+								<a href="javascript:void(0);" class="dropdown-item">
+									<div class="media align-items-center">
+										<div class="media-head me-2">
+											<div class="avatar avatar-xs avatar-soft-primary avatar-rounded">
+												<span class="initial-wrap">J</span>
+											</div>
+										</div>
+										<div class="media-body">
+											Joe Jackson
+										</div>
+									</div>
+								</a>
+								<a href="javascript:void(0);" class="dropdown-item">
+									<div class="media align-items-center">
+										<div class="media-head me-2">
+											<div class="avatar avatar-xs avatar-rounded">
+												<img src="dist/img/avatar4.jpg" alt="user" class="avatar-img">
+											</div>
+										</div>
+										<div class="media-body">
+											Maria Richard
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="dropdown-footer d-xl-flex d-none"><a href="#"><u>Search all</u></a></div>
+						</div>
+					</form>
+					<!-- /Search -->
+
+					<ul class="navbar-nav flex-row">
+						<li class="nav-item">
+							<a href="email.html" class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover"><span class="icon"><span class=" position-relative"><span class="feather-icon"><i data-feather="inbox"></i></span><span class="badge badge-sm badge-soft-primary badge-sm badge-pill position-top-end-overflow-1">4</span></span></span></a>
+						</li>
+						<li class="nav-item">
+							<div class="dropdown dropdown-notifications">
+								<a href="#" class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover dropdown-toggle no-caret" data-bs-toggle="dropdown" data-dropdown-animation role="button" aria-haspopup="true" aria-expanded="false"><span class="icon"><span class="position-relative"><span class="feather-icon"><i data-feather="bell"></i></span><span class="badge badge-success badge-indicator position-top-end-overflow-1"></span></span></span></a>
+								<div class="dropdown-menu dropdown-menu-end p-0">
+									<h6 class="dropdown-header px-4 fs-6">Notifications<a href="#" class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover"><span class="icon"><span class="feather-icon"><i data-feather="settings"></i></span></span></a>
+									</h6>
+									<div data-simplebar class="dropdown-body  p-2">
+										<a href="javascript:void(0);" class="dropdown-item">
+											<div class="media">
+												<div class="media-head">
+													<div class="avatar avatar-rounded avatar-sm">
+														<img src="dist/img/avatar2.jpg" alt="user" class="avatar-img">
+													</div>
+												</div>
+												<div class="media-body">
+													<div>
+														<div class="notifications-text">Morgan Freeman accepted your invitation to join the team</div>
+														<div class="notifications-info">
+															<span class="badge badge-soft-success">Collaboration</span>
+															<div class="notifications-time">Today, 10:14 PM</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+										<a href="javascript:void(0);" class="dropdown-item">
+											<div class="media">
+												<div class="media-head">
+													<div class="avatar  avatar-icon avatar-sm avatar-success avatar-rounded">
+														<span class="initial-wrap">
+															<span class="feather-icon"><i data-feather="inbox"></i></span>
+														</span>
+													</div>
+												</div>
+												<div class="media-body">
+													<div>
+														<div class="notifications-text">New message received from Alan Rickman</div>
+														<div class="notifications-info">
+															<div class="notifications-time">Today, 7:51 AM</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+										<a href="javascript:void(0);" class="dropdown-item">
+											<div class="media">
+												<div class="media-head">
+													<div class="avatar  avatar-icon avatar-sm avatar-pink avatar-rounded">
+														<span class="initial-wrap">
+															<span class="feather-icon"><i data-feather="clock"></i></span>
+														</span>
+													</div>
+												</div>
+												<div class="media-body">
+													<div>
+														<div class="notifications-text">You have a follow up with Jampack Head on Friday, Dec 19 at 9:30 am</div>
+														<div class="notifications-info">
+															<div class="notifications-time">Yesterday, 9:25 PM</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+										<a href="javascript:void(0);" class="dropdown-item">
+											<div class="media">
+												<div class="media-head">
+													<div class="avatar avatar-sm avatar-rounded">
+														<img src="dist/img/avatar3.jpg" alt="user" class="avatar-img">
+													</div>
+												</div>
+												<div class="media-body">
+													<div>
+														<div class="notifications-text">Application of Sarah Williams is waiting for your approval</div>
+														<div class="notifications-info">
+															<div class="notifications-time">Today 10:14 PM</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+										<a href="javascript:void(0);" class="dropdown-item">
+											<div class="media">
+												<div class="media-head">
+													<div class="avatar avatar-sm avatar-rounded">
+														<img src="dist/img/avatar10.jpg" alt="user" class="avatar-img">
+													</div>
+												</div>
+												<div class="media-body">
+													<div>	
+														<div class="notifications-text">Winston Churchil shared a document with you</div>
+														<div class="notifications-info">
+															<span class="badge badge-soft-violet">File Manager</span>
+															<div class="notifications-time">2 Oct, 2021</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+										<a href="javascript:void(0);" class="dropdown-item">
+											<div class="media">
+												<div class="media-head">
+													<div class="avatar  avatar-icon avatar-sm avatar-danger avatar-rounded">
+														<span class="initial-wrap">
+															<span class="feather-icon"><i data-feather="calendar"></i></span>
+														</span>
+													</div>
+												</div>
+												<div class="media-body">
+													<div>	
+														<div class="notifications-text">Last 2 days left for the project to be completed</div>
+														<div class="notifications-info">
+															<span class="badge badge-soft-orange">Updates</span>
+															<div class="notifications-time">14 Sep, 2021</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+									</div>
+									<div class="dropdown-footer"><a href="#"><u>View all notifications</u></a></div>
+								</div>
+							</div>
+						</li>
+						<li class="nav-item">
+							<div class="dropdown ps-2">
+								<a class=" dropdown-toggle no-caret" href="#" role="button" data-bs-display="static" data-bs-toggle="dropdown" data-dropdown-animation data-bs-auto-close="outside" aria-expanded="false">
+									<div class="avatar avatar-rounded avatar-xs">
+										<img src="dist/img/avatar12.jpg" alt="user" class="avatar-img">
+									</div>
+								</a>
+								<div class="dropdown-menu dropdown-menu-end">
+									<div class="p-2">
+										<div class="media">
+											<div class="media-head me-2">
+												<div class="avatar avatar-primary avatar-sm avatar-rounded">
+													<span class="initial-wrap">Hk</span>
+												</div>
+											</div>
+											<div class="media-body">
+												<div class="dropdown">
+													<a href="#" class="d-block dropdown-toggle link-dark fw-medium"  data-bs-toggle="dropdown" data-dropdown-animation data-bs-auto-close="inside">Hencework</a>
+													<div class="dropdown-menu dropdown-menu-end">
+														<div class="p-2">
+															<div class="media align-items-center active-user mb-3">
+																<div class="media-head me-2">
+																	<div class="avatar avatar-primary avatar-xs avatar-rounded">
+																		<span class="initial-wrap">Hk</span>
+																	</div>
+																</div>
+																<div class="media-body">
+																	<a href="#" class="d-flex align-items-center link-dark">Hencework <i class="ri-checkbox-circle-fill fs-7 text-primary ms-1"></i></a>
+																	<a href="#" class="d-block fs-8 link-secondary"><u>Manage your account</u></a>
+																</div>
+															</div>
+															<div class="media align-items-center mb-3">
+																<div class="media-head me-2">
+																	<div class="avatar avatar-xs avatar-rounded">
+																		<img src="dist/img/avatar12.jpg" alt="user" class="avatar-img">
+																	</div>
+																</div>
+																<div class="media-body">
+																	<a href="#" class="d-block link-dark">Jampack Team</a>
+																	<a href="#" class="d-block fs-8 link-secondary">contact@hencework.com</a>
+																</div>
+															</div>
+															<button class="btn btn-block btn-outline-light btn-sm">
+																<span><span class="icon"><span class="feather-icon"><i data-feather="plus"></i></span></span>
+																<span>Add Account</span></span>
+															</button>
+														</div>
+													</div>
+												</div>
+												<div class="fs-7">contact@hencework.com</div>
+												<a href="#" class="d-block fs-8 link-secondary"><u>Sign Out</u></a>
+											</div>
+										</div>
+									</div>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="profile.html">Profile</a>
+									<a class="dropdown-item" href="#"><span class="me-2">Offers</span><span class="badge badge-sm badge-soft-pink">2</span></a><div class="dropdown-divider"></div>
+									<h6 class="dropdown-header">Manage Account</h6>
+									<a class="dropdown-item" href="#"><span class="dropdown-icon feather-icon"><i data-feather="credit-card"></i></span><span>Payment methods</span></a>
+									<a class="dropdown-item" href="#"><span class="dropdown-icon feather-icon"><i data-feather="check-square"></i></span><span>Subscriptions</span></a>
+									<a class="dropdown-item" href="#"><span class="dropdown-icon feather-icon"><i data-feather="settings"></i></span><span>Settings</span></a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="#"><span class="dropdown-icon feather-icon"><i data-feather="tag"></i></span><span>Raise a ticket</span></a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="#">Terms & Conditions</a>
+									<a class="dropdown-item" href="#">Help & Support</a>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- /End Nav -->
+			</div>									
+		</nav>
+		<!-- /Top Navbar -->
+
+		<!-- Main Content -->
+		<div class="hk-pg-wrapper pb-0">
+			<div class="hk-pg-body py-0">
+				<div class="integrationsapp-wrap">
+					<nav class="integrationsapp-sidebar">
+						<div data-simplebar class="nicescroll-bar">
+							<div class="menu-content-wrap">
+								<form class="mb-4" role="search">
+									<input type="text" class="form-control" placeholder="Search by categories, name">
+								</form>
+								<div class="menu-group">
+									<ul class="nav nav-light navbar-nav flex-column">
+										<li class="nav-item active">
+											<a class="nav-link" href="integrations.html">
+												<span class="nav-icon-wrap"><span class="feather-icon"><i data-feather="box"></i></span></span>
+												<span class="nav-link-text">Integrations</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);">
+												<span class="nav-icon-wrap"><span class="feather-icon"><i data-feather="refresh-cw"></i></span></span>
+												<span class="nav-link-text">Updates</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="menu-gap"></div>
+								<div class="nav-header">
+									<span>Browse</span>
+								</div>
+								<div class="menu-group">
+									<ul class="nav nav-light navbar-nav flex-column">
+										<li class="nav-item">
+											<a class="nav-link" href="all-apps.html">
+												<span class="nav-icon-wrap"><span class="feather-icon"><i data-feather="grid"></i></span></span>
+												<span class="nav-link-text">All Apps</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);">
+												<span class="nav-icon-wrap"><span class="feather-icon"><i data-feather="heart"></i></span></span>
+												<span class="nav-link-text">Popular</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);">
+												<span class="nav-icon-wrap"><span class="feather-icon"><i data-feather="zap"></i></span></span>
+												<span class="nav-link-text">New Apps</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);">
+												<span class="nav-icon-wrap"><span class="feather-icon"><i data-feather="check-square"></i></span></span>
+												<span class="nav-link-text">Recommended for you</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);">
+												<span class="nav-icon-wrap"><span class="feather-icon"><i data-feather="git-branch"></i></span></span>
+												<span class="nav-link-text">Developer Tools</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="menu-gap"></div>
+								<div class="nav-header">
+									<span>Categories</span>
+								</div>
+								<div class="menu-group">
+									<ul class="nav nav-light navbar-nav flex-column">
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);">
+												<span class="nav-icon-wrap"><span class="feather-icon"><i data-feather="pen-tool"></i></span></span>
+												<span class="nav-link-text">Design</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);">
+												<span class="nav-icon-wrap"><span class="feather-icon"><i data-feather="github"></i></span></span>
+												<span class="nav-link-text">Marketing</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);">
+												<span class="nav-icon-wrap"><span class="feather-icon"><i data-feather="code"></i></span></span>
+												<span class="nav-link-text">Technology</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);">
+												<span class="nav-icon-wrap"><span class="feather-icon"><i data-feather="zap"></i></span></span>
+												<span class="nav-link-text">API</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);">
+												<span class="nav-icon-wrap"><span class="feather-icon"><i data-feather="tool"></i></span></span>
+												<span class="nav-link-text">SEO Tools</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);">
+												<span class="nav-icon-wrap"><span class="feather-icon"><i data-feather="briefcase"></i></span></span>
+												<span class="nav-link-text">Management</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!--Sidebar Fixnav-->
+						<div class="integrationsapp-fixednav">
+							<div class="hk-toolbar">
+								<ul class="nav nav-light">
+									<li class="nav-item nav-link">
+										<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Settings" href="#"><span class="icon"><span class="feather-icon"><i data-feather="settings"></i></span></span></a>
+									</li>
+									<li class="nav-item nav-link">
+										<a href="#" class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Archive"><span class="icon"><span class="feather-icon"><i data-feather="archive"></i></span></span></a>
+									</li>
+									<li class="nav-item nav-link">
+										<a href="#" class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Help"><span class="icon"><span class="feather-icon"><i data-feather="book"></i></span></span></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<!--/ Sidebar Fixnav-->
+					</nav>
+					<div class="integrationsapp-content">
+						<div class="integrationsapp-detail-wrap">
+							<header class="integrations-header">
+								<div class="d-flex align-items-center flex-1">
+									<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover flex-shrink-0" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Collapse">
+										<span class="btn-icon-wrap">
+											<span class="feather-icon"><i data-feather="chevron-left"></i></span>
+										</span>
+									</a>
+									<div class="v-separator d-sm-inline-block d-none"></div>
+									<nav class="ms-1 ms-sm-0" aria-label="breadcrumb">
+										<ol class="breadcrumb mb-0">
+											<li class="breadcrumb-item"><a href="#">All Apps</a></li>
+											<li class="breadcrumb-item"><a href="#">Popular</a></li>
+											<li class="breadcrumb-item active" aria-current="page">Kickstarter</li>
+										</ol>
+									</nav>
+								</div>
+								<div class="integrations-options-wrap">	
+									<a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover hk-navbar-togglable d-md-inline-block d-none" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Collapse">
+										<span class="btn-icon-wrap">
+											<span class="feather-icon"><i data-feather="chevron-up"></i></span>
+											<span class="feather-icon d-none"><i data-feather="chevron-down"></i></span>
+										</span>
+									</a>
+								</div>
+								<div class="hk-sidebar-togglable"></div>
+							</header>
+							<div class="integrations-body">
+								<div data-simplebar class="nicescroll-bar">
+									<div class="container mt-md-7 mt-3">
+										<div class="row">
+											<div class="col-xxl-8 col-lg-7">
+												<div class="media">
+													<div class="media-head me-3">
+														<div class="avatar avatar-logo">
+															<span class="initial-wrap bg-success-light-5">
+																<img src="dist/img/symbol-avatar-15.png" alt="logo">
+															</span>
+														</div>
+													</div>
+													<div class="media-body">
+														<h3 class="hd-bold mb-0">Kickstarter</h3>
+														<span>by Hencework</span>
+														<div class="d-flex align-items-center mt-1">
+															<div class="d-flex align-items-center">
+																<div class="d-flex align-items-center rating rating-yellow my-rating-4 me-2" data-rating="3"></div>
+																<span>
+																	3,123
+																</span>
+															</div>
+															<div class="d-sm-flex align-items-center d-none">
+																<span class="opacity-15 mx-2">●</span>
+																<span class="d-flex align-items-center fs-8"><i class="ri-download-cloud-2-line fs-7 me-1 text-primary"></i>15M Downloads</span>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-xxl-4 col-lg-5 mt-lg-0 mt-3">
+												<button class="btn btn-primary btn-block">Install</button>
+												<div class="d-flex mt-3">
+													<button class="btn btn-sm btn-light btn-block">
+														<span><span class="icon"><span class="feather-icon"><i data-feather="share"></i></span></span><span>Share</span></span>
+													</button>
+													<button class="btn btn-sm btn-light btn-block ms-2 mt-0">
+														<span><span class="icon"><span class="feather-icon"><i data-feather="bookmark"></i></span></span><span>Bookmark</span></span>
+													</button>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-xxl-8 col-lg-7">
+												<div class="product-detail-slider">
+													<div id="owl_demo_1" class="owl-carousel owl-primary mt-6">
+														<div class="item" data-hash="zero"><img src="dist/img/slide1.jpg" alt="Owl Image"></div>
+														<div class="item" data-hash="one"><img src="dist/img/slide2.jpg" alt="Owl Image"></div>
+														<div class="item" data-hash="two"><img src="dist/img/slide3.jpg" alt="Owl Image"></div>
+														<div class="item" data-hash="three"><img src="dist/img/slide4.jpg" alt="Owl Image"></div>
+													</div>
+													<div class="thumb-wrap">
+														<a class="active-thumb" href="#zero"></a>
+														<a href="#one"></a>
+														<a href="#two"></a>
+														<a href="#three"></a>
+													</div>
+												</div>
+												<div class="separator"></div>
+												<ul class="nav nav-light nav-pills nav-pills-rounded justify-content-center">
+													<li class="nav-item">
+														<a class="nav-link active" data-bs-toggle="pill" href="#tabit_1">
+															<span class="nav-link-text">Overview</span>
+														</a>
+													</li>
+													<li class="nav-item">
+														<a class="nav-link" data-bs-toggle="pill" href="#tabit_2">
+															<span class="nav-link-text">Comments</span>
+														</a>
+													</li>
+													<li class="nav-item">
+														<a class="nav-link" data-bs-toggle="pill" href="#tabit_3">
+															<span class="nav-link-text">Reviews</span>
+														</a>
+													</li>
+												</ul>
+												<div class="tab-content py-7">
+													<div class="tab-pane fade show active" id="tabit_1">
+														<h5>Overview and Features</h5>
+														<p>Think classic lorem ipsum is passé? Give your next project a bit more edge with these funny and unique text generators. The classic latin passage that just never gets old, enjoy as much (or as little) lorem ipsum as you can handle with our easy to use filler text generator. It will be met with fire and fury like the world has never seen. Does everybody know that pig named Lorem Ipsum? An ‘extremely credible source’ has called my office and told me that Barack Obama’s placeholder text is a fraud.</p>
+														<div class="row my-7">
+															<div class="col-xxl-6">
+																<h6>Kaster Shots</h6>
+																<p>In case you don't read Twitter, the news, or just can't get enough of The Apprentice host's legendary oration, try this Trump lorem ipsum generator.</p>
+															</div>
+															<div class="col-xxl-6 mt-xxl-0 mt-3">
+																<h6>Kaster Brilliant</h6>
+																<p>If you haven't seen Game of Thrones, go watch it right now. If you have then you'll totally get why this Hodor themed lorem ipsum generator is just brilliant.</p>
+															</div>
+														</div>
+														<h6>More Interesting Features</h6>
+														<ul class="list-ul ps-3">
+															<li class="mb-1"><span>Kickstarter is an American public benefit corporation based in Brooklyn.</span></li>
+															<li class="mb-1"><span>New York, that maintains a global crowdfunding.</span></li>
+															<li class="mb-1"><span>platform focused on creativity. The company's stated mission.</span></li>
+															<li class="mb-1"><span>Help bring creative projects to life.</span></li>
+															<li><span>Kaster try this Trump lorem ipsum generator on for size.</span></li>
+														</ul>
+													</div>
+													<div class="tab-pane fade" id="tabit_2">
+														<div class="title title-lg"><span>3 Responses</span></div>
+														<div class="comment-block">
+															<form class="mb-4">
+																<div class="form-group">
+																	<div class="media">
+																		<div class="media-head">
+																			<div class="avatar avatar-xs avatar-rounded">
+																				<img src="dist/img/avatar4.jpg" alt="user" class="avatar-img">
+																			</div>
+																		</div>
+																		<div class="media-body">
+																			<div class="form-inline">
+																				<input class="form-control me-3">
+																				<button class="btn btn-primary">Post</button>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</form>
+															<div class="media">
+																<div class="media-head">
+																	<div class="avatar avatar-xs avatar-rounded">
+																		<img src="dist/img/avatar4.jpg" alt="user" class="avatar-img">
+																	</div>
+																</div>
+																<div class="media-body">
+																	<div>
+																		<span class="cm-name">Martin Luther</span>
+																	</div>
+																	<p>From there, you can run truffle compile, truffle migrate and truffle test to compile your contracts, deploy those contracts to the network, and run their associated unit tests.</p>
+																	<div class="comment-action-wrap mt-3">
+																		<span>3 hours ago</span>
+																		<span class="comment-dot-sep">●</span>
+																		<a href="#">Reply</a>
+																		<span class="comment-dot-sep">●</span>
+																		<a href="#">Like</a>
+																	</div>
+																</div>
+															</div>
+															<div class="separator separator-light"></div>
+															<div class="media">
+																<div class="media-head">
+																	<div class="avatar avatar-xs avatar-rounded">
+																		<img src="dist/img/avatar2.jpg" alt="user" class="avatar-img">
+																	</div>
+																</div>
+																<div class="media-body">
+																	<div>
+																		<span class="cm-name">Katherine Jones</span>
+																	</div>
+																	<p>Dynamically beautiful work done by Ashton Kutcher</p>
+																	<div class="comment-action-wrap mt-3">
+																		<span>3 hours ago</span>
+																		<span class="comment-dot-sep">●</span>
+																		<a href="#">Reply</a>
+																		<span class="comment-dot-sep">●</span>
+																		<a href="#">Like</a>
+																	</div>
+																	<div class="media">
+																		<div class="media-head">
+																			<div class="avatar avatar-xs avatar-rounded">
+																				<img src="dist/img/avatar3.jpg" alt="user" class="avatar-img">
+																			</div>
+																		</div>
+																		<div class="media-body">
+																			<div>
+																				<span class="cm-name">Ashton Kutche</span>
+																			</div>
+																			<p>Thank you :)</p>
+																			<div class="comment-action-wrap mt-3">
+																				<span>3 hours ago</span>
+																				<span class="comment-dot-sep">●</span>
+																				<a href="#">Reply</a>
+																				<span class="comment-dot-sep">●</span>
+																				<a href="#">Like</a>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="separator separator-light"></div>
+															<div class="media">
+																<div class="media-head">
+																	<div class="avatar avatar-xs avatar-rounded">
+																		<img src="dist/img/avatar4.jpg" alt="user" class="avatar-img">
+																	</div>
+																</div>
+																<div class="media-body">
+																	<div>
+																		<span class="cm-name">Pheebee Fry</span>
+																	</div>
+																	<p>Like your lorem ipsum extra crispy? Then Bacon Ipsum is the placeholder text generator for you. Side of eggs and hashbrowns is optional, but recommended.</p>
+																	<div class="comment-action-wrap mt-3">
+																		<span>8 Feb, 2020</span>
+																		<span class="comment-dot-sep">●</span>
+																		<a href="#">Reply</a>
+																		<span class="comment-dot-sep">●</span>
+																		<a href="#">Like</a>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="tab-pane fade" id="tabit_3">
+														<div class="review-block">
+															<div class="d-flex align-items-center justify-content-between">
+																<div class="d-flex align-items-center">
+																	<div class="title title-lg mb-0 me-3"><span>User Reviews</span></div>
+																	<button class="btn btn-soft-primary" data-bs-toggle="modal" data-bs-target="#add_new_review">Write a review</button>
+																</div>
+																<div>
+																	<select class="form-select d-md-flex d-none">
+																		<option selected="">Helpful Reviews</option>
+																		<option value="1">Most Rated</option>
+																		<option value="2">Less Rated</option>
+																		<option value="3">Popular Reviews</option>
+																	</select>
+																</div>
+															</div>
+															<div class="separator mt-4"></div>
+															<div class="review">
+																<div class="media align-items-center">
+																	<div class="media-head">
+																		<div class="avatar avatar-xs avatar-rounded">
+																			<img src="dist/img/avatar7.jpg" alt="user" class="avatar-img">
+																		</div>
+																	</div>
+																	<div class="media-body">
+																		<span class="cr-name">Martin Luther</span>
+																	</div>
+																</div>
+																<div class="d-flex flex-sm-nowrap flex-wrap mt-2 mb-1">
+																	<div class="d-flex align-items-center rating rating-yellow my-rating-4 me-2 mb-sm-0 mb-2" data-rating="4"></div>
+																	<div>for <span class="text-dark mx-1">Design Quality</span> <span class="fs-8">12 Jan, 2020</span></div>
+																</div>
+																<p>A handcrafted, small-batch, artisinal pour-over version of the classic lorem ipsum generator, Hipster Ipsum will give your mocks that blue collar touch.</p>
+																<div class="review-action-wrap mt-3">
+																	<span class="me-1">Was this review helpful?</span>
+																	<a href="#" class="btn btn-outline-light btn-xs">Yes</a>
+																	<a href="#" class="btn btn-outline-light btn-xs">No</a>
+																	<span class="review-dot-sep">●</span>
+																	<a href="#">Reply</a>
+																	<span class="review-dot-sep">●</span>
+																	<a href="#">Report abuse</a>
+																</div>
+															</div>
+															<div class="separator separator-light"></div>
+															<div class="review">
+																<div class="media align-items-center">
+																	<div class="media-head">
+																		<div class="avatar avatar-xs">
+																			<img src="dist/img/avatar8.jpg" alt="user" class="avatar-img rounded-circle">
+																		</div>
+																	</div>
+																	<div class="media-body">
+																		<span class="cr-name">Katherine Jones</span>
+																	</div>
+																</div>
+																<div class="d-flex flex-sm-nowrap flex-wrap mt-2 mb-1">
+																	<div class="d-flex align-items-center rating rating-yellow my-rating-4 me-2 mb-sm-0 mb-2" data-rating="3"></div>
+																	<div>for <span class="text-dark mx-1">Customer Support</span> <span class="fs-8">10 Jan, 2020</span></div>
+																</div>
+																<p>Like your lorem ipsum extra crispy? Then Bacon Ipsum is the placeholder text generator for you. Side of eggs and hashbrowns is optional, but recommended. Sugary sweet lorem ipsum? You got it with Cupcake Ipsum, the only text generator that includes marshmallows, carrot cake, and perhaps even a cherry on top.</p>
+																<div class="review-action-wrap mt-3">
+																	<span class="me-1">Was this review helpful?</span>
+																	<a href="#" class="btn btn-outline-light btn-xs">Yes</a>
+																	<a href="#" class="btn btn-outline-light btn-xs">No</a>
+																	<span class="review-dot-sep">●</span>
+																	<a href="#">Reply</a>
+																	<span class="review-dot-sep">●</span>
+																	<a href="#">Report abuse</a>
+																</div>
+															</div>
+															
+															<div class="separator separator-light"></div>
+															<div class="review">
+																<div class="media align-items-center">
+																	<div class="media-head">
+																		<div class="avatar avatar-xs">
+																			<img src="dist/img/avatar3.jpg" alt="user" class="avatar-img rounded-circle">
+																		</div>
+																	</div>
+																	<div class="media-body">
+																		<span class="cr-name">Pheebee Fry</span>
+																	</div>
+																</div>
+																<div class="d-flex flex-sm-nowrap flex-wrap mt-2 mb-1">
+																	<div class="d-flex align-items-center rating rating-yellow my-rating-4 me-2 mb-sm-0 mb-2" data-rating="2"></div>
+																	<div>for <span class="text-dark mx-1">Design Quality</span> <span class="fs-8">31 Dec, 2020</span></div>
+																</div>
+																<p>A web generator and jQuery plugin, Delorean Ipsum uses the script from Back to the Future to generate quotable lorem ipsum text for every project, past or present.</p>
+																<div class="review-action-wrap mt-3">
+																	<span class="me-1">Was this review helpful?</span>
+																	<a href="#" class="btn btn-outline-light btn-xs">Yes</a>
+																	<a href="#" class="btn btn-outline-light btn-xs">No</a>
+																	<span class="review-dot-sep">●</span>
+																	<a href="#">Reply</a>
+																	<span class="review-dot-sep">●</span>
+																	<a href="#">Report abuse</a>
+																</div>
+																<div class="review">
+																	<div class="media align-items-center">
+																		<div class="media-head">
+																			<div class="avatar avatar-xs">
+																				<img src="dist/img/avatar13.jpg" alt="user" class="avatar-img rounded-circle">
+																			</div>
+																		</div>
+																		<div class="media-body">
+																			<span class="cr-name">Ashton Kutcher</span>
+																		</div>
+																	</div>
+																	<div class="d-flex flex-sm-nowrap flex-wrap mt-2 mb-1">
+																		<div><span class="fs-8">1 Jan, 2020</span></div>
+																	</div>
+																	<p>Space, the final frontier. These are the voyages of the Starship Enterprise.</p>
+																	<div class="review-action-wrap mt-3">
+																		<span class="me-1">Was this review helpful?</span>
+																		<a href="#" class="btn btn-outline-light btn-xs">Yes</a>
+																		<a href="#" class="btn btn-outline-light btn-xs">No</a>
+																		<span class="review-dot-sep">●</span>
+																		<a href="#">Reply</a>
+																		<span class="review-dot-sep">●</span>
+																		<a href="#">Report abuse</a>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-xxl-4 col-lg-5">
+												<div class="content-aside">
+													<div class="card card-border mt-6">
+														<div class="card-body">
+															<h6 class="mb-4">Categories</h6>
+															<div class="tag-cloud">
+																<a href="#" class="badge badge-soft-primary">Jampack</a>
+																<a href="#" class="badge badge-soft-primary">Bootstrap 5</a>
+																<a href="#" class="badge badge-soft-primary">Admin Template</a>
+															</div>
+														</div>
+													</div>
+													<div class="card card-border">
+														<div class="card-body">
+															<div class="media align-items-center">
+																<div class="media-head me-3">
+																	<div class="avatar avatar-sm avatar-icon avatar-soft-success avatar-rounded">
+																		<span class="initial-wrap">
+																			<span class="feather-icon"><i data-feather="external-link"></i></span>
+																		</span>
+																	</div>
+																</div>
+																<div class="media-body">
+																	<h6 class="mb-0">Website</h6>
+																	<a href="#" class="link-muted">kickstarter.com</a>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="card card-border">
+														<div class="card-body">
+															<h6 class="mb-4">Additional Info</h6>
+															<ul class="list-unstyled">
+																<li class="mb-3">
+																	<div class="fs-7">Version</div>
+																	<div class="text-dark fw-medium">A3.45-4.0</div>
+																</li>
+																<li class="mb-3">
+																	<div class="fs-7">Updated</div>
+																	<div class="text-dark fw-medium">May 20, 2020</div>
+																</li>
+																<li class="mb-3">
+																	<div class="fs-7">Size</div>
+																	<div class="text-dark fw-medium">4.35 MB</div>
+																</li>
+																<li class="mb-3">
+																	<div class="fs-7">Languages</div>
+																	<div class="text-dark fw-medium">English, Spanish, French</div>
+																</li>
+																<li class="mb-3">
+																	<div class="fs-7">Developed by</div>
+																	<div class="text-dark fw-medium d-flex align-items-center">Hencework<i class="ri-information-fill fs-7 ms-1 lh-1"></i></div>
+																</li>
+																<li class="mb-3">
+																	<div class="fs-7">Resources</div>
+																	<div class="text-dark fw-medium d-flex align-items-center">Product Documentation<a href="#" class="d-flex"><i class="ri-external-link-line fs-7 ms-1 lh-1"></i></a></div>
+																</li>
+																<li>
+																	<a href="#" class="d-flex align-items-center link-danger"><span class="d-flex"><i class="ri-information-line fs-7 me-1 lh-1"></i></span>Report abuse</a>
+																</li>
+															</ul>
+														</div>
+													</div>
+													<div class="card card-border">
+														<div class="card-body">
+															<h6 class="mb-4">Related</h6>
+															<ul class="list-group list-group-flush">
+																<li class="list-group-item border-0 px-0">
+																	<a href="#">
+																		<div class="media align-items-center">
+																			<div class="media-head me-3">
+																				<div class="avatar avatar-sm avatar-logo">
+																					<span class="initial-wrap bg-success-light-5">
+																						<img src="dist/img/symbol-avatar-14.png" alt="logo">
+																					</span>
+																				</div>
+																			</div>
+																			<div class="media-body d-flex justify-content-between align-items-center">
+																				<div>
+																					<h6 class="mb-0">Intercom</h6>
+																					<div class="fs-7 text-muted">Chat Application</div>
+																					<div class="d-flex align-items-center fs-8 text-muted"><i class="ri-download-cloud-2-line fs-7 me-1 text-primary"></i>15M Downloads</div>
+																				</div>
+																				<span class="badge badge-sm badge-primary">
+																					<span><span class="icon"><i class="ri-star-s-fill"></i></span>4.5</span>
+																				</span>
+																			</div>
+																		</div>
+																	</a>
+																</li>
+																<li class="list-group-item border-0 px-0">
+																	<a href="#">
+																		<div class="media align-items-center">
+																			<div class="media-head me-3">
+																				<div class="avatar avatar-sm">
+																					<img class="avatar-img" src="dist/img/logo-avatar-2.png" alt="logo">
+																				</div>
+																			</div>
+																			<div class="media-body d-flex justify-content-between align-items-center">
+																				<div>
+																					<h6 class="mb-0">Swiggy</h6>
+																					<div class="fs-7 text-muted">Food Delivery</div>
+																					<div class="d-flex align-items-center fs-8 text-muted"><i class="ri-download-cloud-2-line fs-7 me-1 text-primary"></i>15M Downloads</div>
+																				</div>
+																				<span class="badge badge-sm badge-warning">
+																					<span><span class="icon"><i class="ri-star-s-fill"></i></span>3.5</span>
+																				</span>
+																			</div>
+																		</div>
+																	</a>
+																</li>
+																<li class="list-group-item border-0 px-0">
+																	<a href="#">
+																		<div class="media align-items-center">
+																			<div class="media-head me-3">
+																				<div class="avatar avatar-sm">
+																					<img class="avatar-img" src="dist/img/logo-avatar-10.png" alt="logo">
+																				</div>
+																			</div>
+																			<div class="media-body d-flex justify-content-between align-items-center">
+																				<div>
+																					<h6 class="mb-0">Medium</h6>
+																					<div class="fs-7 text-muted">Blog</div>
+																					<div class="d-flex align-items-center fs-8 text-muted"><i class="ri-download-cloud-2-line fs-7 me-1 text-primary"></i>15M Downloads</div>
+																				</div>
+																				<span class="badge badge-sm badge-danger">
+																					<span><span class="icon"><i class="ri-star-s-fill"></i></span>2.0</span>
+																				</span>
+																			</div>
+																		</div>
+																	</a>
+																</li>
+																<li class="list-group-item border-0 px-0">
+																	<a href="#">
+																		<div class="media align-items-center">
+																			<div class="media-head me-3">
+																				<div class="avatar avatar-sm avatar-logo">
+																					<span class="initial-wrap bg-dark">
+																						<img src="dist/img/symbol-avatar-12.png" alt="logo">
+																					</span>
+																				</div>
+																			</div>
+																			<div class="media-body d-flex justify-content-between align-items-center">
+																				<div>
+																					<h6 class="mb-0">Figma</h6>
+																					<div class="fs-7 text-muted">Design Tool</div>
+																					<div class="d-flex align-items-center fs-8 text-muted"><i class="ri-download-cloud-2-line fs-7 me-1 text-primary"></i>15M Downloads</div>
+																				</div>
+																				<span class="badge badge-sm badge-primary">
+																					<span><span class="icon"><i class="ri-star-s-fill"></i></span>4.5</span>
+																				</span>
+																			</div>
+																		</div>
+																	</a>
+																</li>
+															</ul>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<h6 class="text-center mt-10 mb-4">Similar Apps like this</h6>
+										<div class="row">
+											<div class="col-xl-3 col-md-6">
+												<div class="card card-border text-center">
+													<div class="card-body">
+														<div class="avatar avatar-sm avatar-violet mb-3">
+															<span class="initial-wrap">H</span>
+														</div>
+														<div class="app-name">Hencework</div>
+														<div class="app-cat">Chat Application</div>
+														<div class="d-flex align-items-center justify-content-center">
+															<div class="d-flex align-items-center rating rating-yellow my-rating-4 me-2" data-rating="3"></div>
+															<span class="fs-8">3,672</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-xl-3 col-md-6">
+												<div class="card card-border text-center">
+													<div class="card-body">
+														<div class="avatar avatar-sm avatar-logo mb-3">
+															<span class="initial-wrap">
+																<img src="dist/img/symbol-avatar-4.png" alt="logo">
+															</span>
+														</div>
+														<div class="app-name">Jampack</div>
+														<div class="app-cat">Dashboard Template</div>
+														<div class="d-flex align-items-center justify-content-center">
+															<div class="d-flex align-items-center rating rating-yellow my-rating-4 me-2" data-rating="3"></div>
+															<span class="fs-8">3,672</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-xl-3 col-md-6">
+												<div class="card card-border text-center">
+													<div class="card-body">
+														<div class="avatar avatar-sm avatar-logo mb-3">
+															<span class="initial-wrap">
+																<img src="dist/img/symbol-avatar-1.png" alt="logo">
+															</span>
+														</div>
+														<div class="app-name">Tinder</div>
+														<div class="app-cat">Dating App</div>
+														<div class="d-flex align-items-center justify-content-center">
+															<div class="d-flex align-items-center rating rating-yellow my-rating-4 me-2" data-rating="4"></div>
+															<span class="fs-8">3,672</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-xl-3 col-md-6">
+												<div class="card card-border text-center">
+													<div class="card-body">
+														<div class="avatar avatar-sm avatar-logo mb-3">
+															<span class="initial-wrap">
+																<img src="dist/img/symbol-avatar-16.png" alt="logo">
+															</span>
+														</div>
+														<div class="app-name">Github</div>
+														<div class="app-cat">Developer Geek</div>
+														<div class="d-flex align-items-center justify-content-center">
+															<div class="d-flex align-items-center rating rating-yellow my-rating-4 me-2" data-rating="3.5"></div>
+															<span class="fs-8">3,672</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+											
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Write Reveiw -->
+						<div id="add_new_review" class="modal fade add-new-task" tabindex="-1" role="dialog" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-body">
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">×</span>
+										</button>
+										<h5 class="mb-4">Write a review</h5>
+										<form>
+											<div class="row row-sm">
+												<div class="col-md-12">
+													<div class="form-group">
+														<label class="form-label">Your rating</label>
+														<div class="d-flex align-items-center rating rating-yellow my-rating-1 me-2" data-rating="1"></div>
+													</div>
+													<div class="form-group">
+														<label class="form-label">Reason Line</label>
+														<select class="form-select">
+															<option selected="">Design Quality</option>
+															<option value="1">Customer Support</option>
+														</select>
+													</div>
+													<div class="form-group">
+														<div class="form-label-group">
+															<label class="form-label">Comments</label>
+															<small class="text-muted">2000</small>
+														</div>
+														<textarea class="form-control" rows="3" placeholder="Please describe the reason for your rating"></textarea>
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer align-items-center">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+										<button type="button" class="btn btn-primary" >Send Review</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /Write Reveiw -->
+					</div>
+				</div>
+			</div>
+			<!-- /Page Body -->
+		</div>
+		<!-- /Main Content -->
+	</div>
+    <!-- /Wrapper -->
+
+	<!-- jQuery -->
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JS -->
+   	<script src="vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- FeatherIcons JS -->
+    <script src="dist/js/feather.min.js"></script>
+
+    <!-- Fancy Dropdown JS -->
+    <script src="dist/js/dropdown-bootstrap-extended.js"></script>
+
+	<!-- Simplebar JS -->
+	<script src="vendors/simplebar/dist/simplebar.min.js"></script>
+	
+	<!-- Rating JS -->
+	<script src="dist/js/jquery.star-rating-svg.min.js"></script>
+	<script src="dist/js/rating.js"></script>
+
+	<!-- Owl JS -->
+    <script src="vendors/owl.carousel/dist/owl.carousel.min.js"></script>
+	
+	<!-- Init JS -->
+	<script src="dist/js/init.js"></script>
+	<script src="dist/js/integration-data.js"></script>
+	<script src="dist/js/chips-init.js"></script>
+</body>
+</html>

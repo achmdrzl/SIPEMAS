@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<!-- 
+Jampack
+Author: Hencework
+Contact: contact@hencework.com
+-->
+<html lang="en">
+<head>
+    <!-- Meta Tags -->
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Jampack - Admin CRM Dashboard Template</title>
+    <meta name="description" content="A modern CRM Dashboard Template with reusable and flexible components for your SaaS web applications by hencework. Based on Bootstrap."/>
+    
+	<!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+	
+	<!-- CSS -->
+    <link href="dist/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+   	<!-- Wrapper -->
+	<div class="hk-wrapper" data-layout="navbar" data-layout-style="default" data-menu="light" data-footer="simple">
+		<!-- Top Navbar -->
+		<nav class="hk-navbar navbar navbar-expand-xl navbar-light fixed-top">
+			<div class="container-fluid">
+				<!-- Start Nav -->
+				<div class="nav-start-wrap flex-fill">
+					<!-- Brand -->
+					<a class="navbar-brand d-xl-flex d-none flex-shrink-0" href="index.html">
+						<img class="brand-img img-fluid" src="dist/img/brand-sm.svg" alt="brand" />
+						<img class="brand-img img-fluid" src="dist/img/Jampack.svg" alt="brand" />
+					</a>
+					<!-- /Brand -->
+					<button class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover navbar-toggle d-xl-none"><span class="icon"><span class="feather-icon"><i data-feather="align-left"></i></span></span></button>
+					
+					<!-- Navbar Nav -->
+					<div class="hk-menu">
+						<!-- Brand -->
+						<div class="menu-header d-xl-none">
+							<span>
+								<a class="navbar-brand" href="index.html">
+									<img class="brand-img img-fluid" src="dist/img/brand-sm.svg" alt="brand" />
+									<img class="brand-img img-fluid" src="dist/img/Jampack.svg" alt="brand" />
+								</a>
+								<button class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover navbar-toggle">
+									<span class="icon">
+										<span class="svg-icon fs-5">
+											<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-bar-to-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+												<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+												<line x1="10" y1="12" x2="20" y2="12"></line>
+												<line x1="10" y1="12" x2="14" y2="16"></line>
+												<line x1="10" y1="12" x2="14" y2="8"></line>
+												<line x1="4" y1="4" x2="4" y2="20"></line>
+											</svg>
+										</span>
+									</span>
+								</button>
+							</span>
+						</div>
+						<!-- /Brand -->
+						
+						<!-- Main Menu -->
+						<div data-simplebar class="nicescroll-bar">
+							<div class="menu-content-wrap">
+								<div class="menu-group">
+									<ul class="navbar-nav flex-column">
+										<li class="nav-item">
+											<a class="nav-link" href="index.html">
+												<span class="nav-link-text">Dashboard</span>
+												<span class="badge badge-sm badge-soft-pink ms-xl-2 ms-auto">Hot</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_chat">
+												<span class="nav-link-text">Chat</span>
+											</a>
+											<ul id="dash_chat" class="nav flex-column collapse   nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="chats.html"><span class="nav-link-text">Chats</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="chats-group.html"><span class="nav-link-text">Groups</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="chats-contact.html"><span class="nav-link-text">Contacts</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_wizard">
+																<span class="nav-link-text">Chat Popup</span>
+															</a>
+															<ul id="dash_wizard" class="nav flex-column collapse   nav-children">
+																<li class="nav-item">
+																	<ul class="nav flex-column">
+																		<li class="nav-item">
+																			<a class="nav-link" href="chatpopup.html"><span class="nav-link-text">Direct Message</span></a>
+																		</li>
+																		<li class="nav-item">
+																			<a class="nav-link" href="chatbot.html"><span class="nav-link-text">Chatbot Chat</span></a>
+																		</li>
+																	</ul>
+																</li>
+															</ul>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="email.html">
+												<span class="nav-link-text">Email</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_scrumboard">
+												<span class="nav-link-text">Scrumboard</span>
+											</a>
+											<ul id="dash_scrumboard" class="nav flex-column collapse   nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="kanban-board.html"><span class="nav-link-text">Kanban</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="projects-board.html"><span class="nav-link-text">Boards</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="pipeline.html"><span class="nav-link-text">Pipeline</span></a>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_contact">
+												<span class="nav-link-text">Contact</span>
+											</a>
+											<ul id="dash_contact" class="nav flex-column collapse   nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="contact.html"><span class="nav-link-text">Contact List</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="contact-cards.html"><span class="nav-link-text">Contact Cards</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="edit-contact.html"><span class="nav-link-text">Edit Contact</span></a>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_task">
+												<span class="nav-link-text position-relative">Todo
+													<span class="badge badge-danger badge-indicator position-absolute top-0 start-100"></span>
+												</span>
+											</a>
+											<ul id="dash_task" class="nav flex-column collapse   nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="tasklist.html"><span class="nav-link-text">Tasklist</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="gantt.html"><span class="nav-link-text">Gantt</span></a>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_invoice">
+												<span class="nav-link-text">Invoices</span>
+											</a>
+											<ul id="dash_invoice" class="nav flex-column collapse   nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="invoice-list.html"><span class="nav-link-text">Invoice List</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="invoice-templates.html"><span class="nav-link-text">Invoice Templates</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="create-invoice.html"><span class="nav-link-text">Create Invoice</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="invoice-preview.html"><span class="nav-link-text">Invoice Preview</span></a>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="calendar.html">
+												<span class="nav-link-text">Calendar</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_file">
+												<span class="nav-link-text">File Manager</span>
+											</a>
+											<ul id="dash_file" class="nav flex-column collapse  nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="file-manager-list.html"><span class="nav-link-text">List</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="file-manager-grid.html"><span class="nav-link-text">Grid</span></a>
+														</li>
+													</ul>	
+												</li>	
+											</ul>	
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="gallery.html">
+												<span class="nav-link-text">Gallery</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_blog">
+												<span class="nav-link-text">Blog</span>
+											</a>
+											<ul id="dash_blog" class="nav flex-column collapse  nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="posts.html"><span class="nav-link-text">Posts</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="add-new-post.html"><span class="nav-link-text">Edit Posts</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="post-detail.html"><span class="nav-link-text">Post Detail</span></a>
+														</li>
+													</ul>	
+												</li>	
+											</ul>	
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_integ">
+												<span class="nav-link-text">Integrations</span>
+											</a>
+											<ul id="dash_integ" class="nav flex-column collapse  nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="all-apps.html"><span class="nav-link-text">All Apps</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="integrations-detail.html"><span class="nav-link-text">App Detail</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="integrations.html"><span class="nav-link-text">Integrations</span></a>
+														</li>
+													</ul>	
+												</li>	
+											</ul>	
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_pages">
+												<span class="nav-link-text">Authentication</span>
+											</a>
+											<ul id="dash_pages" class="nav flex-column collapse  nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item">
+															<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_log">
+																<span class="nav-link-text">Log In</span> 
+															</a>
+															<ul id="dash_log" class="nav flex-column collapse  nav-children">
+																<li class="nav-item">
+																	<ul class="nav flex-column">
+																		<li class="nav-item">
+																			<a class="nav-link" href="login.html"><span class="nav-link-text">Login</span></a>
+																		</li>
+																		<li class="nav-item">
+																			<a class="nav-link" href="login-simple.html"><span class="nav-link-text">Login Simple</span></a>
+																		</li>
+																		<li class="nav-item">
+																			<a class="nav-link" href="login-classic.html"><span class="nav-link-text">Login Classic</span></a>
+																		</li>
+																	</ul>	
+																</li>	
+															</ul>	
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_sign">
+																<span class="nav-link-text">Sign Up</span>
+															</a>
+															<ul id="dash_sign" class="nav flex-column collapse  nav-children">
+																<li class="nav-item">
+																	<ul class="nav flex-column">
+																		<li class="nav-item">
+																			<a class="nav-link" href="signup.html"><span class="nav-link-text">Signup</span></a>
+																		</li>
+																		<li class="nav-item">
+																			<a class="nav-link" href="signup-simple.html"><span class="nav-link-text">Signup Simple</span></a>
+																		</li>
+																		<li class="nav-item">
+																			<a class="nav-link" href="signup-classic.html"><span class="nav-link-text">Signup Classic</span></a>
+																		</li>
+																	</ul>		
+																</li>	
+															</ul>	
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="lock-screen.html"><span class="nav-link-text">Lock Screen</span></a>
+														</li>
+														
+														<li class="nav-item">
+															<a class="nav-link" href="reset-password.html"><span class="nav-link-text">Reset Password</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="404.html"><span class="nav-link-text">Error 404</span></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="503.html"><span class="nav-link-text">Error 503</span></a>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item active">
+											<a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_profile">
+												<span class="nav-link-text">Profile</span>
+											</a>
+											<ul id="dash_profile" class="nav flex-column collapse  nav-children">
+												<li class="nav-item">
+													<ul class="nav flex-column">
+														<li class="nav-item active">
+															<a class="nav-link" href="profile.html">
+																<span class="nav-link-text">Profile</span>
+															</a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="edit-profile.html">
+																<span class="nav-link-text">Edit Profile</span>
+															</a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="account.html">
+																<span class="nav-link-text">Account</span>
+															</a>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="https://nubra-ui.hencework.com/" target="_blank">
+												<span class="nav-link-text">Documentation</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="https://nubra-ui.hencework.com/avatar.html" target="_blank">
+												<span class="nav-link-text">Components</span>
+											</a>
+										</li>
+									</ul>	
+								</div>
+							</div>
+						</div>
+						<!-- /Main Menu -->
+					</div>
+					<div id="hk_menu_backdrop" class="hk-menu-backdrop"></div>
+					<!-- /Navbar Nav -->
+
+				</div>
+				<!-- /Start Nav -->
+				
+				<!-- End Nav -->
+				<div class="nav-end-wrap">
+					<!-- Search -->
+					<form class="dropdown navbar-search me-2">
+						<div class="dropdown-toggle no-caret" data-bs-toggle="dropdown" data-dropdown-animation data-bs-auto-close="outside">
+							<a href="#" class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover  d-xl-none"><span class="icon"><span class="feather-icon"><i data-feather="search"></i></span></span></a>
+							<div class="input-group d-xl-flex d-none">
+								<span class="input-affix-wrapper input-search affix-border">
+									<input type="text" class="form-control  bg-transparent"  data-navbar-search-close="false" placeholder="Search..." aria-label="Search">
+									<span class="input-suffix"><span>/</span>
+										<span class="btn-input-clear"><i class="bi bi-x-circle-fill"></i></span>
+										<span class="spinner-border spinner-border-sm input-loader text-primary" role="status">
+											<span class="sr-only">Loading...</span>
+										</span>
+									</span>
+								</span>
+							</div>
+						</div>
+						<div  class="dropdown-menu p-0">
+							<!-- Mobile Search -->
+							<div class="dropdown-item d-xl-none bg-transparent">
+								<div class="input-group mobile-search">
+									<span class="input-affix-wrapper input-search">
+										<input type="text" class="form-control" placeholder="Search..." aria-label="Search">
+										<span class="input-suffix">
+											<span class="btn-input-clear"><i class="bi bi-x-circle-fill"></i></span>
+											<span class="spinner-border spinner-border-sm input-loader text-primary" role="status">
+												<span class="sr-only">Loading...</span>
+											</span>
+										</span>
+									</span>
+								</div>
+							</div>
+							<!--/ Mobile Search -->
+							<div data-simplebar class="dropdown-body p-2">
+								<h6 class="dropdown-header">Recent Search
+								</h6>
+								<div class="dropdown-item bg-transparent">
+									<a href="#" class="badge badge-pill badge-soft-secondary">Grunt</a>
+									<a href="#" class="badge badge-pill badge-soft-secondary">Node JS</a>
+									<a href="#" class="badge badge-pill badge-soft-secondary">SCSS</a>
+								</div>
+								<div class="dropdown-divider"></div>
+								<h6 class="dropdown-header">Help
+								</h6>
+								<a href="javascript:void(0);" class="dropdown-item">
+									<div class="media align-items-center">
+										<div class="media-head me-2">
+											<div class="avatar avatar-icon avatar-xs avatar-soft-light avatar-rounded">
+												<span class="initial-wrap">
+													<span class="svg-icon">
+														<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-corner-down-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+															<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+															<path d="M6 6v6a3 3 0 0 0 3 3h10l-4 -4m0 8l4 -4"></path>
+														 </svg>
+													</span>
+												</span>
+											</div>
+										</div>
+										<div class="media-body">
+											How to setup theme?
+										</div>
+									</div>
+								</a>
+								<a href="javascript:void(0);" class="dropdown-item">
+									<div class="media align-items-center">
+										<div class="media-head me-2">
+											<div class="avatar avatar-icon avatar-xs avatar-soft-light avatar-rounded">
+												<span class="initial-wrap">
+													<span class="svg-icon">
+														<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-corner-down-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+															<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+															<path d="M6 6v6a3 3 0 0 0 3 3h10l-4 -4m0 8l4 -4"></path>
+														 </svg>
+													</span>
+												</span>
+											</div>
+										</div>
+										<div class="media-body">
+											View detail documentation
+										</div>
+									</div>
+								</a>
+								<div class="dropdown-divider"></div>
+								<h6 class="dropdown-header">Users
+								</h6>
+								<a href="javascript:void(0);" class="dropdown-item">
+									<div class="media align-items-center">
+										<div class="media-head me-2">
+											<div class="avatar avatar-xs avatar-rounded">
+												<img src="dist/img/avatar3.jpg" alt="user" class="avatar-img">
+											</div>
+										</div>
+										<div class="media-body">
+											Sarah Jone
+										</div>
+									</div>
+								</a>
+								<a href="javascript:void(0);" class="dropdown-item">
+									<div class="media align-items-center">
+										<div class="media-head me-2">
+											<div class="avatar avatar-xs avatar-soft-primary avatar-rounded">
+												<span class="initial-wrap">J</span>
+											</div>
+										</div>
+										<div class="media-body">
+											Joe Jackson
+										</div>
+									</div>
+								</a>
+								<a href="javascript:void(0);" class="dropdown-item">
+									<div class="media align-items-center">
+										<div class="media-head me-2">
+											<div class="avatar avatar-xs avatar-rounded">
+												<img src="dist/img/avatar4.jpg" alt="user" class="avatar-img">
+											</div>
+										</div>
+										<div class="media-body">
+											Maria Richard
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="dropdown-footer d-xl-flex d-none"><a href="#"><u>Search all</u></a></div>
+						</div>
+					</form>
+					<!-- /Search -->
+
+					<ul class="navbar-nav flex-row">
+						<li class="nav-item">
+							<a href="email.html" class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover"><span class="icon"><span class=" position-relative"><span class="feather-icon"><i data-feather="inbox"></i></span><span class="badge badge-sm badge-soft-primary badge-sm badge-pill position-top-end-overflow-1">4</span></span></span></a>
+						</li>
+						<li class="nav-item">
+							<div class="dropdown dropdown-notifications">
+								<a href="#" class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover dropdown-toggle no-caret" data-bs-toggle="dropdown" data-dropdown-animation role="button" aria-haspopup="true" aria-expanded="false"><span class="icon"><span class="position-relative"><span class="feather-icon"><i data-feather="bell"></i></span><span class="badge badge-success badge-indicator position-top-end-overflow-1"></span></span></span></a>
+								<div class="dropdown-menu dropdown-menu-end p-0">
+									<h6 class="dropdown-header px-4 fs-6">Notifications<a href="#" class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover"><span class="icon"><span class="feather-icon"><i data-feather="settings"></i></span></span></a>
+									</h6>
+									<div data-simplebar class="dropdown-body  p-2">
+										<a href="javascript:void(0);" class="dropdown-item">
+											<div class="media">
+												<div class="media-head">
+													<div class="avatar avatar-rounded avatar-sm">
+														<img src="dist/img/avatar2.jpg" alt="user" class="avatar-img">
+													</div>
+												</div>
+												<div class="media-body">
+													<div>
+														<div class="notifications-text">Morgan Freeman accepted your invitation to join the team</div>
+														<div class="notifications-info">
+															<span class="badge badge-soft-success">Collaboration</span>
+															<div class="notifications-time">Today, 10:14 PM</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+										<a href="javascript:void(0);" class="dropdown-item">
+											<div class="media">
+												<div class="media-head">
+													<div class="avatar  avatar-icon avatar-sm avatar-success avatar-rounded">
+														<span class="initial-wrap">
+															<span class="feather-icon"><i data-feather="inbox"></i></span>
+														</span>
+													</div>
+												</div>
+												<div class="media-body">
+													<div>
+														<div class="notifications-text">New message received from Alan Rickman</div>
+														<div class="notifications-info">
+															<div class="notifications-time">Today, 7:51 AM</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+										<a href="javascript:void(0);" class="dropdown-item">
+											<div class="media">
+												<div class="media-head">
+													<div class="avatar  avatar-icon avatar-sm avatar-pink avatar-rounded">
+														<span class="initial-wrap">
+															<span class="feather-icon"><i data-feather="clock"></i></span>
+														</span>
+													</div>
+												</div>
+												<div class="media-body">
+													<div>
+														<div class="notifications-text">You have a follow up with Jampack Head on Friday, Dec 19 at 9:30 am</div>
+														<div class="notifications-info">
+															<div class="notifications-time">Yesterday, 9:25 PM</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+										<a href="javascript:void(0);" class="dropdown-item">
+											<div class="media">
+												<div class="media-head">
+													<div class="avatar avatar-sm avatar-rounded">
+														<img src="dist/img/avatar3.jpg" alt="user" class="avatar-img">
+													</div>
+												</div>
+												<div class="media-body">
+													<div>
+														<div class="notifications-text">Application of Sarah Williams is waiting for your approval</div>
+														<div class="notifications-info">
+															<div class="notifications-time">Today 10:14 PM</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+										<a href="javascript:void(0);" class="dropdown-item">
+											<div class="media">
+												<div class="media-head">
+													<div class="avatar avatar-sm avatar-rounded">
+														<img src="dist/img/avatar10.jpg" alt="user" class="avatar-img">
+													</div>
+												</div>
+												<div class="media-body">
+													<div>	
+														<div class="notifications-text">Winston Churchil shared a document with you</div>
+														<div class="notifications-info">
+															<span class="badge badge-soft-violet">File Manager</span>
+															<div class="notifications-time">2 Oct, 2021</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+										<a href="javascript:void(0);" class="dropdown-item">
+											<div class="media">
+												<div class="media-head">
+													<div class="avatar  avatar-icon avatar-sm avatar-danger avatar-rounded">
+														<span class="initial-wrap">
+															<span class="feather-icon"><i data-feather="calendar"></i></span>
+														</span>
+													</div>
+												</div>
+												<div class="media-body">
+													<div>	
+														<div class="notifications-text">Last 2 days left for the project to be completed</div>
+														<div class="notifications-info">
+															<span class="badge badge-soft-orange">Updates</span>
+															<div class="notifications-time">14 Sep, 2021</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+									</div>
+									<div class="dropdown-footer"><a href="#"><u>View all notifications</u></a></div>
+								</div>
+							</div>
+						</li>
+						<li class="nav-item">
+							<div class="dropdown ps-2">
+								<a class=" dropdown-toggle no-caret" href="#" role="button" data-bs-display="static" data-bs-toggle="dropdown" data-dropdown-animation data-bs-auto-close="outside" aria-expanded="false">
+									<div class="avatar avatar-rounded avatar-xs">
+										<img src="dist/img/avatar12.jpg" alt="user" class="avatar-img">
+									</div>
+								</a>
+								<div class="dropdown-menu dropdown-menu-end">
+									<div class="p-2">
+										<div class="media">
+											<div class="media-head me-2">
+												<div class="avatar avatar-primary avatar-sm avatar-rounded">
+													<span class="initial-wrap">Hk</span>
+												</div>
+											</div>
+											<div class="media-body">
+												<div class="dropdown">
+													<a href="#" class="d-block dropdown-toggle link-dark fw-medium"  data-bs-toggle="dropdown" data-dropdown-animation data-bs-auto-close="inside">Hencework</a>
+													<div class="dropdown-menu dropdown-menu-end">
+														<div class="p-2">
+															<div class="media align-items-center active-user mb-3">
+																<div class="media-head me-2">
+																	<div class="avatar avatar-primary avatar-xs avatar-rounded">
+																		<span class="initial-wrap">Hk</span>
+																	</div>
+																</div>
+																<div class="media-body">
+																	<a href="#" class="d-flex align-items-center link-dark">Hencework <i class="ri-checkbox-circle-fill fs-7 text-primary ms-1"></i></a>
+																	<a href="#" class="d-block fs-8 link-secondary"><u>Manage your account</u></a>
+																</div>
+															</div>
+															<div class="media align-items-center mb-3">
+																<div class="media-head me-2">
+																	<div class="avatar avatar-xs avatar-rounded">
+																		<img src="dist/img/avatar12.jpg" alt="user" class="avatar-img">
+																	</div>
+																</div>
+																<div class="media-body">
+																	<a href="#" class="d-block link-dark">Jampack Team</a>
+																	<a href="#" class="d-block fs-8 link-secondary">contact@hencework.com</a>
+																</div>
+															</div>
+															<button class="btn btn-block btn-outline-light btn-sm">
+																<span><span class="icon"><span class="feather-icon"><i data-feather="plus"></i></span></span>
+																<span>Add Account</span></span>
+															</button>
+														</div>
+													</div>
+												</div>
+												<div class="fs-7">contact@hencework.com</div>
+												<a href="#" class="d-block fs-8 link-secondary"><u>Sign Out</u></a>
+											</div>
+										</div>
+									</div>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="profile.html">Profile</a>
+									<a class="dropdown-item" href="#"><span class="me-2">Offers</span><span class="badge badge-sm badge-soft-pink">2</span></a><div class="dropdown-divider"></div>
+									<h6 class="dropdown-header">Manage Account</h6>
+									<a class="dropdown-item" href="#"><span class="dropdown-icon feather-icon"><i data-feather="credit-card"></i></span><span>Payment methods</span></a>
+									<a class="dropdown-item" href="#"><span class="dropdown-icon feather-icon"><i data-feather="check-square"></i></span><span>Subscriptions</span></a>
+									<a class="dropdown-item" href="#"><span class="dropdown-icon feather-icon"><i data-feather="settings"></i></span><span>Settings</span></a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="#"><span class="dropdown-icon feather-icon"><i data-feather="tag"></i></span><span>Raise a ticket</span></a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="#">Terms & Conditions</a>
+									<a class="dropdown-item" href="#">Help & Support</a>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- /End Nav -->
+			</div>									
+		</nav>
+		<!-- /Top Navbar -->
+
+		<!-- Main Content -->
+		<div class="hk-pg-wrapper">
+			<!-- Page Body -->
+			<div class="hk-pg-body">
+				<div class="container-xxl">
+					<div class="profile-wrap">
+						<div class="profile-img-wrap">
+							<img class="img-fluid rounded-5" src="dist/img/profile-bg.jpg" alt="Image Description">
+						</div>
+						<div class="profile-intro">
+							<div class="card card-flush mw-400p bg-transparent">
+								<div class="card-body">
+									<div class="avatar avatar-xxl avatar-rounded position-relative mb-2">
+										<img src="dist/img/avatar3.jpg" alt="user" class="avatar-img border border-4 border-white">
+										<span class="badge badge-indicator badge-success  badge-indicator-xl position-bottom-end-overflow-1 me-1"></span>
+									</div>
+									<h4>Kate Jones
+										<i class="bi-check-circle-fill fs-6 text-blue" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Top endorsed"></i>
+									</h4>
+									<p>
+										Venenatis tellus in metus vulputate
+									</p>
+									<ul class="list-inline fs-7 mt-2 mb-0">
+										<li class="list-inline-item d-sm-inline-block d-block mb-sm-0 mb-1 me-3">
+										  <i class="bi bi-briefcase me-1"></i>
+										  <a href="#">Co-Founder,</a>
+										  <a href="#">Jampack</a>
+										</li>
+						  
+										<li class="list-inline-item d-sm-inline-block d-block mb-sm-0 mb-1 me-3">
+											<i class="bi bi-geo-alt me-1"></i>
+											<a href="#">San Francisco,</a>
+											<a href="#">US</a>
+										  </li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<header class="profile-header">
+							<ul class="nav nav-line nav-tabs nav-icon nav-light h-100 d-md-flex d-none">
+								<li class="nav-item">
+									<a class="d-flex align-items-center nav-link active h-100" data-bs-toggle="tab" href="#">
+										<span class="nav-link-text">Profile</span>
+									</a>
+								</li>
+								<li class="nav-item">
+									<a class="d-flex align-items-center nav-link h-100" data-bs-toggle="tab" href="#">
+										<span class="nav-link-text">Network</span>
+									</a>
+								</li>
+								<li class="nav-item">
+									<a class="d-flex align-items-center nav-link h-100" data-bs-toggle="tab" href="#">
+										<span class="nav-link-text">Subscription</span>
+									</a>
+								</li>
+							</ul>
+							<select class="form-select mw-200p d-md-none d-flex me-2">
+								<option selected="">Profile</option>
+								<option value="1">Teams</option>
+								<option value="2">Projects</option>
+								<option value="3">Connection</option>
+							</select>
+							<div class="profile-options-wrap">	
+								<a class="btn btn-icon btn-soft-secondary dropdown-toggle no-caret" href="#" data-bs-toggle="dropdown"><span class="icon"><span class="feather-icon"><i data-feather="more-vertical"></i></span></span></a>
+								<div class="dropdown-menu dropdown-menu-end">
+									<a class="dropdown-item" href="#">Action</a>
+									<a class="dropdown-item" href="#">Another action</a>
+									<a class="dropdown-item" href="#">Something else here</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="#">Separated link</a>
+								</div>
+							</div>
+						</header>
+						<div class="row mt-7">
+							<div class="col-lg-4 mb-lg-0 mb-3">
+								<div class="card card-border mb-lg-4 mb-3">
+									<div class="card-header card-header-action">
+										<div class="media align-items-center">
+											<div class="media-head me-2">
+												<div class="avatar avatar-sm avatar-rounded">
+													<img src="dist/img/avatar3.jpg" alt="user" class="avatar-img">
+												</div>
+											</div>
+											<div class="media-body">
+												<div class="fw-medium text-dark">Kate Jones</div>
+												<div class="fs-7">Business Manager</div>
+											</div>
+										</div>
+										<div class="card-action-wrap">
+											<a class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover dropdown-toggle no-caret" href="#" data-bs-toggle="dropdown"><span class="icon"><span class="feather-icon"><i data-feather="settings"></i></span></span></a>
+											<div class="dropdown-menu dropdown-menu-end">
+												<a class="dropdown-item" href="#">Action</a>
+												<a class="dropdown-item" href="#">Another action</a>
+												<a class="dropdown-item" href="#">Something else here</a>
+												<div class="dropdown-divider"></div>
+												<a class="dropdown-item" href="#">Separated link</a>
+											</div>
+										</div>
+									</div>
+									<div class="card-body">
+										<div class="d-flex text-center">
+											<div class="flex-1 border-end">
+												<div>
+													<span class="d-block fs-4 text-dark mb-1">154</span>
+													<span class="d-block text-capitalize fs-7">photos</span>
+												</div>
+											</div>
+											<div class="flex-1 border-end">
+												<div>
+													<span class="d-block fs-4 text-dark mb-1">65</span>
+													<span class="d-block text-capitalize fs-7">followers</span>
+												</div>
+											</div>
+											<div class="flex-1">
+												<div>
+													<span class="d-block fs-4 text-dark mb-1">433</span>
+													<span class="d-block text-capitalize fs-7">views</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<ul class="list-group list-group-flush">
+										<li class="list-group-item border-0"><span><i class="bi bi-calendar-check-fill text-disabled me-2"></i><span class="text-muted">Went to:</span></span><span class="ms-2">Oh, Canada</span></li>
+										<li class="list-group-item border-0"><span><i class="bi bi-briefcase-fill text-disabled me-2"></i><span class="text-muted">Worked at:</span></span><span class="ms-2">Companey</span></li>
+										<li class="list-group-item border-0"><span><i class="bi bi-house-door-fill text-disabled me-2"></i><span class="text-muted">Lives in:</span></span><span class="ms-2">San Francisco, CA</span></li>
+										<li class="list-group-item border-0"><span><i class="bi bi-geo-alt-fill text-disabled me-2"></i><span class="text-muted">From:</span></span><span class="ms-2">Settle, WA</span></li>
+									</ul>
+								</div>
+								<div class="card card-border mb-lg-4 mb-3">
+									<div class="card-header card-header-action">
+										<h6>You know these people ?</h6>
+										<div class="card-action-wrap">
+											<a class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover dropdown-toggle no-caret" href="#" data-bs-toggle="dropdown"><span class="icon"><span class="feather-icon"><i data-feather="more-horizontal"></i></span></span></a>
+											<div class="dropdown-menu dropdown-menu-end">
+												<a class="dropdown-item" href="#">Action</a>
+												<a class="dropdown-item" href="#">Another action</a>
+												<a class="dropdown-item" href="#">Something else here</a>
+												<div class="dropdown-divider"></div>
+												<a class="dropdown-item" href="#">Separated link</a>
+											</div>
+										</div>
+									</div>
+									<ul class="list-group list-group-flush">
+										<li class="list-group-item border-0">
+											<div class="media align-items-center">
+												<div class="media-head me-3">
+													<div class="avatar avatar-sm avatar-rounded">
+														<img src="dist/img/avatar8.jpg" alt="user" class="avatar-img">
+													</div>
+												</div>
+												<div class="media-body">
+													<span class="d-block text-capitalize">Evie Ono</span>
+													<span class="d-block text-muted fs-7">Apple Inc</span>
+												</div>
+												<a class="btn btn-icon btn-rounded btn-sm btn-light" href="#"><span class="icon"><span class="feather-icon"><i data-feather="plus"></i></span></span></a>
+											</div>
+										</li>
+										<li class="list-group-item border-0">
+											<div class="media align-items-center">
+												<div class="media-head me-3">
+													<div class="avatar avatar-sm avatar-rounded">
+														<img src="dist/img/avatar7.jpg" alt="user" class="avatar-img">
+													</div>
+												</div>
+												<div class="media-body">
+													<span class="d-block text-capitalize">Clay Masse</span>
+													<span class="d-block text-muted fs-7">Hencework.com</span>
+												</div>
+												<a class="btn btn-icon btn-rounded btn-sm btn-light " href="#"><span class="icon"><span class="feather-icon"><i data-feather="plus"></i></span></span></a>
+											</div>
+										</li>
+										<li class="list-group-item border-0">
+											<div class="media align-items-center">
+												<div class="media-head me-3">
+													<div class="avatar avatar-sm avatar-rounded">
+														<img src="dist/img/avatar5.jpg" alt="user" class="avatar-img">
+													</div>
+												</div>
+												<div class="media-body">
+													<span class="d-block text-capitalize">Madelyn Rascon</span>
+													<span class="d-block text-muted fs-7">Godaddy.co.in</span>
+												</div>
+												<a class="btn btn-icon btn-rounded btn-sm btn-primary " href="#"><span class="icon"><span class="feather-icon"><i data-feather="check"></i></span></span></a>
+											</div>
+										</li>
+										<li class="list-group-item border-0">
+											<div class="media align-items-center">
+												<div class="media-head me-3">
+													<div class="avatar avatar-sm avatar-rounded">
+														<img src="dist/img/avatar4.jpg" alt="user" class="avatar-img">
+													</div>
+												</div>
+												<div class="media-body">
+													<span class="d-block text-capitalize">Mitsoku Heid</span>
+													<span class="d-block text-muted fs-7">Flipkart</span>
+												</div>
+												<a class="btn btn-icon btn-rounded btn-sm btn-primary" href="#"><span class="icon"><span class="feather-icon"><i data-feather="check"></i></span></span></a>
+											</div>
+										</li>
+										<li class="list-group-item border-0">
+											<div class="media align-items-center">
+												<div class="media-head me-3">
+													<div class="avatar avatar-sm avatar-rounded">
+														<img src="dist/img/avatar3.jpg" alt="user" class="avatar-img">
+													</div>
+												</div>
+												<div class="media-body">
+													<span class="d-block text-capitalize">Eziquiel Merideth</span>
+													<span class="d-block text-muted fs-7">Paypal</span>
+												</div>
+												<a class="btn btn-icon btn-rounded btn-sm btn-light" href="#"><span class="icon"><span class="feather-icon"><i data-feather="plus"></i></span></span></a>
+											</div>
+										</li>
+										<li class="list-group-item border-0">
+											<div class="media align-items-center">
+												<div class="media-head me-3">
+													<div class="avatar avatar-sm avatar-rounded">
+														<img src="dist/img/avatar2.jpg" alt="user" class="avatar-img">
+													</div>
+												</div>
+												<div class="media-body">
+													<span class="d-block text-capitalize">Johnie Metoyer</span>
+													<span class="d-block text-muted fs-7">Robocon</span>
+												</div>
+												<a class="btn btn-icon btn-rounded btn-sm btn-primary" href="#"><span class="icon"><span class="feather-icon"><i data-feather="check"></i></span></span></a>
+											</div>
+										</li>
+									</ul>
+								</div>
+								<div class="card card-border mb-lg-4 mb-3">
+									<div class="card-header card-header-action">
+										<h6>Friends
+											<span class="badge badge-sm badge-light me-1">212</span>
+										</h6>
+										<div class="card-action-wrap">
+											<a href="#">View all</a>
+										</div>
+									</div>
+									<div class="card-body">
+										<div class="row gx-3 text-center">
+											<div class="col-3 mb-3">
+												<div  class="mb-2">
+													<img src="dist/img/avatar1.jpg" alt="user" class="img-fluid rounded">
+												</div>
+												<span class="d-block fs-7 text-truncate">Evie Ono</span>
+											</div>
+											<div class="col-3 mb-3">
+												<div  class="mb-2">
+													<img src="dist/img/avatar2.jpg" alt="user" class="img-fluid rounded">
+												</div>
+												<span class="d-block fs-7 text-truncate">Clay Masse</span>
+											</div>
+											<div class="col-3 mb-3">
+												<div  class="mb-2">
+													<img src="dist/img/avatar3.jpg" alt="user" class="img-fluid rounded">
+												</div>
+												<span class="d-block fs-7 text-truncate">Madelyn Rascon</span>
+											</div>
+											<div class="col-3 mb-3">
+												<div  class="mb-2">
+													<img src="dist/img/avatar4.jpg" alt="user" class="img-fluid rounded">
+												</div>
+												<span class="d-block fs-7 text-truncate">Mitsoku Heid</span>
+											</div>
+											<div class="col-3 mb-3">
+												<div  class="mb-2">
+													<img src="dist/img/avatar5.jpg" alt="user" class="img-fluid rounded">
+												</div>
+												<span class="d-block fs-7 text-truncate">Eziquiel Merideth</span>
+											</div>
+											<div class="col-3 mb-3">
+												<div  class="mb-2">
+													<img src="dist/img/avatar6.jpg" alt="user" class="img-fluid rounded">
+												</div>
+												<span class="d-block fs-7 text-truncate">Johnie Metoyer</span>
+											</div>
+											<div class="col-3 mb-3">
+												<div  class="mb-2">
+													<img src="dist/img/avatar7.jpg" alt="user" class="img-fluid rounded">
+												</div>
+												<span class="d-block fs-7 text-truncate">Angelic Lauver</span>
+											</div>
+											<div class="col-3 mb-3">
+												<div  class="mb-2">
+													<img src="dist/img/avatar8.jpg" alt="user" class="img-fluid rounded">
+												</div>
+												<span class="d-block fs-7 text-truncate">Cecilia Rios</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card card-border mb-lg-4 mb-3">
+									<div class="card-header card-header-action">
+										<h6>Groups
+											<span class="badge badge-sm badge-light me-1">12</span>
+										</h6>
+										<div class="card-action-wrap">
+											<a href="#">View all</a>
+										</div>
+									</div>
+									<ul class="list-group list-group-flush">
+										<li class="list-group-item border-0">
+											<div class="media align-items-center">
+												<div class="media-head me-3">
+													<div class="avatar avatar-sm avatar-rounded">
+														<img src="dist/img/avatar1.jpg" alt="user" class="avatar-img">
+													</div>
+												</div>
+												<div class="media-body">
+													<span class="d-block text-capitalize">Landscape Group</span>
+													<span class="d-block text-muted fs-7">1.25K Members</span>
+												</div>
+											</div>
+										</li>
+										<li class="list-group-item border-0">
+											<div class="media align-items-center">
+												<div class="media-head me-3">
+													<div class="avatar avatar-sm avatar-rounded">
+														<img src="dist/img/avatar2.jpg" alt="user" class="avatar-img">
+													</div>
+												</div>
+												<div class="media-body">
+													<span class="d-block text-capitalize">Josh Groben Fanclub</span>
+													<span class="d-block text-muted fs-7">2M Members</span>
+												</div>
+											</div>
+										</li>
+										<li class="list-group-item border-0">
+											<div class="media align-items-center">
+												<div class="media-head me-3">
+													<div class="avatar avatar-sm avatar-rounded">
+														<img src="dist/img/avatar3.jpg" alt="user" class="avatar-img">
+													</div>
+												</div>
+												<div class="media-body">
+													<span class="d-block text-capitalize">UI/UX Lead</span>
+													<span class="d-block text-muted fs-7">8K Members</span>
+												</div>
+											</div>
+										</li>
+										<li class="list-group-item border-0">
+											<div class="media align-items-center">
+												<div class="media-head me-3">
+													<div class="avatar avatar-sm avatar-rounded">
+														<img src="dist/img/avatar4.jpg" alt="user" class="avatar-img">
+													</div>
+												</div>
+												<div class="media-body">
+													<span class="d-block text-capitalize">Design Yatra</span>
+													<span class="d-block text-muted fs-7">14K Members</span>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+								<div class="card card-border mb-lg-4 mb-3">
+									<div class="card-header card-header-action">
+										<h6>Links 
+											<span class="badge badge-sm badge-light me-1">5</span>
+										</h6>
+										<div class="card-action-wrap">
+											<a href="#">View all</a>
+										</div>
+									</div>
+									<ul class="list-group list-group-flush">
+										<li class="list-group-item border-0">
+											<div class="media align-items-center">
+												<div class="media-head me-3">
+													<div class="avatar avatar-sm avatar-primary avatar-rounded">
+														<span class="initial-wrap">G</span>
+													</div>
+												</div>
+												<div class="media-body">
+													<span class="d-block text-capitalize text-truncate mw-150p">
+														Google</span>
+													<span class="d-block text-muted fs-7 text-truncate mw-150p">google.com</span>
+												</div>
+											</div>
+										</li>
+										<li class="list-group-item border-0">
+											<div class="media align-items-center">
+												<div class="media-head me-3">
+													<div class="avatar avatar-sm avatar-pink avatar-rounded">
+														<span class="initial-wrap">AR</span>
+													</div>
+												</div>
+												<div class="media-body">
+													<span class="d-block text-capitalize text-truncate mw-150p">Improve Your Business</span>
+													<span class="d-block text-muted fs-7 text-truncate mw-150p">yahoo.com</span>
+												</div>
+											</div>
+										</li>
+										<li class="list-group-item border-0">
+											<div class="media align-items-center">
+												<div class="media-head me-3">
+													<div class="avatar avatar-sm avatar-warning avatar-rounded">
+														<span class="initial-wrap">PR</span>
+													</div>
+												</div>
+												<div class="media-body">
+													<span class="d-block text-capitalize text-truncate mw-150p">Cast The Cookware</span>
+													<span class="d-block text-muted fs-7 text-truncate mw-150p">yahoo.com</span>
+												</div>
+											</div>
+										</li>
+										<li class="list-group-item border-0">
+											<div class="media align-items-center">
+												<div class="media-head me-3">
+													<div class="avatar avatar-sm avatar-success avatar-rounded">
+														<span class="initial-wrap">PR</span>
+													</div>
+												</div>
+												<div class="media-body">
+													<span class="d-block text-capitalize text-truncate mw-150p">The Universe Thought Sds</span>
+													<span class="d-block text-muted fs-7 text-truncate mw-150p">facebook.com</span>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+								<div class="card bg-primary text-center">
+									<div class="twitter-slider-wrap card-body">
+										<div class="twitter-icon text-center mb-3">
+											<i class="fab fa-twitter"></i>
+										</div>
+										<div id="tweets_fetch" class="owl-carousel light-owl-dots owl-theme"></div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-8">
+								<div class="card card-border card-profile-feed mb-lg-4 mb-3">
+									<div class="card-header card-header-action">
+										<div class="media align-items-center">
+											<div class="media-head me-2">
+												<div class="avatar avatar-sm avatar-rounded">
+													<img src="dist/img/avatar8.jpg" alt="user" class="avatar-img">
+												</div>
+											</div>
+											<div class="media-body">
+												<div class="fw-medium text-dark">Huma Therman</div>
+												<div class="fs-7">25 Min</div>
+											</div>
+										</div>
+										<div class="card-action-wrap">
+											<a class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover dropdown-toggle no-caret" href="#" data-bs-toggle="dropdown"><span class="icon"><span class="feather-icon"><i data-feather="more-horizontal"></i></span></span></a>
+											<div class="dropdown-menu dropdown-menu-end">
+												<a class="dropdown-item" href="#">Action</a>
+												<a class="dropdown-item" href="#">Another action</a>
+												<a class="dropdown-item" href="#">Something else here</a>
+												<div class="dropdown-divider"></div>
+												<a class="dropdown-item" href="#">Separated link</a>
+											</div>
+										</div>
+									</div>
+									<div class="card-body">
+										<p class="card-text mb-5">There was that time artists at Sequence opted to hand-Sharpie the lorem ipsum passage on a line of paper bags they designed for Chipotle.</p>
+										<div class="card card-border">
+											<div class="position-relative">
+												<img class="card-img-top d-block" src="dist/img/gallery/mock12.jpg" alt="Card image cap">
+												<a href="#" class="btn btn-dark btn-rounded btn-pg-link"><span><span class="icon"><span class="feather-icon"><i data-feather="link-2"></i></span></span><span>Website</span></span></a>
+								
+											</div>
+											<div class="card-body">
+												<h5>Bacon chicken turducken spare ribs.</h5>
+												<p class="card-text">Of course, we'd be remiss not to include the veritable cadre of lorem ipsum knock offs featuring: Bacon Ipsum, Hipster Ipsum, Corporate Ipsum, Legal Ipsum.</p>
+											</div>
+										</div>
+									</div>
+									<div class="card-footer justify-content-between">
+										<div>
+											<a href="#"><i class="bi bi-heart-fill text-primary"></i>30K</a>
+										</div>
+										<div>
+											<a href="#">1K comments</a>
+											<a href="#">12 shares</a>
+										</div>
+									</div>
+								</div>
+								<div class="mb-lg-4 mb-lg-4 mb-3">
+									<div class="card card-border card-profile-feed mb-0 rounded-bottom-0">
+										<div class="card-header card-header-action">
+											<div class="media align-items-center">
+												<div class="media-head me-2">
+													<div class="avatar avatar-sm avatar-rounded">
+														<img src="dist/img/avatar10.jpg" alt="user" class="avatar-img">
+													</div>
+												</div>
+												<div class="media-body">
+													<div class="fw-medium text-dark">Johnie Metoyer</div>
+													<div class="fs-7">03 hrs</div>
+												</div>
+											</div>
+											<div class="card-action-wrap">
+												<a class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover dropdown-toggle no-caret" href="#" data-bs-toggle="dropdown"><span class="icon"><span class="feather-icon"><i data-feather="more-horizontal"></i></span></span></a>
+												<div class="dropdown-menu dropdown-menu-end">
+													<a class="dropdown-item" href="#">Action</a>
+													<a class="dropdown-item" href="#">Another action</a>
+													<a class="dropdown-item" href="#">Something else here</a>
+													<div class="dropdown-divider"></div>
+													<a class="dropdown-item" href="#">Separated link</a>
+												</div>
+											</div>
+										</div>
+										<div class="card-body">
+											<p class="card-text mb-5">Not to mention, Cupcake Ipsum, Bob Ross Ipsum (“happy little clouds”), and the furry Cat Ipsum.</p>
+											<div class="feed-img-layout">
+												<div class="row h-200p">
+													<div class="col-6 h-100">
+														<div class="feed-img h-100" style="background-image:url(dist/img/gallery/mock11.jpg);"></div>
+													</div>
+													<div class="col-6 h-100">
+														<div class="row h-100">
+															<div class="col-sm-12 h-50 pb-2">
+																<div class="feed-img h-100" style="background-image:url(dist/img/gallery/mock12.jpg);"></div>
+															</div>
+															<div class="col-sm-12 h-50">
+																<div class="row h-100">
+																	<div class="col-6 h-100">
+																		<div class="feed-img h-100" style="background-image:url(dist/img/gallery/mock13.jpg);"></div>
+																	</div>
+																	<div class="col-6 h-100">
+																		<div class="feed-img h-100" style="background-image:url(dist/img/gallery/mock14.jpg);"></div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="card-footer justify-content-between">
+											<div>
+												<a href="#"><i class="bi bi-heart-fill text-primary"></i>30K</a>
+											</div>
+											<div>
+												<a href="#">1K comments</a>
+												<a href="#">12 shares</a>
+											</div>
+										</div>
+									</div>
+									<div class="card card-border card-profile-feed border-top-0 rounded-top-0 mb-0">
+										<div class="card-body">
+											<button class="btn btn-light btn-sm btn-block mb-4">Hide comments</button>
+											<div class="comment-block">
+												<div class="media">
+													<div class="media-head">
+														<div class="avatar avatar-xs avatar-rounded">
+															<img src="dist/img/avatar4.jpg" alt="user" class="avatar-img">
+														</div>
+													</div>
+													<div class="media-body">
+														<div>
+															<span class="cm-name">Martin Luther</span>
+														</div>
+														<p>From there, you can run truffle compile, truffle migrate and truffle test to compile your contracts, deploy those contracts to the network, and run their associated unit tests.</p>
+														<div class="comment-action-wrap mt-3">
+															<span>3 hours ago</span>
+															<span class="comment-dot-sep">●</span>
+															<a href="#">Reply</a>
+															<span class="comment-dot-sep">●</span>
+															<a href="#">Like</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="card-footer comment-block">
+											<form class="w-100">
+												<div class="form-group mb-0">
+													<div class="media">
+														<div class="media-head">
+															<div class="avatar avatar-xs avatar-rounded">
+																<img src="dist/img/avatar3.jpg" alt="user" class="avatar-img">
+															</div>
+														</div>
+														<div class="media-body">
+															<textarea class="form-control border-0 bg-transparent shadow-none" rows="1" placeholder="Leave a comment..."></textarea>
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+								<div class="card card-border card-profile-feed">
+									<div class="card-header card-header-action">
+										<div class="media align-items-center">
+											<div class="media-head me-2">
+												<div class="avatar avatar-sm avatar-rounded">
+													<img src="dist/img/avatar9.jpg" alt="user" class="avatar-img">
+												</div>
+											</div>
+											<div class="media-body">
+												<div class="fw-medium text-dark">Mitsoku Heid</div>
+												<div class="fs-7">11 hrs</div>
+											</div>
+										</div>
+										<div class="card-action-wrap">
+											<a class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover dropdown-toggle no-caret" href="#" data-bs-toggle="dropdown"><span class="icon"><span class="feather-icon"><i data-feather="more-horizontal"></i></span></span></a>
+											<div class="dropdown-menu dropdown-menu-end">
+												<a class="dropdown-item" href="#">Action</a>
+												<a class="dropdown-item" href="#">Another action</a>
+												<a class="dropdown-item" href="#">Something else here</a>
+												<div class="dropdown-divider"></div>
+												<a class="dropdown-item" href="#">Separated link</a>
+											</div>
+										</div>
+									</div>
+									<div class="card-body">
+										<p class="card-text mb-5">There was that time artists at Sequence opted to hand-Sharpie the lorem ipsum passage on a line of paper bags they designed for Chipotle.</p>
+										<div class="card card-border">
+											<div class="position-relative">
+												<img class="card-img" src="dist/img/gallery/mock7.jpg" alt="Card image cap">
+												<a href="#" class="btn-video-link"></a>
+											</div>
+										</div>
+									</div>
+									<div class="card-footer justify-content-between">
+										<div>
+											<a href="#"><i class="bi bi-heart-fill text-primary"></i>30K</a>
+										</div>
+										<div>
+											<a href="#">1K comments</a>
+											<a href="#">12 shares</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /Page Body -->
+
+			<!-- Page Footer -->
+			<div class="hk-footer">
+				<footer class="container-xxl footer">
+					<div class="row">
+						<div class="col-xl-8">
+							<p class="footer-text"><span class="copy-text">Jampack © 2022 All rights reserved.</span> <a href="#" class="" target="_blank">Privacy Policy</a><span class="footer-link-sep">|</span><a href="#" class="" target="_blank">T&C</a><span class="footer-link-sep">|</span><a href="#" class="" target="_blank">System Status</a></p>
+						</div>
+						<div class="col-xl-4">
+							<a href="#" class="footer-extr-link link-default"><span class="feather-icon"><i data-feather="external-link"></i></span><u>Send feedback to our help forum</u></a>
+						</div>
+					</div>
+				</footer>
+            </div>
+            <!-- / Page Footer -->
+
+		</div>
+		<!-- /Main Content -->
+	</div>
+    <!-- /Wrapper -->
+
+	<!-- jQuery -->
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JS -->
+   	<script src="vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- FeatherIcons JS -->
+    <script src="dist/js/feather.min.js"></script>
+
+    <!-- Fancy Dropdown JS -->
+    <script src="dist/js/dropdown-bootstrap-extended.js"></script>
+
+	<!-- Simplebar JS -->
+	<script src="vendors/simplebar/dist/simplebar.min.js"></script>
+
+	<!-- twitter JS -->
+    <script src="dist/js/twitterFetcher.js"></script>
+    <script src="dist/js/widgets-data.js"></script>
+
+	<!-- Owl JS -->
+    <script src="vendors/owl.carousel/dist/owl.carousel.min.js"></script>
+	<script src="dist/js/owl-data.js"></script>
+	
+	<!-- Init JS -->
+	<script src="dist/js/init.js"></script>
+	<script src="dist/js/chips-init.js"></script>
+</body>
+</html>
