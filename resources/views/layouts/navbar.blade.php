@@ -4,27 +4,27 @@
             <div class="menu-group">
                 <ul class="navbar-nav flex-column">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" href="/">
                             <span class="nav-link-text">Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" href="#">
                             <span class="nav-link-text">Data Barang</span>
                         </a>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="email.html">
+                        <a class="nav-link" href="#">
                             <span class="nav-link-text">Penjualan</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="email.html">
+                        <a class="nav-link" href="#">
                             <span class="nav-link-text">Pembelian</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="email.html">
+                        <a class="nav-link" href="#">
                             <span class="nav-link-text">Cetak Barcode</span>
                         </a>
                     </li>
@@ -36,31 +36,31 @@
                             <li class="nav-item">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="chats.html"><span class="nav-link-text">Customer</span></a>
+                                        <a class="nav-link" href="#"><span class="nav-link-text">Customer</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="chats-group.html"><span class="nav-link-text">Supplier</span></a>
+                                        <a class="nav-link" href="/supplier"><span class="nav-link-text">Supplier</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="chats-contact.html"><span class="nav-link-text">Model</span></a>
+                                        <a class="nav-link" href="/model"><span class="nav-link-text">Model</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="chats-contact.html"><span class="nav-link-text">Satuan</span></a>
+                                        <a class="nav-link" href="#"><span class="nav-link-text">Satuan</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="chats-contact.html"><span class="nav-link-text">Pabrik</span></a>
+                                        <a class="nav-link" href="#"><span class="nav-link-text">Pabrik</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="chats-contact.html"><span class="nav-link-text">Kadar</span></a>
+                                        <a class="nav-link" href="#"><span class="nav-link-text">Kadar</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="chats-contact.html"><span class="nav-link-text">Barang</span></a>
+                                        <a class="nav-link" href="#"><span class="nav-link-text">Barang</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="chats-contact.html"><span class="nav-link-text">Harga Jual</span></a>
+                                        <a class="nav-link" href="#"><span class="nav-link-text">Harga Jual</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="chats-contact.html"><span class="nav-link-text">Merk</span></a>
+                                        <a class="nav-link" href="#"><span class="nav-link-text">Merk</span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -81,41 +81,41 @@
                                             <li class="nav-item">
                                                 <ul class="nav flex-column">
                                                     <li class="nav-item">
-                                                        <a class="nav-link" href="chatpopup.html"><span class="nav-link-text">Input Penjualan</span></a>
+                                                        <a class="nav-link" href="#"><span class="nav-link-text">Input Penjualan</span></a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" href="chatbot.html"><span class="nav-link-text">Daftar Penjualan</span></a>
+                                                        <a class="nav-link" href="#"><span class="nav-link-text">Daftar Penjualan</span></a>
                                                     </li>
                                                 </ul>
                                             </li>
                                         </ul>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="chats.html"><span class="nav-link-text">Return Penjualan</span></a>
+                                        <a class="nav-link" href="#"><span class="nav-link-text">Return Penjualan</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="chats-group.html"><span class="nav-link-text">Supplier</span></a>
+                                        <a class="nav-link" href="#"><span class="nav-link-text">Supplier</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="chats-contact.html"><span class="nav-link-text">Pembelian</span></a>
+                                        <a class="nav-link" href="#"><span class="nav-link-text">Pembelian</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="chats-contact.html"><span class="nav-link-text">Lebur/Cuci/Reparasi</span></a>
+                                        <a class="nav-link" href="#"><span class="nav-link-text">Lebur/Cuci/Reparasi</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="chats-contact.html"><span class="nav-link-text">Penerimaan Barang</span></a>
+                                        <a class="nav-link" href="#"><span class="nav-link-text">Penerimaan Barang</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="chats-contact.html"><span class="nav-link-text">Hutang</span></a>
+                                        <a class="nav-link" href="#"><span class="nav-link-text">Hutang</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="chats-contact.html"><span class="nav-link-text">Kode Kas</span></a>
+                                        <a class="nav-link" href="#"><span class="nav-link-text">Kode Kas</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="chats-contact.html"><span class="nav-link-text">Pengeluaran</span></a>
+                                        <a class="nav-link" href="#"><span class="nav-link-text">Pengeluaran</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="chats-contact.html"><span class="nav-link-text">Pendapatan Lain</span></a>
+                                        <a class="nav-link" href="#"><span class="nav-link-text">Pendapatan Lain</span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -129,10 +129,10 @@
                             <li class="nav-item">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="chats.html"><span class="nav-link-text">Stock</span></a>
+                                        <a class="nav-link" href="#"><span class="nav-link-text">Stock</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="chats.html"><span class="nav-link-text">History Perhiasan</span></a>
+                                        <a class="nav-link" href="#"><span class="nav-link-text">History Perhiasan</span></a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#dash_wizard">
@@ -142,10 +142,10 @@
                                             <li class="nav-item">
                                                 <ul class="nav flex-column">
                                                     <li class="nav-item">
-                                                        <a class="nav-link" href="chatpopup.html"><span class="nav-link-text">Rekap Penjualan</span></a>
+                                                        <a class="nav-link" href="#"><span class="nav-link-text">Rekap Penjualan</span></a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" href="chatbot.html"><span class="nav-link-text">Detail Penjualan</span></a>
+                                                        <a class="nav-link" href="#"><span class="nav-link-text">Detail Penjualan</span></a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -159,10 +159,10 @@
                                             <li class="nav-item">
                                                 <ul class="nav flex-column">
                                                     <li class="nav-item">
-                                                        <a class="nav-link" href="chatpopup.html"><span class="nav-link-text">Rekap Return Penjualan</span></a>
+                                                        <a class="nav-link" href="#"><span class="nav-link-text">Rekap Return Penjualan</span></a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" href="chatbot.html"><span class="nav-link-text">Detail Return Penjualan</span></a>
+                                                        <a class="nav-link" href="#"><span class="nav-link-text">Detail Return Penjualan</span></a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -176,20 +176,20 @@
                                             <li class="nav-item">
                                                 <ul class="nav flex-column">
                                                     <li class="nav-item">
-                                                        <a class="nav-link" href="chatpopup.html"><span class="nav-link-text">Direct Message</span></a>
+                                                        <a class="nav-link" href="#"><span class="nav-link-text">Direct Message</span></a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" href="chatbot.html"><span class="nav-link-text">Chatbot Chat</span></a>
+                                                        <a class="nav-link" href="#"><span class="nav-link-text">Chatbot Chat</span></a>
                                                     </li>
                                                 </ul>
                                             </li>
                                         </ul>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="chats.html"><span class="nav-link-text">Lebur/Cuci/Reparasi</span></a>
+                                        <a class="nav-link" href="#"><span class="nav-link-text">Lebur/Cuci/Reparasi</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="chats-group.html"><span class="nav-link-text">Cash on Flow</span></a>
+                                        <a class="nav-link" href="#"><span class="nav-link-text">Cash on Flow</span></a>
                                     </li>
                                 </ul>
                             </li>

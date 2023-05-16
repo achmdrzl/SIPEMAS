@@ -9,38 +9,11 @@
                 <div class="d-flex">
                     <div class="d-flex flex-wrap justify-content-between flex-1">
                         <div class="mb-lg-0 mb-2 me-8">
-                            <h1 class="pg-title">Welcome back</h1>
-                            <p>Create pages using a variety of features that leverage jampack components</p>
-                        </div>
-                        <div class="pg-header-action-wrap">
-                            <div class="input-group w-300p">
-                                <span class="input-affix-wrapper">
-                                    <span class="input-prefix"><span class="feather-icon"><i
-                                                data-feather="calendar"></i></span></span>
-                                    <input class="form-control form-wth-icon" name="datetimes"
-                                        value="Aug 18,2020 - Aug 19, 2020">
-                                </span>
-                            </div>
+                            <h1 class="pg-title">Data Supplier</h1>
+                            <p>Manajemen Pengelolaan Data Supplier Toko Emas</p>
                         </div>
                     </div>
                 </div>
-                <ul class="nav nav-line nav-light nav-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-bs-toggle="tab" href="#">
-                            <span class="nav-link-text">Overview</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#">
-                            <span class="nav-link-text">Analytics</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#">
-                            <span class="nav-link-text">Operations</span>
-                        </a>
-                    </li>
-                </ul>
             </div>
             <!-- /Page Header -->
 
@@ -52,7 +25,7 @@
                             <div class="col-md-12 mb-md-4 mb-3">
                                 <div class="card card-border mb-0 h-100">
                                     <div class="card-header card-header-action">
-                                        <h6>New Customers
+                                        <h6>Data Supplier
                                             <span class="badge badge-sm badge-light ms-1">240</span>
                                         </h6>
                                         <div class="card-action-wrap">
@@ -71,23 +44,21 @@
                                             <table id="datable_31" class="table nowrap table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th>Name</th>
-                                                        <th>Position</th>
-                                                        <th>Office</th>
-                                                        <th>Age</th>
-                                                        <th>Start date</th>
-                                                        <th>Salary</th>
+                                                        <th>Kode</th>
+                                                        <th>Nama</th>
+                                                        <th>Kontak</th>
+                                                        <th>Alamat</th>
+                                                        <th>Kota</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td>Tiger Nixon</td>
-                                                        <td>System Architect</td>
-                                                        <td>Edinburgh</td>
-                                                        <td>61</td>
-                                                        <td>2011/04/25</td>
-                                                        <td>$320,800</td>
+                                                        <td>001</td>
+                                                        <td>Tiger Nixion</td>
+                                                        <td>08123652367</td>
+                                                        <td>Jl. Wonokromo</td>
+                                                        <td>Surabaya</td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
@@ -106,12 +77,11 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Adwez Nash</td>
-                                                        <td>Software Engineer</td>
-                                                        <td>India</td>
-                                                        <td>38</td>
-                                                        <td>2014/05/03</td>
-                                                        <td>$763,500</td>
+                                                        <td>002</td>
+                                                        <td>Lion King</td>
+                                                        <td>0812365123</td>
+                                                        <td>Jl. Tunjungan</td>
+                                                        <td>Surabaya</td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
@@ -130,12 +100,11 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Garrett Winters</td>
-                                                        <td>Accountant</td>
-                                                        <td>Tokyo</td>
-                                                        <td>63</td>
-                                                        <td>2011/07/25</td>
-                                                        <td>$170,750</td>
+                                                        <td>003</td>
+                                                        <td>Giraffe</td>
+                                                        <td>0812362323</td>
+                                                        <td>Jl. Pucang</td>
+                                                        <td>Surabaya</td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
@@ -154,36 +123,11 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Ashton Cox</td>
-                                                        <td>Junior Technical Author</td>
-                                                        <td>San Francisco</td>
-                                                        <td>66</td>
-                                                        <td>2009/01/12</td>
-                                                        <td>$86,000</td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Edit"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="edit-2"></i></span></span></a>
-                                                                <a class="btn btn-icon btn-danger btn-rounded flush-soft-hover del-button"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Delete"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="trash"></i></span></span></a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Cedric Kelly</td>
-                                                        <td>Senior Javascript Developer</td>
-                                                        <td>Edinburgh</td>
-                                                        <td>22</td>
-                                                        <td>2012/03/29</td>
-                                                        <td>$433,060</td>
+                                                        <td>004</td>
+                                                        <td>Crocodile</td>
+                                                        <td>0812312739</td>
+                                                        <td>Jl. Semolowaru</td>
+                                                        <td>Surabaya</td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"

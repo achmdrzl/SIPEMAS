@@ -11,4 +11,13 @@ class MasterDataController extends Controller
     {
         return view('dashboard');
     }
+
+    public function supplier()
+    {
+        return view('masterdata.data-supplier');
+    }
+
+    public function model(){
+        return view('masterdata.data-model');
+    }
 }

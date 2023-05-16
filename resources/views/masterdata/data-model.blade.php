@@ -9,38 +9,11 @@
                 <div class="d-flex">
                     <div class="d-flex flex-wrap justify-content-between flex-1">
                         <div class="mb-lg-0 mb-2 me-8">
-                            <h1 class="pg-title">Welcome back</h1>
-                            <p>Create pages using a variety of features that leverage jampack components</p>
-                        </div>
-                        <div class="pg-header-action-wrap">
-                            <div class="input-group w-300p">
-                                <span class="input-affix-wrapper">
-                                    <span class="input-prefix"><span class="feather-icon"><i
-                                                data-feather="calendar"></i></span></span>
-                                    <input class="form-control form-wth-icon" name="datetimes"
-                                        value="Aug 18,2020 - Aug 19, 2020">
-                                </span>
-                            </div>
+                            <h1 class="pg-title">Data Model</h1>
+                            <p>Manajemen Pengelolaan Data Model Toko Emas</p>
                         </div>
                     </div>
                 </div>
-                <ul class="nav nav-line nav-light nav-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-bs-toggle="tab" href="#">
-                            <span class="nav-link-text">Overview</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#">
-                            <span class="nav-link-text">Analytics</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#">
-                            <span class="nav-link-text">Operations</span>
-                        </a>
-                    </li>
-                </ul>
             </div>
             <!-- /Page Header -->
 
@@ -52,7 +25,7 @@
                             <div class="col-md-12 mb-md-4 mb-3">
                                 <div class="card card-border mb-0 h-100">
                                     <div class="card-header card-header-action">
-                                        <h6>New Customers
+                                        <h6>Data Model
                                             <span class="badge badge-sm badge-light ms-1">240</span>
                                         </h6>
                                         <div class="card-action-wrap">

@@ -15,3 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', MasterDataController::class. '@index');
+Route::get('/supplier', MasterDataController::class. '@supplier');
+Route::get('/model', MasterDataController::class. '@model');
+
