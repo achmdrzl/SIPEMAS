@@ -436,16 +436,6 @@ Contact: contact@hencework.com
 	<script src="{{ asset('backend/vendors/daterangepicker/daterangepicker.js')}}"></script>
 	<script src="{{ asset('backend/dist/js/daterangepicker-data.js')}}"></script>
 
-	<!-- Amcharts Maps JS -->
-	<script src="{{ asset('backend/vendors/@amcharts/amcharts4/core.js')}}"></script>
-	<script src="{{ asset('backend/vendors/@amcharts/amcharts4/maps.js')}}"></script>
-	<script src="{{ asset('backend/vendors/@amcharts/amcharts4-geodata/worldLow.js')}}"></script>
-	<script src="{{ asset('backend/vendors/@amcharts/amcharts4-geodata/worldHigh.js')}}"></script>
-	<script src="{{ asset('backend/vendors/@amcharts/amcharts4/themes/animated.js')}}"></script>
-
-	<!-- Apex JS -->
-	<script src="{{ asset('backend/vendors/apexcharts/dist/apexcharts.min.js')}}"></script>
-
 	<!-- Init JS -->
 	<script src="{{ asset('backend/dist/js/init.js')}}"></script>
 	<script src="{{ asset('backend/dist/js/chips-init.js')}}"></script>
