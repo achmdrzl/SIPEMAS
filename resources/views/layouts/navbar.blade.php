@@ -9,7 +9,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/barang">
                             <span class="nav-link-text">Data Barang</span>
                         </a>
                     </li>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\MasterBarangController;
 use App\Http\Controllers\Backend\MasterDataController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', MasterDataController::class. '@index');
+Route::get('/barang', MasterBarangController::class. '@list_barang');
 Route::get('/supplier', MasterDataController::class. '@supplier');
 Route::get('/model', MasterDataController::class. '@model');
 

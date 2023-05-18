@@ -18,6 +18,9 @@ Contact: contact@hencework.com
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 	
+	<!-- Bootstrap Dropify CSS -->
+	<link href="{{ asset('backend/vendors/dropify/dist/css/dropify.min.css')}}" rel="stylesheet" type="text/css" />
+
 	<!-- Daterangepicker CSS -->
     <link href="{{ asset('backend/vendors/daterangepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
 
@@ -27,6 +30,7 @@ Contact: contact@hencework.com
 
 	<!-- CSS -->
     <link href="{{ asset('backend/dist/css/style.css')}}" rel="stylesheet" type="text/css">
+	
 </head>
 <body>
    	<!-- Wrapper -->
@@ -436,8 +440,22 @@ Contact: contact@hencework.com
 	<script src="{{ asset('backend/vendors/daterangepicker/daterangepicker.js')}}"></script>
 	<script src="{{ asset('backend/dist/js/daterangepicker-data.js')}}"></script>
 
+	<!-- Select2 JS -->
+	<script src="{{ asset('backend/vendors/select2/dist/js/select2.full.min.js')}}"></script>
+	<script src="{{ asset('backend/dist/js/select2-data.js')}}"></script>
+
+	<!-- Dropify JS -->
+	<script src="{{ asset('backend/vendors/dropify/dist/js/dropify.min.js')}}"></script>
+	<script src="{{ asset('backend/dist/js/rating.js')}}"></script>
+
+	<!-- Rating JS -->
+	<script src="{{ asset('backend/dist/js/jquery.star-rating-svg.min.js')}}"></script>
+	<script src="{{ asset('backend/dist/js/contact-data.js')}}"></script>
+
+
 	<!-- Init JS -->
 	<script src="{{ asset('backend/dist/js/init.js')}}"></script>
+	<script src="{{ asset('backend/dist/js/contact-data.js')}}"></script> 
 	<script src="{{ asset('backend/dist/js/chips-init.js')}}"></script>
 	<script src="{{ asset('backend/dist/js/dashboard-data.js')}}"></script>
 </body>

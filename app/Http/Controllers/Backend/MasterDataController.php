@@ -12,6 +12,11 @@ class MasterDataController extends Controller
         return view('dashboard');
     }
 
+    public function tes()
+    {
+        return view('data-barang');
+    }
+
     public function supplier()
     {
         return view('masterdata.data-supplier');
