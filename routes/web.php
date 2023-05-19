@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\MasterBarangController;
 use App\Http\Controllers\Backend\MasterDataController;
+use App\Http\Controllers\Backend\TransaksiPenjualanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', MasterDataController::class. '@index');
+Route::get('/transaksi_penjualan', TransaksiPenjualanController::class. '@transaksi_penjualan');
 Route::get('/barang', MasterBarangController::class. '@list_barang');
 Route::get('/supplier', MasterDataController::class. '@supplier');
 Route::get('/model', MasterDataController::class. '@model');
