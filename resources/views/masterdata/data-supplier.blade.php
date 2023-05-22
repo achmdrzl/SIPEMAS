@@ -33,7 +33,8 @@
                                                             class="feather-icon"><i
                                                                 data-feather="upload"></i></span></span><span
                                                         class="btn-text">import</span></span></button>
-                                            <button class="btn btn-sm btn-primary ms-3" data-bs-toggle="modal" data-bs-target="#tambah_barang"><span><span class="icon"><span
+                                            <button class="btn btn-sm btn-primary ms-3" data-bs-toggle="modal"
+                                                data-bs-target="#tambahSupplier"><span><span class="icon"><span
                                                             class="feather-icon"><i
                                                                 data-feather="plus"></i></span></span><span
                                                         class="btn-text">Add new</span></span></button>
@@ -41,7 +42,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="contact-list-view">
-                                            <table id="datable_31" class="table nowrap table-striped">
+                                            <table id="datable_7" class="table nowrap table-striped">
                                                 <thead>
                                                     <tr>
                                                         <th>Kode</th>
@@ -65,14 +66,16 @@
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Edit"
                                                                     href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="edit-2"  data-bs-toggle="modal" data-bs-target="#edit_barang"></i></span></span></a>
+                                                                            class="feather-icon"><i data-feather="edit-2"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#edit_barang"></i></span></span></a>
                                                                 <a class="btn btn-icon btn-danger btn-rounded flush-soft-hover del-button"
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Delete"
                                                                     href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="trash"  data-bs-toggle="modal" data-bs-target="#hapus_barang"></i></span></span></a>
+                                                                            class="feather-icon"><i data-feather="trash"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#hapus_barang"></i></span></span></a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -88,14 +91,16 @@
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Edit"
                                                                     href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="edit-2"  data-bs-toggle="modal" data-bs-target="#edit_barang"></i></span></span></a>
+                                                                            class="feather-icon"><i data-feather="edit-2"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#edit_barang"></i></span></span></a>
                                                                 <a class="btn btn-icon btn-danger btn-rounded flush-soft-hover del-button"
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Delete"
                                                                     href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="trash"  data-bs-toggle="modal" data-bs-target="#hapus_barang"></i></span></span></a>
+                                                                            class="feather-icon"><i data-feather="trash"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#hapus_barang"></i></span></span></a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -111,14 +116,16 @@
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Edit"
                                                                     href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="edit-2"  data-bs-toggle="modal" data-bs-target="#edit_barang"></i></span></span></a>
+                                                                            class="feather-icon"><i data-feather="edit-2"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#edit_barang"></i></span></span></a>
                                                                 <a class="btn btn-icon btn-danger btn-rounded flush-soft-hover del-button"
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Delete"
                                                                     href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="trash"  data-bs-toggle="modal" data-bs-target="#hapus_barang"></i></span></span></a>
+                                                                            class="feather-icon"><i data-feather="trash"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#hapus_barang"></i></span></span></a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -134,14 +141,16 @@
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Edit"
                                                                     href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="edit-2"  data-bs-toggle="modal" data-bs-target="#edit_barang"></i></span></span></a>
+                                                                            class="feather-icon"><i data-feather="edit-2"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#edit_barang"></i></span></span></a>
                                                                 <a class="btn btn-icon btn-danger btn-rounded flush-soft-hover del-button"
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Delete"
                                                                     href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="trash"  data-bs-toggle="modal" data-bs-target="#hapus_barang"></i></span></span></a>
+                                                                            class="feather-icon"><i data-feather="trash"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#hapus_barang"></i></span></span></a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -156,14 +165,16 @@
                 </div>
             </div>
             <!-- /Page Body -->
-            <!-- tambah modal -->
-            <div class="modal fade" id="tambah_barang" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+
+            {{-- Modal Tambah Supplier --}}
+            <div class="modal fade" id="tambahSupplier" tabindex="-1" role="dialog" aria-labelledby="modalSupplier"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h6 class="modal-title" >Tambah Supplier Baru</h6>
+                            <h5 class="modal-title">Tambah Data Supplier Baru</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
+                                <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
@@ -172,11 +183,13 @@
                                     <div class="col-sm-12">
                                         <label class="form-label">Kode</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" value="" placeholder="Kode" name="kode_edit" />
-                                        </div>	
+                                            <input class="form-control" type="text" value="" placeholder="Kode"
+                                                name="kode_edit" />
+                                        </div>
                                         <label class="form-label">Nama</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" value="" placeholder="Nama" name="Nama_edit" />
+                                            <input class="form-control" type="text" value="" placeholder="Nama"
+                                                name="Nama_edit" />
                                         </div>
                                     </div>
                                 </div>
@@ -184,14 +197,16 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="form-label">Kontak</label>
-                                            <input class="form-control" type="text"  value="" placeholder="085........" name="name" />
+                                            <input class="form-control" type="text" value=""
+                                                placeholder="085........" name="name" />
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="form-label">Kota</label>
                                             <div class="form-group">
-                                                <input class="form-control" type="text" value="" placeholder="Nama Kota" name="Nama_edit" />
+                                                <input class="form-control" type="text" value=""
+                                                    placeholder="Nama Kota" name="Nama_edit" />
                                             </div>
                                         </div>
                                     </div>
@@ -200,28 +215,30 @@
                                     <div class="col-sm-12">
                                         <label class="form-label">Alamat</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" value="" placeholder="Jl. Nama Jalan..." name="kode_edit" />
-                                        </div>	 
+                                            <input class="form-control" type="text" value=""
+                                                placeholder="Jl. Nama Jalan..." name="kode_edit" />
+                                        </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
-                        <div class="modal-footer align-items-center">
-                            <button type="button" class="btn btn-secondary">Cancel</button>
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Edit</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- tambah modal -->
-            <!-- edit modal -->
-            <div class="modal fade" id="edit_barang" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+
+            {{-- Modal Tambah Supplier --}}
+            <div class="modal fade" id="edit_barang" tabindex="-1" role="dialog" aria-labelledby="modalSupplier"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h6 class="modal-title" >Edit Supplier</h6>
+                            <h5 class="modal-title">Tambah Data Supplier Baru</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
+                                <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
@@ -230,11 +247,13 @@
                                     <div class="col-sm-12">
                                         <label class="form-label">Kode</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" value="" placeholder="Kode" name="kode_edit" />
-                                        </div>	
+                                            <input class="form-control" type="text" value="" placeholder="Kode"
+                                                name="kode_edit" />
+                                        </div>
                                         <label class="form-label">Nama</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" value="" placeholder="Nama" name="Nama_edit" />
+                                            <input class="form-control" type="text" value="" placeholder="Nama"
+                                                name="Nama_edit" />
                                         </div>
                                     </div>
                                 </div>
@@ -242,14 +261,16 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="form-label">Kontak</label>
-                                            <input class="form-control" type="text"  value="" placeholder="085........" name="name" />
+                                            <input class="form-control" type="text" value=""
+                                                placeholder="085........" name="name" />
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="form-label">Kota</label>
                                             <div class="form-group">
-                                                <input class="form-control" type="text" value="" placeholder="Nama Kota" name="Nama_edit" />
+                                                <input class="form-control" type="text" value=""
+                                                    placeholder="Nama Kota" name="Nama_edit" />
                                             </div>
                                         </div>
                                     </div>
@@ -258,22 +279,25 @@
                                     <div class="col-sm-12">
                                         <label class="form-label">Alamat</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" value="" placeholder="Jl. Nama Jalan..." name="kode_edit" />
-                                        </div>	 
+                                            <input class="form-control" type="text" value=""
+                                                placeholder="Jl. Nama Jalan..." name="kode_edit" />
+                                        </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
-                        <div class="modal-footer align-items-center">
-                            <button type="button" class="btn btn-secondary">Cancel</button>
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Edit</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- edit modal -->
+
+
             <!-- hapus modal -->
-            <div class="modal fade" id="hapus_barang" tabindex="-1" role="dialog" aria-labelledby="exampleModalSmall01" aria-hidden="true">
+            <div class="modal fade" id="hapus_barang" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalSmall01" aria-hidden="true">
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
