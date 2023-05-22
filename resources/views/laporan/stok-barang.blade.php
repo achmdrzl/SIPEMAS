@@ -9,28 +9,11 @@
                 <div class="d-flex">
                     <div class="d-flex flex-wrap justify-content-between flex-1">
                         <div class="mb-lg-0 mb-2 me-8">
-                            <h1 class="pg-title">Data Barang</h1>
-                            <p>Managemen Pengelolaan Data Barang Toko Emas</p>
+                            <h1 class="pg-title">Laporan Stok Barang</h1>
+                            <p>Managemen Pengelolaan Data Stok Barang Toko Emas</p>
                         </div> 
                     </div>
-                </div>
-                <ul class="nav nav-line nav-light nav-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-bs-toggle="tab" href="#">
-                            <span class="nav-link-text">Overview</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#">
-                            <span class="nav-link-text">Analytics</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#">
-                            <span class="nav-link-text">Operations</span>
-                        </a>
-                    </li>
-                </ul>
+                </div> 
             </div>
             <!-- /Page Header -->
 
@@ -42,33 +25,24 @@
                             <div class="col-md-12 mb-md-4 mb-3">
                                 <div class="card card-border mb-0 h-100">
                                     <div class="card-header card-header-action">
-                                        <h6>List Data Barang
-                                            <span class="badge badge-sm badge-light ms-1">5</span>
-                                        </h6>
-                                        <div class="card-action-wrap">
-                                            <button class="btn btn-sm btn-outline-light"><span><span class="icon"><span
-                                                            class="feather-icon"><i
-                                                                data-feather="upload"></i></span></span><span
-                                                        class="btn-text">import</span></span></button>
-                                            <button class="btn btn-sm btn-primary ms-3"  data-bs-toggle="modal" data-bs-target="#tambah_barang"><span><span class="icon"><span
-                                                            class="feather-icon"><i
-                                                                data-feather="plus"></i></span></span><span
-                                                        class="btn-text">Tambah Barang</span></span></button>
-                                        </div>
+                                        <h6>List Data Alur Stock Barang 
+                                        </h6> 
                                     </div>
                                     <div class="card-body">
+                                        <select class="form-control">
+                                            <option>Pilih Barang</option> 
+                                            <option value="AK">Liontin Huruf S 6 MT AD</option>
+                                            <option value="HI">Kalung Santa UBS420</option> 
+                                        </select> 
                                         <div class="contact-list-view">
                                             <table id="datable_31" class="table nowrap table-striped">
                                                 <thead>
                                                     <tr> 
                                                         <th>Nama</th>
-                                                        <th>Berat</th>
-                                                        <th>Satuan</th>
-                                                        <th>Jenis</th>
-                                                        <th>Aktif</th>
-                                                        <th>Lokasi</th>
-                                                        <th>Stok</th>
-                                                        <th>Action</th>
+                                                        <th>Tanggal</th>
+                                                        <th>Kondisi Barang</th>
+                                                        <th>No. Transaksi</th>
+                                                        <th>Keterangan</th> 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -86,34 +60,11 @@
                                                                 </div>
                                                             </div>
                                                         </td> 
-                                                        <td>0.75</td>
-                                                        <td>Pcs</td>
-                                                        <td>Perhiasan</td>
-                                                        <td style="color: green;">Aktif</td> 
-                                                        <td>Terjual</td>
-                                                        <td>3</td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <a class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Pindah Etalase"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="airplay"></i></span></span></a>
-                                                                <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Edit"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="edit-2"  data-bs-toggle="modal" data-bs-target="#edit_barang"></i></span></span></a>
-                                                                <a class="btn btn-icon btn-danger btn-rounded flush-soft-hover del-button"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Delete"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="trash" data-bs-toggle="modal" data-bs-target="#hapus_barang"></i></span></span></a>
-                                                            </div>
-                                                        </td>
+                                                        <td>20 Januari 2023</td>
+                                                        <td>-</td>
+                                                        <td>240357</td>
+                                                        <td style="color: green;">Stock Awal</td> 
+                                                         
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -124,39 +75,16 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="media-body">
-                                                                    <div class="text-high-em">Anting Jepret COR 2 Baris</div> 
-                                                                    <div class="fs-7"   class="table-link-text link-medium-em">0200610500003 </div> 
+                                                                    <div class="text-high-em">Anting Gondel Rantai Italy 2</div> 
+                                                                    <div class="fs-7"   class="table-link-text link-medium-em">0200610500002 </div> 
                                                                 </div>
                                                             </div>
                                                         </td> 
-                                                        <td>1.40</td>
-                                                        <td>Pcs</td>
-                                                        <td>Perhiasan</td>
-                                                        <td style="color: red;">Tidak Aktif</td> 
-                                                        <td>Blm Dipajang</td>
-                                                        <td>3</td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <a class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Pindah Etalase"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="airplay"></i></span></span></a>
-                                                                <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Edit"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="edit-2"  data-bs-toggle="modal" data-bs-target="#edit_barang"></i></span></span></a>
-                                                                <a class="btn btn-icon btn-danger btn-rounded flush-soft-hover del-button"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Delete"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="trash" data-bs-toggle="modal" data-bs-target="#hapus_barang"></i></span></span></a>
-                                                            </div>
-                                                        </td>
+                                                        <td>30 Januari 2023</td>
+                                                        <td>-</td>
+                                                        <td>240357</td>
+                                                        <td style="color: red;">Jual</td> 
+                                                         
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -167,125 +95,16 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="media-body">
-                                                                    <div class="text-high-em">Gelang Rantai 1 Plat</div> 
-                                                                    <div class="fs-7"   class="table-link-text link-medium-em">0200610500003 </div> 
+                                                                    <div class="text-high-em">Anting Gondel Rantai Italy 2</div> 
+                                                                    <div class="fs-7"   class="table-link-text link-medium-em">0200610500002 </div> 
                                                                 </div>
                                                             </div>
                                                         </td> 
-                                                        <td>2.75</td>
-                                                        <td>Pcs</td>
-                                                        <td>Perhiasan</td>
-                                                        <td style="color: green;">Aktif</td> 
-                                                        <td>Etalase</td>
-                                                        <td>3</td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <a class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Pindah Etalase"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="airplay"  ></i></span></span></a>
-                                                                <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Edit"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="edit-2" data-bs-toggle="modal" data-bs-target="#edit_barang"></i></span></span></a>
-                                                                <a class="btn btn-icon btn-danger btn-rounded flush-soft-hover del-button"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Delete"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="trash" data-bs-toggle="modal" data-bs-target="#hapus_barang"></i></span></span></a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="media align-items-center">
-                                                                <div class="media-head me-2">
-                                                                    <div class="avatar avatar-xs avatar-rounded">
-                                                                        <img src="backend/dist/img/logo-avatar-1.png" alt="user" class="avatar-img">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="media-body">
-                                                                    <div class="text-high-em">Liontin Huruf S 6 MT AD</div> 
-                                                                    <div class="fs-7"   class="table-link-text link-medium-em">0200610500032 </div> 
-                                                                </div>
-                                                            </div>
-                                                        </td> 
-                                                        <td>0.65</td>
-                                                        <td>Pcs</td>
-                                                        <td>Perhiasan</td>
-                                                        <td style="color: green;">Aktif</td> 
-                                                        <td>Terjual</td>
-                                                        <td>3</td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <a class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Pindah Etalase"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="airplay"  data-bs-toggle="modal" data-bs-target="#edit_barang"></i></span></span></a>
-                                                                <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Edit"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="edit-2"></i></span></span></a>
-                                                                <a class="btn btn-icon btn-danger btn-rounded flush-soft-hover del-button"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Delete"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="trash" data-bs-toggle="modal" data-bs-target="#hapus_barang"></i></span></span></a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="media align-items-center">
-                                                                <div class="media-head me-2">
-                                                                    <div class="avatar avatar-xs avatar-rounded">
-                                                                        <img src="backend/dist/img/logo-avatar-1.png" alt="user" class="avatar-img">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="media-body">
-                                                                    <div class="text-high-em">Kalung Santa UBS420</div> 
-                                                                    <div class="fs-7"   class="table-link-text link-medium-em">0200610540002 </div> 
-                                                                </div>
-                                                            </div>
-                                                        </td> 
-                                                        <td>2.75</td>
-                                                        <td>Pcs</td>
-                                                        <td>Perhiasan</td>
-                                                        <td style="color: red;">Tidak Aktif</td> 
-                                                        <td>Terjual</td>
-                                                        <td>3</td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <a class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Pindah Etalase"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="airplay"  data-bs-toggle="modal" data-bs-target="#edit_barang"></i></span></span></a>
-                                                                <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Edit"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="edit-2"></i></span></span></a>
-                                                                <a class="btn btn-icon btn-danger btn-rounded flush-soft-hover del-button"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Delete"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="trash" data-bs-toggle="modal" data-bs-target="#hapus_barang"></i></span></span></a>
-                                                            </div>
-                                                        </td>
+                                                        <td>20 Mei 2023</td>
+                                                        <td>Baik</td>
+                                                        <td>240357</td>
+                                                        <td style="color: green;">Retur Masuk</td> 
+                                                         
                                                     </tr>
                                                 </tbody>
                                             </table>

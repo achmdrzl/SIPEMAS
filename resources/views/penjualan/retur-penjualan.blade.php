@@ -9,8 +9,8 @@
                 <div class="d-flex">
                     <div class="d-flex flex-wrap justify-content-between flex-1">
                         <div class="mb-lg-0 mb-2 me-8">
-                            <h1 class="pg-title">Transaksi Penjualan</h1>
-                            <p>POS Toko Emas</p>
+                            <h1 class="pg-title">Retur Penjualan</h1>
+                            <p>Penjualan Kembali dari Barang yang Telah dibeli di Toko Emas</p>
                         </div> 
                     </div>
                 </div>
@@ -29,17 +29,7 @@
                                     <div class="col-sm">
                                         <form class="form-inline p-3 bg-grey-light-5 rounded">
                                             <div class="row gx-3 align-items-center">
-                                                <div class="col-xl-auto mb-xl-0 mb-2">
-                                                    <label class="form-label mb-xl-0">Jenis Pnejualan</label>
-                                                </div>
-                                                <div class="col-xl-auto mb-xl-0 mb-2">
-                                                    <select class="form-select">
-                                                        <option selected="">Perhiasan</option>
-                                                        <option value="1">One</option>
-                                                        <option value="2">Two</option>
-                                                        <option value="3">Three</option>
-                                                    </select>
-                                                </div>
+                                                 
                                                 <div class="col-xl-auto mb-xl-0 mb-2">
                                                     <label class="form-label mb-xl-0">Tanggal</label>
                                                 </div>
@@ -54,7 +44,15 @@
                                             </div>
                                             <div class="row gx-3 align-items-center">
                                                 <div class="col-xl-auto mb-xl-0 mb-2">
-                                                    <label class="form-label mb-xl-0">No. Faktur : <b> FP2030501001</b> </label>
+                                                    <label class="form-label mb-xl-0">No. Bukti  : <b> FP2030501001</b> </label>
+                                                </div> 
+                                            </div>
+                                            <div class="row gx-3 align-items-center">
+                                                <div class="col-xl-auto mb-xl-0 mb-1"> 
+                                                    <label class="form-label mb-xl-0">No. Faktur :   </label> 
+                                                </div> 
+                                                <div class="col-xl-auto mb-xl-0 mb-0    "> 
+                                                    <input type="text" class="form-control  " value="" placeholder="Isi No Faktur">
                                                 </div> 
                                             </div>
                                         </form>
@@ -66,16 +64,17 @@
                                             <thead class="thead-primary">
                                                 <tr>
                                                     <th>Nama</th> 
-                                                    <th colspan="2">Berat asli - jual</th>
-                                                    <th >Harga</th>
+                                                    <th >Berat</th>
+                                                    <th >Kondisi</th>
                                                     <th>Diskon(Rp)</th>
+                                                    <th>Harga</th>
                                                     <th>Jumlah</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr class="table-row-gap"><td></td></tr>
                                                 <tr>
-                                                    <td class="w-35 rounded-top-start border-end-0 border-bottom-0">  
+                                                    <td class="w-25 rounded-top-start border-end-0 border-bottom-0">  
                                                             <select class="form-control">
                                                                 <option>Pilih Barang</option> 
                                                                 <option value="AK">Liontin Huruf S 6 MT AD</option>
@@ -85,8 +84,8 @@
 
                                                     <td class="w-10 border-end-0 border-bottom-0"><input type="text" class="form-control qty" value="2.1"></td>
 
-                                                    <td class="w-10 border-end-0 border-bottom-0"><input type="text" class="form-control price" value="2.1"></td>
-                                                    <td class="w-15 border-end-0 border-bottom-0"><input type="text" class="form-control discount" value="705000"></td>
+                                                    <td class="w-15 border-end-0 border-bottom-0"><input type="text" class="form-control " value="Baik"></td>
+                                                    <td class="w-15 border-end-0 border-bottom-0"><input type="text" class="form-control price" value="705000"></td>
                                                     <td class="w-15 border-end-0 border-bottom-0"><input type="text" class="form-control discount" value="0"></td>
 
                                                     <td class="w-20  rounded-end  bg-primary-light-5 close-over position-relative" rowspan="2"><input type="text" class="form-control bg-transparent border-0 p-0 total" value="" readonly> 
@@ -94,10 +93,24 @@
                                                         <span aria-hidden="true">×</span>
                                                     </button></td>
                                                 </tr> 
+                                                <tr>
+                                                    <td>
+                                                        <label class="form-label">Barang Setelah Retur : </label>
+                                                    </td> 
+                                                    <td class="w-10 border-end-0 border-bottom-0"><input type="text" class="form-control  " value="2.1"></td> 
+                                                    <td>
+                                                         
+                                                    </td>
+                                                    <td>
+                                                         
+                                                    </td>
+                                                    <td class="w-15 border-end-0 border-bottom-0"><input type="text" class="form-control discount" value="705000"></td>
+
+                                                </tr>
                                             </tbody>
                                         </table>
                                         <a class="d-inline-flex align-items-center add-new-row" href="#">
-                                            <i class="ri-add-box-line me-1"></i> Tambah Penjualan
+                                            <i class="ri-add-box-line me-1"></i> Tambah Barang Retur
                                         </a>
                                     </div>	
                                 </div>
@@ -149,7 +162,7 @@
                                         <button class="btn btn-sm btn-primary ms-3"  data-bs-toggle="modal" data-bs-target="#tambah_barang"><span><span class="icon"><span
                                             class="feather-icon"><i
                                                 data-feather="plus"></i></span></span><span
-                                        class="btn-text">Simpan Transaksi</span></span></button>
+                                        class="btn-text">Simpan Retur Penjualan</span></span></button>
                                     </div>
                                      
                                 </div>	

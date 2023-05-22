@@ -448,7 +448,7 @@ Contact: contact@hencework.com
 
 	<!-- Select2 JS -->
 	<script src="{{ asset('backend/vendors/select2/dist/js/select2.full.min.js')}}"></script>
-	<script src="{{ asset('backend/dist/js/select2-data.js')}}"></script>
+	<script src="{{ asset('backend/dist/js/select2-data.js')}}"></script> 
 
 	<!-- Dropify JS -->
 	<script src="{{ asset('backend/vendors/dropify/dist/js/dropify.min.js')}}"></script>
@@ -472,5 +472,6 @@ Contact: contact@hencework.com
 	<script src="{{ asset('backend/dist/js/chips-init.js')}}"></script>
 	<script src="{{ asset('backend/dist/js/dashboard-data.js')}}"></script>
 	<script src="{{ asset('backend/dist/js/create-invoice-data.js')}}"></script>
+
 </body>
 </html>

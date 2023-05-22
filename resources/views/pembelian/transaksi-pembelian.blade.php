@@ -9,8 +9,8 @@
                 <div class="d-flex">
                     <div class="d-flex flex-wrap justify-content-between flex-1">
                         <div class="mb-lg-0 mb-2 me-8">
-                            <h1 class="pg-title">Transaksi Penjualan</h1>
-                            <p>POS Toko Emas</p>
+                            <h1 class="pg-title">Transaksi Pembelian</h1>
+                            <p>Restock Kebutuhan Barang Pada Toko Emas</p>
                         </div> 
                     </div>
                 </div>
@@ -30,14 +30,14 @@
                                         <form class="form-inline p-3 bg-grey-light-5 rounded">
                                             <div class="row gx-3 align-items-center">
                                                 <div class="col-xl-auto mb-xl-0 mb-2">
-                                                    <label class="form-label mb-xl-0">Jenis Pnejualan</label>
+                                                    <label class="form-label mb-xl-0">Supplier</label>
                                                 </div>
                                                 <div class="col-xl-auto mb-xl-0 mb-2">
                                                     <select class="form-select">
-                                                        <option selected="">Perhiasan</option>
-                                                        <option value="1">One</option>
-                                                        <option value="2">Two</option>
-                                                        <option value="3">Three</option>
+                                                        <option selected="">Tiger Nixion</option>
+                                                        <option value="1">Lion King</option>
+                                                        <option value="2">Giraffe</option>
+                                                        <option value="3">Crocodile</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-xl-auto mb-xl-0 mb-2">
@@ -54,7 +54,7 @@
                                             </div>
                                             <div class="row gx-3 align-items-center">
                                                 <div class="col-xl-auto mb-xl-0 mb-2">
-                                                    <label class="form-label mb-xl-0">No. Faktur : <b> FP2030501001</b> </label>
+                                                    <label class="form-label mb-xl-0">No. Bukti : <b> FP2030501001</b> </label>
                                                 </div> 
                                             </div>
                                         </form>
@@ -66,9 +66,9 @@
                                             <thead class="thead-primary">
                                                 <tr>
                                                     <th>Nama</th> 
-                                                    <th colspan="2">Berat asli - jual</th>
-                                                    <th >Harga</th>
-                                                    <th>Diskon(Rp)</th>
+                                                    <th >Berat</th>
+                                                    <th >Beli Nas</th>
+                                                    <th>N. Tukar</th>
                                                     <th>Jumlah</th>
                                                 </tr>
                                             </thead>
@@ -84,8 +84,7 @@
                                                     </td>
 
                                                     <td class="w-10 border-end-0 border-bottom-0"><input type="text" class="form-control qty" value="2.1"></td>
-
-                                                    <td class="w-10 border-end-0 border-bottom-0"><input type="text" class="form-control price" value="2.1"></td>
+ 
                                                     <td class="w-15 border-end-0 border-bottom-0"><input type="text" class="form-control discount" value="705000"></td>
                                                     <td class="w-15 border-end-0 border-bottom-0"><input type="text" class="form-control discount" value="0"></td>
 
@@ -97,7 +96,7 @@
                                             </tbody>
                                         </table>
                                         <a class="d-inline-flex align-items-center add-new-row" href="#">
-                                            <i class="ri-add-box-line me-1"></i> Tambah Penjualan
+                                            <i class="ri-add-box-line me-1"></i> Tambah Pembelian
                                         </a>
                                     </div>	
                                 </div>
@@ -112,11 +111,11 @@
                                                             <td class="rounded-top-end border-bottom-0 w-30 bg-primary-light-5"><input type="text" class="form-control bg-transparent border-0 p-0 gross-total" value="" readonly></td>
                                                         </tr>
                                                         <tr>
-                                                            <td colspan="3" class="border-end-0 border-bottom-0">Diskon Barang : </td>
+                                                            <td colspan="3" class="border-end-0 border-bottom-0">Diskon : </td>
                                                             <td class="border-bottom-0  bg-primary-light-5"><input type="text" class="form-control bg-transparent border-0 p-0 gross-discount" value="" readonly></td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="border-end-0 border-bottom-0">Extra Diskon : </td>
+                                                            <td class="border-end-0 border-bottom-0">PPN : </td>
                                                             <td class="border-end-0 border-bottom-0 w-25"><input type="text" class="form-control extdiscount" value="0"></td>
                                                             <td class="border-end-0 border-bottom-0 w-25">
                                                                  %

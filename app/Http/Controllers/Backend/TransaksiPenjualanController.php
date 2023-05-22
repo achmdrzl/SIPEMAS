@@ -11,4 +11,12 @@ class TransaksiPenjualanController extends Controller
     {
         return view('penjualan.transaksi-penjualan');
     }
+
+    public function retur_penjualan()
+    {
+        return view('penjualan.retur-penjualan');
+    }public function invoice_penjualan()
+    {
+        return view('penjualan.invoice-struk-penjualan');
+    }
 }
