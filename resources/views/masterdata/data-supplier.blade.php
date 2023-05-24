@@ -42,7 +42,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="contact-list-view">
-                                            <table id="datable_7" class="table nowrap table-striped">
+                                            <table id="datable_3" class="table nowrap table-striped">
                                                 <thead>
                                                     <tr>
                                                         <th>Kode</th>
@@ -50,6 +50,7 @@
                                                         <th>Kontak</th>
                                                         <th>Alamat</th>
                                                         <th>Kota</th>
+                                                        <th>Status Supplier</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -60,6 +61,7 @@
                                                         <td>08123652367</td>
                                                         <td>Jl. Wonokromo</td>
                                                         <td>Surabaya</td>
+                                                        <td><div class="badge badge-success">Aktif</div></td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
@@ -85,6 +87,7 @@
                                                         <td>0812365123</td>
                                                         <td>Jl. Tunjungan</td>
                                                         <td>Surabaya</td>
+                                                        <td><div class="badge badge-success">Aktif</div></td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
@@ -110,6 +113,7 @@
                                                         <td>0812362323</td>
                                                         <td>Jl. Pucang</td>
                                                         <td>Surabaya</td>
+                                                        <td><div class="badge badge-danger">Tidak Aktif</div></td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
@@ -135,6 +139,7 @@
                                                         <td>0812312739</td>
                                                         <td>Jl. Semolowaru</td>
                                                         <td>Surabaya</td>
+                                                        <td><div class="badge badge-danger">Tidak Aktif</div></td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
@@ -230,13 +235,13 @@
                 </div>
             </div>
 
-            {{-- Modal Tambah Supplier --}}
+            {{-- Modal Edit Supplier --}}
             <div class="modal fade" id="edit_barang" tabindex="-1" role="dialog" aria-labelledby="modalSupplier"
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Tambah Data Supplier Baru</h5>
+                            <h5 class="modal-title">Edit Data Supplier</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -293,7 +298,6 @@
                     </div>
                 </div>
             </div>
-
 
             <!-- hapus modal -->
             <div class="modal fade" id="hapus_barang" tabindex="-1" role="dialog"

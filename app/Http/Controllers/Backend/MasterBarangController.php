@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 
 class MasterBarangController extends Controller
 {
-    public function list_barang()
+    public function barangIndex()
     {
-        return view('data-barang');
+        return view('masterdata.data-barang');
     }
 }

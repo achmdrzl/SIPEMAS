@@ -87,7 +87,7 @@ $(function () {
 	}
 
 	function calc_total() {
-		var total = 0;
+		var total = 0;70
 		var discounts = 0;
 		$('.total').each(function () {
 			total += parseInt($(this).val());
@@ -103,6 +103,7 @@ $(function () {
 		ext_discount = $('.extdiscount').val();
 		grosstot = $('.gross-total').val();
 		$('.extdiscount-read').val(ext_discount);
+		
 		if ($('.extra-disc-type').val() == 1)
 			subtotal = grosstot - (grosstot * ext_discount / 100);
 		else

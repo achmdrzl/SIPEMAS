@@ -22,10 +22,6 @@ Contact: contact@hencework.com
     <!-- Bootstrap Dropify CSS -->
     <link href="{{ asset('backend/vendors/dropify/dist/css/dropify.min.css') }}" rel="stylesheet" type="text/css" />
 
-    <!-- Bootstrap Colorpicker -->
-    <link href="{{ asset('backend/vendors/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}"
-        rel="stylesheet" type="text/css" />
-
     <!-- Daterangepicker CSS -->
     <link href="{{ asset('backend/vendors/daterangepicker/daterangepicker.css') }}" rel="stylesheet" type="text/css" />
 
@@ -536,22 +532,22 @@ Contact: contact@hencework.com
     <script src="{{ asset('backend/vendors/jquery.repeater/jquery.repeater.min.js') }}"></script>
 
     <!-- Data Table JS -->
-    <script src="{{ asset('backend/vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{ asset('backend/vendors/datatables.net-bs5/js/dataTables.bootstrap5.min.js')}}"></script>
-    <script src="{{ asset('backend/vendors/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
-    <script src="{{ asset('backend/vendors/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js')}}"></script>
-    <script src="{{ asset('backend/vendors/datatables.net-buttons/js/buttons.flash.min.js')}}"></script>
-    <script src="{{ asset('backend/vendors/jszip/dist/jszip.min.js')}}"></script>
-    <script src="{{ asset('backend/vendors/pdfmake/build/pdfmake.min.js')}}"></script>
-    <script src="{{ asset('backend/vendors/pdfmake/build/vfs_fonts.js')}}"></script>
-    <script src="{{ asset('backend/vendors/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
-    <script src="{{ asset('backend/vendors/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
-    <script src="{{ asset('backend/vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
-    <script src="{{ asset('backend/vendors/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js')}}"></script>
-    <script src="{{ asset('backend/vendors/datatables.net-select/js/dataTables.select.min.js')}}"></script>
-    <script src="{{ asset('backend/vendors/datatables.net-fixedcolumns/js/dataTables.fixedColumns.min.js')}}"></script>
-    <script src="{{ asset('backend/vendors/datatables.net-rowreorder/js/dataTables.rowReorder.min.js')}}"></script>
-    <script src="{{ asset('backend/dist/js/dataTables-data.js')}}"></script>
+    <script src="{{ asset('backend/vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('backend/vendors/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('backend/vendors/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('backend/vendors/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('backend/vendors/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
+    <script src="{{ asset('backend/vendors/jszip/dist/jszip.min.js') }}"></script>
+    <script src="{{ asset('backend/vendors/pdfmake/build/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('backend/vendors/pdfmake/build/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('backend/vendors/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('backend/vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('backend/vendors/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('backend/vendors/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('backend/vendors/datatables.net-select/js/dataTables.select.min.js') }}"></script>
+    <script src="{{ asset('backend/vendors/datatables.net-fixedcolumns/js/dataTables.fixedColumns.min.js') }}"></script>
+    <script src="{{ asset('backend/vendors/datatables.net-rowreorder/js/dataTables.rowReorder.min.js') }}"></script>
+    <script src="{{ asset('backend/dist/js/dataTables-data.js') }}"></script>
 
 
     <!-- Daterangepicker JS -->
@@ -572,18 +568,11 @@ Contact: contact@hencework.com
     <script src="{{ asset('backend/dist/js/jquery.star-rating-svg.min.js') }}"></script>
     <script src="{{ asset('backend/dist/js/contact-data.js') }}"></script>
 
-    <!-- Bootstrap Colorpicker JS -->
-    <script src="{{ asset('backend/vendors/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') }}"></script>
-    <script src="{{ asset('backend/dist/js/color-picker-data.js') }}"></script>
-
     <!-- Tinymce JS -->
     <script src="{{ asset('backend/vendors/tinymce/tinymce.min.js') }}"></script>
 
     <!-- Init JS -->
     <script src="{{ asset('backend/dist/js/init.js') }}"></script>
-    <script src="{{ asset('backend/dist/js/contact-data.js') }}"></script>
-    <script src="{{ asset('backend/dist/js/chips-init.js') }}"></script>
-    <script src="{{ asset('backend/dist/js/dashboard-data.js') }}"></script>
     <script src="{{ asset('backend/dist/js/create-invoice-data.js') }}"></script>
 </body>
 

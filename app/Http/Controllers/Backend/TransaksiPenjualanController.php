@@ -9,13 +9,14 @@ class TransaksiPenjualanController extends Controller
 {
     public function transaksi_penjualan()
     {
-        return view('penjualan.transaksi-penjualan');
+        return view('penjualan.penjualan-index');
     }
 
     public function retur_penjualan()
     {
         return view('penjualan.retur-penjualan');
-    }public function invoice_penjualan()
+    }
+    public function invoice_penjualan()
     {
         return view('penjualan.invoice-struk-penjualan');
     }

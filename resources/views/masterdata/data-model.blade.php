@@ -41,136 +41,138 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="contact-list-view">
-                                            <table id="datable_31" class="table nowrap table-striped">
+                                            <table id="datable_3" class="table nowrap table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th>Name</th>
-                                                        <th>Position</th>
-                                                        <th>Office</th>
-                                                        <th>Age</th>
-                                                        <th>Start date</th>
-                                                        <th>Salary</th>
+                                                        <th>Kode</th>
+                                                        <th>Model</th>
+                                                        <th>Status Model</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td>Tiger Nixon</td>
-                                                        <td>System Architect</td>
-                                                        <td>Edinburgh</td>
-                                                        <td>61</td>
-                                                        <td>2011/04/25</td>
-                                                        <td>$320,800</td>
+                                                        <td>01</td>
+                                                        <td>Cincin Cor</td>
+                                                        <td>
+                                                            <div class="badge badge-success">Aktif</div>
+                                                        </td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Edit"
                                                                     href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="edit-2"></i></span></span></a>
+                                                                            class="feather-icon"><i data-feather="edit-2"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#edit_barang"></i></span></span></a>
                                                                 <a class="btn btn-icon btn-danger btn-rounded flush-soft-hover del-button"
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Delete"
                                                                     href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="trash"></i></span></span></a>
+                                                                            class="feather-icon"><i data-feather="trash"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#hapus_barang"></i></span></span></a>
                                                             </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Adwez Nash</td>
-                                                        <td>Software Engineer</td>
-                                                        <td>India</td>
-                                                        <td>38</td>
-                                                        <td>2014/05/03</td>
-                                                        <td>$763,500</td>
+                                                        <td>02</td>
+                                                        <td>Cincin Plat</td>
+                                                        <td>
+                                                            <div class="badge badge-success">Aktif</div>
+                                                        </td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Edit"
                                                                     href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="edit-2"></i></span></span></a>
+                                                                            class="feather-icon"><i data-feather="edit-2"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#edit_barang"></i></span></span></a>
                                                                 <a class="btn btn-icon btn-danger btn-rounded flush-soft-hover del-button"
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Delete"
                                                                     href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="trash"></i></span></span></a>
+                                                                            class="feather-icon"><i data-feather="trash"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#hapus_barang"></i></span></span></a>
                                                             </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Garrett Winters</td>
-                                                        <td>Accountant</td>
-                                                        <td>Tokyo</td>
-                                                        <td>63</td>
-                                                        <td>2011/07/25</td>
-                                                        <td>$170,750</td>
+                                                        <td>03</td>
+                                                        <td>Kalung Longling</td>
+                                                        <td>
+                                                            <div class="badge badge-success">Aktif</div>
+                                                        </td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Edit"
                                                                     href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="edit-2"></i></span></span></a>
+                                                                            class="feather-icon"><i data-feather="edit-2"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#edit_barang"></i></span></span></a>
                                                                 <a class="btn btn-icon btn-danger btn-rounded flush-soft-hover del-button"
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Delete"
                                                                     href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="trash"></i></span></span></a>
+                                                                            class="feather-icon"><i data-feather="trash"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#hapus_barang"></i></span></span></a>
                                                             </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Ashton Cox</td>
-                                                        <td>Junior Technical Author</td>
-                                                        <td>San Francisco</td>
-                                                        <td>66</td>
-                                                        <td>2009/01/12</td>
-                                                        <td>$86,000</td>
+                                                        <td>04</td>
+                                                        <td>Kalung Guci</td>
+                                                        <td>
+                                                            <div class="badge badge-danger">Tidak Aktif</div>
+                                                        </td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Edit"
                                                                     href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="edit-2"></i></span></span></a>
+                                                                            class="feather-icon"><i data-feather="edit-2"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#edit_barang"></i></span></span></a>
                                                                 <a class="btn btn-icon btn-danger btn-rounded flush-soft-hover del-button"
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Delete"
                                                                     href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="trash"></i></span></span></a>
+                                                                            class="feather-icon"><i data-feather="trash"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#hapus_barang"></i></span></span></a>
                                                             </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Cedric Kelly</td>
-                                                        <td>Senior Javascript Developer</td>
-                                                        <td>Edinburgh</td>
-                                                        <td>22</td>
-                                                        <td>2012/03/29</td>
-                                                        <td>$433,060</td>
+                                                        <td>05</td>
+                                                        <td>Kalung Santa</td>
+                                                        <td>
+                                                            <div class="badge badge-success">Aktif</div>
+                                                        </td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Edit"
                                                                     href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="edit-2"></i></span></span></a>
+                                                                            class="feather-icon"><i data-feather="edit-2"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#edit_barang"></i></span></span></a>
                                                                 <a class="btn btn-icon btn-danger btn-rounded flush-soft-hover del-button"
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Delete"
                                                                     href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i
-                                                                                data-feather="trash"></i></span></span></a>
+                                                                            class="feather-icon"><i data-feather="trash"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#hapus_barang"></i></span></span></a>
                                                             </div>
                                                         </td>
                                                     </tr>

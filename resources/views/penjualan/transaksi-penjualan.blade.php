@@ -142,7 +142,6 @@
                                             <textarea class="form-control" rows="6" placeholder="Keterangan Transaksi"></textarea> 
                                         </div>
                                     </div>
-                                     
                                 </div>	
                                 <div class="row mt-4">
                                     <div class="col-xxl-5 order-2 order-xxl-0">

@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class laporan extends Controller
+class DataLaporanController extends Controller
 {
-    public function laporan_stok()
+    public function historyBarang()
     {
-        return view('laporan.stok-barang');
+        return view('laporan.history-barang');
     }
-    public function laporan_rekap_stok()
+    public function laporanStockIndex()
     {
         return view('laporan.rekap-stok-barang');
     }
