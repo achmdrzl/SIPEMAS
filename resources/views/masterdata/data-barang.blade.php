@@ -169,7 +169,7 @@
                                                                             class="feather-icon"><i data-feather="trash"
                                                                                 data-bs-toggle="modal"
                                                                                 data-bs-target="#hapus_barang"></i></span></span></a>
-                                                                 <a class="btn btn-icon btn-primary btn-rounded flush-soft-hover del-button"
+                                                                <a class="btn btn-icon btn-primary btn-rounded flush-soft-hover del-button"
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Cetak Barcode"
                                                                     href="#"><span class="icon"><span
@@ -229,7 +229,7 @@
                                                                             class="feather-icon"><i data-feather="trash"
                                                                                 data-bs-toggle="modal"
                                                                                 data-bs-target="#hapus_barang"></i></span></span></a>
-                                                                 <a class="btn btn-icon btn-primary btn-rounded flush-soft-hover del-button"
+                                                                <a class="btn btn-icon btn-primary btn-rounded flush-soft-hover del-button"
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Cetak Barcode"
                                                                     href="#"><span class="icon"><span
@@ -289,7 +289,7 @@
                                                                             class="feather-icon"><i data-feather="trash"
                                                                                 data-bs-toggle="modal"
                                                                                 data-bs-target="#hapus_barang"></i></span></span></a>
-                                                                 <a class="btn btn-icon btn-primary btn-rounded flush-soft-hover del-button"
+                                                                <a class="btn btn-icon btn-primary btn-rounded flush-soft-hover del-button"
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Cetak Barcode"
                                                                     href="#"><span class="icon"><span
@@ -350,7 +350,7 @@
                                                                             class="feather-icon"><i data-feather="trash"
                                                                                 data-bs-toggle="modal"
                                                                                 data-bs-target="#hapus_barang"></i></span></span></a>
-                                                                 <a class="btn btn-icon btn-primary btn-rounded flush-soft-hover del-button"
+                                                                <a class="btn btn-icon btn-primary btn-rounded flush-soft-hover del-button"
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Cetak Barcode"
                                                                     href="#"><span class="icon"><span
@@ -529,118 +529,390 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form>
-                                <div class="row gx-3">
-                                    <div class="col-sm-12">
-                                        <label class="form-label">Kode</label>
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" value="" placeholder="Kode"
-                                                name="kode_edit" />
-                                        </div>
-                                        <label class="form-label">Nama</label>
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" value="" placeholder="Nama"
-                                                name="Nama_edit" />
+                            <div class="accordion" id="accordionPanelsStayOpenExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                            aria-controls="panelsStayOpen-collapseOne">
+                                            Item 1
+                                        </button>
+                                    </h2>
+                                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+                                        aria-labelledby="panelsStayOpen-headingOne">
+                                        <div class="accordion-body">
+                                            <form>
+                                                <div class="row gx-3">
+                                                    <div class="col-sm-12">
+                                                        <label class="form-label">Kode</label>
+                                                        <div class="form-group">
+                                                            <input class="form-control" type="text" value=""
+                                                                placeholder="Kode" name="kode_edit" />
+                                                        </div>
+                                                        <label class="form-label">Nama</label>
+                                                        <div class="form-group">
+                                                            <input class="form-control" type="text" value=""
+                                                                placeholder="Nama" name="Nama_edit" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row gx-3">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Berat</label>
+                                                            <input class="form-control" type="number" step=".01"
+                                                                value="0.00" placeholder="0.00" name="name"
+                                                                min="0" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Pabrik</label>
+                                                            <select class="form-select">
+                                                                <option selected="">--</option>
+                                                                <option value="1">UBS</option>
+                                                                <option value="2">HWT</option>
+                                                                <option value="3">LL</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row gx-3">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Satuan</label>
+                                                            <select class="form-select">
+                                                                <option selected="">--</option>
+                                                                <option value="1">PCS</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Kadar</label>
+                                                            <select class="form-select">
+                                                                <option selected="">--</option>
+                                                                <option value="0">0</option>
+                                                                <option value="8K">8K</option>
+                                                                <option value="9K">9K</option>
+                                                                <option value="16K">16K</option>
+                                                                <option value="17K">17K</option>
+                                                                <option value="24K">24K</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row gx-3">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Model</label>
+                                                            <select class="form-select">
+                                                                <option selected="">--</option>
+                                                                <option value="1">Cincin COR</option>
+                                                                <option value="2">Cincin Bangkok</option>
+                                                                <option value="3">Cintin Plat</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row gx-3">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Jenis</label>
+                                                            <select class="form-select">
+                                                                <option selected="">--</option>
+                                                                <option value="1">Perhiasan</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Harga Beli</label>
+                                                            <input class="form-control" type="number" value=""
+                                                                placeholder="0" name="name" min="0" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row gx-3">
+                                                    <div class="col-sm-2 form-group">
+                                                        <div class="dropify-square">
+                                                            <input type="file" class="dropify-1" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-10 form-group">
+                                                        <textarea class="form-control mnh-100p" rows="4" placeholder="Kondisi"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="row gx-3">
+                                                    <div class="form-check form-check-sm mb-3">
+                                                        <input type="checkbox" class="form-check-input" id="logged_in"
+                                                            checked>
+                                                        <label class="form-check-label text-muted fs-7"
+                                                            for="logged_in">Aktif</label>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row gx-3">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Berat</label>
-                                            <input class="form-control" type="number" step=".01" value="0.00"
-                                                placeholder="0.00" name="name" min="0" />
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Pabrik</label>
-                                            <select class="form-select">
-                                                <option selected="">--</option>
-                                                <option value="1">UBS</option>
-                                                <option value="2">HWT</option>
-                                                <option value="3">LL</option>
-                                            </select>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo"
+                                            aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                            Item 2
+                                        </button>
+                                    </h2>
+                                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
+                                        aria-labelledby="panelsStayOpen-headingTwo">
+                                        <div class="accordion-body">
+                                            <form>
+                                                <div class="row gx-3">
+                                                    <div class="col-sm-12">
+                                                        <label class="form-label">Kode</label>
+                                                        <div class="form-group">
+                                                            <input class="form-control" type="text" value=""
+                                                                placeholder="Kode" name="kode_edit" />
+                                                        </div>
+                                                        <label class="form-label">Nama</label>
+                                                        <div class="form-group">
+                                                            <input class="form-control" type="text" value=""
+                                                                placeholder="Nama" name="Nama_edit" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row gx-3">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Berat</label>
+                                                            <input class="form-control" type="number" step=".01"
+                                                                value="0.00" placeholder="0.00" name="name"
+                                                                min="0" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Pabrik</label>
+                                                            <select class="form-select">
+                                                                <option selected="">--</option>
+                                                                <option value="1">UBS</option>
+                                                                <option value="2">HWT</option>
+                                                                <option value="3">LL</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row gx-3">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Satuan</label>
+                                                            <select class="form-select">
+                                                                <option selected="">--</option>
+                                                                <option value="1">PCS</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Kadar</label>
+                                                            <select class="form-select">
+                                                                <option selected="">--</option>
+                                                                <option value="0">0</option>
+                                                                <option value="8K">8K</option>
+                                                                <option value="9K">9K</option>
+                                                                <option value="16K">16K</option>
+                                                                <option value="17K">17K</option>
+                                                                <option value="24K">24K</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row gx-3">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Model</label>
+                                                            <select class="form-select">
+                                                                <option selected="">--</option>
+                                                                <option value="1">Cincin COR</option>
+                                                                <option value="2">Cincin Bangkok</option>
+                                                                <option value="3">Cintin Plat</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row gx-3">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Jenis</label>
+                                                            <select class="form-select">
+                                                                <option selected="">--</option>
+                                                                <option value="1">Perhiasan</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Harga Beli</label>
+                                                            <input class="form-control" type="number" value=""
+                                                                placeholder="0" name="name" min="0" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row gx-3">
+                                                    <div class="col-sm-2 form-group">
+                                                        <div class="dropify-square">
+                                                            <input type="file" class="dropify-1" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-10 form-group">
+                                                        <textarea class="form-control mnh-100p" rows="4" placeholder="Kondisi"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="row gx-3">
+                                                    <div class="form-check form-check-sm mb-3">
+                                                        <input type="checkbox" class="form-check-input" id="logged_in"
+                                                            checked>
+                                                        <label class="form-check-label text-muted fs-7"
+                                                            for="logged_in">Aktif</label>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row gx-3">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Satuan</label>
-                                            <select class="form-select">
-                                                <option selected="">--</option>
-                                                <option value="1">PCS</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Kadar</label>
-                                            <select class="form-select">
-                                                <option selected="">--</option>
-                                                <option value="0">0</option>
-                                                <option value="8K">8K</option>
-                                                <option value="9K">9K</option>
-                                                <option value="16K">16K</option>
-                                                <option value="17K">17K</option>
-                                                <option value="24K">24K</option>
-                                            </select>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree"
+                                            aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                                            Item 3
+                                        </button>
+                                    </h2>
+                                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
+                                        aria-labelledby="panelsStayOpen-headingThree">
+                                        <div class="accordion-body">
+                                            <form>
+                                                <div class="row gx-3">
+                                                    <div class="col-sm-12">
+                                                        <label class="form-label">Kode</label>
+                                                        <div class="form-group">
+                                                            <input class="form-control" type="text" value=""
+                                                                placeholder="Kode" name="kode_edit" />
+                                                        </div>
+                                                        <label class="form-label">Nama</label>
+                                                        <div class="form-group">
+                                                            <input class="form-control" type="text" value=""
+                                                                placeholder="Nama" name="Nama_edit" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row gx-3">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Berat</label>
+                                                            <input class="form-control" type="number" step=".01"
+                                                                value="0.00" placeholder="0.00" name="name"
+                                                                min="0" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Pabrik</label>
+                                                            <select class="form-select">
+                                                                <option selected="">--</option>
+                                                                <option value="1">UBS</option>
+                                                                <option value="2">HWT</option>
+                                                                <option value="3">LL</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row gx-3">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Satuan</label>
+                                                            <select class="form-select">
+                                                                <option selected="">--</option>
+                                                                <option value="1">PCS</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Kadar</label>
+                                                            <select class="form-select">
+                                                                <option selected="">--</option>
+                                                                <option value="0">0</option>
+                                                                <option value="8K">8K</option>
+                                                                <option value="9K">9K</option>
+                                                                <option value="16K">16K</option>
+                                                                <option value="17K">17K</option>
+                                                                <option value="24K">24K</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row gx-3">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Model</label>
+                                                            <select class="form-select">
+                                                                <option selected="">--</option>
+                                                                <option value="1">Cincin COR</option>
+                                                                <option value="2">Cincin Bangkok</option>
+                                                                <option value="3">Cintin Plat</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row gx-3">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Jenis</label>
+                                                            <select class="form-select">
+                                                                <option selected="">--</option>
+                                                                <option value="1">Perhiasan</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Harga Beli</label>
+                                                            <input class="form-control" type="number" value=""
+                                                                placeholder="0" name="name" min="0" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row gx-3">
+                                                    <div class="col-sm-2 form-group">
+                                                        <div class="dropify-square">
+                                                            <input type="file" class="dropify-1" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-10 form-group">
+                                                        <textarea class="form-control mnh-100p" rows="4" placeholder="Kondisi"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="row gx-3">
+                                                    <div class="form-check form-check-sm mb-3">
+                                                        <input type="checkbox" class="form-check-input" id="logged_in"
+                                                            checked>
+                                                        <label class="form-check-label text-muted fs-7"
+                                                            for="logged_in">Aktif</label>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row gx-3">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label class="form-label">Model</label>
-                                            <select class="form-select">
-                                                <option selected="">--</option>
-                                                <option value="1">Cincin COR</option>
-                                                <option value="2">Cincin Bangkok</option>
-                                                <option value="3">Cintin Plat</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row gx-3">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Jenis</label>
-                                            <select class="form-select">
-                                                <option selected="">--</option>
-                                                <option value="1">Perhiasan</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Harga Beli</label>
-                                            <input class="form-control" type="number" value="" placeholder="0"
-                                                name="name" min="0" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row gx-3">
-                                    <div class="col-sm-2 form-group">
-                                        <div class="dropify-square">
-                                            <input type="file" class="dropify-1" />
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-10 form-group">
-                                        <textarea class="form-control mnh-100p" rows="4" placeholder="Kondisi"></textarea>
-                                    </div>
-                                </div>
-                                <div class="row gx-3">
-                                    <div class="form-check form-check-sm mb-3">
-                                        <input type="checkbox" class="form-check-input" id="logged_in" checked>
-                                        <label class="form-check-label text-muted fs-7" for="logged_in">Aktif</label>
-                                    </div>
-                                </div>
-                            </form>
+                            </div>
+                            <div class="mt-2">
+                                <button type="button" class="btn btn-primary">Tambah Item</button>
+                            </div>
                         </div>
                         <div class="modal-footer align-items-center">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary">Tambah</button>
+                            <button type="button" class="btn btn-primary">Simpan</button>
                         </div>
                     </div>
                 </div>
