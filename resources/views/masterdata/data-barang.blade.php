@@ -84,6 +84,7 @@
                                                         <td>Terjual</td>
                                                         <td>3</td>
                                                         <td>
+                                                            
                                                             <div class="d-flex align-items-center">
                                                                 <a class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1"
                                                                     data-bs-toggle="tooltip" data-placement="top"
