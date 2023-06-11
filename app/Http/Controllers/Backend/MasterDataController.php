@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pabrik;
 use App\Models\User;
+use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Validation\Rules;
 use PDO;
+use Termwind\Components\Dd;
 
 class MasterDataController extends Controller
 {
@@ -117,5 +120,57 @@ class MasterDataController extends Controller
 
         return response()->json(['status' => 'Data Deleted Successfully!']);
 
+    }
+
+    public function pabrikIndex(Request $request)
+    {
+        $pabriks   =   Pabrik::all();
+        if ($request->ajax()) {
+            $pabriks   =   Pabrik::all();
+            return DataTables::of($pabriks)
+                ->addIndexColumn()
+                ->addColumn('name', function ($item) {
+                    return ucfirst($item->pabrik_nama);
+                }) 
+                ->addColumn('action', function ($item) {
+                    $btn = '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="user-edit" data-id="' . $item->pabrik_id . '"><span class="material-icons btn-sm">edit</span></button>';
+
+                    $btn = $btn . '<button class="btn btn-icon btn-danger btn-rounded flush-soft-hover me-1" id="user-delete" data-id="' . $item->pabrik_id . '"><span class="material-icons btn-sm">delete</span></button>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('masterdata.data-pabrik', compact('pabriks'));
+    }
+    public function pabrikStore(Request $request)
+    { 
+        dd("asasas");
+        //define validation rules
+        $validator = Validator::make($request->all(), [
+            'name' => 'required'
+        ], [
+            'name.required' => 'Name Must Be Included!'
+        ]);
+
+        //check if validation fails
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()]);
+        }
+
+        // insert data to table user 
+        Pabrik::updateOrCreate([
+            'pabrik_id' => $request->pabrik_id
+        ], [
+            'pabrik_nama' => $request->name 
+        ]);
+ 
+
+        //return response
+        return response()->json([
+            'success' => true,
+            'message' => 'Your data has been saved successfully!',
+        ]);
     }
 }

@@ -93,8 +93,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="#"><span class="nav-link-text">Satuan</span></a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#"><span class="nav-link-text">Pabrik</span></a>
+                                    <li class="nav-item {{ request()->segment(1) == 'pabrik' ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('pabrik.index') }}"><span
+                                                class="nav-link-text">Pabrik</span></a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#"><span class="nav-link-text">Kadar</span></a>
