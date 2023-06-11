@@ -124,6 +124,7 @@ class MasterDataController extends Controller
 
     public function pabrikIndex(Request $request)
     {
+        //dd("asasas");
         $pabriks   =   Pabrik::all();
         if ($request->ajax()) {
             $pabriks   =   Pabrik::all();
@@ -144,28 +145,27 @@ class MasterDataController extends Controller
         }
         return view('masterdata.data-pabrik', compact('pabriks'));
     }
+ 
     public function pabrikStore(Request $request)
     { 
-        dd("asasas");
-        //define validation rules
+        dd($request->all());
+        //define validation rules  
         $validator = Validator::make($request->all(), [
-            'name' => 'required'
+            'pabrik_nama' => 'required', 
         ], [
-            'name.required' => 'Name Must Be Included!'
+            'pabrik_nama.required' => 'test value: '.$request->pabrik_nama
         ]);
 
         //check if validation fails
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()]);
-        }
+        } 
 
-        // insert data to table user 
-        Pabrik::updateOrCreate([
-            'pabrik_id' => $request->pabrik_id
-        ], [
-            'pabrik_nama' => $request->name 
-        ]);
- 
+        // $user = Pabrik::updateOrCreate([
+        //     'user_id' => $request->user_id
+        // ], [
+        //     'nama_pabrik' => $request->name
+        // ]);
 
         //return response
         return response()->json([

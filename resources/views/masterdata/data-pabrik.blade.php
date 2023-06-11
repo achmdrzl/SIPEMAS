@@ -57,8 +57,8 @@
             </div>
             <!-- /Page Body -->
 
-            {{-- Modal pabrik --}}
-            <div class="modal fade" id="pabrikModal" tabindex="-1" role="dialog" aria-labelledby="modalSupplier"
+            {{-- Modal User --}}
+            <div class="modal fade" id="pabrikModal" tabindex="-1" role="dialog" aria-labelledby="modalPabrik"
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
@@ -72,25 +72,27 @@
                             <div class="alert alert-danger alert-dismissible fade show" role="alert"
                                 style="display: none;" style="color: red">
                             </div>
-                            <form id="pabrikForm">
+                            <form   id="pabrikForm">
                                 <div class="row gx-3">
-                                    <input type="hidden" id="pabrik_id" name="pabrik_id"> 
-                                    <label class="form-label">Name</label>
-                                    <div class="form-group">
-                                        <input class="form-control" type="text" placeholder="Masukkan Nama"
-                                            name="name" id="name" />
-                                    </div>  
+                                    <input type="hidden" id="pabrik_id" name="pabrik_id">
+                                    <div class="col-sm-12">
+                                        <label class="form-label">Nama Pabrik</label>
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" placeholder="Masukkan Nama"
+                                                name="pabrik_nama" id="pabrik_nama" />
+                                         </div> 
+                                    </div>
+                                </div> 
+                                <div class="modal-footer align-items-center">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary" id="submitPabrik">Simpan</button>
                                 </div>
-                                  
-                            <div class="modal-footer align-items-center">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-primary" id="submitPabrik">Simpan</button>
-                            </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
         <!-- Page Footer -->
@@ -121,11 +123,11 @@
     <script>
         $(document).ready(function() {
 
-            // $.ajaxSetup({
-            //     headers: {
-            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            //     }
-            // });
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
             var datatable = $('#datatable_7').DataTable({
                 scrollX: true,
@@ -145,7 +147,7 @@
                 },
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('pabrik.index') }}',
+                ajax: "{{ route('pabrik.index') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
@@ -171,20 +173,19 @@
                 $('#pabrikModal').modal('show');
             });
 
-            $('#submitPabrik').click(function(e) {
+            $('#pabrikForm').on('submit', function(e){
                 e.preventDefault();
-                //$(this).html('Sending..');
 
-                let title   = $('#name').val(); 
-                alert(title);
-                $.ajax({
+                //  var form = $(this).serialize(); 
 
-                    url: `/pabrikStore`,
-                    type: "POST",
+                //  alert(form);
+                 $.ajax({
+                     url: "{{ route('pabrik.store') }}",
+                    data: new FormData(this.form),
                     cache: false,
-                    data: {
-                        "name": title
-                    },
+                    processData: false,
+                    contentType: false,
+                    type: "POST",
 
                     success: function(response) {
                         console.log(response)
@@ -195,7 +196,7 @@
                                 $('.alert-danger').append('<strong><li>' + value +
                                     '</li></strong>');
                             });
-                            $('#submitPabrik').html('Simpan');
+                            $('#submitUser').html('Simpan');
 
                         } else {
                             $('.btn-warning').hide();
@@ -214,103 +215,17 @@
                             })
 
                             $('#pabrikForm').trigger("reset");
-                            $('#submitPabrik').html('Simpan');
+                            $('#submitUser').html('Simpan');
                             $('#pabrikModal').modal('hide');
 
                             datatable.draw();
                         }
-                    },
-                    error:function(error){ 
-                        alert("gagal woi");
-
                     }
-                });
-            });
-
-            // Edit Data User
-            $('body').on('click', '#pabrik-edit', function() {
-                var pabrik_id = $(this).attr('data-id');
-                $('.alert').hide();
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('pabrik.edit') }}",
-                    data: {
-                        pabrik_id: pabrik_id
-                    },
-                    dataType: "json",
-                    success: function(response) {
-                        console.log(response)
-                        $('#submitBtnUser').val("pabrik-edit");
-                        $('#pabrikForm').trigger("reset");
-                        $('#pabrikHeading').html("EDIT DATA USER");
-                        $('#pabrikModal').modal('show');
-                        $('#pabrik_id').val(response.pabrik_id);
-                        $('#name').val(response.name);
-                        $('#email').val(response.email);
-                        $('#phone_number').val(response.phone_number);
-                        $('#role').val(response.role);
-                        $('#password').val('');
-                        $('#password_confirmation').val('');
-                    }
-                });
-            });
-
-            // Arsipkan Data User
-            $('body').on('click', '#pabrik-delete', function() {
-
-                const swalWithBootstrapButtons = Swal.mixin({
-                    customClass: {
-                        confirmButton: "btn btn-success",
-                        cancelButton: "btn btn-danger me-2",
-                    },
-                    buttonsStyling: false,
-
-                });
-
-                var pabrik_id = $(this).attr('data-id');
-
-                swalWithBootstrapButtons
-                    .fire({
-                        title: "Do you want to delete, this data?",
-                        text: "This data will be deleted!",
-                        icon: "warning",
-                        showCancelButton: true,
-                        confirmButtonClass: "me-2",
-                        cancelButtonText: "Tidak",
-                        confirmButtonText: "Ya",
-                        reverseButtons: true,
-                    })
-                    .then((result) => {
-                        if (result.value) {
-                            $.ajax({
-                                type: "POST",
-                                url: "{{ route('pabrik.destroy') }}",
-                                data: {
-                                    pabrik_id: pabrik_id,
-                                },
-                                dataType: "json",
-                                success: function(response) {
-                                    const Toast = Swal.mixin({
-                                        toast: true,
-                                        position: 'top-end',
-                                        showConfirmButton: false,
-                                        timer: 3000,
-                                        timerProgressBar: true,
-                                    });
-
-                                    Toast.fire({
-                                        icon: 'success',
-                                        title: `${response.status}`,
-                                    })
-                                    datatable.draw();
-                                }
-                            });
-                        } else {
-                            Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
-                        }
-                    });
+                 });
 
             });
+ 
+ 
 
         })
     </script>

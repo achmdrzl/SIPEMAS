@@ -36,12 +36,10 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::post('/userEdit', MasterDataController::class. '@userEdit')->name('user.edit');
     Route::post('/userDestroy', MasterDataController::class. '@userDestroy')->name('user.destroy');
 
+    Route::post('/pabrikStore', MasterDataController::class. '@pabrikStore')->name("pabrik.store");
     // MASTER PABRIK
     Route::get('/pabrik', MasterDataController::class . '@pabrikIndex')->name('pabrik.index');
-    Route::post('/pabrikStore', MasterDataController::class. '@pabrikStore')->name('pabrik.store');
-    Route::post('/pabrikEdit', MasterDataController::class. '@pabrikEdit')->name('pabrik.edit');
-    Route::post('/pabrikDestroy', MasterDataController::class. '@pabrikDestroy')->name('pabrik.destroy');
-
+    
     // Transaksi Pembelian Section
     Route::get('/pembelian', TransaksiPembelianController::class . '@transaksi_pembelian')->name('pembelian.index');
 
