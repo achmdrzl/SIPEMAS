@@ -173,14 +173,14 @@
                 $('#pabrikModal').modal('show');
             });
 
-            $('#pabrikForm').on('submit', function(e){
+            $('#submitPabrik').on('click', function(e){
                 e.preventDefault();
 
                 //  var form = $(this).serialize(); 
-
+                 
                 //  alert(form);
                  $.ajax({
-                     url: "{{ route('pabrik.store') }}",
+                    url: "{{ route('pabrik.store') }}",
                     data: new FormData(this.form),
                     cache: false,
                     processData: false,

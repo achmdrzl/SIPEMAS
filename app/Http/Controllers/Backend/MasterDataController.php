@@ -148,12 +148,13 @@ class MasterDataController extends Controller
  
     public function pabrikStore(Request $request)
     { 
-        dd($request->all());
+        // dd($request->all());
         //define validation rules  
         $validator = Validator::make($request->all(), [
             'pabrik_nama' => 'required', 
+            
         ], [
-            'pabrik_nama.required' => 'test value: '.$request->pabrik_nama
+            'pabrik_nama.required' => 'Pabrik Nama Must be included!',
         ]);
 
         //check if validation fails
@@ -161,11 +162,11 @@ class MasterDataController extends Controller
             return response()->json(['errors' => $validator->errors()->all()]);
         } 
 
-        // $user = Pabrik::updateOrCreate([
-        //     'user_id' => $request->user_id
-        // ], [
-        //     'nama_pabrik' => $request->name
-        // ]);
+        Pabrik::updateOrCreate([
+            'pabrik_id' => $request->pabrik_id
+        ], [
+            'pabrik_nama' => $request->pabrik_nama
+        ]);
 
         //return response
         return response()->json([

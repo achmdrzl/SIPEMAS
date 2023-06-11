@@ -211,7 +211,7 @@
                 },
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('user.index') }}',
+                ajax: "{{ route('user.index') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
