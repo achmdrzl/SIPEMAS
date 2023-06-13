@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kadar;
+use App\Models\ModelBarang;
 use App\Models\Pabrik;
+use App\Models\Supplier;
 use App\Models\User;
 use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
@@ -21,16 +24,7 @@ class MasterDataController extends Controller
         return view('dashboard');
     }
 
-    public function supplierIndex()
-    {
-        return view('masterdata.data-supplier');
-    }
-
-    public function modelIndex()
-    {
-        return view('masterdata.data-model');
-    }
-
+      
     public function userIndex(Request $request)
     {
         $users   =   User::all();
@@ -173,5 +167,265 @@ class MasterDataController extends Controller
             'success' => true,
             'message' => 'Your data has been saved successfully!',
         ]);
+    }
+
+    public function pabrikEdit(Request $request)
+    {
+        $pabrik = Pabrik::where('pabrik_id', $request->pabrik_id)->first();
+        return response()->json($pabrik);
+    }
+
+    public function pabrikDestroy(Request $request)
+    {
+        $pabrik = Pabrik::find($request->pabrik_id)->delete();
+
+        return response()->json(['status' => 'Data Deleted Successfully!']);
+
+    }
+
+    public function kadarIndex(Request $request)
+    {
+        //dd("asasas");
+        $kadars   =   Kadar::all();
+        if ($request->ajax()) {
+            $kadars   =   Kadar::all();
+            return DataTables::of($kadars)
+                ->addIndexColumn()
+                ->addColumn('kadar_nama', function ($item) {
+                    return ucfirst($item->kadar_nama);
+                }) 
+                ->addIndexColumn()
+                ->addColumn('kadar_harga_jual_1', function ($item) {
+                    return ucfirst($item->kadar_harga_jual_1);
+                }) 
+                ->addIndexColumn()
+                ->addColumn('kadar_harga_jual_2', function ($item) {
+                    return ucfirst($item->kadar_harga_jual_2);
+                }) 
+                ->addColumn('action', function ($item) {
+                    $btn = '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="user-edit" data-id="' . $item->kadar_id . '"><span class="material-icons btn-sm">edit</span></button>';
+
+                    $btn = $btn . '<button class="btn btn-icon btn-danger btn-rounded flush-soft-hover me-1" id="user-delete" data-id="' . $item->kadar_id . '"><span class="material-icons btn-sm">delete</span></button>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('masterdata.data-kadar', compact('kadars'));
+    }
+
+    public function kadarStore(Request $request)
+    { 
+        // dd($request->all());
+        //define validation rules  
+        $validator = Validator::make($request->all(), [
+            'kadar_nama' => 'required', 
+            'kadar_harga_jual_1' => 'required', 
+            'kadar_harga_jual_2' => 'required', 
+        ], [
+            'kadar_nama.required' => 'Nama Pabrik Must be included!',
+            'kadar_harga_jual_1.required' => 'Harga Jual 1 Must be included!',
+            'kadar_harga_jual_2.required' => 'Harga Jual 2 Must be included!',
+
+        ]);
+
+        //check if validation fails
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()]);
+        } 
+
+        Kadar::updateOrCreate([
+            'kadar_id' => $request->kadar_id
+        ], [
+            'kadar_nama' => $request->kadar_nama,
+            'kadar_harga_jual_1' => $request->kadar_harga_jual_1,
+            'kadar_harga_jual_2' => $request->kadar_harga_jual_2
+        ]);
+
+        //return response
+        return response()->json([
+            'success' => true,
+            'message' => 'Your data has been saved successfully!',
+        ]);
+    }
+
+    public function kadarEdit(Request $request)
+    {
+        //dd($request->all());
+        $kadar = Kadar::where('kadar_id', $request->kadar_id)->first();
+        return response()->json($kadar);
+    }
+
+    public function kadarDestroy(Request $request)
+    {
+        $kadar = Kadar::find($request->kadar_id)->delete();
+
+        return response()->json(['status' => 'Data Deleted Successfully!']);
+
+    }
+
+    public function modelIndex(Request $request)
+    {
+        //dd("asasas");
+        $models   =   ModelBarang::all();
+        if ($request->ajax()) {
+            $models   =   ModelBarang::all();
+            return DataTables::of($models)
+                ->addIndexColumn()
+                ->addColumn('model_nama', function ($item) {
+                    return ucfirst($item->model_nama);
+                })
+                ->addColumn('action', function ($item) {
+                    $btn = '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="user-edit" data-id="' . $item->model_id . '"><span class="material-icons btn-sm">edit</span></button>';
+
+                    $btn = $btn . '<button class="btn btn-icon btn-danger btn-rounded flush-soft-hover me-1" id="user-delete" data-id="' . $item->model_id . '"><span class="material-icons btn-sm">delete</span></button>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('masterdata.data-model', compact('models'));
+    }
+
+    public function modelStore(Request $request)
+    { 
+        // dd($request->all());
+        //define validation rules  
+        $validator = Validator::make($request->all(), [
+            'model_nama' => 'required',  
+        ], [
+            'model_nama.required' => 'Nama Model Must be included!', 
+
+        ]);
+
+        //check if validation fails
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()]);
+        } 
+
+        ModelBarang::updateOrCreate([
+            'model_id' => $request->model_id
+        ], [
+            'model_nama' => $request->model_nama
+        ]);
+
+        //return response
+        return response()->json([
+            'success' => true,
+            'message' => 'Your data has been saved successfully!',
+        ]);
+    }
+
+    public function modelEdit(Request $request)
+    {
+        //dd($request->all());
+        $model = ModelBarang::where('model_id', $request->model_id)->first();
+        return response()->json($model);
+    }
+
+    public function modelDestroy(Request $request)
+    {
+        $model = ModelBarang::find($request->model_id)->delete();
+
+        return response()->json(['status' => 'Data Deleted Successfully!']);
+
+    }
+
+    public function supplierIndex(Request $request)
+    {
+        //dd("asasas");
+        $suppliers   =   Supplier::all();
+        if ($request->ajax()) {
+            $suppliers   =   Supplier::all();
+            return DataTables::of($suppliers)
+                ->addIndexColumn()
+                ->addColumn('supplier_nama', function ($item) {
+                    return ucfirst($item->supplier_nama);
+                }) 
+                ->addIndexColumn()
+                ->addColumn('supplier_alamat', function ($item) {
+                    return ucfirst($item->supplier_alamat);
+                }) 
+                ->addIndexColumn()
+                ->addColumn('supplier_no_telp', function ($item) {
+                    return ucfirst($item->supplier_no_telp);
+                }) 
+                ->addIndexColumn()
+                ->addColumn('supplier_kota', function ($item) {
+                    return ucfirst($item->supplier_kota);
+                }) 
+                ->addIndexColumn()
+                ->addColumn('supplier_pengurus', function ($item) {
+                    return ucfirst($item->supplier_pengurus);
+                }) 
+                ->addColumn('action', function ($item) {
+                    $btn = '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="user-edit" data-id="' . $item->supplier_id . '"><span class="material-icons btn-sm">edit</span></button>';
+
+                    $btn = $btn . '<button class="btn btn-icon btn-danger btn-rounded flush-soft-hover me-1" id="user-delete" data-id="' . $item->supplier_id . '"><span class="material-icons btn-sm">delete</span></button>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('masterdata.data-supplier', compact('suppliers'));
+    }
+
+    public function supplierStore(Request $request)
+    { 
+        // dd($request->all());
+        //define validation rules  
+        $validator = Validator::make($request->all(), [
+            'supplier_nama' => 'required', 
+            'supplier_alamat' => 'required', 
+            'supplier_no_telp' => 'required', 
+            'supplier_kota' => 'required', 
+            'supplier_pengurus' => 'required', 
+        ], [
+            'supplier_nama.required' => 'Nama Supplier Must be included!',
+            'supplier_alamat.required' => 'Alamat Must be included!',
+            'supplier_no_telp.required' => 'No Telp Must be included!',
+            'supplier_kota.required' => 'Kota Must be included!',
+            'supplier_pengurus.required' => 'Pengurus Must be included!',
+
+        ]);
+
+        //check if validation fails
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()]);
+        } 
+
+        Supplier::updateOrCreate([
+            'supplier_id' => $request->supplier_id
+        ], [
+            'supplier_nama' => $request->supplier_nama,
+            'supplier_alamat' => $request->supplier_alamat,
+            'supplier_no_telp' => $request->supplier_no_telp,
+            'supplier_kota' => $request->supplier_kota,
+            'supplier_pengurus' => $request->supplier_pengurus
+        ]);
+
+        //return response
+        return response()->json([
+            'success' => true,
+            'message' => 'Your data has been saved successfully!',
+        ]);
+    }
+
+    public function supplierEdit(Request $request)
+    {
+        //dd($request->all());
+        $supplier = Supplier::where('supplier_id', $request->supplier_id)->first();
+        return response()->json($supplier);
+    }
+
+    public function supplierDestroy(Request $request)
+    {
+        $supplier = Supplier::find($request->supplier_id)->delete();
+
+        return response()->json(['status' => 'Data Deleted Successfully!']);
+
     }
 }

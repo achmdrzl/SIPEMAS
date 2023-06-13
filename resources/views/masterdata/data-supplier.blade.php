@@ -10,7 +10,7 @@
                     <div class="d-flex flex-wrap justify-content-between flex-1">
                         <div class="mb-lg-0 mb-2 me-8">
                             <h1 class="pg-title">Data Supplier</h1>
-                            <p>Manajemen Pengelolaan Data Supplier Toko Emas</p>
+                            <p>Management Pengelolaan Data Supplier Toko Emas</p>
                         </div>
                     </div>
                 </div>
@@ -25,141 +25,31 @@
                             <div class="col-md-12 mb-md-4 mb-3">
                                 <div class="card card-border mb-0 h-100">
                                     <div class="card-header card-header-action">
-                                        <h6>Data Supplier
-                                            <span class="badge badge-sm badge-light ms-1">240</span>
+                                        <h6>List Data Supplier
+                                            <span class="badge badge-sm badge-light ms-1">{{ count($suppliers) }}</span>
                                         </h6>
                                         <div class="card-action-wrap">
-                                            <button class="btn btn-sm btn-outline-light"><span><span class="icon"><span
-                                                            class="feather-icon"><i
-                                                                data-feather="upload"></i></span></span><span
-                                                        class="btn-text">import</span></span></button>
-                                            <button class="btn btn-sm btn-primary ms-3" data-bs-toggle="modal"
-                                                data-bs-target="#tambahSupplier"><span><span class="icon"><span
-                                                            class="feather-icon"><i
+                                            <button class="btn btn-sm btn-primary ms-3" id="supplier-create"><span><span
+                                                        class="icon"><span class="feather-icon"><i
                                                                 data-feather="plus"></i></span></span><span
-                                                        class="btn-text">Add new</span></span></button>
+                                                        class="btn-text">Tambah
+                                                        Supplier</span></span></button>
                                         </div>
                                     </div>
                                     <div class="card-body">
                                         <div class="contact-list-view">
-                                            <table id="datable_3" class="table nowrap table-striped">
+                                            <table id="datatable_7" class="table nowrap datatableSupplier table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th>Kode</th>
-                                                        <th>Nama</th>
-                                                        <th>Kontak</th>
-                                                        <th>Alamat</th>
-                                                        <th>Kota</th>
-                                                        <th>Status Supplier</th>
+                                                        <th>No</th>
+                                                        <th>Nama</th> 
+                                                        <th>Alamat</th> 
+                                                        <th>No Telp</th>
+                                                        <th>Kota</th> 
+                                                        <th>Pengurus</th> 
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>001</td>
-                                                        <td>Tiger Nixion</td>
-                                                        <td>08123652367</td>
-                                                        <td>Jl. Wonokromo</td>
-                                                        <td>Surabaya</td>
-                                                        <td><div class="badge badge-success">Aktif</div></td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Edit"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i data-feather="edit-2"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#edit_barang"></i></span></span></a>
-                                                                <a class="btn btn-icon btn-danger btn-rounded flush-soft-hover del-button"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Delete"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i data-feather="trash"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#hapus_barang"></i></span></span></a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>002</td>
-                                                        <td>Lion King</td>
-                                                        <td>0812365123</td>
-                                                        <td>Jl. Tunjungan</td>
-                                                        <td>Surabaya</td>
-                                                        <td><div class="badge badge-success">Aktif</div></td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Edit"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i data-feather="edit-2"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#edit_barang"></i></span></span></a>
-                                                                <a class="btn btn-icon btn-danger btn-rounded flush-soft-hover del-button"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Delete"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i data-feather="trash"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#hapus_barang"></i></span></span></a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>003</td>
-                                                        <td>Giraffe</td>
-                                                        <td>0812362323</td>
-                                                        <td>Jl. Pucang</td>
-                                                        <td>Surabaya</td>
-                                                        <td><div class="badge badge-danger">Tidak Aktif</div></td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Edit"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i data-feather="edit-2"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#edit_barang"></i></span></span></a>
-                                                                <a class="btn btn-icon btn-danger btn-rounded flush-soft-hover del-button"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Delete"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i data-feather="trash"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#hapus_barang"></i></span></span></a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>004</td>
-                                                        <td>Crocodile</td>
-                                                        <td>0812312739</td>
-                                                        <td>Jl. Semolowaru</td>
-                                                        <td>Surabaya</td>
-                                                        <td><div class="badge badge-danger">Tidak Aktif</div></td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Edit"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i data-feather="edit-2"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#edit_barang"></i></span></span></a>
-                                                                <a class="btn btn-icon btn-danger btn-rounded flush-soft-hover del-button"
-                                                                    data-bs-toggle="tooltip" data-placement="top"
-                                                                    title="" data-bs-original-title="Delete"
-                                                                    href="#"><span class="icon"><span
-                                                                            class="feather-icon"><i data-feather="trash"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#hapus_barang"></i></span></span></a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
                                             </table>
                                         </div>
                                     </div>
@@ -171,156 +61,78 @@
             </div>
             <!-- /Page Body -->
 
-            {{-- Modal Tambah Supplier --}}
-            <div class="modal fade" id="tambahSupplier" tabindex="-1" role="dialog" aria-labelledby="modalSupplier"
+            {{-- Modal Supplier --}}
+            <div class="modal fade" id="supplierModal" tabindex="-1" role="dialog" aria-labelledby="modalSupplier"
                 aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Tambah Data Supplier Baru</h5>
+                            <h6 class="modal-title" id="supplierHeading"></h6>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true">×</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert"
+                                style="display: none;" style="color: red">
+                            </div>
+                            <form   id="supplierForm">
+                                <div class="row gx-3">
+                                    <input type="hidden" id="supplier_id" name="supplier_id">
+                                    <div class="col-sm-12">
+                                        <label class="form-label">Nama Supplier</label>
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" placeholder="Masukkan Nama"
+                                                name="supplier_nama" id="supplier_nama" />
+                                         </div> 
+                                    </div>
+                                </div> 
                                 <div class="row gx-3">
                                     <div class="col-sm-12">
-                                        <label class="form-label">Kode</label>
+                                        <label class="form-label">Alamat Supplier</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" value="" placeholder="Kode"
-                                                name="kode_edit" />
-                                        </div>
-                                        <label class="form-label">Nama</label>
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" value="" placeholder="Nama"
-                                                name="Nama_edit" />
-                                        </div>
+                                            <input class="form-control" type="text" placeholder="Masukkan Alamat"
+                                                name="supplier_alamat" id="supplier_alamat" />
+                                         </div> 
                                     </div>
-                                </div>
+                                </div> 
                                 <div class="row gx-3">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="form-label">Kontak</label>
-                                            <input class="form-control" type="text" value=""
-                                                placeholder="085........" name="name" />
+                                            <label class="form-label">No Telp</label>
+                                            <input class="form-control" type="text" 
+                                                placeholder="Masukkan No Telp" name="supplier_no_telp"
+                                                id="supplier_no_telp" />
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="form-label">Kota</label>
-                                            <div class="form-group">
-                                                <input class="form-control" type="text" value=""
-                                                    placeholder="Nama Kota" name="Nama_edit" />
-                                            </div>
+                                            <input class="form-control" type="text"
+                                                placeholder="Masukkan Nama Kota" name="supplier_kota"
+                                                id="supplier_kota" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row gx-3">
                                     <div class="col-sm-12">
-                                        <label class="form-label">Alamat</label>
+                                        <label class="form-label">Nama Pengurus</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" value=""
-                                                placeholder="Jl. Nama Jalan..." name="kode_edit" />
-                                        </div>
+                                            <input class="form-control" type="text" placeholder="Masukkan Nama Pengurus"
+                                                name="supplier_pengurus" id="supplier_pengurus" />
+                                         </div> 
                                     </div>
+                                </div> 
+                                <div class="modal-footer align-items-center">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary" id="submitSupplier">Simpan</button>
                                 </div>
                             </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {{-- Modal Edit Supplier --}}
-            <div class="modal fade" id="edit_barang" tabindex="-1" role="dialog" aria-labelledby="modalSupplier"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Edit Data Supplier</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="row gx-3">
-                                    <div class="col-sm-12">
-                                        <label class="form-label">Kode</label>
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" value="" placeholder="Kode"
-                                                name="kode_edit" />
-                                        </div>
-                                        <label class="form-label">Nama</label>
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" value="" placeholder="Nama"
-                                                name="Nama_edit" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row gx-3">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Kontak</label>
-                                            <input class="form-control" type="text" value=""
-                                                placeholder="085........" name="name" />
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Kota</label>
-                                            <div class="form-group">
-                                                <input class="form-control" type="text" value=""
-                                                    placeholder="Nama Kota" name="Nama_edit" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row gx-3">
-                                    <div class="col-sm-12">
-                                        <label class="form-label">Alamat</label>
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" value=""
-                                                placeholder="Jl. Nama Jalan..." name="kode_edit" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- hapus modal -->
-            <div class="modal fade" id="hapus_barang" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalSmall01" aria-hidden="true">
-                <div class="modal-dialog modal-sm" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Konfirmasi Hapus</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Yakin Akan Menghapus Supplier Ini??</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tidak</button>
-                            <button type="button" class="btn btn-success">Ya</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- hapus modal -->
         </div>
 
         <!-- Page Footer -->
@@ -346,3 +158,216 @@
     </div>
     <!-- /Main Content -->
 @endsection
+
+@push('script-alt')
+    <script>
+        $(document).ready(function() {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            var datatable = $('#datatable_7').DataTable({
+                scrollX: true,
+                autoWidth: false,
+                language: {
+                    search: "",
+                    searchPlaceholder: "Search",
+                    sLengthMenu: "_MENU_item",
+                    paginate: {
+                        next: '<i class="ri-arrow-right-s-line"></i>', // or '→'
+                        previous: '<i class="ri-arrow-left-s-line"></i>' // or '←' 
+                    }
+                },
+                "drawCallback": function() {
+                    $('.dataTables_paginate > .pagination').addClass(
+                        'custom-pagination pagination-simple');
+                },
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('supplier.index') }}",
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'supplier_nama',
+                        name: 'supplier_nama'
+                    }, 
+                    {
+                        data: 'supplier_alamat',
+                        name: 'supplier_alamat'
+                    }, 
+                    {
+                        data: 'supplier_no_telp',
+                        name: 'supplier_no_telp'
+                    }, 
+                    {
+                        data: 'supplier_kota',
+                        name: 'supplier_kota'
+                    }, 
+                    {
+                        data: 'supplier_pengurus',
+                        name: 'supplier_pengurus'
+                    }, 
+                    {
+                        data: 'action',
+                        name: 'action'
+                    }
+                ]
+            });
+
+            // Create Data Supplier.
+            $('#supplier-create').click(function() {
+                $('.alert').hide();
+                $('#saveBtn').val("create-supplier");
+                $('#supplier_id').val('');
+                $('#supplierForm').trigger("reset");
+                $('#supplierHeading').html("TAMBAH DATA SUPPLIER BARU");
+                $('#supplierModal').modal('show');
+            });
+
+            $('#submitSupplier').on('click', function(e){
+                e.preventDefault();
+
+                $(this).html('Sending..');
+                //  var form = $(this).serialize(); 
+                 
+                //  alert(form);
+                 $.ajax({
+                    url: "{{ route('supplier.store') }}",
+                    data: new FormData(this.form),
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    type: "POST",
+
+                    success: function(response) {
+                        console.log(response)
+                        if (response.errors) {
+                            $('.alert').html('');
+                            $.each(response.errors, function(key, value) {
+                                $('.alert-danger').show();
+                                $('.alert-danger').append('<strong><li>' + value +
+                                    '</li></strong>');
+                            });
+                            $('#submitSupplier').html('Simpan');
+
+                        } else {
+                            $('.btn-warning').hide();
+
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true,
+                            });
+
+                            Toast.fire({
+                                icon: 'success',
+                                title: `${response.message}`,
+                            })
+
+                            $('#supplierForm').trigger("reset");
+                            $('#submitSupplier').html('Simpan');
+                            $('#supplierModal').modal('hide');
+
+                            datatable.draw();
+                        }
+                    }
+                 });
+            });
+
+
+            // Edit Data Supplier
+            $('body').on('click', '#user-edit', function() {
+                var supplier_id = $(this).attr('data-id');
+                $('.alert').hide();
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('supplier.edit') }}",
+                    data: {
+                        supplier_id: supplier_id
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        console.log(response)
+                        $('#submitBtnSupplier').val("supplier-edit");
+                        $('#supplierForm').trigger("reset");
+                        $('#supplierHeading').html("EDIT DATA Supplier");
+                        $('#supplierModal').modal('show');
+                        $('#supplier_id').val(response.supplier_id);
+                        $('#supplier_nama').val(response.supplier_nama);
+                        $('#supplier_alamat').val(response.supplier_alamat);
+                        $('#supplier_no_telp').val(response.supplier_no_telp);
+                        $('#supplier_kota').val(response.supplier_kota);
+                        $('#supplier_pengurus').val(response.supplier_pengurus);
+                    }
+                });
+            });
+
+            // Arsipkan Data Supplier
+            $('body').on('click', '#user-delete', function() {
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: "btn btn-success",
+                        cancelButton: "btn btn-danger me-2",
+                    },
+                    buttonsStyling: false,
+
+                });
+
+                var supplier_id = $(this).attr('data-id');
+
+                swalWithBootstrapButtons
+                    .fire({
+                        title: "Do you want to delete, this data?",
+                        text: "This data will be deleted!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonClass: "me-2",
+                        cancelButtonText: "Tidak",
+                        confirmButtonText: "Ya",
+                        reverseButtons: true,
+                    })
+                    .then((result) => {
+                        if (result.value) {
+                            $.ajax({
+                                type: "POST",
+                                url: "{{ route('supplier.destroy') }}",
+                                data: {
+                                    supplier_id: supplier_id,
+                                },
+                                dataType: "json",
+                                success: function(response) {
+                                    const Toast = Swal.mixin({
+                                        toast: true,
+                                        position: 'top-end',
+                                        showConfirmButton: false,
+                                        timer: 3000,
+                                        timerProgressBar: true,
+                                    });
+
+                                    Toast.fire({
+                                        icon: 'success',
+                                        title: `${response.status}`,
+                                    })
+                                    datatable.draw();
+                                }
+                            });
+                        } else {
+                            Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
+                        }
+                    });
+
+            });
+ 
+ 
+
+        })
+    </script>
+@endpush

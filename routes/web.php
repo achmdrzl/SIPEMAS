@@ -36,10 +36,30 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::post('/userEdit', MasterDataController::class. '@userEdit')->name('user.edit');
     Route::post('/userDestroy', MasterDataController::class. '@userDestroy')->name('user.destroy');
 
-    Route::post('/pabrikStore', MasterDataController::class. '@pabrikStore')->name("pabrik.store");
     // MASTER PABRIK
     Route::get('/pabrik', MasterDataController::class . '@pabrikIndex')->name('pabrik.index');
-    
+    Route::post('/pabrikStore', MasterDataController::class. '@pabrikStore')->name("pabrik.store");
+    Route::post('/pabrikEdit', MasterDataController::class. '@pabrikEdit')->name('pabrik.edit');
+    Route::post('/pabrikDestroy', MasterDataController::class. '@pabrikDestroy')->name('pabrik.destroy');
+
+    // MASTER KADAR
+    Route::get('/kadar', MasterDataController::class . '@kadarIndex')->name('kadar.index');
+    Route::post('/kadarStore', MasterDataController::class. '@kadarStore')->name("kadar.store");
+    Route::post('/kadarkEdit', MasterDataController::class. '@kadarEdit')->name('kadar.edit');
+    Route::post('/kadarDestroy', MasterDataController::class. '@kadarDestroy')->name('kadar.destroy');
+
+    // MASTER MODEL
+    Route::get('/model', MasterDataController::class . '@modelIndex')->name('model.index');
+    Route::post('/modelStore', MasterDataController::class. '@modelStore')->name("model.store");
+    Route::post('/modelkEdit', MasterDataController::class. '@modelEdit')->name('model.edit');
+    Route::post('/modelDestroy', MasterDataController::class. '@modelDestroy')->name('model.destroy');
+
+    // MASTER SUPPLIER
+    Route::get('/supplier', MasterDataController::class . '@supplierIndex')->name('supplier.index');
+    Route::post('/supplierStore', MasterDataController::class. '@supplierStore')->name("supplier.store");
+    Route::post('/supplierkEdit', MasterDataController::class. '@supplierEdit')->name('supplier.edit');
+    Route::post('/supplierDestroy', MasterDataController::class. '@supplierDestroy')->name('supplier.destroy');
+
     // Transaksi Pembelian Section
     Route::get('/pembelian', TransaksiPembelianController::class . '@transaksi_pembelian')->name('pembelian.index');
 

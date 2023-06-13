@@ -98,15 +98,15 @@
                                                 class="nav-link-text">Pabrik</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#"><span class="nav-link-text">Kadar</span></a>
+                                        <a class="nav-link" href="#"><span class="nav-link-text">Harga Jual</span></a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('barang.index') }}"><span
                                                 class="nav-link-text">Barang</span></a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#"><span class="nav-link-text">Harga
-                                                Jual</span></a>
+                                    <li class="nav-item {{ request()->segment(1) == 'kadar' ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('kadar.index') }}"><span 
+                                                class="nav-link-text">Kadar</span></a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#"><span

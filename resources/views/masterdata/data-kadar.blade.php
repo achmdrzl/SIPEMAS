@@ -9,8 +9,8 @@
                 <div class="d-flex">
                     <div class="d-flex flex-wrap justify-content-between flex-1">
                         <div class="mb-lg-0 mb-2 me-8">
-                            <h1 class="pg-title">Data Pabrik</h1>
-                            <p>Management Pengelolaan Data Pabrik Toko Emas</p>
+                            <h1 class="pg-title">Data Kadar</h1>
+                            <p>Management Pengelolaan Data Kadar Toko Emas</p>
                         </div>
                     </div>
                 </div>
@@ -25,24 +25,26 @@
                             <div class="col-md-12 mb-md-4 mb-3">
                                 <div class="card card-border mb-0 h-100">
                                     <div class="card-header card-header-action">
-                                        <h6>List Data Pabrik
-                                            <span class="badge badge-sm badge-light ms-1">{{ count($pabriks) }}</span>
+                                        <h6>List Data Kadar
+                                            <span class="badge badge-sm badge-light ms-1">{{ count($kadars) }}</span>
                                         </h6>
                                         <div class="card-action-wrap">
-                                            <button class="btn btn-sm btn-primary ms-3" id="pabrik-create"><span><span
+                                            <button class="btn btn-sm btn-primary ms-3" id="kadar-create"><span><span
                                                         class="icon"><span class="feather-icon"><i
                                                                 data-feather="plus"></i></span></span><span
                                                         class="btn-text">Tambah
-                                                        Pabrik</span></span></button>
+                                                        Kadar</span></span></button>
                                         </div>
                                     </div>
                                     <div class="card-body">
                                         <div class="contact-list-view">
-                                            <table id="datatable_7" class="table nowrap datatablePabrik table-striped">
+                                            <table id="datatable_7" class="table nowrap datatableKadar table-striped">
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
                                                         <th>Nama</th> 
+                                                        <th>Harga Jual 1</th> 
+                                                        <th>Harga Jual 2</th> 
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -57,13 +59,13 @@
             </div>
             <!-- /Page Body -->
 
-            {{-- Modal Pabrik --}}
-            <div class="modal fade" id="pabrikModal" tabindex="-1" role="dialog" aria-labelledby="modalSupplier"
+            {{-- Modal Kadar --}}
+            <div class="modal fade" id="kadarModal" tabindex="-1" role="dialog" aria-labelledby="modalSupplier"
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h6 class="modal-title" id="pabrikHeading"></h6>
+                            <h6 class="modal-title" id="kadarHeading"></h6>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
@@ -72,20 +74,38 @@
                             <div class="alert alert-danger alert-dismissible fade show" role="alert"
                                 style="display: none;" style="color: red">
                             </div>
-                            <form   id="pabrikForm">
+                            <form   id="kadarForm">
                                 <div class="row gx-3">
-                                    <input type="hidden" id="pabrik_id" name="pabrik_id">
+                                    <input type="hidden" id="kadar_id" name="kadar_id">
                                     <div class="col-sm-12">
-                                        <label class="form-label">Nama Pabrik</label>
+                                        <label class="form-label">Nama Kadar</label>
                                         <div class="form-group">
                                             <input class="form-control" type="text" placeholder="Masukkan Nama"
-                                                name="pabrik_nama" id="pabrik_nama" />
+                                                name="kadar_nama" id="kadar_nama" />
                                          </div> 
                                     </div>
                                 </div> 
+                                <div class="row gx-3">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Harga Jual 1</label>
+                                            <input class="form-control" type="number" step=0.01
+                                                placeholder="Masukkan Harga Jual 1" name="kadar_harga_jual_1"
+                                                id="kadar_harga_jual_1" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Harga Jual 2</label>
+                                            <input class="form-control" type="number" step=0.01
+                                                placeholder="Masukkan Harga Jual 2" name="kadar_harga_jual_2"
+                                                id="kadar_harga_jual_2" />
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="modal-footer align-items-center">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-primary" id="submitPabrik">Simpan</button>
+                                    <button type="submit" class="btn btn-primary" id="submitKadar">Simpan</button>
                                 </div>
                             </form>
                         </div>
@@ -147,14 +167,22 @@
                 },
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('pabrik.index') }}",
+                ajax: "{{ route('kadar.index') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
                     },
                     {
-                        data: 'pabrik_nama',
-                        name: 'pabrik_nama'
+                        data: 'kadar_nama',
+                        name: 'kadar_nama'
+                    }, 
+                    {
+                        data: 'kadar_harga_jual_1',
+                        name: 'kadar_harga_jual_1'
+                    }, 
+                    {
+                        data: 'kadar_harga_jual_2',
+                        name: 'kadar_harga_jual_2'
                     }, 
                     {
                         data: 'action',
@@ -163,17 +191,17 @@
                 ]
             });
 
-            // Create Data Pabrik.
-            $('#pabrik-create').click(function() {
+            // Create Data Kadar.
+            $('#kadar-create').click(function() {
                 $('.alert').hide();
-                $('#saveBtn').val("create-pabrik");
-                $('#pabrik_id').val('');
-                $('#pabrikForm').trigger("reset");
-                $('#pabrikHeading').html("TAMBAH DATA PABRIK BARU");
-                $('#pabrikModal').modal('show');
+                $('#saveBtn').val("create-kadar");
+                $('#kadar_id').val('');
+                $('#kadarForm').trigger("reset");
+                $('#kadarHeading').html("TAMBAH DATA KADAR BARU");
+                $('#kadarModal').modal('show');
             });
 
-            $('#submitPabrik').on('click', function(e){
+            $('#submitKadar').on('click', function(e){
                 e.preventDefault();
 
                 $(this).html('Sending..');
@@ -181,7 +209,7 @@
                  
                 //  alert(form);
                  $.ajax({
-                    url: "{{ route('pabrik.store') }}",
+                    url: "{{ route('kadar.store') }}",
                     data: new FormData(this.form),
                     cache: false,
                     processData: false,
@@ -197,7 +225,7 @@
                                 $('.alert-danger').append('<strong><li>' + value +
                                     '</li></strong>');
                             });
-                            $('#submitPabrik').html('Simpan');
+                            $('#submitKadar').html('Simpan');
 
                         } else {
                             $('.btn-warning').hide();
@@ -215,9 +243,9 @@
                                 title: `${response.message}`,
                             })
 
-                            $('#pabrikForm').trigger("reset");
-                            $('#submitPabrik').html('Simpan');
-                            $('#pabrikModal').modal('hide');
+                            $('#kadarForm').trigger("reset");
+                            $('#submitKadar').html('Simpan');
+                            $('#kadarModal').modal('hide');
 
                             datatable.draw();
                         }
@@ -226,30 +254,32 @@
             });
 
 
-            // Edit Data Pabrik
+            // Edit Data Kadar
             $('body').on('click', '#user-edit', function() {
-                var pabrik_id = $(this).attr('data-id');
+                var kadar_id = $(this).attr('data-id');
                 $('.alert').hide();
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('pabrik.edit') }}",
+                    url: "{{ route('kadar.edit') }}",
                     data: {
-                        pabrik_id: pabrik_id
+                        kadar_id: kadar_id
                     },
                     dataType: "json",
                     success: function(response) {
                         console.log(response)
-                        $('#submitBtnPabrik').val("pabrik-edit");
-                        $('#pabrikForm').trigger("reset");
-                        $('#pabrikHeading').html("EDIT DATA Pabrik");
-                        $('#pabrikModal').modal('show');
-                        $('#pabrik_id').val(response.pabrik_id);
-                        $('#pabrik_nama').val(response.pabrik_nama);
+                        $('#submitBtnKadar').val("kadar-edit");
+                        $('#kadarForm').trigger("reset");
+                        $('#kadarHeading').html("EDIT DATA Kadar");
+                        $('#kadarModal').modal('show');
+                        $('#kadar_id').val(response.kadar_id);
+                        $('#kadar_nama').val(response.kadar_nama);
+                        $('#kadar_harga_jual_1').val(response.kadar_harga_jual_1);
+                        $('#kadar_harga_jual_2').val(response.kadar_harga_jual_2);
                     }
                 });
             });
 
-            // Arsipkan Data Pabrik
+            // Arsipkan Data Kadar
             $('body').on('click', '#user-delete', function() {
 
                 const swalWithBootstrapButtons = Swal.mixin({
@@ -261,7 +291,7 @@
 
                 });
 
-                var pabrik_id = $(this).attr('data-id');
+                var kadar_id = $(this).attr('data-id');
 
                 swalWithBootstrapButtons
                     .fire({
@@ -278,9 +308,9 @@
                         if (result.value) {
                             $.ajax({
                                 type: "POST",
-                                url: "{{ route('pabrik.destroy') }}",
+                                url: "{{ route('kadar.destroy') }}",
                                 data: {
-                                    pabrik_id: pabrik_id,
+                                    kadar_id: kadar_id,
                                 },
                                 dataType: "json",
                                 success: function(response) {
