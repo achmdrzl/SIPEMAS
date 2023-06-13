@@ -108,8 +108,8 @@
                                         <a class="nav-link" href="{{ route('kadar.index') }}"><span 
                                                 class="nav-link-text">Kadar</span></a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#"><span
+                                    <li class="nav-item {{ request()->segment(1) == 'merk' ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('merk.index') }}"><span 
                                                 class="nav-link-text">Merk</span></a>
                                     </li>
                                 </ul>

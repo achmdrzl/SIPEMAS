@@ -60,6 +60,13 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::post('/supplierkEdit', MasterDataController::class. '@supplierEdit')->name('supplier.edit');
     Route::post('/supplierDestroy', MasterDataController::class. '@supplierDestroy')->name('supplier.destroy');
 
+     // MASTER MERK
+     Route::get('/merk', MasterDataController::class . '@merkIndex')->name('merk.index');
+     Route::post('/merkStore', MasterDataController::class. '@merkStore')->name("merk.store");
+     Route::post('/merkkEdit', MasterDataController::class. '@merkEdit')->name('merk.edit');
+     Route::post('/merkDestroy', MasterDataController::class. '@merkDestroy')->name('merk.destroy');
+ 
+
     // Transaksi Pembelian Section
     Route::get('/pembelian', TransaksiPembelianController::class . '@transaksi_pembelian')->name('pembelian.index');
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kadar;
+use App\Models\Merk;
 use App\Models\ModelBarang;
 use App\Models\Pabrik;
 use App\Models\Supplier;
@@ -424,6 +425,74 @@ class MasterDataController extends Controller
     public function supplierDestroy(Request $request)
     {
         $supplier = Supplier::find($request->supplier_id)->delete();
+
+        return response()->json(['status' => 'Data Deleted Successfully!']);
+
+    }
+
+    public function merkIndex(Request $request)
+    {
+        //dd("asasas");
+        $merks   =   Merk::all();
+        if ($request->ajax()) {
+            $merks   =   Merk::all();
+            return DataTables::of($merks)
+                ->addIndexColumn()
+                ->addColumn('merk_nama', function ($item) {
+                    return ucfirst($item->merk_nama);
+                })
+                ->addColumn('action', function ($item) {
+                    $btn = '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="user-edit" data-id="' . $item->merk_id . '"><span class="material-icons btn-sm">edit</span></button>';
+
+                    $btn = $btn . '<button class="btn btn-icon btn-danger btn-rounded flush-soft-hover me-1" id="user-delete" data-id="' . $item->merk_id . '"><span class="material-icons btn-sm">delete</span></button>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('masterdata.data-merk', compact('merks'));
+    }
+
+    public function merkStore(Request $request)
+    { 
+        // dd($request->all());
+        //define validation rules  
+        $validator = Validator::make($request->all(), [
+            'merk_nama' => 'required',  
+        ], [
+            'merk_nama.required' => 'Nama Merk Must be included!', 
+
+        ]);
+
+        //check if validation fails
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()]);
+        } 
+
+        Merk::updateOrCreate([
+            'merk_id' => $request->merk_id
+        ], [
+            'merk_nama' => $request->merk_nama
+        ]);
+
+        //return response
+        return response()->json([
+            'success' => true,
+            'message' => 'Your data has been saved successfully!',
+        ]);
+    }
+
+    public function merkEdit(Request $request)
+    {
+        //dd($request->all());
+        $merk = Merk::where('merk_id', $request->merk_id)->first();
+        return response()->json($merk);
+    }
+
+    public function merkDestroy(Request $request)
+    {
+        Merk::find($request->merk_id)->delete();
 
         return response()->json(['status' => 'Data Deleted Successfully!']);
 
