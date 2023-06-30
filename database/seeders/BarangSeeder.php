@@ -8,9 +8,16 @@ use Illuminate\Database\Seeder;
 
 class BarangSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+    // <th>No</th>
+    // <th>Nama</th>  
+    // <th>Model</th> 
+    // <th>Pabrik</th> 
+    // <th>Merk</th> 
+    // <th>Supplier</th> 
+    // <th>Kadar</th> 
+    // <th>Status</th> 
+    // <th>Stok</th>
+    // <th>Action</th>
     public function run(): void
     {
         Barang::create([

@@ -43,12 +43,13 @@
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>Nama</th>
-                                                        <th>Berat</th>
-                                                        <th>Satuan</th>
-                                                        <th>Jenis</th>
-                                                        <th>Status</th>
-                                                        <th>Lokasi</th>
+                                                        <th>Nama</th>  
+                                                        <th>Model</th> 
+                                                        <th>Pabrik</th> 
+                                                        <th>Merk</th> 
+                                                        <th>Supplier</th> 
+                                                        <th>Kadar</th> 
+                                                        <th>Status</th> 
                                                         <th>Stok</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -75,13 +76,14 @@
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td>0.75</td>
-                                                        <td>Pcs</td>
-                                                        <td>Perhiasan</td>
+                                                        <td>Cincin COR</td>
+                                                        <td>BG</td>
+                                                        <td>HWT</td>
+                                                        <td>Mustika</td>
+                                                        <td>8K</td>
                                                         <td>
                                                             <div class="badge badge-success">Aktif</div>
-                                                        </td>
-                                                        <td>Terjual</td>
+                                                        </td> 
                                                         <td>3</td>
                                                         <td>
                                                             
@@ -93,6 +95,13 @@
                                                                             class="feather-icon"><i data-feather="airplay"
                                                                                 data-bs-toggle="modal"
                                                                                 data-bs-target="#pindah_etalase"></i></span></span></a>
+                                                                <a class="btn btn-icon btn-warning btn-rounded flush-soft-hover me-1"
+                                                                    data-bs-toggle="tooltip" data-placement="top"
+                                                                    title="" data-bs-original-title="Detail barang"
+                                                                    href="#"><span class="icon"><span
+                                                                            class="feather-icon"><i data-feather="archive"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#detail_barang"></i></span></span></a>
                                                                 <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Edit"
@@ -137,15 +146,16 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </td>
-                                                        <td>1.40</td>
-                                                        <td>Pcs</td>
-                                                        <td>Perhiasan</td>
+                                                        </td> 
+                                                        <td>Cincin COR</td>
+                                                        <td>BG</td>
+                                                        <td>HWT</td>
+                                                        <td>Mustika</td>
+                                                        <td>8K</td>
                                                         <td>
                                                             <div class="badge badge-danger">Tidak Aktif
                                                             </div>
-                                                        </td>
-                                                        <td>Blm Dipajang</td>
+                                                        </td> 
                                                         <td>3</td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
@@ -156,6 +166,13 @@
                                                                             class="feather-icon"><i data-feather="airplay"
                                                                                 data-bs-toggle="modal"
                                                                                 data-bs-target="#pindah_etalase"></i></span></span></a>
+                                                                <a class="btn btn-icon btn-warning btn-rounded flush-soft-hover me-1"
+                                                                    data-bs-toggle="tooltip" data-placement="top"
+                                                                    title="" data-bs-original-title="Detail barang"
+                                                                    href="#"><span class="icon"><span
+                                                                            class="feather-icon"><i data-feather="archive"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#detail_barang"></i></span></span></a>
                                                                 <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Edit"
@@ -198,14 +215,15 @@
                                                                         0200610500003 </div>
                                                                 </div>
                                                             </div>
-                                                        </td>
-                                                        <td>2.75</td>
-                                                        <td>Pcs</td>
-                                                        <td>Perhiasan</td>
+                                                        </td> 
+                                                        <td>Cincin COR</td>
+                                                        <td>BG</td>
+                                                        <td>HWT</td>
+                                                        <td>Mustika</td>
+                                                        <td>8K</td>
                                                         <td>
                                                             <div class="badge badge-success">Aktif</div>
-                                                        </td>
-                                                        <td>Etalase</td>
+                                                        </td> 
                                                         <td>3</td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
@@ -216,6 +234,13 @@
                                                                             class="feather-icon"><i data-feather="airplay"
                                                                                 data-bs-toggle="modal"
                                                                                 data-bs-target="#pindah_etalase"></i></span></span></a>
+                                                                <a class="btn btn-icon btn-warning btn-rounded flush-soft-hover me-1"
+                                                                    data-bs-toggle="tooltip" data-placement="top"
+                                                                    title="" data-bs-original-title="Detail barang"
+                                                                    href="#"><span class="icon"><span
+                                                                            class="feather-icon"><i data-feather="archive"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#detail_barang"></i></span></span></a>
                                                                 <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Edit"
@@ -258,14 +283,15 @@
                                                                         0200610500032 </div>
                                                                 </div>
                                                             </div>
-                                                        </td>
-                                                        <td>0.65</td>
-                                                        <td>Pcs</td>
-                                                        <td>Perhiasan</td>
+                                                        </td> 
+                                                        <td>Cincin COR</td>
+                                                        <td>BG</td>
+                                                        <td>HWT</td>
+                                                        <td>Mustika</td>
+                                                        <td>8K</td>
                                                         <td>
                                                             <div class="badge badge-success">Aktif</div>
-                                                        </td>
-                                                        <td>Terjual</td>
+                                                        </td> 
                                                         <td>3</td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
@@ -276,6 +302,13 @@
                                                                             class="feather-icon"><i data-feather="airplay"
                                                                                 data-bs-toggle="modal"
                                                                                 data-bs-target="#pindah_etalase"></i></span></span></a>
+                                                                <a class="btn btn-icon btn-warning btn-rounded flush-soft-hover me-1"
+                                                                    data-bs-toggle="tooltip" data-placement="top"
+                                                                    title="" data-bs-original-title="Detail barang"
+                                                                    href="#"><span class="icon"><span
+                                                                            class="feather-icon"><i data-feather="archive"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#detail_barang"></i></span></span></a>
                                                                 <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Edit"
@@ -318,15 +351,16 @@
                                                                         0200610540002 </div>
                                                                 </div>
                                                             </div>
-                                                        </td>
-                                                        <td>2.75</td>
-                                                        <td>Pcs</td>
-                                                        <td>Perhiasan</td>
+                                                        </td> 
+                                                        <td>Cincin COR</td>
+                                                        <td>BG</td>
+                                                        <td>HWT</td>
+                                                        <td>Mustika</td>
+                                                        <td>8K</td>
                                                         <td>
                                                             <div class="badge badge-danger">Tidak Aktif
                                                             </div>
-                                                        </td>
-                                                        <td>Terjual</td>
+                                                        </td> 
                                                         <td>3</td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
@@ -337,6 +371,13 @@
                                                                             class="feather-icon"><i data-feather="airplay"
                                                                                 data-bs-toggle="modal"
                                                                                 data-bs-target="#pindah_etalase"></i></span></span></a>
+                                                                <a class="btn btn-icon btn-warning btn-rounded flush-soft-hover me-1"
+                                                                    data-bs-toggle="tooltip" data-placement="top"
+                                                                    title="" data-bs-original-title="Detail barang"
+                                                                    href="#"><span class="icon"><span
+                                                                            class="feather-icon"><i data-feather="archive"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#detail_barang"></i></span></span></a>
                                                                 <a class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1"
                                                                     data-bs-toggle="tooltip" data-placement="top"
                                                                     title="" data-bs-original-title="Edit"
