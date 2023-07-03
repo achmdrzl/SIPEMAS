@@ -43,12 +43,22 @@
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
+<<<<<<< Updated upstream
                                                         <th>Nama</th>
                                                         <th>Berat</th>
                                                         <th>Satuan</th>
                                                         <th>Jenis</th>
                                                         <th>Status</th>
                                                         <th>Lokasi</th>
+=======
+                                                        <th>Nama</th>  
+                                                        <th>Model</th> 
+                                                        <th>Pabrik</th> 
+                                                        <th>Merk</th> 
+                                                        <th>Supplier</th> 
+                                                        <th>Kadar</th> 
+                                                        <th>Status</th> 
+>>>>>>> Stashed changes
                                                         <th>Stok</th>
                                                         <th>Action</th>
                                                     </tr>
