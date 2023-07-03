@@ -13,6 +13,8 @@ class Merk extends Model
     public $timestamps = true;
     protected $fillable =
     [
-     'merk_nama'
+     'merk_id',
+     'merk_nama',
+     'status'
     ];
 }

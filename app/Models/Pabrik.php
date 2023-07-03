@@ -13,6 +13,8 @@ class Pabrik extends Model
     public $timestamps = true;
     protected $fillable =
     [
-     'pabrik_nama'
+     'pabrik_id',
+     'pabrik_nama',
+     'status'
     ];
 }

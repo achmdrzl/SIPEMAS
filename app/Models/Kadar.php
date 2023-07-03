@@ -8,13 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Kadar extends Model
 {
     protected $table = 'kadars';
-    protected $primaryKey = 'kadar_id'; 
+
+    protected $primaryKey = 'kadar_id';
+
     public $incrementing = true;
+
     public $timestamps = true;
+
     protected $fillable =
     [
-     'kadar_nama',
-     'kadar_harga_jual_1',
-     'kadar_harga_jual_2'
+        'kadar_id',
+        'kadar_nama',
+        'kadar_harga_jual_1',
+        'kadar_harga_jual_2',
+        'status'
     ];
 }

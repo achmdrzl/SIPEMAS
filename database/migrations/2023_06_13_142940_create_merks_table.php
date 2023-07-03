@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('merks', function (Blueprint $table) {
             $table->id('merk_id');
             $table->string('merk_nama');
+            $table->enum('status', ['aktif', 'non-aktif'])->default('aktif');
             $table->timestamps();
         });
     }

@@ -11,4 +11,6 @@ class MasterBarangController extends Controller
     {
         return view('masterdata.data-barang');
     }
+
+    
 }

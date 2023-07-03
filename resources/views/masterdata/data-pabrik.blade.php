@@ -42,7 +42,8 @@
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>Nama</th> 
+                                                        <th>Nama</th>
+                                                        <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -72,7 +73,7 @@
                             <div class="alert alert-danger alert-dismissible fade show" role="alert"
                                 style="display: none;" style="color: red">
                             </div>
-                            <form   id="pabrikForm">
+                            <form id="pabrikForm">
                                 <div class="row gx-3">
                                     <input type="hidden" id="pabrik_id" name="pabrik_id">
                                     <div class="col-sm-12">
@@ -80,9 +81,9 @@
                                         <div class="form-group">
                                             <input class="form-control" type="text" placeholder="Masukkan Nama"
                                                 name="pabrik_nama" id="pabrik_nama" />
-                                         </div> 
+                                        </div>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="modal-footer align-items-center">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                     <button type="submit" class="btn btn-primary" id="submitPabrik">Simpan</button>
@@ -155,7 +156,11 @@
                     {
                         data: 'pabrik_nama',
                         name: 'pabrik_nama'
-                    }, 
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
                     {
                         data: 'action',
                         name: 'action'
@@ -173,14 +178,14 @@
                 $('#pabrikModal').modal('show');
             });
 
-            $('#submitPabrik').on('click', function(e){
+            $('#submitPabrik').on('click', function(e) {
                 e.preventDefault();
 
                 $(this).html('Sending..');
                 //  var form = $(this).serialize(); 
-                 
+
                 //  alert(form);
-                 $.ajax({
+                $.ajax({
                     url: "{{ route('pabrik.store') }}",
                     data: new FormData(this.form),
                     cache: false,
@@ -222,7 +227,7 @@
                             datatable.draw();
                         }
                     }
-                 });
+                });
             });
 
 
@@ -265,8 +270,8 @@
 
                 swalWithBootstrapButtons
                     .fire({
-                        title: "Do you want to delete, this data?",
-                        text: "This data will be deleted!",
+                        title: "Do you want to updated, this data?",
+                        text: "This data will be updated!",
                         icon: "warning",
                         showCancelButton: true,
                         confirmButtonClass: "me-2",
@@ -305,8 +310,8 @@
                     });
 
             });
- 
- 
+
+
 
         })
     </script>
