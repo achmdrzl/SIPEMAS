@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Barang;
 use App\Models\Kadar;
 use App\Models\Merk;
 use App\Models\ModelBarang;
@@ -751,5 +752,73 @@ class MasterDataController extends Controller
         }
 
         return response()->json(['status' => 'Data Updated Successfully!']);
+    }
+
+    public function barangIndex(Request $request)
+    {
+        //dd("asasas");
+        $barangs   =   Barang::all();
+        if ($request->ajax()) {
+            $barangs   =   Barang::all();
+            return DataTables::of($barangs)
+                ->addIndexColumn()
+                ->addColumn('barang_nama', function ($item) {
+                    return ucfirst($item->barang_nama);
+                })
+                ->addColumn('action', function ($item) {
+                    $btn = '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="user-edit" data-id="' . $item->barang_id . '"><span class="material-icons btn-sm">edit</span></button>';
+
+                    $btn = $btn . '<button class="btn btn-icon btn-danger btn-rounded flush-soft-hover me-1" id="user-delete" data-id="' . $item->barang_id . '"><span class="material-icons btn-sm">delete</span></button>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('masterdata.data-barang', compact('barangs'));
+    }
+
+    public function barangStore(Request $request)
+    { 
+        // dd($request->all());
+        //define validation rules  
+        $validator = Validator::make($request->all(), [
+            'barang_nama' => 'required',  
+        ], [
+            'barang_nama.required' => 'Nama Barang Must be included!', 
+
+        ]);
+
+        //check if validation fails
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()]);
+        } 
+
+        Barang::updateOrCreate([
+            'barang_id' => $request->barang_id
+        ], [
+            'barang_nama' => $request->barang_nama
+        ]);
+
+        //return response
+        return response()->json([
+            'success' => true,
+            'message' => 'Your data has been saved successfully!',
+        ]);
+    }
+
+    public function barangEdit(Request $request)
+    {
+        //dd($request->all());
+        $barang = Barang::where('barang_id', $request->barang_id)->first();
+        return response()->json($barang);
+    }
+
+    public function barangDestroy(Request $request)
+    {
+        Barang::find($request->barang_id)->delete();
+
+        return response()->json(['status' => 'Data Deleted Successfully!']);
+
     }
 }
