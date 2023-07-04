@@ -21,10 +21,12 @@ class BarangSeeder extends Seeder
     public function run(): void
     {
         Barang::create([
+            'barang_kode'      =>  '09128300002',
             'barang_nama'      =>  'barang1' ,
             'barang_foto'      =>  'foto_barang/test_foto.jpg' ,
             'barang_barcode'      =>  'barcode_barang/test_barcode.jpg' ,
-            'barang_status'      =>  1 , 
+            'barang_status'      =>  1 ,
+            'barang_lokasi'      =>  'etalase' ,
             'model_id'      =>  1 , 
             'pabrik_id'      =>  1 , 
             'merk_id'      =>  1 , 

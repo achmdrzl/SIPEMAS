@@ -42,11 +42,12 @@
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>Nama</th> 
-                                                        <th>Alamat</th> 
+                                                        <th>Nama</th>
+                                                        <th>Alamat</th>
                                                         <th>No Telp</th>
-                                                        <th>Kota</th> 
-                                                        <th>Pengurus</th> 
+                                                        <th>Kota</th>
+                                                        <th>Pengurus</th>
+                                                        <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -76,7 +77,7 @@
                             <div class="alert alert-danger alert-dismissible fade show" role="alert"
                                 style="display: none;" style="color: red">
                             </div>
-                            <form   id="supplierForm">
+                            <form id="supplierForm">
                                 <div class="row gx-3">
                                     <input type="hidden" id="supplier_id" name="supplier_id">
                                     <div class="col-sm-12">
@@ -84,33 +85,31 @@
                                         <div class="form-group">
                                             <input class="form-control" type="text" placeholder="Masukkan Nama"
                                                 name="supplier_nama" id="supplier_nama" />
-                                         </div> 
+                                        </div>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="row gx-3">
                                     <div class="col-sm-12">
                                         <label class="form-label">Alamat Supplier</label>
                                         <div class="form-group">
                                             <input class="form-control" type="text" placeholder="Masukkan Alamat"
                                                 name="supplier_alamat" id="supplier_alamat" />
-                                         </div> 
+                                        </div>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="row gx-3">
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="form-label">No Telp</label>
-                                            <input class="form-control" type="text" 
-                                                placeholder="Masukkan No Telp" name="supplier_no_telp"
-                                                id="supplier_no_telp" />
+                                            <input class="form-control" type="text" placeholder="Masukkan No Telp"
+                                                name="supplier_no_telp" id="supplier_no_telp" />
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="form-label">Kota</label>
-                                            <input class="form-control" type="text"
-                                                placeholder="Masukkan Nama Kota" name="supplier_kota"
-                                                id="supplier_kota" />
+                                            <input class="form-control" type="text" placeholder="Masukkan Nama Kota"
+                                                name="supplier_kota" id="supplier_kota" />
                                         </div>
                                     </div>
                                 </div>
@@ -120,11 +119,12 @@
                                         <div class="form-group">
                                             <input class="form-control" type="text" placeholder="Masukkan Nama Pengurus"
                                                 name="supplier_pengurus" id="supplier_pengurus" />
-                                         </div> 
+                                        </div>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="modal-footer align-items-center">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
                                     <button type="submit" class="btn btn-primary" id="submitSupplier">Simpan</button>
                                 </div>
                             </form>
@@ -195,23 +195,27 @@
                     {
                         data: 'supplier_nama',
                         name: 'supplier_nama'
-                    }, 
+                    },
                     {
                         data: 'supplier_alamat',
                         name: 'supplier_alamat'
-                    }, 
+                    },
                     {
                         data: 'supplier_no_telp',
                         name: 'supplier_no_telp'
-                    }, 
+                    },
                     {
                         data: 'supplier_kota',
                         name: 'supplier_kota'
-                    }, 
+                    },
                     {
                         data: 'supplier_pengurus',
                         name: 'supplier_pengurus'
-                    }, 
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
                     {
                         data: 'action',
                         name: 'action'
@@ -229,14 +233,14 @@
                 $('#supplierModal').modal('show');
             });
 
-            $('#submitSupplier').on('click', function(e){
+            $('#submitSupplier').on('click', function(e) {
                 e.preventDefault();
 
                 $(this).html('Sending..');
                 //  var form = $(this).serialize(); 
-                 
+
                 //  alert(form);
-                 $.ajax({
+                $.ajax({
                     url: "{{ route('supplier.store') }}",
                     data: new FormData(this.form),
                     cache: false,
@@ -278,7 +282,7 @@
                             datatable.draw();
                         }
                     }
-                 });
+                });
             });
 
 
@@ -325,8 +329,8 @@
 
                 swalWithBootstrapButtons
                     .fire({
-                        title: "Do you want to delete, this data?",
-                        text: "This data will be deleted!",
+                        title: "Do you want to updated, this data?",
+                        text: "This data will be updated!",
                         icon: "warning",
                         showCancelButton: true,
                         confirmButtonClass: "me-2",
@@ -365,8 +369,8 @@
                     });
 
             });
- 
- 
+
+
 
         })
     </script>

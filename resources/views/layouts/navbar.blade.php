@@ -74,10 +74,10 @@
                         <ul id="masterdata" class="nav flex-column collapse nav-children">
                             <li class="nav-item">
                                 <ul class="nav flex-column">
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a class="nav-link" href="#"><span
                                                 class="nav-link-text">Customer</span></a>
-                                    </li>
+                                    </li> --}}
                                     <li class="nav-item {{ request()->segment(1) == 'supplier' ? 'active' : '' }}">
                                         <a class="nav-link" href="{{ route('supplier.index') }}"><span
                                                 class="nav-link-text">Supplier</span></a>
@@ -90,16 +90,16 @@
                                         <a class="nav-link" href="{{ route('model.index') }}"><span
                                                 class="nav-link-text">Model</span></a>
                                     </li>
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a class="nav-link" href="#"><span class="nav-link-text">Satuan</span></a>
-                                    </li>
+                                    </li> --}}
                                     <li class="nav-item {{ request()->segment(1) == 'pabrik' ? 'active' : '' }}">
                                         <a class="nav-link" href="{{ route('pabrik.index') }}"><span
                                                 class="nav-link-text">Pabrik</span></a>
                                     </li>
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a class="nav-link" href="#"><span class="nav-link-text">Harga Jual</span></a>
-                                    </li>
+                                    </li> --}}
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('barang.index') }}"><span
                                                 class="nav-link-text">Barang</span></a>

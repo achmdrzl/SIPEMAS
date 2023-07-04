@@ -13,10 +13,12 @@ class Barang extends Model
     public $timestamps = true;
     protected $fillable =
     [
+     'barang_kode',
      'barang_nama',
      'barang_foto',
      'barang_barcode',
-     'barang_status', 
+     'barang_status',
+     'barang_lokasi',
      'model_id',
      'pabrik_id',
      'merk_id',

@@ -42,9 +42,10 @@
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>Nama</th> 
-                                                        <th>Harga Jual 1</th> 
-                                                        <th>Harga Jual 2</th> 
+                                                        <th>Nama</th>
+                                                        <th>Harga Jual 1</th>
+                                                        <th>Harga Jual 2</th>
+                                                        <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -74,7 +75,7 @@
                             <div class="alert alert-danger alert-dismissible fade show" role="alert"
                                 style="display: none;" style="color: red">
                             </div>
-                            <form   id="kadarForm">
+                            <form id="kadarForm">
                                 <div class="row gx-3">
                                     <input type="hidden" id="kadar_id" name="kadar_id">
                                     <div class="col-sm-12">
@@ -82,9 +83,9 @@
                                         <div class="form-group">
                                             <input class="form-control" type="text" placeholder="Masukkan Nama"
                                                 name="kadar_nama" id="kadar_nama" />
-                                         </div> 
+                                        </div>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="row gx-3">
                                     <div class="col-sm-6">
                                         <div class="form-group">
@@ -175,15 +176,19 @@
                     {
                         data: 'kadar_nama',
                         name: 'kadar_nama'
-                    }, 
+                    },
                     {
                         data: 'kadar_harga_jual_1',
                         name: 'kadar_harga_jual_1'
-                    }, 
+                    },
                     {
                         data: 'kadar_harga_jual_2',
                         name: 'kadar_harga_jual_2'
-                    }, 
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
                     {
                         data: 'action',
                         name: 'action'
@@ -201,14 +206,14 @@
                 $('#kadarModal').modal('show');
             });
 
-            $('#submitKadar').on('click', function(e){
+            $('#submitKadar').on('click', function(e) {
                 e.preventDefault();
 
                 $(this).html('Sending..');
                 //  var form = $(this).serialize(); 
-                 
+
                 //  alert(form);
-                 $.ajax({
+                $.ajax({
                     url: "{{ route('kadar.store') }}",
                     data: new FormData(this.form),
                     cache: false,
@@ -250,7 +255,7 @@
                             datatable.draw();
                         }
                     }
-                 });
+                });
             });
 
 
@@ -295,8 +300,8 @@
 
                 swalWithBootstrapButtons
                     .fire({
-                        title: "Do you want to delete, this data?",
-                        text: "This data will be deleted!",
+                        title: "Do you want to update, this data?",
+                        text: "This data will be updated!",
                         icon: "warning",
                         showCancelButton: true,
                         confirmButtonClass: "me-2",
@@ -335,8 +340,8 @@
                     });
 
             });
- 
- 
+
+
 
         })
     </script>

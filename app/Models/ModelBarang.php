@@ -13,6 +13,8 @@ class ModelBarang extends Model
     public $timestamps = true;
     protected $fillable =
     [
-     'model_nama'
+     'model_id',
+     'model_nama',
+     'status'
     ];
 }

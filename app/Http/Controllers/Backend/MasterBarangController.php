@@ -9,6 +9,8 @@ class MasterBarangController extends Controller
 {
     public function barangIndex()
     {
-        return view('masterdata.data-barang');
+        return view('masterdata.dummy');
     }
+
+    
 }
