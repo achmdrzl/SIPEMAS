@@ -9,8 +9,11 @@ use App\Models\Merk;
 use App\Models\ModelBarang;
 use App\Models\Pabrik;
 use App\Models\Supplier;
+use App\Models\TransaksiInOut;
 use App\Models\User;
+use DateTime;
 use Illuminate\Console\View\Components\Alert;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
@@ -23,12 +26,13 @@ use Termwind\Components\Dd;
 
 class MasterDataController extends Controller
 {
+    // INDEX DASHBOARD
     public function index()
     {
         return view('dashboard');
     }
 
-
+    // INDEX USER
     public function userIndex(Request $request)
     {
         $users   =   User::all();
@@ -62,6 +66,7 @@ class MasterDataController extends Controller
         return view('masterdata.data-user', compact('users'));
     }
 
+    // USER STORED DATA
     public function userStore(Request $request)
     {
         //define validation rules
@@ -107,12 +112,14 @@ class MasterDataController extends Controller
         ]);
     }
 
+    // USER EDIT DATA
     public function userEdit(Request $request)
     {
         $user = User::where('user_id', $request->user_id)->first();
         return response()->json($user);
     }
 
+    // USER DELETE DATA
     public function userDestroy(Request $request)
     {
         $user = User::find($request->user_id)->delete();
@@ -120,6 +127,7 @@ class MasterDataController extends Controller
         return response()->json(['status' => 'Data Deleted Successfully!']);
     }
 
+    // PABRIK INDEX
     public function pabrikIndex(Request $request)
     {
         //dd("asasas");
@@ -128,7 +136,10 @@ class MasterDataController extends Controller
             $pabriks   =   Pabrik::all();
             return DataTables::of($pabriks)
                 ->addIndexColumn()
-                ->addColumn('name', function ($item) {
+                ->addColumn('pabrik_kode', function ($item) {
+                    return ucfirst($item->pabrik_kode);
+                })
+                ->addColumn('pabrik_nama', function ($item) {
                     return ucfirst($item->pabrik_nama);
                 })
                 ->addColumn('status', function ($item) {
@@ -160,9 +171,9 @@ class MasterDataController extends Controller
         return view('masterdata.data-pabrik', compact('pabriks'));
     }
 
+    // PABTIK STORED DATA
     public function pabrikStore(Request $request)
     {
-        // dd($request->all());
         //define validation rules  
         $validator = Validator::make($request->all(), [
             'pabrik_nama' => 'required',
@@ -176,20 +187,53 @@ class MasterDataController extends Controller
             return response()->json(['errors' => $validator->errors()->all()]);
         }
 
+        // Check if any records exist
+        if (Pabrik::count() === 0) {
+            $initialId = '01';
+        } else {
+            // Retrieve the last record from the table
+            $lastRecord = Pabrik::latest()->first();
+
+            // Retrieve the last custom code
+            $lastCode = $lastRecord->pabrik_kode;
+
+            // Increment the last code by 1
+            $nextCode = sprintf("%02d", intval($lastCode) + 1);
+
+            $initialId = $nextCode;
+        }
+
+        // Define the model name
+        $modelName = 'Pabrik';
+
         // Get the current date and time
         $currentTime = Carbon::now();
 
         // Get the formatted date portion (yymmdd)
         $datePart = $currentTime->format('ymd');
 
-        // Get the last counter value from cache
-        $counter = Cache::increment('counter', 1, 1);
+        // Get the current counter value from cache for the specific model
+        $counter = Cache::get($modelName . '_counter');
+
+        // Get the last date stored in the cache for the specific model
+        $lastDate = Cache::get($modelName . '_counter_date');
+
+        // Check if the counter needs to be reset
+        if ($lastDate !== $datePart) {
+            // Reset the counter
+            $counter = 1;
+            Cache::put($modelName . '_counter', $counter);
+            Cache::put($modelName . '_counter_date',
+                $datePart
+            );
+        } else {
+            // Increment the counter
+            $counter++;
+            Cache::put($modelName . '_counter', $counter);
+        }
 
         // Generate the new ID
-        $newId = $datePart . sprintf(
-            "%03d",
-            $counter
-        );
+        $newId = $datePart . sprintf("%03d", $counter);
 
         $pabrik = Pabrik::find($request->pabrik_id);
 
@@ -203,6 +247,7 @@ class MasterDataController extends Controller
             Pabrik::updateOrCreate([
                 'pabrik_id' => $newId
             ], [
+                'pabrik_kode' => $initialId,
                 'pabrik_nama' => $request->pabrik_nama
             ]);
         }
@@ -214,12 +259,14 @@ class MasterDataController extends Controller
         ]);
     }
 
+    // PABRIK EDIT
     public function pabrikEdit(Request $request)
     {
         $pabrik = Pabrik::where('pabrik_id', $request->pabrik_id)->first();
         return response()->json($pabrik);
     }
 
+    // PABRIK UPDATE STATUS
     public function pabrikDestroy(Request $request)
     {
         $pabrik = Pabrik::where('pabrik_id', $request->pabrik_id)->first();
@@ -237,6 +284,7 @@ class MasterDataController extends Controller
         return response()->json(['status' => 'Data Updated Successfully!']);
     }
 
+    // KADAR INDEX
     public function kadarIndex(Request $request)
     {
         $kadars   =   Kadar::all();
@@ -244,6 +292,9 @@ class MasterDataController extends Controller
             $kadars   =   Kadar::all();
             return DataTables::of($kadars)
                 ->addIndexColumn()
+                ->addColumn('kadar_kode', function ($item) {
+                    return ucfirst($item->kadar_kode);
+                })
                 ->addColumn('kadar_nama', function ($item) {
                     return ucfirst($item->kadar_nama);
                 })
@@ -285,6 +336,7 @@ class MasterDataController extends Controller
         return view('masterdata.data-kadar', compact('kadars'));
     }
 
+    // KADAR STORED DATA
     public function kadarStore(Request $request)
     {
         //define validation rules  
@@ -304,20 +356,53 @@ class MasterDataController extends Controller
             return response()->json(['errors' => $validator->errors()->all()]);
         }
 
+        // Check if any records exist
+        if (Kadar::count() === 0) {
+            $initialId = '01';
+        } else {
+            // Retrieve the last record from the table
+            $lastRecord = Kadar::latest()->first();
+
+            // Retrieve the last custom code
+            $lastCode = $lastRecord->kadar_kode;
+
+            // Increment the last code by 1
+            $nextCode = sprintf("%02d", intval($lastCode) + 1);
+
+            $initialId = $nextCode;
+        }
+
+        // Define the model name
+        $modelName = 'Kadar';
+
         // Get the current date and time
         $currentTime = Carbon::now();
 
         // Get the formatted date portion (yymmdd)
         $datePart = $currentTime->format('ymd');
 
-        // Get the last counter value from cache
-        $counter = Cache::increment('counter', 1, 1);
+        // Get the current counter value from cache for the specific model
+        $counter = Cache::get($modelName . '_counter');
+
+        // Get the last date stored in the cache for the specific model
+        $lastDate = Cache::get($modelName . '_counter_date');
+
+        // Check if the counter needs to be reset
+        if ($lastDate !== $datePart) {
+            // Reset the counter
+            $counter = 1;
+            Cache::put($modelName . '_counter', $counter);
+            Cache::put($modelName . '_counter_date',
+                $datePart
+            );
+        } else {
+            // Increment the counter
+            $counter++;
+            Cache::put($modelName . '_counter', $counter);
+        }
 
         // Generate the new ID
-        $newId = $datePart . sprintf(
-            "%03d",
-            $counter
-        );
+        $newId = $datePart . sprintf("%03d", $counter);
 
         $kadar = Kadar::find($request->kadar_id);
 
@@ -333,6 +418,7 @@ class MasterDataController extends Controller
             Kadar::updateOrCreate([
                 'kadar_id' => $newId
             ], [
+                'kadar_kode' => $initialId,
                 'kadar_nama' => $request->kadar_nama,
                 'kadar_harga_jual_1' => $request->kadar_harga_jual_1,
                 'kadar_harga_jual_2' => $request->kadar_harga_jual_2
@@ -346,12 +432,14 @@ class MasterDataController extends Controller
         ]);
     }
 
+    // KADAR EDIT DATA
     public function kadarEdit(Request $request)
     {
         $kadar = Kadar::where('kadar_id', $request->kadar_id)->first();
         return response()->json($kadar);
     }
 
+    // KADAR UPDATE DATA
     public function kadarDestroy(Request $request)
     {
         $kadar = Kadar::where('kadar_id', $request->kadar_id)->first();
@@ -369,6 +457,7 @@ class MasterDataController extends Controller
         return response()->json(['status' => 'Data Updated Successfully!']);
     }
 
+    // MODEL INDEX
     public function modelIndex(Request $request)
     {
         //dd("asasas");
@@ -377,6 +466,9 @@ class MasterDataController extends Controller
             $models   =   ModelBarang::all();
             return DataTables::of($models)
                 ->addIndexColumn()
+                ->addColumn('model_kode', function ($item) {
+                    return ucfirst($item->model_kode);
+                })
                 ->addColumn('model_nama', function ($item) {
                     return ucfirst($item->model_nama);
                 })
@@ -409,9 +501,9 @@ class MasterDataController extends Controller
         return view('masterdata.data-model', compact('models'));
     }
 
+    // MODEL STORED DATA
     public function modelStore(Request $request)
     {
-        // dd($request->all());
         //define validation rules  
         $validator = Validator::make($request->all(), [
             'model_nama' => 'required',
@@ -425,20 +517,53 @@ class MasterDataController extends Controller
             return response()->json(['errors' => $validator->errors()->all()]);
         }
 
+        // Check if any records exist
+        if (ModelBarang::count() === 0) {
+            $initialId = '01';
+        } else {
+            // Retrieve the last record from the table
+            $lastRecord = ModelBarang::latest()->first();
+
+            // Retrieve the last custom code
+            $lastCode = $lastRecord->model_kode;
+
+            // Increment the last code by 1
+            $nextCode = sprintf("%02d", intval($lastCode) + 1);
+
+            $initialId = $nextCode;
+        }
+
+        // Define the model name
+        $modelName = 'ModelBarang';
+
         // Get the current date and time
         $currentTime = Carbon::now();
 
         // Get the formatted date portion (yymmdd)
         $datePart = $currentTime->format('ymd');
 
-        // Get the last counter value from cache
-        $counter = Cache::increment('counter', 1, 1);
+        // Get the current counter value from cache for the specific model
+        $counter = Cache::get($modelName . '_counter');
+
+        // Get the last date stored in the cache for the specific model
+        $lastDate = Cache::get($modelName . '_counter_date');
+
+        // Check if the counter needs to be reset
+        if ($lastDate !== $datePart) {
+            // Reset the counter
+            $counter = 1;
+            Cache::put($modelName . '_counter', $counter);
+            Cache::put($modelName . '_counter_date',
+                $datePart
+            );
+        } else {
+            // Increment the counter
+            $counter++;
+            Cache::put($modelName . '_counter', $counter);
+        }
 
         // Generate the new ID
-        $newId = $datePart . sprintf(
-            "%03d",
-            $counter
-        );
+        $newId = $datePart . sprintf("%03d", $counter);
 
         $model = ModelBarang::find($request->model_id);
 
@@ -452,6 +577,7 @@ class MasterDataController extends Controller
             ModelBarang::updateOrCreate([
                 'model_id' => $newId
             ], [
+                'model_kode' => $initialId,
                 'model_nama' => $request->model_nama
             ]);
         }
@@ -463,13 +589,14 @@ class MasterDataController extends Controller
         ]);
     }
 
+    // MODEL EDIT DATA
     public function modelEdit(Request $request)
     {
-        //dd($request->all());
         $model = ModelBarang::where('model_id', $request->model_id)->first();
         return response()->json($model);
     }
 
+    // MODEL UPDATE STATUS
     public function modelDestroy(Request $request)
     {
         $model = ModelBarang::where('model_id', $request->model_id)->first();
@@ -487,14 +614,17 @@ class MasterDataController extends Controller
         return response()->json(['status' => 'Data Updated Successfully!']);
     }
 
+    // SUPPLIER INDEX
     public function supplierIndex(Request $request)
     {
-        //dd("asasas");
         $suppliers   =   Supplier::all();
         if ($request->ajax()) {
             $suppliers   =   Supplier::all();
             return DataTables::of($suppliers)
                 ->addIndexColumn()
+                ->addColumn('supplier_kode', function ($item) {
+                    return ucfirst($item->supplier_kode);
+                })
                 ->addColumn('supplier_nama', function ($item) {
                     return ucfirst($item->supplier_nama);
                 })
@@ -544,23 +674,20 @@ class MasterDataController extends Controller
         return view('masterdata.data-supplier', compact('suppliers'));
     }
 
+    // SUPPLIER STORED DATA
     public function supplierStore(Request $request)
     {
-        // dd($request->all());
         //define validation rules  
         $validator = Validator::make($request->all(), [
             'supplier_nama' => 'required',
             'supplier_alamat' => 'required',
             'supplier_no_telp' => 'required',
             'supplier_kota' => 'required',
-            'supplier_pengurus' => 'required',
         ], [
             'supplier_nama.required' => 'Nama Supplier Must be included!',
             'supplier_alamat.required' => 'Alamat Must be included!',
             'supplier_no_telp.required' => 'No Telp Must be included!',
             'supplier_kota.required' => 'Kota Must be included!',
-            'supplier_pengurus.required' => 'Pengurus Must be included!',
-
         ]);
 
         //check if validation fails
@@ -568,19 +695,53 @@ class MasterDataController extends Controller
             return response()->json(['errors' => $validator->errors()->all()]);
         }
 
+        // Check if any records exist
+        if (Supplier::count() === 0) {
+            $initialId = '01';
+        } else {
+            // Retrieve the last record from the table
+            $lastRecord = Supplier::latest()->first();
+
+            // Retrieve the last custom code
+            $lastCode = $lastRecord->supplier_kode;
+
+            // Increment the last code by 1
+            $nextCode = sprintf("%02d", intval($lastCode) + 1);
+
+            $initialId = $nextCode;
+        }
+
+        // Define the model name
+        $modelName = 'Supplier';
+
         // Get the current date and time
         $currentTime = Carbon::now();
 
         // Get the formatted date portion (yymmdd)
         $datePart = $currentTime->format('ymd');
 
-        // Get the last counter value from cache
-        $counter = Cache::increment('counter', 1, 1);
+        // Get the current counter value from cache for the specific model
+        $counter = Cache::get($modelName . '_counter');
+
+        // Get the last date stored in the cache for the specific model
+        $lastDate = Cache::get($modelName . '_counter_date');
+
+        // Check if the counter needs to be reset
+        if ($lastDate !== $datePart) {
+            // Reset the counter
+            $counter = 1;
+            Cache::put($modelName . '_counter', $counter);
+            Cache::put($modelName . '_counter_date',
+                $datePart
+            );
+        } else {
+            // Increment the counter
+            $counter++;
+            Cache::put($modelName . '_counter', $counter);
+        }
 
         // Generate the new ID
-        $newId = $datePart . sprintf("%03d",
-            $counter
-        );
+        $newId = $datePart . sprintf("%03d", $counter);
 
         $supplier = Supplier::find($request->supplier_id);
 
@@ -598,6 +759,7 @@ class MasterDataController extends Controller
             Supplier::updateOrCreate([
                 'supplier_id' => $newId,
             ], [
+                'supplier_kode' => $initialId,
                 'supplier_nama' => $request->supplier_nama,
                 'supplier_alamat' => $request->supplier_alamat,
                 'supplier_no_telp' => $request->supplier_no_telp,
@@ -613,13 +775,14 @@ class MasterDataController extends Controller
         ]);
     }
 
+    // SUPPLIER EDIT DATA
     public function supplierEdit(Request $request)
     {
-        //dd($request->all());
         $supplier = Supplier::where('supplier_id', $request->supplier_id)->first();
         return response()->json($supplier);
     }
 
+    // SUPPLIER UPDATE STATUS
     public function supplierDestroy(Request $request)
     {
 
@@ -638,14 +801,17 @@ class MasterDataController extends Controller
         return response()->json(['status' => 'Data Updated Successfully!']);
     }
 
+    // MERK INDEX
     public function merkIndex(Request $request)
     {
-        //dd("asasas");
         $merks   =   Merk::all();
         if ($request->ajax()) {
             $merks   =   Merk::all();
             return DataTables::of($merks)
                 ->addIndexColumn()
+                ->addColumn('merk_kode', function ($item) {
+                    return ucfirst($item->merk_kode);
+                })
                 ->addColumn('merk_nama', function ($item) {
                     return ucfirst($item->merk_nama);
                 })
@@ -678,9 +844,9 @@ class MasterDataController extends Controller
         return view('masterdata.data-merk', compact('merks'));
     }
 
+    // MERK STORED DATA
     public function merkStore(Request $request)
     {
-        // dd($request->all());
         //define validation rules  
         $validator = Validator::make($request->all(), [
             'merk_nama' => 'required',
@@ -694,17 +860,54 @@ class MasterDataController extends Controller
             return response()->json(['errors' => $validator->errors()->all()]);
         }
 
+        // Check if any records exist
+        if (Merk::count() === 0) {
+            $initialId = '01';
+        } else {
+            // Retrieve the last record from the table
+            $lastRecord = Merk::latest()->first();
+
+            // Retrieve the last custom code
+            $lastCode = $lastRecord->merk_kode;
+
+            // Increment the last code by 1
+            $nextCode = sprintf("%02d", intval($lastCode) + 1);
+
+            $initialId = $nextCode;
+        }
+
+        // Define the model name
+        $modelName = 'Merk';
+
         // Get the current date and time
         $currentTime = Carbon::now();
 
         // Get the formatted date portion (yymmdd)
         $datePart = $currentTime->format('ymd');
 
-        // Get the last counter value from cache
-        $counter = Cache::increment('counter', 1, 1);
+        // Get the current counter value from cache for the specific model
+        $counter = Cache::get($modelName . '_counter');
+
+        // Get the last date stored in the cache for the specific model
+        $lastDate = Cache::get($modelName . '_counter_date');
+
+        // Check if the counter needs to be reset
+        if ($lastDate !== $datePart) {
+            // Reset the counter
+            $counter = 1;
+            Cache::put($modelName . '_counter', $counter);
+            Cache::put($modelName . '_counter_date',
+                $datePart
+            );
+        } else {
+            // Increment the counter
+            $counter++;
+            Cache::put($modelName . '_counter', $counter);
+        }
 
         // Generate the new ID
         $newId = $datePart . sprintf("%03d", $counter);
+
 
         $merk = Merk::find($request->merk_id);
 
@@ -718,6 +921,7 @@ class MasterDataController extends Controller
             Merk::updateOrCreate([
                 'merk_id' => $newId,
             ], [
+                'merk_kode' => $initialId,
                 'merk_nama' => $request->merk_nama
             ]);
         }
@@ -729,6 +933,7 @@ class MasterDataController extends Controller
         ]);
     }
 
+    // MERK EDIT DATA
     public function merkEdit(Request $request)
     {
         //dd($request->all());
@@ -736,6 +941,7 @@ class MasterDataController extends Controller
         return response()->json($merk);
     }
 
+    // MERK UPDATE STATUS
     public function merkDestroy(Request $request)
     {
 
@@ -754,51 +960,112 @@ class MasterDataController extends Controller
         return response()->json(['status' => 'Data Updated Successfully!']);
     }
 
-    public function barangIndex(Request $request)
+    // TRANSAKSI IN & OUT INDEX
+    public function transaksi_in_out(Request $request)
     {
-        //dd("asasas");
-        $barangs   =   Barang::all();
         if ($request->ajax()) {
-            $barangs   =   Barang::all();
-            return DataTables::of($barangs)
+            $datas   =   TransaksiInOut::all();
+            return DataTables::of($datas)
                 ->addIndexColumn()
-                ->addColumn('barang_nama', function ($item) {
-                    return ucfirst($item->barang_nama);
+                ->addColumn('kode_transaksi', function ($item) {
+                    return ucfirst($item->kode_transaksi);
+                })
+                ->addColumn('tgl_transaksi', function ($item) {
+                    return $item->tgl_transaksi;
+                })
+                ->addColumn('jenis_transaksi', function ($item) {
+                    return ucfirst($item->jenis_transaksi);
+                })
+                ->addColumn('total', function ($item) {
+                    return 'Rp.' . number_format($item->total);
+                })
+                ->addColumn('keterangan', function ($item) {
+                    return ucfirst($item->keterangan);
                 })
                 ->addColumn('action', function ($item) {
-                    $btn = '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="user-edit" data-id="' . $item->barang_id . '"><span class="material-icons btn-sm">edit</span></button>';
+                    $btn = '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="transaksi-edit" data-id="' . $item->kode_transaksi . '"><span class="material-icons btn-sm">edit</span></button>';
 
-                    $btn = $btn . '<button class="btn btn-icon btn-danger btn-rounded flush-soft-hover me-1" id="user-delete" data-id="' . $item->barang_id . '"><span class="material-icons btn-sm">delete</span></button>';
+                    $btn = $btn . '<button class="btn btn-icon btn-danger btn-rounded flush-soft-hover me-1" id="transaksi-delete" data-id="' . $item->kode_transaksi . '"><span class="material-icons btn-sm">delete</span></button>';
 
                     return $btn;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('masterdata.data-barang', compact('barangs'));
+        return view('transaksi.transaksi-in_out');
     }
 
-    public function barangStore(Request $request)
-    { 
-        // dd($request->all());
+    // STORE DATA TRANSAKSI IN OUT 
+    public function transaksiInOutStore(Request $request)
+    {
         //define validation rules  
         $validator = Validator::make($request->all(), [
-            'barang_nama' => 'required',  
+            'tgl_transaksi' => 'required',
+            'jenis_transaksi' => 'required',
+            'total' => 'required',
+            'keterangan' => 'required',
         ], [
-            'barang_nama.required' => 'Nama Barang Must be included!', 
-
+            'tgl_transaksi.required' => 'Tanggal Transaksi Must be included!',
+            'jenis_transaksi.required' => 'Jenis Transaksi Must be included!',
+            'total.required' => 'Total Transaksi Must be included!',
+            'keterangan.required' => 'Keterangan Transaksi Must be included!',
         ]);
 
         //check if validation fails
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()]);
-        } 
+        }
 
-        Barang::updateOrCreate([
-            'barang_id' => $request->barang_id
-        ], [
-            'barang_nama' => $request->barang_nama
-        ]);
+        // Define the model name
+        $modelName = 'TransaksiInOut';
+
+        // Get the current date and time
+        $currentTime = DateTime::createFromFormat('Y-m-d', $request->tgl_transaksi);
+
+        // Get the formatted date portion (yymmdd)
+        $datePart = $currentTime->format('ymd');
+
+        // Check if the counter needs to be reset for the specific model
+        $lastDate = Cache::get($modelName . '_counter_date');
+        if ($lastDate !== $datePart) {
+            // Reset the counter for the specific model
+            Cache::put($modelName . '_counter', 1);
+            Cache::put($modelName . '_counter_date',
+                $datePart
+            );
+        }
+
+        // Get the current counter value from cache for the specific model
+        $counter = Cache::get($modelName . '_counter');
+
+        // Generate the new ID
+        $newId = 'KB' . $datePart . sprintf("%03d", $counter);
+
+        // Increment the counter for the next ID for the specific model
+        Cache::increment($modelName . '_counter');
+
+        $transaksi = TransaksiInOut::find($request->transaksi_id);
+
+        if (isset($transaksi)) {
+            TransaksiInOut::updateOrCreate([
+                'transaksi_id' => $transaksi->transaksi_id,
+            ], [
+                'tgl_transaksi' => $request->tgl_transaksi,
+                'jenis_transaksi' => $request->jenis_transaksi,
+                'total' => $request->total,
+                'keterangan' => $request->keterangan,
+            ]);
+        } else {
+            TransaksiInOut::updateOrCreate([
+                'transaksi_id' => $newId,
+            ], [
+                'kode_transaksi' => $newId,
+                'tgl_transaksi' => $request->tgl_transaksi,
+                'jenis_transaksi' => $request->jenis_transaksi,
+                'total' => $request->total,
+                'keterangan' => $request->keterangan,
+            ]);
+        }
 
         //return response
         return response()->json([
@@ -807,18 +1074,24 @@ class MasterDataController extends Controller
         ]);
     }
 
-    public function barangEdit(Request $request)
+    // TRANSAKSI IN OUT EDIT DATA
+    public function transaksiInOutEdit(Request $request)
     {
-        //dd($request->all());
-        $barang = Barang::where('barang_id', $request->barang_id)->first();
-        return response()->json($barang);
+        $transaksi = TransaksiInOut::where('transaksi_id', $request->transaksi_id)->first();
+        return response()->json($transaksi);
     }
 
-    public function barangDestroy(Request $request)
+    // TRANKSAKSI IN OUT DELETE DATA
+    public function transaksiInOutDestroy(Request $request)
     {
-        Barang::find($request->barang_id)->delete();
+        $transaksi = TransaksiInOut::where('kode_transaksi', $request->transaksi_id)->delete();
 
         return response()->json(['status' => 'Data Deleted Successfully!']);
+    }
 
+    // TRANSAKSI HUTANG INDEX
+    public function transaksiHutang(Request $request)
+    {
+        return view('transaksi.transaksi-hutang');
     }
 }

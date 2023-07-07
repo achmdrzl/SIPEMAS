@@ -48,19 +48,15 @@
                                                 Barang</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#"><span class="nav-link-text">Hutang</span></a>
+                                        <a class="nav-link" href="{{ route('transaksi.hutang') }}"><span class="nav-link-text">Hutang</span></a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#"><span class="nav-link-text">Kode
                                                 Kas</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#"><span
-                                                class="nav-link-text">Pengeluaran</span></a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#"><span class="nav-link-text">Pendapatan
-                                                Lain</span></a>
+                                        <a class="nav-link" href="{{ route('transaksi.in.out') }}"><span
+                                                class="nav-link-text">Pengeluaran / Pendapatan Lain</span></a>
                                     </li>
                                 </ul>
                             </li>

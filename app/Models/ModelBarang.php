@@ -14,6 +14,7 @@ class ModelBarang extends Model
     protected $fillable =
     [
      'model_id',
+     'model_kode',
      'model_nama',
      'status'
     ];

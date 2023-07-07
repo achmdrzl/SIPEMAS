@@ -14,6 +14,7 @@ class Pabrik extends Model
     protected $fillable =
     [
      'pabrik_id',
+     'pabrik_kode',
      'pabrik_nama',
      'status'
     ];
