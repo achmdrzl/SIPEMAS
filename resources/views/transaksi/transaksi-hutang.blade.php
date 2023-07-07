@@ -9,8 +9,8 @@
                 <div class="d-flex">
                     <div class="d-flex flex-wrap justify-content-between flex-1">
                         <div class="mb-lg-0 mb-2 me-8">
-                            <h1 class="pg-title">Data Supplier</h1>
-                            <p>Management Pengelolaan Data Supplier Toko Emas</p>
+                            <h1 class="pg-title">Transaksi Hutang</h1>
+                            <p>Management Pengelolaan Data Transaksi Hutang Toko Emas</p>
                         </div>
                     </div>
                 </div>
@@ -25,29 +25,28 @@
                             <div class="col-md-12 mb-md-4 mb-3">
                                 <div class="card card-border mb-0 h-100">
                                     <div class="card-header card-header-action">
-                                        <h6>List Data Supplier
-                                            <span class="badge badge-sm badge-light ms-1">{{ count($suppliers) }}</span>
+                                        <h6>List Data Transaksi Hutang
+                                            {{-- <span class="badge badge-sm badge-light ms-1">{{ count($kadars) }}</span> --}}
                                         </h6>
                                         <div class="card-action-wrap">
-                                            <button class="btn btn-sm btn-primary ms-3" id="supplier-create"><span><span
+                                            <button class="btn btn-sm btn-primary ms-3" id="transaksi-create"><span><span
                                                         class="icon"><span class="feather-icon"><i
                                                                 data-feather="plus"></i></span></span><span
                                                         class="btn-text">Tambah
-                                                        Supplier</span></span></button>
+                                                        Transaksi</span></span></button>
                                         </div>
                                     </div>
                                     <div class="card-body">
                                         <div class="contact-list-view">
-                                            <table id="datatable_7" class="table nowrap datatableSupplier table-striped">
+                                            <table id="datatable_7" class="table nowrap datatableKadar table-striped">
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>Kode</th>
-                                                        <th>Nama</th>
-                                                        <th>Alamat</th>
-                                                        <th>No Telp</th>
-                                                        <th>Kota</th>
-                                                        <th>Status</th>
+                                                        <th>Kode Transaksi</th>
+                                                        <th>Tanggal</th>
+                                                        <th>Jenis Transaksi</th>
+                                                        <th>Total</th>
+                                                        <th>Keterangan</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -62,13 +61,13 @@
             </div>
             <!-- /Page Body -->
 
-            {{-- Modal Supplier --}}
-            <div class="modal fade" id="supplierModal" tabindex="-1" role="dialog" aria-labelledby="modalSupplier"
+            {{-- Modal Kadar --}}
+            <div class="modal fade" id="transaksiModal" tabindex="-1" role="dialog" aria-labelledby="modalSupplier"
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h6 class="modal-title" id="supplierHeading"></h6>
+                            <h6 class="modal-title" id="transaksiHeading"></h6>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
@@ -77,55 +76,49 @@
                             <div class="alert alert-danger alert-dismissible fade show" role="alert"
                                 style="display: none;" style="color: red">
                             </div>
-                            <form id="supplierForm">
+                            <form id="transkasiForm">
                                 <div class="row gx-3">
-                                    <input type="hidden" id="supplier_id" name="supplier_id">
+                                    <input type="hidden" id="transaksi_id" name="transaksi_id">
                                     <div class="col-sm-12">
-                                        <label class="form-label">Nama Supplier</label>
+                                        <label class="form-label">Tanggal Transaksi</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Masukkan Nama"
-                                                name="supplier_nama" id="supplier_nama" />
+                                            <input class="form-control" type="date" placeholder="Masukkan Tanggal Transaksi"
+                                                name="tgl_transaksi" id="tgl_transaksi" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row gx-3">
                                     <div class="col-sm-12">
-                                        <label class="form-label">Alamat Supplier</label>
+                                        <label class="form-label">Jenis Transaksi</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Masukkan Alamat"
-                                                name="supplier_alamat" id="supplier_alamat" />
+                                            <select name="jenis_transaksi" class="form-control" id="jenis_transaksi">
+                                                <option value="" disabled selected>-- Select Jenis Transaksi --</option>
+                                                <option value="Pengeluaran">Pengeluaran</option>
+                                                <option value="Pemasukan">Pemasukan</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="row gx-3">
+                                    <div class="col-sm-12">
+                                        <label class="form-label">Total Transaksi</label>
+                                        <div class="form-group">
+                                            <input class="form-control" type="number" placeholder="Masukkan Total Transaksi"
+                                                name="total" id="total" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row gx-3">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-12">
+                                        <label class="form-label">Keterangan</label>
                                         <div class="form-group">
-                                            <label class="form-label">No Telp</label>
-                                            <input class="form-control" type="text" placeholder="Masukkan No Telp"
-                                                name="supplier_no_telp" id="supplier_no_telp" />
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Kota</label>
-                                            <input class="form-control" type="text" placeholder="Masukkan Nama Kota"
-                                                name="supplier_kota" id="supplier_kota" />
+                                            <textarea name="keterangan" id="keterangan" class="form-control" placeholder="Masukkan Keterangan Transaksi"></textarea>
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <div class="row gx-3">
-                                    <div class="col-sm-12">
-                                        <label class="form-label">Nama Pengurus</label>
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Masukkan Nama Pengurus"
-                                                name="supplier_pengurus" id="supplier_pengurus" />
-                                        </div>
-                                    </div>
-                                </div> --}}
                                 <div class="modal-footer align-items-center">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-primary" id="submitSupplier">Simpan</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button class="btn btn-primary" id="submitTransaksi">Simpan</button>
                                 </div>
                             </form>
                         </div>
@@ -187,38 +180,30 @@
                 },
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('supplier.index') }}",
+                ajax: "{{ route('transaksi.in.out') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
                     },
                     {
-                        data: 'supplier_kode',
-                        name: 'supplier_kode'
+                        data: 'kode_transaksi',
+                        name: 'kode_transaksi'
                     },
                     {
-                        data: 'supplier_nama',
-                        name: 'supplier_nama'
+                        data: 'tgl_transaksi',
+                        name: 'tgl_transaksi'
                     },
                     {
-                        data: 'supplier_alamat',
-                        name: 'supplier_alamat'
+                        data: 'jenis_transaksi',
+                        name: 'jenis_transaksi'
                     },
                     {
-                        data: 'supplier_no_telp',
-                        name: 'supplier_no_telp'
+                        data: 'total',
+                        name: 'total'
                     },
                     {
-                        data: 'supplier_kota',
-                        name: 'supplier_kota'
-                    },
-                    // {
-                    //     data: 'supplier_pengurus',
-                    //     name: 'supplier_pengurus'
-                    // },
-                    {
-                        data: 'status',
-                        name: 'status'
+                        data: 'keterangan',
+                        name: 'keterangan'
                     },
                     {
                         data: 'action',
@@ -227,25 +212,24 @@
                 ]
             });
 
-            // Create Data Supplier.
-            $('#supplier-create').click(function() {
+            // Create Data Kadar.
+            $('#transaksi-create').click(function() {
                 $('.alert').hide();
-                $('#saveBtn').val("create-supplier");
-                $('#supplier_id').val('');
-                $('#supplierForm').trigger("reset");
-                $('#supplierHeading').html("TAMBAH DATA SUPPLIER BARU");
-                $('#supplierModal').modal('show');
+                $('#saveBtn').val("create-transaksi");
+                $('#transaksi_id').val('');
+                $('#transkasiForm').trigger("reset");
+                $('#transaksiHeading').html("TAMBAH DATA TRANSAKSI PEMASUKAN / PENGELUARAN");
+                $('#transaksiModal').modal('show');
+                $('#tgl_transaksi').attr('disabled', false);
             });
 
-            $('#submitSupplier').on('click', function(e) {
+            $('#submitTransaksi').on('click', function(e) {
                 e.preventDefault();
 
                 $(this).html('Sending..');
-                //  var form = $(this).serialize(); 
 
-                //  alert(form);
                 $.ajax({
-                    url: "{{ route('supplier.store') }}",
+                    url: "{{ route('transaksiInOut.store') }}",
                     data: new FormData(this.form),
                     cache: false,
                     processData: false,
@@ -261,7 +245,7 @@
                                 $('.alert-danger').append('<strong><li>' + value +
                                     '</li></strong>');
                             });
-                            $('#submitSupplier').html('Simpan');
+                            $('#submitTransaksi').html('Simpan');
 
                         } else {
                             $('.btn-warning').hide();
@@ -279,9 +263,9 @@
                                 title: `${response.message}`,
                             })
 
-                            $('#supplierForm').trigger("reset");
-                            $('#submitSupplier').html('Simpan');
-                            $('#supplierModal').modal('hide');
+                            $('#transkasiForm').trigger("reset");
+                            $('#submitTransaksi').html('Simpan');
+                            $('#transaksiModal').modal('hide');
 
                             datatable.draw();
                         }
@@ -290,35 +274,36 @@
             });
 
 
-            // Edit Data Supplier
-            $('body').on('click', '#user-edit', function() {
-                var supplier_id = $(this).attr('data-id');
+            // Edit Data Kadar
+            $('body').on('click', '#transaksi-edit', function() {
+                var transaksi_id = $(this).attr('data-id');
+                console.log(transaksi_id)
                 $('.alert').hide();
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('supplier.edit') }}",
+                    url: "{{ route('transaksiInOut.Edit') }}",
                     data: {
-                        supplier_id: supplier_id
+                        transaksi_id: transaksi_id
                     },
                     dataType: "json",
                     success: function(response) {
                         console.log(response)
-                        $('#submitBtnSupplier').val("supplier-edit");
-                        $('#supplierForm').trigger("reset");
-                        $('#supplierHeading').html("EDIT DATA Supplier");
-                        $('#supplierModal').modal('show');
-                        $('#supplier_id').val(response.supplier_id);
-                        $('#supplier_nama').val(response.supplier_nama);
-                        $('#supplier_alamat').val(response.supplier_alamat);
-                        $('#supplier_no_telp').val(response.supplier_no_telp);
-                        $('#supplier_kota').val(response.supplier_kota);
-                        $('#supplier_pengurus').val(response.supplier_pengurus);
+                        $('#submitBtnKadar').val("kadar-edit");
+                        $('#transaksiForm').trigger("reset");
+                        $('#transaksiHeading').html("EDIT DATA TRANSAKSI IN / OUT");
+                        $('#transaksiModal').modal('show');
+                        $('#transaksi_id').val(response.transaksi_id);
+                        $('#tgl_transaksi').val(response.tgl_transaksi).attr('disabled', true);
+                        $('#jenis_transaksi').val(response.jenis_transaksi);
+                        console.log(response.jenis_transaksi)
+                        $('#total').val(response.total);
+                        $('#keterangan').val(response.keterangan);
                     }
                 });
             });
 
-            // Arsipkan Data Supplier
-            $('body').on('click', '#user-delete', function() {
+            // Arsipkan Data Kadar
+            $('body').on('click', '#transaksi-delete', function() {
 
                 const swalWithBootstrapButtons = Swal.mixin({
                     customClass: {
@@ -329,12 +314,12 @@
 
                 });
 
-                var supplier_id = $(this).attr('data-id');
+                var transaksi_id = $(this).attr('data-id');
 
                 swalWithBootstrapButtons
                     .fire({
-                        title: "Do you want to updated, this data?",
-                        text: "This data will be updated!",
+                        title: "Do you want to delete, this data?",
+                        text: "This data will be deleted!",
                         icon: "warning",
                         showCancelButton: true,
                         confirmButtonClass: "me-2",
@@ -346,9 +331,9 @@
                         if (result.value) {
                             $.ajax({
                                 type: "POST",
-                                url: "{{ route('supplier.destroy') }}",
+                                url: "{{ route('transaksiInOut.Destroy') }}",
                                 data: {
-                                    supplier_id: supplier_id,
+                                    transaksi_id: transaksi_id,
                                 },
                                 dataType: "json",
                                 success: function(response) {

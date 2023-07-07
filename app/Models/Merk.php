@@ -14,6 +14,7 @@ class Merk extends Model
     protected $fillable =
     [
      'merk_id',
+     'merk_kode',
      'merk_nama',
      'status'
     ];

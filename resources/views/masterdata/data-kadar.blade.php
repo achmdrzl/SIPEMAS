@@ -42,6 +42,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
+                                                        <th>Kode</th>
                                                         <th>Nama</th>
                                                         <th>Harga Jual 1</th>
                                                         <th>Harga Jual 2</th>
@@ -172,6 +173,10 @@
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'kadar_kode',
+                        name: 'kadar_kode'
                     },
                     {
                         data: 'kadar_nama',

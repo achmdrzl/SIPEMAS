@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('kadars', function (Blueprint $table) {
             $table->id('kadar_id');
+            $table->string('kadar_kode');
             $table->string('kadar_nama');
-            $table->double('kadar_harga_jual_1',8,2);
-            $table->double('kadar_harga_jual_2',8,2);
+            $table->double('kadar_harga_jual_1');
+            $table->double('kadar_harga_jual_2');
             $table->enum('status', ['aktif', 'non-aktif'])->default('aktif');
             $table->timestamps();
         });

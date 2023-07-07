@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('pabriks', function (Blueprint $table) {
             $table->id('pabrik_id');
+            $table->string('pabrik_kode');
             $table->string('pabrik_nama');
             $table->enum('status', ['aktif', 'non-aktif'])->default('aktif');
             $table->timestamps();

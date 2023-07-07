@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('models', function (Blueprint $table) {
             $table->id('model_id');
+            $table->string('model_kode');
             $table->string('model_nama');
             $table->enum('status', ['aktif', 'non-aktif'])->default('aktif');
             $table->timestamps();

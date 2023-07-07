@@ -27,7 +27,7 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['role:admin', 'auth']], function () {
 
-    // Dashboard User
+    // DASHBOARD USER
     Route::get('/dashboard', MasterDataController::class . '@index')->name('dashboard.index');
 
     // MASTER USER
@@ -65,31 +65,40 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
      Route::post('/merkStore', MasterDataController::class. '@merkStore')->name("merk.store");
      Route::post('/merkkEdit', MasterDataController::class. '@merkEdit')->name('merk.edit');
      Route::post('/merkDestroy', MasterDataController::class. '@merkDestroy')->name('merk.destroy');
+
+    // MASTER DATA TRANSAKSI PENDAPATAN LAIN / PENGELUARAN
+    Route::get('/transaksi-in_out', MasterDataController::class. '@transaksi_in_out')->name('transaksi.in.out');
+    Route::post('/transaksiInOutStore', MasterDataController::class. '@transaksiInOutStore')->name('transaksiInOut.store');
+    Route::post('/transaksiInOutEdit', MasterDataController::class. '@transaksiInOutEdit')->name('transaksiInOut.Edit');
+    Route::post('/transaksiInOutDestroy', MasterDataController::class. '@transaksiInOutDestroy')->name('transaksiInOut.Destroy');
+
+    // MASTER DATA TRANSAKSI HUTANG
+    Route::get('/transaksi-hutang', MasterDataController::class. '@transaksiHutang')->name('transaksi.hutang');
  
 
-    // Transaksi Pembelian Section
+    // TRANSAKSI PEMBELIAN
     Route::get('/pembelian', TransaksiPembelianController::class . '@transaksi_pembelian')->name('pembelian.index');
 
-    // Transaksi Penjualan Section
+    // TRANSAKSI PENJUALAN
     Route::get('/penjualan', TransaksiPenjualanController::class . '@transaksi_penjualan')->name('penjualan.index');
 
-    // Transaksi Return Penjualan Section
+    // TRANSAKSI PENJUALAN RETURN
     Route::get('/return_penjualan', ReturnPenjualanController::class . '@returnPenjualanIndex')->name('return.index');
 
-    // Master Data Barang Section
+    // MASTER DATA BARANG
     Route::get('/barang', MasterBarangController::class . '@barangIndex')->name('barang.index');
 
-    // Master Data Supplier Section
+    // MASTER DATA SUPPLIER
     Route::get('/supplier', MasterDataController::class . '@supplierIndex')->name('supplier.index');
 
-    // Master Data Model Section
+    // MASTER DATA MODEL
     Route::get('/model', MasterDataController::class . '@modelIndex')->name('model.index');
 
-    // Laporan Section
+    // LAPORAN SECTION
     Route::get('/laporan_stock', DataLaporanController::class . '@laporanStockIndex')->name('laporanStock.index');
     Route::get('/history_barang', DataLaporanController::class . '@historyBarang')->name('history.barang');
 
-
+    // INVOICE PENJUALAN
     Route::get('/invoice_penjualan', TransaksiPenjualanController::class . '@invoice_penjualan');
 });
 

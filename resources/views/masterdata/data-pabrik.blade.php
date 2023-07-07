@@ -42,6 +42,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
+                                                        <th>Kode</th>
                                                         <th>Nama</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
@@ -152,6 +153,10 @@
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'pabrik_kode',
+                        name: 'pabrik_kode'
                     },
                     {
                         data: 'pabrik_nama',

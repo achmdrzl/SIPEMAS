@@ -18,6 +18,7 @@ class Kadar extends Model
     protected $fillable =
     [
         'kadar_id',
+        'kadar_kode',
         'kadar_nama',
         'kadar_harga_jual_1',
         'kadar_harga_jual_2',
