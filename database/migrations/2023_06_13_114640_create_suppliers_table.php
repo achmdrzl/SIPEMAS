@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('supplier_alamat');
             $table->string('supplier_no_telp');
             $table->string('supplier_kota');
-            $table->string('supplier_pengurus');
             $table->enum('status', ['aktif', 'non-aktif'])->default('aktif');
             $table->timestamps();
         });

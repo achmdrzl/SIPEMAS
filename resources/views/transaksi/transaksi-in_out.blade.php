@@ -53,6 +53,12 @@
                                             </table>
                                         </div>
                                     </div>
+                                     <div class="card-footer">
+                                        <p id="load-pemasukan" style="font-size: 18px"></p>
+                                    </div>
+                                     <div class="card-footer">
+                                        <p id="load-pengeluaran" style="font-size: 18px"></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +67,7 @@
             </div>
             <!-- /Page Body -->
 
-            {{-- Modal Kadar --}}
+            {{-- MODAL TRANSAKSI IN / OUT --}}
             <div class="modal fade" id="transaksiModal" tabindex="-1" role="dialog" aria-labelledby="modalSupplier"
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -154,6 +160,31 @@
 
 @push('script-alt')
     <script>
+
+        // CONVERT RUPIAH
+         const rupiah = (number) => {
+                return new Intl.NumberFormat("id-ID", {
+                    style: "currency",
+                    currency: "IDR"
+                }).format(number);
+            }
+
+        // LOAD TOTAL PEMASUKAN
+        loadInOut()
+        function loadInOut(){
+            $.ajax({
+                type: "GET",
+                url: "{{ route('load.in.out') }}",
+                dataType: "JSON",
+                success: function (response) {
+                    var pemasukan = `TOTAL PEMASUKAN: <strong>` + rupiah(response.pemasukan) + `</strong>`;
+                    var pengeluaran = `TOTAL PEMASUKAN: <strong>` + rupiah(response.pengeluaran) + `</strong>`;
+                    $("#load-pemasukan").html(pemasukan)
+                    $("#load-pengeluaran").html(pengeluaran)
+                }
+            });
+        }
+
         $(document).ready(function() {
 
             $.ajaxSetup({
@@ -220,7 +251,7 @@
                 $('#transkasiForm').trigger("reset");
                 $('#transaksiHeading').html("TAMBAH DATA TRANSAKSI PEMASUKAN / PENGELUARAN");
                 $('#transaksiModal').modal('show');
-                $('#tgl_transaksi').attr('disabled', false);
+                $('#tgl_transaksi').attr('readonly', false);
             });
 
             $('#submitTransaksi').on('click', function(e) {
@@ -268,6 +299,7 @@
                             $('#transaksiModal').modal('hide');
 
                             datatable.draw();
+                            loadInOut()
                         }
                     }
                 });
@@ -293,7 +325,7 @@
                         $('#transaksiHeading').html("EDIT DATA TRANSAKSI IN / OUT");
                         $('#transaksiModal').modal('show');
                         $('#transaksi_id').val(response.transaksi_id);
-                        $('#tgl_transaksi').val(response.tgl_transaksi).attr('disabled', true);
+                        $('#tgl_transaksi').val(response.tgl_transaksi).attr('readonly', true);
                         $('#jenis_transaksi').val(response.jenis_transaksi);
                         console.log(response.jenis_transaksi)
                         $('#total').val(response.total);
@@ -350,6 +382,7 @@
                                         title: `${response.status}`,
                                     })
                                     datatable.draw();
+                                    loadInOut()
                                 }
                             });
                         } else {

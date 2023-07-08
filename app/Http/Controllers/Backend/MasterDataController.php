@@ -9,6 +9,7 @@ use App\Models\Merk;
 use App\Models\ModelBarang;
 use App\Models\Pabrik;
 use App\Models\Supplier;
+use App\Models\TransaksiHutang;
 use App\Models\TransaksiInOut;
 use App\Models\User;
 use DateTime;
@@ -187,54 +188,6 @@ class MasterDataController extends Controller
             return response()->json(['errors' => $validator->errors()->all()]);
         }
 
-        // Check if any records exist
-        if (Pabrik::count() === 0) {
-            $initialId = '01';
-        } else {
-            // Retrieve the last record from the table
-            $lastRecord = Pabrik::latest()->first();
-
-            // Retrieve the last custom code
-            $lastCode = $lastRecord->pabrik_kode;
-
-            // Increment the last code by 1
-            $nextCode = sprintf("%02d", intval($lastCode) + 1);
-
-            $initialId = $nextCode;
-        }
-
-        // Define the model name
-        $modelName = 'Pabrik';
-
-        // Get the current date and time
-        $currentTime = Carbon::now();
-
-        // Get the formatted date portion (yymmdd)
-        $datePart = $currentTime->format('ymd');
-
-        // Get the current counter value from cache for the specific model
-        $counter = Cache::get($modelName . '_counter');
-
-        // Get the last date stored in the cache for the specific model
-        $lastDate = Cache::get($modelName . '_counter_date');
-
-        // Check if the counter needs to be reset
-        if ($lastDate !== $datePart) {
-            // Reset the counter
-            $counter = 1;
-            Cache::put($modelName . '_counter', $counter);
-            Cache::put($modelName . '_counter_date',
-                $datePart
-            );
-        } else {
-            // Increment the counter
-            $counter++;
-            Cache::put($modelName . '_counter', $counter);
-        }
-
-        // Generate the new ID
-        $newId = $datePart . sprintf("%03d", $counter);
-
         $pabrik = Pabrik::find($request->pabrik_id);
 
         if (isset($pabrik)) {
@@ -244,6 +197,56 @@ class MasterDataController extends Controller
                 'pabrik_nama' => $request->pabrik_nama
             ]);
         } else {
+
+            // Check if any records exist
+            if (Pabrik::count() === 0) {
+                $initialId = '01';
+            } else {
+                // Retrieve the last record from the table
+                $lastRecord = Pabrik::latest()->first();
+
+                // Retrieve the last custom code
+                $lastCode = $lastRecord->pabrik_kode;
+
+                // Increment the last code by 1
+                $nextCode = sprintf("%02d", intval($lastCode) + 1);
+
+                $initialId = $nextCode;
+            }
+
+            // Define the model name
+            $modelName = 'Pabrik';
+
+            // Get the current date and time
+            $currentTime = Carbon::now();
+
+            // Get the formatted date portion (yymmdd)
+            $datePart = $currentTime->format('ymd');
+
+            // Get the current counter value from cache for the specific model
+            $counter = Cache::get($modelName . '_counter');
+
+            // Get the last date stored in the cache for the specific model
+            $lastDate = Cache::get($modelName . '_counter_date');
+
+            // Check if the counter needs to be reset
+            if ($lastDate !== $datePart) {
+                // Reset the counter
+                $counter = 1;
+                Cache::put($modelName . '_counter', $counter);
+                Cache::put(
+                    $modelName . '_counter_date',
+                    $datePart
+                );
+            } else {
+                // Increment the counter
+                $counter++;
+                Cache::put($modelName . '_counter', $counter);
+            }
+
+            // Generate the new ID
+            $newId = $datePart . sprintf("%03d", $counter);
+
             Pabrik::updateOrCreate([
                 'pabrik_id' => $newId
             ], [
@@ -356,53 +359,6 @@ class MasterDataController extends Controller
             return response()->json(['errors' => $validator->errors()->all()]);
         }
 
-        // Check if any records exist
-        if (Kadar::count() === 0) {
-            $initialId = '01';
-        } else {
-            // Retrieve the last record from the table
-            $lastRecord = Kadar::latest()->first();
-
-            // Retrieve the last custom code
-            $lastCode = $lastRecord->kadar_kode;
-
-            // Increment the last code by 1
-            $nextCode = sprintf("%02d", intval($lastCode) + 1);
-
-            $initialId = $nextCode;
-        }
-
-        // Define the model name
-        $modelName = 'Kadar';
-
-        // Get the current date and time
-        $currentTime = Carbon::now();
-
-        // Get the formatted date portion (yymmdd)
-        $datePart = $currentTime->format('ymd');
-
-        // Get the current counter value from cache for the specific model
-        $counter = Cache::get($modelName . '_counter');
-
-        // Get the last date stored in the cache for the specific model
-        $lastDate = Cache::get($modelName . '_counter_date');
-
-        // Check if the counter needs to be reset
-        if ($lastDate !== $datePart) {
-            // Reset the counter
-            $counter = 1;
-            Cache::put($modelName . '_counter', $counter);
-            Cache::put($modelName . '_counter_date',
-                $datePart
-            );
-        } else {
-            // Increment the counter
-            $counter++;
-            Cache::put($modelName . '_counter', $counter);
-        }
-
-        // Generate the new ID
-        $newId = $datePart . sprintf("%03d", $counter);
 
         $kadar = Kadar::find($request->kadar_id);
 
@@ -415,6 +371,56 @@ class MasterDataController extends Controller
                 'kadar_harga_jual_2' => $request->kadar_harga_jual_2
             ]);
         } else {
+
+            // Check if any records exist
+            if (Kadar::count() === 0) {
+                $initialId = '01';
+            } else {
+                // Retrieve the last record from the table
+                $lastRecord = Kadar::latest()->first();
+
+                // Retrieve the last custom code
+                $lastCode = $lastRecord->kadar_kode;
+
+                // Increment the last code by 1
+                $nextCode = sprintf("%02d", intval($lastCode) + 1);
+
+                $initialId = $nextCode;
+            }
+
+            // Define the model name
+            $modelName = 'Kadar';
+
+            // Get the current date and time
+            $currentTime = Carbon::now();
+
+            // Get the formatted date portion (yymmdd)
+            $datePart = $currentTime->format('ymd');
+
+            // Get the current counter value from cache for the specific model
+            $counter = Cache::get($modelName . '_counter');
+
+            // Get the last date stored in the cache for the specific model
+            $lastDate = Cache::get($modelName . '_counter_date');
+
+            // Check if the counter needs to be reset
+            if ($lastDate !== $datePart) {
+                // Reset the counter
+                $counter = 1;
+                Cache::put($modelName . '_counter', $counter);
+                Cache::put(
+                    $modelName . '_counter_date',
+                    $datePart
+                );
+            } else {
+                // Increment the counter
+                $counter++;
+                Cache::put($modelName . '_counter', $counter);
+            }
+
+            // Generate the new ID
+            $newId = $datePart . sprintf("%03d", $counter);
+
             Kadar::updateOrCreate([
                 'kadar_id' => $newId
             ], [
@@ -512,59 +518,6 @@ class MasterDataController extends Controller
 
         ]);
 
-        //check if validation fails
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()->all()]);
-        }
-
-        // Check if any records exist
-        if (ModelBarang::count() === 0) {
-            $initialId = '01';
-        } else {
-            // Retrieve the last record from the table
-            $lastRecord = ModelBarang::latest()->first();
-
-            // Retrieve the last custom code
-            $lastCode = $lastRecord->model_kode;
-
-            // Increment the last code by 1
-            $nextCode = sprintf("%02d", intval($lastCode) + 1);
-
-            $initialId = $nextCode;
-        }
-
-        // Define the model name
-        $modelName = 'ModelBarang';
-
-        // Get the current date and time
-        $currentTime = Carbon::now();
-
-        // Get the formatted date portion (yymmdd)
-        $datePart = $currentTime->format('ymd');
-
-        // Get the current counter value from cache for the specific model
-        $counter = Cache::get($modelName . '_counter');
-
-        // Get the last date stored in the cache for the specific model
-        $lastDate = Cache::get($modelName . '_counter_date');
-
-        // Check if the counter needs to be reset
-        if ($lastDate !== $datePart) {
-            // Reset the counter
-            $counter = 1;
-            Cache::put($modelName . '_counter', $counter);
-            Cache::put($modelName . '_counter_date',
-                $datePart
-            );
-        } else {
-            // Increment the counter
-            $counter++;
-            Cache::put($modelName . '_counter', $counter);
-        }
-
-        // Generate the new ID
-        $newId = $datePart . sprintf("%03d", $counter);
-
         $model = ModelBarang::find($request->model_id);
 
         if (isset($model)) {
@@ -574,6 +527,61 @@ class MasterDataController extends Controller
                 'model_nama' => $request->model_nama
             ]);
         } else {
+
+            //check if validation fails
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()->all()]);
+            }
+
+            // Check if any records exist
+            if (ModelBarang::count() === 0) {
+                $initialId = '01';
+            } else {
+                // Retrieve the last record from the table
+                $lastRecord = ModelBarang::latest()->first();
+
+                // Retrieve the last custom code
+                $lastCode = $lastRecord->model_kode;
+
+                // Increment the last code by 1
+                $nextCode = sprintf("%02d", intval($lastCode) + 1);
+
+                $initialId = $nextCode;
+            }
+
+            // Define the model name
+            $modelName = 'ModelBarang';
+
+            // Get the current date and time
+            $currentTime = Carbon::now();
+
+            // Get the formatted date portion (yymmdd)
+            $datePart = $currentTime->format('ymd');
+
+            // Get the current counter value from cache for the specific model
+            $counter = Cache::get($modelName . '_counter');
+
+            // Get the last date stored in the cache for the specific model
+            $lastDate = Cache::get($modelName . '_counter_date');
+
+            // Check if the counter needs to be reset
+            if ($lastDate !== $datePart) {
+                // Reset the counter
+                $counter = 1;
+                Cache::put($modelName . '_counter', $counter);
+                Cache::put(
+                    $modelName . '_counter_date',
+                    $datePart
+                );
+            } else {
+                // Increment the counter
+                $counter++;
+                Cache::put($modelName . '_counter', $counter);
+            }
+
+            // Generate the new ID
+            $newId = $datePart . sprintf("%03d", $counter);
+
             ModelBarang::updateOrCreate([
                 'model_id' => $newId
             ], [
@@ -695,54 +703,6 @@ class MasterDataController extends Controller
             return response()->json(['errors' => $validator->errors()->all()]);
         }
 
-        // Check if any records exist
-        if (Supplier::count() === 0) {
-            $initialId = '01';
-        } else {
-            // Retrieve the last record from the table
-            $lastRecord = Supplier::latest()->first();
-
-            // Retrieve the last custom code
-            $lastCode = $lastRecord->supplier_kode;
-
-            // Increment the last code by 1
-            $nextCode = sprintf("%02d", intval($lastCode) + 1);
-
-            $initialId = $nextCode;
-        }
-
-        // Define the model name
-        $modelName = 'Supplier';
-
-        // Get the current date and time
-        $currentTime = Carbon::now();
-
-        // Get the formatted date portion (yymmdd)
-        $datePart = $currentTime->format('ymd');
-
-        // Get the current counter value from cache for the specific model
-        $counter = Cache::get($modelName . '_counter');
-
-        // Get the last date stored in the cache for the specific model
-        $lastDate = Cache::get($modelName . '_counter_date');
-
-        // Check if the counter needs to be reset
-        if ($lastDate !== $datePart) {
-            // Reset the counter
-            $counter = 1;
-            Cache::put($modelName . '_counter', $counter);
-            Cache::put($modelName . '_counter_date',
-                $datePart
-            );
-        } else {
-            // Increment the counter
-            $counter++;
-            Cache::put($modelName . '_counter', $counter);
-        }
-
-        // Generate the new ID
-        $newId = $datePart . sprintf("%03d", $counter);
-
         $supplier = Supplier::find($request->supplier_id);
 
         if (isset($supplier)) {
@@ -753,9 +713,59 @@ class MasterDataController extends Controller
                 'supplier_alamat' => $request->supplier_alamat,
                 'supplier_no_telp' => $request->supplier_no_telp,
                 'supplier_kota' => $request->supplier_kota,
-                'supplier_pengurus' => $request->supplier_pengurus
             ]);
+
         } else {
+
+            // Check if any records exist
+            if (Supplier::count() === 0) {
+                $initialId = '01';
+            } else {
+                // Retrieve the last record from the table
+                $lastRecord = Supplier::latest()->first();
+
+                // Retrieve the last custom code
+                $lastCode = $lastRecord->supplier_kode;
+
+                // Increment the last code by 1
+                $nextCode = sprintf("%02d", intval($lastCode) + 1);
+
+                $initialId = $nextCode;
+            }
+
+            // Define the model name
+            $modelName = 'Supplier';
+
+            // Get the current date and time
+            $currentTime = Carbon::now();
+
+            // Get the formatted date portion (yymmdd)
+            $datePart = $currentTime->format('ymd');
+
+            // Get the current counter value from cache for the specific model
+            $counter = Cache::get($modelName . '_counter');
+
+            // Get the last date stored in the cache for the specific model
+            $lastDate = Cache::get($modelName . '_counter_date');
+
+            // Check if the counter needs to be reset
+            if ($lastDate !== $datePart) {
+                // Reset the counter
+                $counter = 1;
+                Cache::put($modelName . '_counter', $counter);
+                Cache::put(
+                    $modelName . '_counter_date',
+                    $datePart
+                );
+            } else {
+                // Increment the counter
+                $counter++;
+                Cache::put($modelName . '_counter', $counter);
+            }
+
+            // Generate the new ID
+            $newId = $datePart . sprintf("%03d", $counter);
+
             Supplier::updateOrCreate([
                 'supplier_id' => $newId,
             ], [
@@ -764,7 +774,6 @@ class MasterDataController extends Controller
                 'supplier_alamat' => $request->supplier_alamat,
                 'supplier_no_telp' => $request->supplier_no_telp,
                 'supplier_kota' => $request->supplier_kota,
-                'supplier_pengurus' => $request->supplier_pengurus
             ]);
         }
 
@@ -860,55 +869,6 @@ class MasterDataController extends Controller
             return response()->json(['errors' => $validator->errors()->all()]);
         }
 
-        // Check if any records exist
-        if (Merk::count() === 0) {
-            $initialId = '01';
-        } else {
-            // Retrieve the last record from the table
-            $lastRecord = Merk::latest()->first();
-
-            // Retrieve the last custom code
-            $lastCode = $lastRecord->merk_kode;
-
-            // Increment the last code by 1
-            $nextCode = sprintf("%02d", intval($lastCode) + 1);
-
-            $initialId = $nextCode;
-        }
-
-        // Define the model name
-        $modelName = 'Merk';
-
-        // Get the current date and time
-        $currentTime = Carbon::now();
-
-        // Get the formatted date portion (yymmdd)
-        $datePart = $currentTime->format('ymd');
-
-        // Get the current counter value from cache for the specific model
-        $counter = Cache::get($modelName . '_counter');
-
-        // Get the last date stored in the cache for the specific model
-        $lastDate = Cache::get($modelName . '_counter_date');
-
-        // Check if the counter needs to be reset
-        if ($lastDate !== $datePart) {
-            // Reset the counter
-            $counter = 1;
-            Cache::put($modelName . '_counter', $counter);
-            Cache::put($modelName . '_counter_date',
-                $datePart
-            );
-        } else {
-            // Increment the counter
-            $counter++;
-            Cache::put($modelName . '_counter', $counter);
-        }
-
-        // Generate the new ID
-        $newId = $datePart . sprintf("%03d", $counter);
-
-
         $merk = Merk::find($request->merk_id);
 
         if (isset($merk)) {
@@ -918,6 +878,56 @@ class MasterDataController extends Controller
                 'merk_nama' => $request->merk_nama
             ]);
         } else {
+
+            // Check if any records exist
+            if (Merk::count() === 0) {
+                $initialId = '01';
+            } else {
+                // Retrieve the last record from the table
+                $lastRecord = Merk::latest()->first();
+
+                // Retrieve the last custom code
+                $lastCode = $lastRecord->merk_kode;
+
+                // Increment the last code by 1
+                $nextCode = sprintf("%02d", intval($lastCode) + 1);
+
+                $initialId = $nextCode;
+            }
+
+            // Define the model name
+            $modelName = 'Merk';
+
+            // Get the current date and time
+            $currentTime = Carbon::now();
+
+            // Get the formatted date portion (yymmdd)
+            $datePart = $currentTime->format('ymd');
+
+            // Get the current counter value from cache for the specific model
+            $counter = Cache::get($modelName . '_counter');
+
+            // Get the last date stored in the cache for the specific model
+            $lastDate = Cache::get($modelName . '_counter_date');
+
+            // Check if the counter needs to be reset
+            if ($lastDate !== $datePart) {
+                // Reset the counter
+                $counter = 1;
+                Cache::put($modelName . '_counter', $counter);
+                Cache::put(
+                    $modelName . '_counter_date',
+                    $datePart
+                );
+            } else {
+                // Increment the counter
+                $counter++;
+                Cache::put($modelName . '_counter', $counter);
+            }
+
+            // Generate the new ID
+            $newId = $datePart . sprintf("%03d", $counter);
+
             Merk::updateOrCreate([
                 'merk_id' => $newId,
             ], [
@@ -983,9 +993,9 @@ class MasterDataController extends Controller
                     return ucfirst($item->keterangan);
                 })
                 ->addColumn('action', function ($item) {
-                    $btn = '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="transaksi-edit" data-id="' . $item->kode_transaksi . '"><span class="material-icons btn-sm">edit</span></button>';
+                    $btn = '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="transaksi-edit" data-id="' . $item->transaksi_id . '"><span class="material-icons btn-sm">edit</span></button>';
 
-                    $btn = $btn . '<button class="btn btn-icon btn-danger btn-rounded flush-soft-hover me-1" id="transaksi-delete" data-id="' . $item->kode_transaksi . '"><span class="material-icons btn-sm">delete</span></button>';
+                    $btn = $btn . '<button class="btn btn-icon btn-danger btn-rounded flush-soft-hover me-1" id="transaksi-delete" data-id="' . $item->transaksi_id . '"><span class="material-icons btn-sm">delete</span></button>';
 
                     return $btn;
                 })
@@ -1016,34 +1026,6 @@ class MasterDataController extends Controller
             return response()->json(['errors' => $validator->errors()->all()]);
         }
 
-        // Define the model name
-        $modelName = 'TransaksiInOut';
-
-        // Get the current date and time
-        $currentTime = DateTime::createFromFormat('Y-m-d', $request->tgl_transaksi);
-
-        // Get the formatted date portion (yymmdd)
-        $datePart = $currentTime->format('ymd');
-
-        // Check if the counter needs to be reset for the specific model
-        $lastDate = Cache::get($modelName . '_counter_date');
-        if ($lastDate !== $datePart) {
-            // Reset the counter for the specific model
-            Cache::put($modelName . '_counter', 1);
-            Cache::put($modelName . '_counter_date',
-                $datePart
-            );
-        }
-
-        // Get the current counter value from cache for the specific model
-        $counter = Cache::get($modelName . '_counter');
-
-        // Generate the new ID
-        $newId = 'KB' . $datePart . sprintf("%03d", $counter);
-
-        // Increment the counter for the next ID for the specific model
-        Cache::increment($modelName . '_counter');
-
         $transaksi = TransaksiInOut::find($request->transaksi_id);
 
         if (isset($transaksi)) {
@@ -1055,11 +1037,43 @@ class MasterDataController extends Controller
                 'total' => $request->total,
                 'keterangan' => $request->keterangan,
             ]);
+            
         } else {
+
+            // Define the model name
+            $modelName = 'TransaksiInOut';
+
+            // Get the current date and time
+            $currentTime = DateTime::createFromFormat('Y-m-d', $request->tgl_transaksi);
+
+            // Get the formatted date portion (yymmdd)
+            $datePart = $currentTime->format('ymd');
+
+            // Check if the counter needs to be reset for the specific model
+            $lastDate = Cache::get($modelName . '_counter_date');
+            if ($lastDate !== $datePart) {
+                // Reset the counter for the specific model
+                Cache::put($modelName . '_counter', 1);
+                Cache::put(
+                    $modelName . '_counter_date',
+                    $datePart
+                );
+            }
+
+            // Get the current counter value from cache for the specific model
+            $counter = Cache::get($modelName . '_counter');
+
+            // Generate the new ID
+            $newId = $datePart . sprintf("%03d", $counter);
+            $newId2 = 'KB' . $datePart . sprintf("%03d", $counter);
+
+            // Increment the counter for the next ID for the specific model
+            Cache::increment($modelName . '_counter');
+
             TransaksiInOut::updateOrCreate([
                 'transaksi_id' => $newId,
             ], [
-                'kode_transaksi' => $newId,
+                'kode_transaksi' => $newId2,
                 'tgl_transaksi' => $request->tgl_transaksi,
                 'jenis_transaksi' => $request->jenis_transaksi,
                 'total' => $request->total,
@@ -1077,21 +1091,159 @@ class MasterDataController extends Controller
     // TRANSAKSI IN OUT EDIT DATA
     public function transaksiInOutEdit(Request $request)
     {
-        $transaksi = TransaksiInOut::where('transaksi_id', $request->transaksi_id)->first();
+        $transaksi = TransaksiInOut::find($request->transaksi_id);
         return response()->json($transaksi);
     }
 
     // TRANKSAKSI IN OUT DELETE DATA
     public function transaksiInOutDestroy(Request $request)
     {
-        $transaksi = TransaksiInOut::where('kode_transaksi', $request->transaksi_id)->delete();
+        $transaksi = TransaksiInOut::find($request->transaksi_id)->delete();
 
         return response()->json(['status' => 'Data Deleted Successfully!']);
+    }
+
+    // LOAD IN OUT
+    public function loadInOut(Request $request)
+    {
+        $pemasukan = TransaksiInOut::where('jenis_transaksi', 'Pemasukan')->sum('total');
+        $pengeluaran = TransaksiInOut::where('jenis_transaksi', 'Pengeluaran')->sum('total');
+
+        return response()->json([
+            'pemasukan' => $pemasukan,
+            'pengeluaran' => $pengeluaran,
+        ]);
     }
 
     // TRANSAKSI HUTANG INDEX
     public function transaksiHutang(Request $request)
     {
+        if ($request->ajax()) {
+            $datas   =   TransaksiHutang::all();
+            return DataTables::of($datas)
+                ->addIndexColumn()
+                ->addColumn('kode_hutang', function ($item) {
+                    return ucfirst($item->kode_hutang);
+                })
+                ->addColumn('tgl_transaksi', function ($item) {
+                    return $item->tgl_transaksi;
+                })
+                ->addColumn('total', function ($item) {
+                    return 'Rp.' . number_format($item->total);
+                })
+                ->addColumn('keterangan', function ($item) {
+                    return ucfirst($item->keterangan);
+                })
+                ->addColumn('action', function ($item) {
+                    $btn = '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="hutang-edit" data-id="' . $item->hutang_id . '"><span class="material-icons btn-sm">edit</span></button>';
+
+                    $btn = $btn . '<button class="btn btn-icon btn-danger btn-rounded flush-soft-hover me-1" id="hutang-delete" data-id="' . $item->hutang_id . '"><span class="material-icons btn-sm">delete</span></button>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
         return view('transaksi.transaksi-hutang');
+    }
+
+    // STORE DATA TRANSAKSI HUTANG
+    public function transaksiHutangStore(Request $request)
+    {
+        //define validation rules  
+        $validator = Validator::make($request->all(), [
+            'tgl_transaksi' => 'required',
+            'total' => 'required',
+            'keterangan' => 'required',
+        ], [
+            'tgl_transaksi.required' => 'Tanggal Transaksi Must be included!',
+            'total.required' => 'Total Transaksi Must be included!',
+            'keterangan.required' => 'Keterangan Transaksi Must be included!',
+        ]);
+
+        //check if validation fails
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()]);
+        }
+
+        $hutang = TransaksiHutang::find($request->hutang_id);
+
+        if (isset($hutang)) {
+            TransaksiHutang::updateOrCreate([
+                'hutang_id' => $hutang->hutang_id,
+            ], [
+                'tgl_transaksi' => $request->tgl_transaksi,
+                'total' => $request->total,
+                'keterangan' => $request->keterangan,
+            ]);
+        } else {
+
+            // Define the model name
+            $modelName = 'TransaksiHutang';
+
+            // Get the current date and time
+            $currentTime = DateTime::createFromFormat('Y-m-d', $request->tgl_transaksi);
+
+            // Get the formatted date portion (yymmdd)
+            $datePart = $currentTime->format('ymd');
+
+            // Check if the counter needs to be reset for the specific model
+            $lastDate = Cache::get($modelName . '_counter_date');
+            if ($lastDate !== $datePart) {
+                // Reset the counter for the specific model
+                Cache::put($modelName . '_counter', 1);
+                Cache::put(
+                    $modelName . '_counter_date',
+                    $datePart
+                );
+            }
+
+            // Get the current counter value from cache for the specific model
+            $counter = Cache::get($modelName . '_counter');
+
+            // Generate the new ID
+            $newId = $datePart . sprintf("%03d", $counter);
+            $newId2 = 'KH' . $datePart . sprintf("%03d", $counter);
+
+            // Increment the counter for the next ID for the specific model
+            Cache::increment($modelName . '_counter');
+
+            TransaksiHutang::updateOrCreate([
+                'hutang_id' => $newId,
+            ], [
+                'kode_hutang' => $newId2,
+                'tgl_transaksi' => $request->tgl_transaksi,
+                'total' => $request->total,
+                'keterangan' => $request->keterangan,
+            ]);
+        }
+
+        //return response
+        return response()->json([
+            'success' => true,
+            'message' => 'Your data has been saved successfully!',
+        ]);
+    }
+
+    // TRANSAKSI IN OUT EDIT DATA
+    public function transaksiHutangEdit(Request $request)
+    {
+        $transaksi = TransaksiHutang::find($request->hutang_id);
+        return response()->json($transaksi);
+    }
+
+    // TRANKSAKSI IN OUT DELETE DATA
+    public function transaksiHutangDestroy(Request $request)
+    {
+        $transaksi = TransaksiHutang::find($request->hutang_id)->delete();
+
+        return response()->json(['status' => 'Data Deleted Successfully!']);
+    }
+
+    public function loadHutang(Request $request)
+    {
+        $hutang = TransaksiHutang::sum('total');
+
+        return response()->json($hutang);
     }
 }

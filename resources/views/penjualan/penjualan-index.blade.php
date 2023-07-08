@@ -504,69 +504,73 @@
                                 </div>
                             </div>
                         </div>
-                        <table class="table">
-                            <thead>
-                                <th>No</th>
-                                <th>Kode</th>
-                                <th>Nama Barang</th>
-                                <th>Kadar</th>
-                                <th>Berat Asli</th>
-                                <th>Berat Jual</th>
-                                <th>Harga</th>
-                                <th>Ongkos</th>
-                                <th>Jumlah Harga</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>91028309</td>
-                                    <td>Cincin</td>
-                                    <td>16K</td>
-                                    <td>2,10</td>
-                                    <td><input class="form-control w-50" type="text" value="2,10" /></td>
-                                    <td>
-                                        <input class="form-control" type="text" value=""
-                                            placeholder="Harga Beli" name="kode_edit" />
-                                    </td>
-                                    <td> <input class="form-control" type="text" value=""
-                                            placeholder="Nilai Tukar" name="kode_edit" /></td>
-                                    <td> <input class="form-control" type="text" value=""
-                                            placeholder="Jumlah Harga" name="kode_edit" readonly /></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>12938102</td>
-                                    <td>Kalung</td>
-                                    <td>16K</td>
-                                    <td>5,10</td>
-                                    <td><input class="form-control w-50" type="text" value="5,10" /></td>
-                                    <td>
-                                        <input class="form-control" type="text" value=""
-                                            placeholder="Harga Beli" name="kode_edit" />
-                                    </td>
-                                    <td> <input class="form-control" type="text" value=""
-                                            placeholder="Nilai Tukar" name="kode_edit" /></td>
-                                    <td> <input class="form-control" type="text" value=""
-                                            placeholder="Jumlah Harga" name="kode_edit" readonly /></td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>4839840</td>
-                                    <td>Liontin</td>
-                                    <td>16K</td>
-                                    <td>3,10</td>
-                                    <td><input class="form-control w-50" type="text" value="3,10" /></td>
-                                    <td>
-                                        <input class="form-control" type="text" value=""
-                                            placeholder="Harga Beli" name="kode_edit" />
-                                    </td>
-                                    <td> <input class="form-control" type="text" value=""
-                                            placeholder="Nilai Tukar" name="kode_edit" /></td>
-                                    <td> <input class="form-control" type="text" value=""
-                                            placeholder="Jumlah Harga" name="kode_edit" readonly /></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-wrap">
+                            <div class="invoice-table-wrap ">
+                                <table class="table nowrap table-striped" id="datable_4c">
+                                    <thead>
+                                        <th>No</th>
+                                        <th>Kode</th>
+                                        <th>Nama Barang</th>
+                                        <th>Kadar</th>
+                                        <th>Berat Asli</th>
+                                        <th>Berat Jual</th>
+                                        <th>Harga</th>
+                                        <th>Ongkos</th>
+                                        <th>Jumlah Harga</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>91028309</td>
+                                            <td>Cincin</td>
+                                            <td>16K</td>
+                                            <td>2,10</td>
+                                            <td><input class="form-control w-50" type="text" value="2,10" /></td>
+                                            <td>
+                                                <input class="form-control" type="text" value=""
+                                                    placeholder="Harga Beli" name="kode_edit" />
+                                            </td>
+                                            <td> <input class="form-control" type="text" value=""
+                                                    placeholder="Nilai Tukar" name="kode_edit" /></td>
+                                            <td> <input class="form-control" type="text" value=""
+                                                    placeholder="Jumlah Harga" name="kode_edit" readonly /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>12938102</td>
+                                            <td>Kalung</td>
+                                            <td>16K</td>
+                                            <td>5,10</td>
+                                            <td><input class="form-control w-50" type="text" value="5,10" /></td>
+                                            <td>
+                                                <input class="form-control" type="text" value=""
+                                                    placeholder="Harga Beli" name="kode_edit" />
+                                            </td>
+                                            <td> <input class="form-control" type="text" value=""
+                                                    placeholder="Nilai Tukar" name="kode_edit" /></td>
+                                            <td> <input class="form-control" type="text" value=""
+                                                    placeholder="Jumlah Harga" name="kode_edit" readonly /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>4839840</td>
+                                            <td>Liontin</td>
+                                            <td>16K</td>
+                                            <td>3,10</td>
+                                            <td><input class="form-control w-50" type="text" value="3,10" /></td>
+                                            <td>
+                                                <input class="form-control" type="text" value=""
+                                                    placeholder="Harga Beli" name="kode_edit" />
+                                            </td>
+                                            <td> <input class="form-control" type="text" value=""
+                                                    placeholder="Nilai Tukar" name="kode_edit" /></td>
+                                            <td> <input class="form-control" type="text" value=""
+                                                    placeholder="Jumlah Harga" name="kode_edit" readonly /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                         <div class="row justify-content-end">
                             <div class="col-xxl-6 mt-5">
                                 <div class="table-wrap">
