@@ -71,9 +71,14 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::post('/transaksiInOutStore', MasterDataController::class. '@transaksiInOutStore')->name('transaksiInOut.store');
     Route::post('/transaksiInOutEdit', MasterDataController::class. '@transaksiInOutEdit')->name('transaksiInOut.Edit');
     Route::post('/transaksiInOutDestroy', MasterDataController::class. '@transaksiInOutDestroy')->name('transaksiInOut.Destroy');
+    Route::get('/loadInOut', MasterDataController::class. '@loadInOut')->name('load.in.out');
 
     // MASTER DATA TRANSAKSI HUTANG
     Route::get('/transaksi-hutang', MasterDataController::class. '@transaksiHutang')->name('transaksi.hutang');
+    Route::post('/transaksiHutangStore', MasterDataController::class . '@transaksiHutangStore')->name('transaksiHutang.store');
+    Route::post('/transaksiHutangEdit', MasterDataController::class . '@transaksiHutangEdit')->name('transaksiHutang.Edit');
+    Route::post('/transaksiHutangDestroy', MasterDataController::class . '@transaksiHutangDestroy')->name('transaksiHutang.Destroy');
+    Route::get('/loadHutang', MasterDataController::class. '@loadHutang')->name('load.hutang');
  
 
     // TRANSAKSI PEMBELIAN

@@ -29,7 +29,7 @@
                                             {{-- <span class="badge badge-sm badge-light ms-1">{{ count($kadars) }}</span> --}}
                                         </h6>
                                         <div class="card-action-wrap">
-                                            <button class="btn btn-sm btn-primary ms-3" id="transaksi-create"><span><span
+                                            <button class="btn btn-sm btn-primary ms-3" id="hutang-create"><span><span
                                                         class="icon"><span class="feather-icon"><i
                                                                 data-feather="plus"></i></span></span><span
                                                         class="btn-text">Tambah
@@ -42,9 +42,8 @@
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>Kode Transaksi</th>
+                                                        <th>Kode Hutang</th>
                                                         <th>Tanggal</th>
-                                                        <th>Jenis Transaksi</th>
                                                         <th>Total</th>
                                                         <th>Keterangan</th>
                                                         <th>Action</th>
@@ -52,6 +51,9 @@
                                                 </thead>
                                             </table>
                                         </div>
+                                    </div>
+                                     <div class="card-footer">
+                                        <p id="load-hutang" style="font-size: 18px"></p>
                                     </div>
                                 </div>
                             </div>
@@ -62,12 +64,12 @@
             <!-- /Page Body -->
 
             {{-- Modal Kadar --}}
-            <div class="modal fade" id="transaksiModal" tabindex="-1" role="dialog" aria-labelledby="modalSupplier"
+            <div class="modal fade" id="hutangModal" tabindex="-1" role="dialog" aria-labelledby="modalSupplier"
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h6 class="modal-title" id="transaksiHeading"></h6>
+                            <h6 class="modal-title" id="hutangHeading"></h6>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
@@ -76,26 +78,14 @@
                             <div class="alert alert-danger alert-dismissible fade show" role="alert"
                                 style="display: none;" style="color: red">
                             </div>
-                            <form id="transkasiForm">
+                            <form id="hutangForm">
                                 <div class="row gx-3">
-                                    <input type="hidden" id="transaksi_id" name="transaksi_id">
+                                    <input type="hidden" id="hutang_id" name="hutang_id">
                                     <div class="col-sm-12">
                                         <label class="form-label">Tanggal Transaksi</label>
                                         <div class="form-group">
                                             <input class="form-control" type="date" placeholder="Masukkan Tanggal Transaksi"
                                                 name="tgl_transaksi" id="tgl_transaksi" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row gx-3">
-                                    <div class="col-sm-12">
-                                        <label class="form-label">Jenis Transaksi</label>
-                                        <div class="form-group">
-                                            <select name="jenis_transaksi" class="form-control" id="jenis_transaksi">
-                                                <option value="" disabled selected>-- Select Jenis Transaksi --</option>
-                                                <option value="Pengeluaran">Pengeluaran</option>
-                                                <option value="Pemasukan">Pemasukan</option>
-                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -118,7 +108,7 @@
                                 </div>
                                 <div class="modal-footer align-items-center">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <button class="btn btn-primary" id="submitTransaksi">Simpan</button>
+                                    <button type="submit" class="btn btn-primary" id="submitHutang">Simpan</button>
                                 </div>
                             </form>
                         </div>
@@ -154,6 +144,29 @@
 
 @push('script-alt')
     <script>
+
+        // CONVERT RUPIAH
+        const rupiah = (number) => {
+            return new Intl.NumberFormat("id-ID", {
+                style: "currency",
+                currency: "IDR"
+            }).format(number);
+        }
+
+        // LOAD HUTANG
+        loadHutang()
+        function loadHutang(){
+            $.ajax({
+                type: "GET",
+                url: "{{ route('load.hutang') }}",
+                dataType: "JSON",
+                success: function (response) {
+                    var hutang = `TOTAL HUTANG: <strong>` + rupiah(response) + `</strong>`;
+                    $("#load-hutang").html(hutang)
+                }
+            });
+        }
+
         $(document).ready(function() {
 
             $.ajaxSetup({
@@ -180,22 +193,18 @@
                 },
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('transaksi.in.out') }}",
+                ajax: "{{ route('transaksi.hutang') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
                     },
                     {
-                        data: 'kode_transaksi',
-                        name: 'kode_transaksi'
+                        data: 'kode_hutang',
+                        name: 'kode_hutang'
                     },
                     {
                         data: 'tgl_transaksi',
                         name: 'tgl_transaksi'
-                    },
-                    {
-                        data: 'jenis_transaksi',
-                        name: 'jenis_transaksi'
                     },
                     {
                         data: 'total',
@@ -213,23 +222,23 @@
             });
 
             // Create Data Kadar.
-            $('#transaksi-create').click(function() {
+            $('#hutang-create').click(function() {
                 $('.alert').hide();
                 $('#saveBtn').val("create-transaksi");
-                $('#transaksi_id').val('');
-                $('#transkasiForm').trigger("reset");
-                $('#transaksiHeading').html("TAMBAH DATA TRANSAKSI PEMASUKAN / PENGELUARAN");
-                $('#transaksiModal').modal('show');
-                $('#tgl_transaksi').attr('disabled', false);
+                $('#hutang_id').val('');
+                $('#hutangForm').trigger("reset");
+                $('#hutangHeading').html("TAMBAH DATA TRANSAKSI HUTANG");
+                $('#hutangModal').modal('show');
+                $('#tgl_transaksi').attr('readonly', false);
             });
 
-            $('#submitTransaksi').on('click', function(e) {
+            $('#submitHutang').on('click', function(e) {
                 e.preventDefault();
 
                 $(this).html('Sending..');
 
                 $.ajax({
-                    url: "{{ route('transaksiInOut.store') }}",
+                    url: "{{ route('transaksiHutang.store') }}",
                     data: new FormData(this.form),
                     cache: false,
                     processData: false,
@@ -245,7 +254,7 @@
                                 $('.alert-danger').append('<strong><li>' + value +
                                     '</li></strong>');
                             });
-                            $('#submitTransaksi').html('Simpan');
+                            $('#submitHutang').html('Simpan');
 
                         } else {
                             $('.btn-warning').hide();
@@ -263,11 +272,13 @@
                                 title: `${response.message}`,
                             })
 
-                            $('#transkasiForm').trigger("reset");
-                            $('#submitTransaksi').html('Simpan');
-                            $('#transaksiModal').modal('hide');
+                            $('#hutangForm').trigger("reset");
+                            $('#submitHutang').html('Simpan');
+                            $('#hutangModal').modal('hide');
 
                             datatable.draw();
+                            loadHutang()
+
                         }
                     }
                 });
@@ -275,27 +286,25 @@
 
 
             // Edit Data Kadar
-            $('body').on('click', '#transaksi-edit', function() {
-                var transaksi_id = $(this).attr('data-id');
-                console.log(transaksi_id)
+            $('body').on('click', '#hutang-edit', function() {
+                var hutang_id = $(this).attr('data-id');
+                console.log(hutang_id)
                 $('.alert').hide();
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('transaksiInOut.Edit') }}",
+                    url: "{{ route('transaksiHutang.Edit') }}",
                     data: {
-                        transaksi_id: transaksi_id
+                        hutang_id: hutang_id
                     },
                     dataType: "json",
                     success: function(response) {
                         console.log(response)
                         $('#submitBtnKadar').val("kadar-edit");
-                        $('#transaksiForm').trigger("reset");
-                        $('#transaksiHeading').html("EDIT DATA TRANSAKSI IN / OUT");
-                        $('#transaksiModal').modal('show');
-                        $('#transaksi_id').val(response.transaksi_id);
-                        $('#tgl_transaksi').val(response.tgl_transaksi).attr('disabled', true);
-                        $('#jenis_transaksi').val(response.jenis_transaksi);
-                        console.log(response.jenis_transaksi)
+                        $('#hutangForm').trigger("reset");
+                        $('#hutangHeading').html("EDIT DATA TRANSAKSI HUTANG");
+                        $('#hutangModal').modal('show');
+                        $('#hutang_id').val(response.hutang_id);
+                        $('#tgl_transaksi').val(response.tgl_transaksi).attr('readonly', true);
                         $('#total').val(response.total);
                         $('#keterangan').val(response.keterangan);
                     }
@@ -303,7 +312,7 @@
             });
 
             // Arsipkan Data Kadar
-            $('body').on('click', '#transaksi-delete', function() {
+            $('body').on('click', '#hutang-delete', function() {
 
                 const swalWithBootstrapButtons = Swal.mixin({
                     customClass: {
@@ -314,7 +323,7 @@
 
                 });
 
-                var transaksi_id = $(this).attr('data-id');
+                var hutang_id = $(this).attr('data-id');
 
                 swalWithBootstrapButtons
                     .fire({
@@ -331,9 +340,9 @@
                         if (result.value) {
                             $.ajax({
                                 type: "POST",
-                                url: "{{ route('transaksiInOut.Destroy') }}",
+                                url: "{{ route('transaksiHutang.Destroy') }}",
                                 data: {
-                                    transaksi_id: transaksi_id,
+                                    hutang_id: hutang_id,
                                 },
                                 dataType: "json",
                                 success: function(response) {
@@ -350,6 +359,7 @@
                                         title: `${response.status}`,
                                     })
                                     datatable.draw();
+                                    loadHutang()
                                 }
                             });
                         } else {
