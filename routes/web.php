@@ -92,6 +92,12 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
 
     // MASTER DATA BARANG
     Route::get('/barang', MasterBarangController::class . '@barangIndex')->name('barang.index');
+    Route::post('/barangStore', MasterBarangController::class . '@barangStore')->name('barang.store');
+    Route::post('/barangkEdit', MasterBarangController::class. '@barangEdit')->name('barang.edit');
+    Route::post('/barangDestroy', MasterBarangController::class. '@barangDestroy')->name('barang.destroy');
+    Route::post('/barangPindahEtalase', MasterBarangController::class. '@barangPindahEtalase')->name('barang.etalase');
+    // Detail Barang
+
 
     // MASTER DATA SUPPLIER
     Route::get('/supplier', MasterDataController::class . '@supplierIndex')->name('supplier.index');

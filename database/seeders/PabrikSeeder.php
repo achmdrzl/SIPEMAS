@@ -14,10 +14,12 @@ class PabrikSeeder extends Seeder
     public function run(): void
     {
         Pabrik::create([
+            'pabrik_kode'      =>  '01',
             'pabrik_nama'      =>  'test 1'
         ]);
 
         Pabrik::create([
+            'pabrik_kode'      =>  '02',
             'pabrik_nama'      =>  'test 2'
         ]);
     }

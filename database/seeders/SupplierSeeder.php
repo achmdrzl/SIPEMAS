@@ -14,11 +14,11 @@ class SupplierSeeder extends Seeder
     public function run(): void
     {
         Supplier::create([
+            'supplier_kode'      =>  '01',
             'supplier_nama'      =>  'CIT',
             'supplier_alamat' => 'Jl. wua wua',
             'supplier_no_telp' => '08182312319',
-            'supplier_kota' => 'kendari',
-            'supplier_pengurus' => 'rio',
+            'supplier_kota' => 'kendari'
         ]);
     }
 }

@@ -23,7 +23,6 @@ class Supplier extends Model
         'supplier_alamat',
         'supplier_no_telp',
         'supplier_kota',
-        'supplier_pengurus',
         'status'
     ];
 }

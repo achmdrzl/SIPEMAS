@@ -14,14 +14,17 @@ class ModelSeeder extends Seeder
     public function run(): void
     {
         ModelBarang::create([
+            'model_kode'      =>  '01',
             'model_nama'       => 'test model 1'
         ]);
 
         ModelBarang::create([
+            'model_kode'      =>  '02',
             'model_nama'       => 'test model 2'
         ]);
 
         ModelBarang::create([
+            'model_kode'      =>  '03',
             'model_nama'       => 'test model 3'
         ]);
  

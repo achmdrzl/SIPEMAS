@@ -680,10 +680,7 @@
                                                         <div class="dropify-square">
                                                             <input type="file" class="dropify-1" />
                                                         </div>
-                                                    </div>
-                                                    <div class="col-sm-10 form-group">
-                                                        <textarea class="form-control mnh-100p" rows="4" placeholder="Kondisi"></textarea>
-                                                    </div>
+                                                    </div> 
                                                 </div>
                                                 <div class="row gx-3">
                                                     <div class="form-check form-check-sm mb-3">

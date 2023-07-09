@@ -12,16 +12,16 @@ class Barang extends Model
     public $incrementing = true;
     public $timestamps = true;
     protected $fillable =
-    [
-     'barang_kode',
+    [ 
      'barang_nama',
-     'barang_foto',
-     'barang_barcode',
-     'barang_status',
-     'barang_lokasi',
+     'barang_kode',
+     'barang_foto', 
+     'barang_berat', 
+     'barang_lokasi', 
+     'barang_kondisi', 
+     'barang_status', 
      'model_id',
-     'pabrik_id',
-     'merk_id',
+     'pabrik_id', 
      'supplier_id',
      'kadar_id'
     ];

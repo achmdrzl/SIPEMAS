@@ -647,11 +647,7 @@ class MasterDataController extends Controller
                 ->addIndexColumn()
                 ->addColumn('supplier_kota', function ($item) {
                     return ucfirst($item->supplier_kota);
-                })
-                ->addIndexColumn()
-                ->addColumn('supplier_pengurus', function ($item) {
-                    return ucfirst($item->supplier_pengurus);
-                })
+                }) 
                 ->addColumn('status', function ($item) {
                     if ($item->status == 'aktif') {
                         $status = '<div class="badge bg-success">' . ucfirst($item->status) . '</div>';
