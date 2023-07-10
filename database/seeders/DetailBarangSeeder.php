@@ -14,13 +14,24 @@ class DetailBarangSeeder extends Seeder
     public function run(): void
     {
         DetailBarang::create([ 
-            'barang_id'      =>  1 , 
+            'barang_id'      =>  010306300001 , 
             'detail_barang_no_transaksi'      =>  'RP0129371' ,  
             'detail_barang_harga_jual'      =>  1 , 
             'detail_barang_harga_beli'      =>  1 , 
-            'detail_barang_berat'      =>  1 ,  
-            'detail_barang_keterangan'      =>  "RETUR MASUK" , 
+            'detail_barang_berat'      =>  1.1 ,  
+            'detail_barang_keterangan'      =>  "test detail data 1" , 
             'detail_barang_kondisi'      =>  "baik"
+
+        ]);
+
+        DetailBarang::create([ 
+            'barang_id'      =>  010306300001 , 
+            'detail_barang_no_transaksi'      =>  'RP0129372' ,  
+            'detail_barang_harga_jual'      =>  2 , 
+            'detail_barang_harga_beli'      =>  2 , 
+            'detail_barang_berat'      =>  2.1 ,  
+            'detail_barang_keterangan'      =>  "test detail data 2" , 
+            'detail_barang_kondisi'      =>  "tidak baik"
 
         ]);
     }

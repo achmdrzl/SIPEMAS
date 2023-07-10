@@ -50,7 +50,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="contact-list-view">
-                                            <table id="datatable_7" class="table nowrap datatableBarang table-striped">
+                                            <table id="datatable_7" class="table nowrap  table-striped">
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
@@ -73,40 +73,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade show active" id="detail_barang">
-                        <div class="row">
-                            <div class="col-md-12 mb-md-4 mb-3">
-                                <div class="card card-border mb-0 h-100">
-                                    <div class="card-header card-header-action">
-                                        <h6>List Detail Barang
-                                            <span class="badge badge-sm badge-light ms-1">{{ count($barangs) }}</span>
-                                        </h6> 
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="contact-list-view">
-                                            <table id="datatable_8" class="table nowrap datatableBarang table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>No</th>
-                                                        <th>Nama</th>
-                                                        <th>Berat</th>
-                                                        <th>Model</th>
-                                                        <th>Pabrik</th> 
-                                                        <th>Supplier</th>
-                                                        <th>Kadar</th> 
-                                                        <th>Lokasi</th> 
-                                                        <th>Kondisi</th> 
-                                                        <th>Status</th> 
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
             <!-- /Page Body -->
@@ -243,6 +210,36 @@
                 </div>
             </div>
 
+            {{-- Modal Detail Barang --}}
+            <div class="modal fade" id="detailbarangModal" tabindex="-1" role="dialog" aria-labelledby="modalSupplier"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                             
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert"
+                                style="display: none;" style="color: red">
+                            </div>
+                             <table id="datatable_8" class="table nowrap table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>No. Transaksi</th>
+                                        <th>Berat</th>
+                                        <th>Harga Jual</th>
+                                        <th>Harga beli</th> 
+                                        <th>Tanggal</th> 
+                                        <th>Keterangan</th> 
+                                        <th>Kondisi</th>  
+                                    </tr>
+                                </thead>
+                            </table> 
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Page Footer -->
@@ -534,6 +531,88 @@
                 var inputElement = document.getElementById("barang_kode");
                 //inputElement.disabled = true;
                 inputElement.disabled = true;
+            });
+
+            // Detail Data Barang
+            
+            var datatableDetail = $('#datatable_8').DataTable({
+                scrollX: true,
+                autoWidth: false,
+                language: {
+                    search: "",
+                    searchPlaceholder: "Search",
+                    sLengthMenu: "_MENU_item",
+                    paginate: {
+                        next: '<i class="ri-arrow-right-s-line"></i>', // or '→'
+                        previous: '<i class="ri-arrow-left-s-line"></i>' // or '←' 
+                    }
+                },
+                "drawCallback": function() {
+                    $('.dataTables_paginate > .pagination').addClass(
+                        'custom-pagination pagination-simple');
+                },
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('barang.detail') }}",
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'detail_barang_no_transaksi',
+                        name: 'detail_barang_no_transaksi'
+                    },  
+                    {
+                        data: 'detail_barang_berat',
+                        name: 'detail_barang_berat'
+                    },  
+                    {
+                        data: 'detail_barang_harga_jual',
+                        name: 'detail_barang_harga_jual'
+                    }, 
+                    {
+                        data: 'detail_barang_harga_beli',
+                        name: 'detail_barang_harga_beli'
+                    },  
+                    {
+                        data: 'created_at',
+                        name: 'created_at'
+                    }, 
+                    {
+                        data: 'detail_barang_keterangan',
+                        name: 'detail_barang_keterangan'
+                    }, 
+                    {
+                        data: 'detail_barang_kondisi',
+                        name: 'detail_barang_kondisi'
+                    }
+                ]
+            });
+ 
+            $('body').on('click', '#barang-detail', function() {
+                var barang_id = $(this).attr('data-id');
+                var data = {
+                    barang_id: $(this).attr('data-id'),
+                    age: 25
+                };
+                //alert ("woi pantek"+barang_id);
+                //var barang_id = $(this).getAttribute("data-attribute");
+                //sudah betul klo di klik 4 barang id 4, tpi datanya ngk sampe ke controller
+                
+                // var comboBox = document.getElementById("supplier_id");
+                // var selectedOption = comboBox.options[comboBox.selectedIndex];
+                // var selectedKode = selectedOption.getAttribute("data-attribute");
+                $('.alert').hide();
+                $.ajax({
+                    url: "/barangDetail",
+                    type: "GET",
+                    data: data,
+                    success: function(response) {
+                        console.log(response);
+                        $('#detailbarangModal').modal('show');
+                        datatableDetail.draw();
+                    }
+                }); 
             });
 
             // Arsipkan Data Barang

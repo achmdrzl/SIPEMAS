@@ -44,7 +44,8 @@ class MasterBarangController extends Controller
         $kadars = Kadar::all();
         $detail_barangs = DetailBarang::all();
         if ($request->ajax()) {
-            $barangs   =   Barang::all();
+            $barangs   =   Barang::all(); 
+
             return datatables::of($barangs) 
                 ->addIndexColumn()
                 ->addColumn('barang_nama', function ($item) {
@@ -119,7 +120,7 @@ class MasterBarangController extends Controller
 
                     $btn = $btn . '<button class="btn btn-icon btn-' . $button . ' btn-rounded flush-soft-hover me-1" id="user-delete" data-id="' . $item->barang_id . '"><span class="material-icons btn-sm">' . $icon . '</span></button>';
 
-                    $btn = $btn . '<button class="btn btn-icon btn-warning btn-rounded flush-soft-hover me-1" id="barang-detail" data-id="' . $item->barang_id . '"><span class="material-icons btn-sm">dvr</span></button>';
+                    $btn = $btn . '<button onclick="tesdetail('.$item->barang_id.')" class="btn btn-icon btn-warning btn-rounded flush-soft-hover me-1" id="barang-detail"  data-id="' . $item->barang_id . '"><span class="material-icons btn-sm">dvr</span></button>';
 
                     $btn = $btn . '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" id="barang-etalase" data-id="' . $item->barang_id . '"><span class="material-icons btn-sm">store</span></button>';
 
@@ -245,6 +246,58 @@ class MasterBarangController extends Controller
     {
         $barang = Barang::where('barang_id', $request->barang_id)->first();
         return response()->json($barang);
+    }
+
+    public function barangDetail(Request $request)
+    {
+        //$barangs   =   DetailBarang::all();
+        $buatCompare = (int) $request->barang_id;
+        $barangs   =   DetailBarang::where('barang_id', '=', $buatCompare)->get();
+        $barangs   =   DetailBarang::all();
+ 
+        //dd($request->query('age'));
+        if ($request->ajax()) {
+            //sudah masuk barang id nya
+            $buatCompare = $request->barang_id;
+            $barangs   =   DetailBarang::where('barang_id', '=', $buatCompare)->get();
+            $barangs   =   DetailBarang::all();
+
+            //$data->where('name', 'LIKE', "%$searchValue%");
+            //$name = $request->input('name');
+            //$request->query('name');
+            //return $barangs;
+            //sdh betul querynya
+            //sudah terikirim data tabelnya tpi di view ngk tampil
+            //kalau detail all bisa
+            //return response()->json($barangs);
+            return datatables::of($barangs) 
+                ->addIndexColumn()
+                ->addColumn('detail_barang_no_transaksi', function ($item) {
+                    return $item->detail_barang_no_transaksi;
+                }) 
+                ->addIndexColumn()
+                ->addColumn('detail_barang_berat', function ($item) { 
+                    return  $item->detail_barang_berat;
+                })
+                ->addColumn('detail_barang_harga_jual', function ($item) { 
+                    return  $item->detail_barang_harga_jual;
+                })
+                ->addColumn('detail_barang_harga_beli', function ($item) { 
+                    return  $item->detail_barang_harga_beli;
+                })
+                ->addColumn('created_at', function ($item) { 
+                    return  $item->created_at;
+                })
+                ->addColumn('detail_barang_keterangan', function ($item) { 
+                    return  $item->detail_barang_keterangan;
+                })
+                ->addColumn('detail_barang_kondisi', function ($item) { 
+                    return  $item->detail_barang_kondisi;
+                })
+                ->rawColumns(['detail_barang_kondisi', 'detail_barang_kondisi', 'detail_barang_kondisi'])
+                ->make(true);
+        }
+        return response()->json($barangs);
     }
 
     public function barangDestroy(Request $request)
