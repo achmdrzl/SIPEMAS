@@ -12,7 +12,7 @@ class BarangSeeder extends Seeder
     {
         Barang::create([ 
             'barang_nama'      =>  'barang1' ,
-            'barang_kode'      =>  '010306300001' ,
+            'barang_kode'      =>  '10306300001' ,
             'barang_foto'      =>  'foto_barang/test_foto.jpg' ,
             'barang_lokasi'      =>  '' ,  
             'barang_berat'      =>   3.1,  

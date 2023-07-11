@@ -100,7 +100,7 @@
                                         <label class="form-label">Kode Barang</label>
                                         <div class="form-group">
                                             <input class="form-control" type="text"
-                                                name="barang_kode" id="barang_kode"  value="00000000000001" disabled/>
+                                                name="barang_kode" id="barang_kode"  value="0000000000001" disabled/>
                                          </div> 
                                     </div>
                                     <div class="col-sm-12">  
@@ -275,10 +275,10 @@
                 
                 var datas = @json($barangs);
                 //alert(datas[0]['model_nama']);
-                var kodeBarang = inputElement.slice(0,9);
+                var kodeBarang = inputElement.slice(0,7);
                 var countKodeSama = 0;
                 for (var i in datas) {
-                    var potonganKodeBarang = datas[i]['barang_kode'].slice(0,9);
+                    var potonganKodeBarang = datas[i]['barang_kode'].slice(0,7);
                     if(kodeBarang == potonganKodeBarang){
                         countKodeSama++;
                     }
@@ -286,7 +286,7 @@
                 countKodeSama++;
                 var nourut = countKodeSama.toString().padStart(5,'0');
                 
-                var newKodeBarang = inputElement.slice(0,9)+nourut;
+                var newKodeBarang = inputElement.slice(0,7)+nourut;
                 
                 document.getElementById("barang_kode").value = newKodeBarang;
         }
@@ -295,8 +295,9 @@
                 var comboBox = document.getElementById("supplier_id");
                 var selectedOption = comboBox.options[comboBox.selectedIndex];
                 var selectedKode = selectedOption.getAttribute("data-attribute");
+                selectedKode = selectedKode.slice(1,2);
                 var inputElement = document.getElementById("barang_kode"); 
-                var newKodeBarang = selectedKode+inputElement.value.slice(2,14);
+                var newKodeBarang = selectedKode+inputElement.value.slice(1,13);
                 inputElement.value = newKodeBarang;
                 remakekodenourut();
         }
@@ -306,7 +307,7 @@
                 var selectedOption = comboBox.options[comboBox.selectedIndex];
                 var selectedKode = selectedOption.getAttribute("data-attribute");
                 var inputElement = document.getElementById("barang_kode"); 
-                var newKodeBarang = inputElement.value.slice(0,2)+selectedKode+inputElement.value.slice(4,14);
+                var newKodeBarang = inputElement.value.slice(0,1)+selectedKode+inputElement.value.slice(3,13);
                 
                 inputElement.value = newKodeBarang;
                 remakekodenourut();
@@ -317,7 +318,7 @@
                 var selectedOption = comboBox.options[comboBox.selectedIndex];
                 var selectedKode = selectedOption.getAttribute("data-attribute");
                 var inputElement = document.getElementById("barang_kode"); 
-                var newKodeBarang = inputElement.value.slice(0,4)+selectedKode+inputElement.value.slice(6,14);
+                var newKodeBarang = inputElement.value.slice(0,3)+selectedKode+inputElement.value.slice(5,13);
                 
                 inputElement.value = newKodeBarang;
                 remakekodenourut();
@@ -330,7 +331,7 @@
                 //kadar kodenya cuma dipake 1 digit
                 var potonganSelectedKode = selectedKode.slice(1,2);
                 var inputElement = document.getElementById("barang_kode"); 
-                var newKodeBarang = inputElement.value.slice(0,6)+potonganSelectedKode+inputElement.value.slice(7,14);
+                var newKodeBarang = inputElement.value.slice(0,5)+potonganSelectedKode+inputElement.value.slice(6,13);
                 
                 inputElement.value = newKodeBarang;
                 remakekodenourut();
@@ -340,7 +341,7 @@
                 var beratTemp = document.getElementById("barang_berat");
                 beratTemp = "0" + beratTemp.value.slice(0,1);
                 var inputElement = document.getElementById("barang_kode"); 
-                var newKodeBarang = inputElement.value.slice(0,7)+beratTemp+inputElement.value.slice(9,14);
+                var newKodeBarang = inputElement.value.slice(0,6)+beratTemp+inputElement.value.slice(8,13);
                 
                 inputElement.value = newKodeBarang;
                 remakekodenourut();
@@ -354,8 +355,6 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
-            
 
             var datatable = $('#datatable_7').DataTable({
                 scrollX: true,
@@ -534,60 +533,64 @@
             });
 
             // Detail Data Barang
-            
-            var datatableDetail = $('#datatable_8').DataTable({
-                scrollX: true,
-                autoWidth: false,
-                language: {
-                    search: "",
-                    searchPlaceholder: "Search",
-                    sLengthMenu: "_MENU_item",
-                    paginate: {
-                        next: '<i class="ri-arrow-right-s-line"></i>', // or '→'
-                        previous: '<i class="ri-arrow-left-s-line"></i>' // or '←' 
-                    }
-                },
-                "drawCallback": function() {
-                    $('.dataTables_paginate > .pagination').addClass(
-                        'custom-pagination pagination-simple');
-                },
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('barang.detail') }}",
-                columns: [{
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex'
+            function barangDetail(barang_id){
+                 if ($.fn.DataTable.isDataTable('#datatable_8')) {
+                    $('#datatable_8').DataTable().destroy();
+                }
+                var datatableDetail = $('#datatable_8').DataTable({
+                    scrollX: true,
+                    autoWidth: false,
+                    language: {
+                        search: "",
+                        searchPlaceholder: "Search",
+                        sLengthMenu: "_MENU_item",
+                        paginate: {
+                            next: '<i class="ri-arrow-right-s-line"></i>', // or '→'
+                            previous: '<i class="ri-arrow-left-s-line"></i>' // or '←' 
+                        }
                     },
-                    {
-                        data: 'detail_barang_no_transaksi',
-                        name: 'detail_barang_no_transaksi'
-                    },  
-                    {
-                        data: 'detail_barang_berat',
-                        name: 'detail_barang_berat'
-                    },  
-                    {
-                        data: 'detail_barang_harga_jual',
-                        name: 'detail_barang_harga_jual'
-                    }, 
-                    {
-                        data: 'detail_barang_harga_beli',
-                        name: 'detail_barang_harga_beli'
-                    },  
-                    {
-                        data: 'created_at',
-                        name: 'created_at'
-                    }, 
-                    {
-                        data: 'detail_barang_keterangan',
-                        name: 'detail_barang_keterangan'
-                    }, 
-                    {
-                        data: 'detail_barang_kondisi',
-                        name: 'detail_barang_kondisi'
-                    }
-                ]
-            });
+                    "drawCallback": function() {
+                        $('.dataTables_paginate > .pagination').addClass(
+                            'custom-pagination pagination-simple');
+                    },
+                    processing: true,
+                    serverSide: true,
+                    ajax: "/barangDetail/" + barang_id,
+                    columns: [{
+                            data: 'DT_RowIndex',
+                            name: 'DT_RowIndex'
+                        },
+                        {
+                            data: 'detail_barang_no_transaksi',
+                            name: 'detail_barang_no_transaksi'
+                        },  
+                        {
+                            data: 'detail_barang_berat',
+                            name: 'detail_barang_berat'
+                        },  
+                        {
+                            data: 'detail_barang_harga_jual',
+                            name: 'detail_barang_harga_jual'
+                        }, 
+                        {
+                            data: 'detail_barang_harga_beli',
+                            name: 'detail_barang_harga_beli'
+                        },  
+                        {
+                            data: 'created_at',
+                            name: 'created_at'
+                        }, 
+                        {
+                            data: 'detail_barang_keterangan',
+                            name: 'detail_barang_keterangan'
+                        }, 
+                        {
+                            data: 'detail_barang_kondisi',
+                            name: 'detail_barang_kondisi'
+                        }
+                    ]
+                });
+            }
  
             $('body').on('click', '#barang-detail', function() {
                 var barang_id = $(this).attr('data-id');
@@ -595,24 +598,11 @@
                     barang_id: $(this).attr('data-id'),
                     age: 25
                 };
-                //alert ("woi pantek"+barang_id);
-                //var barang_id = $(this).getAttribute("data-attribute");
-                //sudah betul klo di klik 4 barang id 4, tpi datanya ngk sampe ke controller
-                
-                // var comboBox = document.getElementById("supplier_id");
-                // var selectedOption = comboBox.options[comboBox.selectedIndex];
-                // var selectedKode = selectedOption.getAttribute("data-attribute");
+
                 $('.alert').hide();
-                $.ajax({
-                    url: "/barangDetail",
-                    type: "GET",
-                    data: data,
-                    success: function(response) {
-                        console.log(response);
-                        $('#detailbarangModal').modal('show');
-                        datatableDetail.draw();
-                    }
-                }); 
+                $("#detailbarangModal").modal('show')
+                barangDetail(barang_id)
+
             });
 
             // Arsipkan Data Barang
