@@ -307,11 +307,11 @@
                 var inputElement = document.getElementById("barang_kode").value;  
                 
                 var datas = @json($barangs);
-                //alert(datas[0]['model_nama']);
-                var kodeBarang = inputElement.slice(0,7);
+                var kodeBarang = inputElement.slice(0,8);
                 var countKodeSama = 0;
                 for (var i in datas) {
-                    var potonganKodeBarang = datas[i]['barang_kode'].slice(0,7);
+                    var potonganKodeBarang = datas[i]['barang_kode'].slice(0,8);
+                     
                     if(kodeBarang == potonganKodeBarang){
                         countKodeSama++;
                     }
@@ -319,7 +319,7 @@
                 countKodeSama++;
                 var nourut = countKodeSama.toString().padStart(5,'0');
                 
-                var newKodeBarang = inputElement.slice(0,7)+nourut;
+                var newKodeBarang = inputElement.slice(0,8)+nourut;
                 
                 document.getElementById("barang_kode").value = newKodeBarang;
         }
@@ -329,8 +329,9 @@
                 var selectedOption = comboBox.options[comboBox.selectedIndex];
                 var selectedKode = selectedOption.getAttribute("data-attribute");
                 selectedKode = selectedKode.slice(1,2);
-                var inputElement = document.getElementById("barang_kode"); 
+                var inputElement = document.getElementById("barang_kode");  
                 var newKodeBarang = selectedKode+inputElement.value.slice(1,13);
+                //alert(newKodeBarang);
                 inputElement.value = newKodeBarang;
                 remakekodenourut();
         }

@@ -190,46 +190,24 @@ class MasterBarangController extends Controller
             return response()->json(['errors' => $validator->errors()->all()]);
         }
 
-        // Get the current date and time
-        $currentTime = Carbon::now();
-
-        // Get the formatted date portion (yymmdd)
-        $datePart = $currentTime->format('ymd');
-
-        // Get the last counter value from cache
-        $counter = Cache::increment('counter', 1, 1);
-
-        // Generate the new ID
-        $newId = $datePart . sprintf(
-            "%03d",
-            $counter
-        );
-
-
+        
+        $barang = Barang::find($request->barang_id);
         // get status from checkbox
+        
         $status = "";
         if ($request->has('barang_status')) {
             $status = "aktif";
         } else {
             $status = "non-aktif";
         }
-
-        $barang = Barang::find($request->barang_id);
-
-        //upload or replace photo
+ 
         $path = $request->file('barang_foto');
 
-        $filename = "";
+        $filename = "";   
         if (isset($barang)) {
             $filename = "foto_barang/" . $request->input('barang_nama') . "_" . $barang->barang_id . ".jpg";
-        } else {
-            $filename = "foto_barang/" . $request->input('barang_nama') . "_" . $newId . ".jpg";
-        }
-
-        $location = public_path('/foto_barang');
-        $path->move($location, $filename);
-
-        if (isset($barang)) {
+            $location = public_path('/foto_barang');
+            $path->move($location, $filename);
             Barang::updateOrCreate([
                 'barang_id' => $barang->barang_id,
             ], [
@@ -244,10 +222,35 @@ class MasterBarangController extends Controller
                 'barang_foto' => $filename,
                 'barang_status' => $status
             ]);
+
         } else {
-            Barang::updateOrCreate([
-                'barang_id' => $newId
-            ], [
+            
+            
+            //////////////bikin id baru
+            //210003
+            //2 digit tahun
+            //4 no urut
+            // Get the current date and time
+            $currentTime = Carbon::now(); 
+            $datePart = $currentTime->format('yy');
+            $all_barang = Barang::all();
+            $counter =1;
+            foreach ($all_barang as $barang) {
+                if($datePart == $barang->barang_id){
+                    $counter++;
+                }
+            }
+            $nourut = str_pad($counter, 4, "0", STR_PAD_LEFT);
+            $datePart = substr($datePart, 0, 2);
+            $newId = $datePart.$nourut;
+            //dd($newId);
+            $filename = "foto_barang/" . $request->input('barang_nama') . "_" . $newId . ".jpg";
+            $location = public_path('/foto_barang');
+            $path->move($location, $filename);
+        
+
+            Barang::updateOrCreate([ 
+                'barang_id' => (int)$newId,
                 'barang_kode' => $request->barang_kode,
                 'barang_nama' => $request->barang_nama,
                 'barang_kondisi' => $request->barang_kondisi,
@@ -261,6 +264,7 @@ class MasterBarangController extends Controller
             ]);
         }
 
+          
         //return response
         return response()->json([
             'success' => true,

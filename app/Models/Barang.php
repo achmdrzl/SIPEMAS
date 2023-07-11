@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Barang extends Model
 {
     protected $table = 'barangs';
-    protected $primaryKey = 'barang_id'; 
-    public $incrementing = true;
+    protected $primaryKey = 'barang_id';  
     public $timestamps = true;
     protected $fillable =
-    [ 
+    [  
+     'barang_id',
      'barang_nama',
      'barang_kode',
      'barang_foto', 
