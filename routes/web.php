@@ -97,6 +97,9 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::post('/barangDestroy', MasterBarangController::class. '@barangDestroy')->name('barang.destroy');
     Route::post('/barangPindahEtalase', MasterBarangController::class. '@barangPindahEtalase')->name('barang.etalase');
     Route::get('/barangDetail/{barang_id}', MasterBarangController::class. '@barangDetail')->name('barang.detail');
+    Route::post('/barangBarcode', MasterBarangController::class. '@barangBarcode')->name('barang.barcode');
+    Route::get('/generatepdf/{barang_id}', MasterBarangController::class. '@generatepdf')->name('barang.pdf');
+
     // Detail Barang
 
 

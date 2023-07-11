@@ -9,7 +9,7 @@
                 <div class="d-flex">
                     <div class="d-flex flex-wrap justify-content-between flex-1">
                         <div class="mb-lg-0 mb-2 me-8">
-                            <h1 class="pg-title">Data Barang</h1>
+                            <h1 class="pg-title">Data Barang </h1>
                             <p>Management Pengelolaan Data Barang Toko Emas</p>
                         </div>
                     </div>
@@ -210,6 +210,37 @@
                 </div>
             </div>
 
+            {{-- Modal Barcode Barang --}}
+            <div class="modal fade" id="barcodebarangModal" tabindex="-1" role="dialog" aria-labelledby="modalSupplier"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h6 class="modal-title" id="barangdetailHeading"></h6>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert"
+                                style="display: none;" style="color: red">
+                            </div> 
+                              
+                            <div style=" 
+                            position: absolute; 
+                            top: 30%;
+                            left: 50%;
+                            transform: translate(-50%, -50%); "
+                            id="barcodebarang" name="barcodebarang"></div> 
+                            <br><br><br>
+                            <a href="" id="generatepdf">
+                                <button class="btn btn-primary">Generate PDF</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {{-- Modal Detail Barang --}}
             <div class="modal fade" id="detailbarangModal" tabindex="-1" role="dialog" aria-labelledby="modalSupplier"
                 aria-hidden="true">
@@ -269,6 +300,8 @@
 @push('script-alt')
     <script>
         //Remake Kode Barang 
+        //alert("aaaaaaaaaaaaaa");
+        console.log("aaaaaaaaaaaaaaaaaaaa");
         //inputElement.disabled = true;
         function remakekodenourut() { 
                 var inputElement = document.getElementById("barang_kode").value;  
@@ -355,6 +388,13 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            
+            /////////////////////////////////////////
+            /////////////
+            //nda masuk di script
+            /////////////
+            /////////////////////////////////////////
+            //alert("masuk script sebelum datatable 7");
 
             var datatable = $('#datatable_7').DataTable({
                 scrollX: true,
@@ -594,14 +634,71 @@
  
             $('body').on('click', '#barang-detail', function() {
                 var barang_id = $(this).attr('data-id');
-                var data = {
-                    barang_id: $(this).attr('data-id'),
-                    age: 25
-                };
+                 
 
                 $('.alert').hide();
                 $("#detailbarangModal").modal('show')
                 barangDetail(barang_id)
+
+            });
+
+            //generate PDF
+            // $('body').on('click', '#generatepdf', function() {
+            //     var barang_id = $(this).attr('data-id');
+            //     //alert("masuk di js");
+            //     $('.alert').hide();
+            //     $.ajax({
+            //         type: "get",
+            //         url: "/generatepdf/"+barang_id,  
+            //         success: function(response) {
+  
+            //             console.log(response);
+
+
+            //             // $("#barcodebarangModal").modal('show'); 
+        
+            //             // // Insert the barcode HTML into the container element
+            //             // //document.getElementById("barcodeContainer").innerHTML = barcodeHTML;
+            //             // $('#barcodebarang').html(response); 
+ 
+                        
+            //         }
+            //     }); 
+
+            // });
+
+            //barang barcode
+            $('body').on('click', '#barang-barcode', function() {
+                var barang_id = $(this).attr('data-id'); 
+                
+                $('#barangdetailHeading').html("Barang Id: "+barang_id);
+                document.getElementById("generatepdf").href="/generatepdf/"+barang_id; 
+
+                $('.alert').hide();
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('barang.barcode') }}",
+                    data: {
+                        barang_id: barang_id
+                    },
+                    dataType: "json",
+                    success: function(response) {
+ 
+
+
+
+                        console.log(response) 
+                        $("#barcodebarangModal").modal('show'); 
+        
+                        // Insert the barcode HTML into the container element
+                        //document.getElementById("barcodeContainer").innerHTML = barcodeHTML;
+                        $('#barcodebarang').html(response); 
+
+                        
+                        
+                    }
+                }); 
+                //barangDetail(barang_id)
 
             });
 

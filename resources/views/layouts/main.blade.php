@@ -15,7 +15,7 @@ Contact: contact@hencework.com
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="description"
         content="A modern CRM Dashboard Template with reusable and flexible components for your SaaS web applications by hencework. Based on Bootstrap." />
-
+    
     <!-- Favicon -->
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -37,6 +37,7 @@ Contact: contact@hencework.com
     <link href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.bootstrap5.min.css" rel="stylesheet"
         type="text/css" />
 
+   
     <!-- CSS -->
     <link href="{{ asset('backend/dist/css/style.css') }}" rel="stylesheet" type="text/css">
     @stack('style-alt')
@@ -462,6 +463,8 @@ Contact: contact@hencework.com
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
         crossorigin="anonymous"></script>
+
+    <!-- barcode -->
 
     <!-- Bootstrap Core JS -->
     <script src="{{ asset('backend/vendors/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>

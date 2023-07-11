@@ -15,10 +15,36 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Yajra\DataTables\Facades\DataTables;
+use Milon\Barcode\DNS1D;
+use Yajra\DataTables\Facades\DataTables;  
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Illuminate\Http\Response;
+use PDF;
 
 class MasterBarangController extends Controller
 {
+    // protected $barcodeGeneratorService;
+    // public function __construct(BarcodeGeneratorService $barcodeGeneratorService)
+    // {
+    //     $this->barcodeGeneratorService = $barcodeGeneratorService;
+    // }
+
+    // public function generatePDF()
+    // {
+    //     $barcodeTexts = ['123456', '789012', '345678']; // Replace with your barcode texts
+
+    //     $barcodes = [];
+    //     foreach ($barcodeTexts as $text) {
+    //         $barcodes[] = [
+    //             'text' => $text,
+    //             'image' => $this->barcodeGeneratorService->generateBarcode($text)
+    //         ];
+    //     }
+
+    //     $pdf = PDF::loadView('barcode.pdf', ['barcodes' => $barcodes]);
+    //     return $pdf->stream('barcodes.pdf');
+    // }
     // public function barangIndex()
     // {
     //     return view('masterdata.dummy');
@@ -34,18 +60,23 @@ class MasterBarangController extends Controller
 
     public function barangIndex(Request $request)
     {
+        
         ///////////////////////
         //////////////////////
         ///barang////////////
+        //dd("masuk controller brang index");
+
         $barangs   =   Barang::all();
         $models = ModelBarang::all();
         $pabriks = Pabrik::all();
         $suppliers = Supplier::all();
         $kadars = Kadar::all();
         $detail_barangs = DetailBarang::all();
+
+        ///////tidak bisa masuk ke ajax
         if ($request->ajax()) {
             $barangs   =   Barang::all();
-
+            //dd("masuk controller brang index");
             return datatables::of($barangs)
                 ->addIndexColumn()
                 ->addColumn('barang_nama', function ($item) {
@@ -245,6 +276,7 @@ class MasterBarangController extends Controller
 
     public function barangDetail($barang_id, Request $request)
     {
+       
         $barangs   =   DetailBarang::where('barang_id', $barang_id)->get();
 
         // return DataTables::of($jurnals)->toJson();
@@ -293,6 +325,28 @@ class MasterBarangController extends Controller
         // return DataTables::of($jurnals)->toJson();
 
         return response()->json($barangs);
+    }
+    public function generatepdf($barang_id, Request $request)
+    {
+        //dd($barang_id);
+        $barcodeHTML = DNS1D::getBarcodeHTML($barang_id, 'CODABAR', 2, 50);
+
+        $tes = "<h1>halo halo</h1>";
+        $pdf = PDF::loadView('masterdata.pdf-barcode', ['data' => $barcodeHTML]); 
+        return $pdf->download('barcode.pdf');
+    }
+    public function barangBarcode(Request $request)
+    {
+         
+
+        $barang_id = $request->barang_id;
+
+        // return DataTables::of($jurnals)->toJson();
+
+        //dd($request->query('age'));
+        $barcodeHTML = DNS1D::getBarcodeHTML($barang_id, 'CODABAR', 2, 50);
+        //$barcodeHTML = DNS1D::getBarcodeSVG('4445645656', 'CODABAR');   
+        return response()->json($barcodeHTML);
     }
 
     public function barangDestroy(Request $request)
