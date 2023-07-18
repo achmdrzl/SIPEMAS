@@ -92,119 +92,148 @@
                         <div class="modal-body">
                             <div class="alert alert-danger alert-dismissible fade show" role="alert"
                                 style="display: none;" style="color: red">
-                            </div>
-                            <form   id="barangForm">
-                                <div class="row gx-3">
-                                    <input type="hidden" id="barang_id" name="barang_id">
-                                    <div class="col-sm-12">  
-                                        <label class="form-label">Kode Barang</label>
-                                        <div class="form-group">
-                                            <input class="form-control" type="text"
-                                                name="barang_kode" id="barang_kode"  value="0000000000001" disabled/>
-                                         </div> 
-                                    </div>
-                                    <div class="col-sm-12">  
-                                        <label class="form-label">Nama Barang</label>
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Masukkan Nama"
-                                                name="barang_nama" id="barang_nama" />
-                                         </div> 
-                                    </div>
-                                </div> 
-                                <div class="row gx-3">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Supplier</label>
-                                            <select class="form-select" name="supplier_id" id="supplier_id" onchange="remakekodesupplier()">
-                                                <option selected="">--</option>
-                                                <?php 
-                                                foreach ($suppliers as $supplier) {
-                                                    $nama = $supplier['supplier_nama']; 
-                                                    $id = $supplier['supplier_id'];  
-                                                    $kode = $supplier['supplier_kode'];  
-                                                    echo "<option value='$id' data-attribute='$kode'>$nama</option>";}
-                                                ?> 
-                                            </select>
+                            </div> 
+                            <div class="mb-2">
+                                <hr> 
+                                <form  enctype="multipart/form-data" id="barangForm">
+                                    <div class="ticket_wrapper accordion">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                                    aria-controls="panelsStayOpen-collapseOne">
+                                                    Item 1
+                                                </button>
+                                            </h2>
+                                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+                                            aria-labelledby="panelsStayOpen-headingOne">
+                                                <div class="accordion-body">
+                                                    <div class="row gx-3">
+                                                        <input type="hidden" id="barang_id_1" name="data[id][]">
+                                                        <div class="col-sm-12">  
+                                                            <label class="form-label">Kode Barang</label>
+                                                            <div class="form-group">
+                                                                <input class="form-control" type="text"
+                                                                    name="data[kode][]" id="barang_kode_1"  value="0000000000001" disabled/>
+                                                            </div> 
+                                                        </div>
+                                                        <div class="col-sm-12">  
+                                                            <label class="form-label">Nama Barang</label>
+                                                            <div class="form-group">
+                                                                <input class="form-control" type="text" placeholder="Masukkan Nama"
+                                                                    name="data[nama][]" id="barang_nama_1" />
+                                                            </div> 
+                                                        </div>
+                                                    </div> 
+                                                    <div class="row gx-3">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label">Supplier</label>
+                                                                <select class="form-select" name="data[supplier][]" id="supplier_id_1" onchange="remakekodesupplier()">
+                                                                    <option value="" selected="">--</option>
+                                                                    <?php 
+                                                                    foreach ($suppliers as $supplier) {
+                                                                        $nama = $supplier['supplier_nama']; 
+                                                                        $id = $supplier['supplier_id'];  
+                                                                        $kode = $supplier['supplier_kode'];  
+                                                                        echo "<option value='$id' data-attribute='$kode'>$nama</option>";}
+                                                                    ?> 
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label">Pabrik</label>
+                                                                <select class="form-select" name="data[pabrik][]" id="pabrik_id_1" onchange="remakekodepabrik()">
+                                                                    <option value=""  selected="">--</option>
+                                                                    <?php 
+                                                                    foreach ($pabriks as $pabrik) {
+                                                                        $nama = $pabrik['pabrik_nama']; 
+                                                                        $id = $pabrik['pabrik_id'];  
+                                                                        $kode = $pabrik['pabrik_kode'];  
+                                                                        echo "<option value='$id' data-attribute='$kode'>$nama</option>";}
+                                                                    ?> 
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div> 
+                                                    <div class="row gx-3">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label">Kadar</label>
+                                                                <select class="form-select" name="data[kadar][]" id="kadar_id_1" onchange="remakekodekadar()">
+                                                                    <option value=""  selected="">--</option>
+                                                                    <?php 
+                                                                    foreach ($kadars as $kadar) {
+                                                                        $nama = $kadar['kadar_nama']; 
+                                                                        $id = $kadar['kadar_id'];  
+                                                                        $kode = $kadar['kadar_kode'];  
+                                                                        echo "<option value='$id' data-attribute='$kode'>$nama</option>";}
+                                                                    ?> 
+                                                            </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label">Berat</label>
+                                                                <input class="form-control" type="number" step=0.01 value="0.01" min="0"
+                                                                    placeholder="Masukkan Berat" name="data[berat][]"
+                                                                    id="barang_berat_1" onchange="remakekodeberat()"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row gx-3">
+                                                        <div class="col-sm-12"> 
+                                                            <label class="form-label">Model</label>
+                                                                <select class="form-select" name="data[model][]" id="model_id_1"  onchange="remakekodemodel()">
+                                                                    <option value=""  selected="">--</option>
+                                                                    <?php 
+                                                                    foreach ($models as $model) {
+                                                                        $nama = $model['model_nama']; 
+                                                                        $id = $model['model_id'];  
+                                                                        $kode = $model['model_kode'];  
+                                                                        echo "<option value='$id' data-attribute='$kode'>$nama</option>";}
+                                                                    ?> 
+                                                                </select>
+                                                        </div>
+                                                    </div> 
+                                                    <br>
+                                                    <div class="row gx-3">
+                                                        <div class="col-sm-2 form-group">
+                                                            <div class="dropify-square">
+                                                                <input type="file" class="dropify-1" name="pictures[]" id="barang_foto_1"/>
+                                                            </div>
+                                                        </div> 
+                                                        <div class="col-sm-10 form-group">
+                                                            <textarea class="form-control mnh-100p" rows="4" id="barang_kondisi_1" name="data[kondisi][]"  placeholder="Kondisi"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row gx-3">
+                                                        <div class="form-check form-check-sm mb-3">
+                                                            <input type="checkbox" class="form-check-input" id="barang_status_1" name="data[status][]" checked>
+                                                            <label class="form-check-label text-muted fs-7" for="logged_in">Aktif</label>
+                                                        </div>
+                                                    </div> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                            <!-- <div class="col-md-1">
+                                                <button type="button" id="addBtnTicket" class="btn btn-primary"><i
+                                                        class="mdi mdi-plus"></i></button>
+                                            </div> -->
+                                        </div>
+                                        <div class="mt-2">
+                                            <button type="button" id="addBtnTicket" class="btn btn-primary">Tambah Item</button>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Pabrik</label>
-                                            <select class="form-select" name="pabrik_id" id="pabrik_id" onchange="remakekodepabrik()">
-                                                <option selected="">--</option>
-                                                <?php 
-                                                foreach ($pabriks as $pabrik) {
-                                                    $nama = $pabrik['pabrik_nama']; 
-                                                    $id = $pabrik['pabrik_id'];  
-                                                    $kode = $pabrik['pabrik_kode'];  
-                                                    echo "<option value='$id' data-attribute='$kode'>$nama</option>";}
-                                                ?> 
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div> 
-                                <div class="row gx-3">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Kadar</label>
-                                            <select class="form-select" name="kadar_id" id="kadar_id" onchange="remakekodekadar()">
-                                                <option selected="">--</option>
-                                                <?php 
-                                                foreach ($kadars as $kadar) {
-                                                    $nama = $kadar['kadar_nama']; 
-                                                    $id = $kadar['kadar_id'];  
-                                                    $kode = $kadar['kadar_kode'];  
-                                                    echo "<option value='$id' data-attribute='$kode'>$nama</option>";}
-                                                ?> 
-                                        </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Berat</label>
-                                            <input class="form-control" type="number" step=0.01 value="0.01" min="0"
-                                                placeholder="Masukkan Berat" name="barang_berat"
-                                                id="barang_berat" onchange="remakekodeberat()"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row gx-3">
-                                    <div class="col-sm-12"> 
-                                        <label class="form-label">Model</label>
-                                            <select class="form-select" name="model_id" id="model_id"  onchange="remakekodemodel()">
-                                                <option selected="">--</option>
-                                                <?php 
-                                                foreach ($models as $model) {
-                                                    $nama = $model['model_nama']; 
-                                                    $id = $model['model_id'];  
-                                                    $kode = $model['model_kode'];  
-                                                    echo "<option value='$id' data-attribute='$kode'>$nama</option>";}
-                                                ?> 
-                                            </select>
-                                    </div>
-                                </div> 
-                                <br>
-                                <div class="row gx-3">
-                                    <div class="col-sm-2 form-group">
-                                        <div class="dropify-square">
-                                            <input type="file" class="dropify-1" name="barang_foto" id="barang_foto"/>
-                                        </div>
+                                    <div class="modal-footer align-items-center">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary" id="submitBarang">Simpan</button>
                                     </div> 
-                                    <div class="col-sm-10 form-group">
-                                        <textarea class="form-control mnh-100p" rows="4" id="barang_kondisi" name="barang_kondisi"  placeholder="Kondisi"></textarea>
-                                    </div>
-                                </div>
-                                <div class="row gx-3">
-                                    <div class="form-check form-check-sm mb-3">
-                                        <input type="checkbox" class="form-check-input" id="barang_status" name="barang_status" checked>
-                                        <label class="form-check-label text-muted fs-7" for="logged_in">Aktif</label>
-                                    </div>
-                                </div>
-                                <div class="modal-footer align-items-center">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-primary" id="submitBarang">Simpan</button>
-                                </div>
-                            </form>
+                                </form>
+
+
+                            <!-- coba multi -->
                         </div>
                     </div>
                 </div>
@@ -299,86 +328,300 @@
 
 @push('script-alt')
     <script>
+        ////////////////coba multi
+
+
+        // max field dinamis input
+        var maxField = 10; //Input fields increment limitation
+
+        // Append Ticket Category Input
+        var addButtonTicket = $('#addBtnTicket'); //Add button selector
+        var wrapperTicket = $('.ticket_wrapper'); //Input field wrapper accordion item
+        var x = 1; //Initial field counter is 1
+        
+
+        //Once add button is clicked
+        $(addButtonTicket).click(function() {
+            //Check maximum number of input fields
+            if (x < maxField) {
+                x++; //Increment field counter
+                var fieldHTMLTicket =
+                `<div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-heading`+x+`">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#panelsStayOpen-collapse`+x+`" aria-expanded="true"
+                            aria-controls="panelsStayOpen-collapse`+x+`">
+                            Item `+x+`
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapse`+x+`" class="accordion-collapse collapse show"
+                        aria-labelledby="panelsStayOpen-heading`+x+`">
+                        <div class="accordion-body"> 
+                            <div class="row gx-3">
+                                <input type="hidden" id="barang_id_`+x+`" name="data[id][]">
+                                <div class="col-sm-12">  
+                                    <label class="form-label">Kode Barang</label>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text"
+                                            name="data[kode][]" id="barang_kode_`+x+`"  value="0000000000001" disabled/>
+                                        </div> 
+                                </div>
+                                <div class="col-sm-12">  
+                                    <label class="form-label">Nama Barang</label>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" placeholder="Masukkan Nama"
+                                            name="data[nama][]" id="barang_nama_`+x+`" />
+                                        </div> 
+                                </div>
+                            </div> 
+                            <div class="row gx-3">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Supplier</label>
+                                        <select class="form-select" name="data[supplier][]" id="supplier_id_`+x+`" onchange="remakekodesupplier()">
+                                            <option value=""  selected="">--</option>
+                                            <?php 
+                                            foreach ($suppliers as $supplier) {
+                                                $nama = $supplier['supplier_nama']; 
+                                                $id = $supplier['supplier_id'];  
+                                                $kode = $supplier['supplier_kode'];  
+                                                echo "<option value='$id' data-attribute='$kode'>$nama</option>";}
+                                            ?> 
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Pabrik</label>
+                                        <select class="form-select" name="data[pabrik][]" id="pabrik_id_`+x+`" onchange="remakekodepabrik()">
+                                            <option value=""  selected="">--</option>
+                                            <?php 
+                                            foreach ($pabriks as $pabrik) {
+                                                $nama = $pabrik['pabrik_nama']; 
+                                                $id = $pabrik['pabrik_id'];  
+                                                $kode = $pabrik['pabrik_kode'];  
+                                                echo "<option value='$id' data-attribute='$kode'>$nama</option>";}
+                                            ?> 
+                                        </select>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row gx-3">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Kadar</label>
+                                        <select class="form-select" name="data[kadar][]" id="kadar_id_`+x+`" onchange="remakekodekadar()">
+                                            <option value=""  selected="">--</option>
+                                            <?php 
+                                            foreach ($kadars as $kadar) {
+                                                $nama = $kadar['kadar_nama']; 
+                                                $id = $kadar['kadar_id'];  
+                                                $kode = $kadar['kadar_kode'];  
+                                                echo "<option value='$id' data-attribute='$kode'>$nama</option>";}
+                                            ?> 
+                                    </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Berat</label>
+                                        <input class="form-control" type="number" step=0.01 value="0.01" min="0"
+                                            placeholder="Masukkan Berat" name="data[berat][]"
+                                            id="barang_berat_`+x+`" onchange="remakekodeberat()"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row gx-3">
+                                <div class="col-sm-12"> 
+                                    <label class="form-label">Model</label>
+                                        <select class="form-select" name="data[model][]" id="model_id_`+x+`"  onchange="remakekodemodel()">
+                                            <option value=""  selected="">--</option>
+                                            <?php 
+                                            foreach ($models as $model) {
+                                                $nama = $model['model_nama']; 
+                                                $id = $model['model_id'];  
+                                                $kode = $model['model_kode'];  
+                                                echo "<option value='$id' data-attribute='$kode'>$nama</option>";}
+                                            ?> 
+                                        </select>
+                                </div>
+                            </div> 
+                            <br>
+                            <div class="row gx-3">
+                                <div class="col-sm-2 form-group">
+                                    <div class="dropify-square">
+                                        <input type="file" class="dropify-1 " name="pictures[]" id="barang_foto_`+x+`"/>
+                                    </div>
+                                </div> 
+                                <div class="col-sm-10 form-group">
+                                    <textarea class="form-control mnh-100p" rows="4" id="barang_kondisi_`+x+`" name="data[kondisi][]"  placeholder="Kondisi"></textarea>
+                                </div>
+                            </div>
+                            <div class="row gx-3">
+                                <div class="form-check form-check-sm mb-3">
+                                    <input type="checkbox" class="form-check-input" id="barang_status_`+x+`" name="data[status][]" checked>
+                                    <label class="form-check-label text-muted fs-7" for="logged_in">Aktif</label>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>`;
+                $(wrapperTicket).append(fieldHTMLTicket);
+                if (x == 10) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Maksimal Multi Input Adalah 10 Barang',
+                    })
+                }
+                var myElement = document.getElementById('barang_foto_'+x); 
+                var dropify = new Dropify(myElement, {
+                messages: {
+                    default: 'Upload Photo' 
+                }
+                });
+            }
+
+            
+        });
+
+        //Once remove button is clicked
+        $(wrapperTicket).on('click', '.minusTicket', function(e) {
+            e.preventDefault();
+            $(this).parent('').parent('').remove(); //Remove field html
+            x--; //Decrement field counter
+
+            if (x == 1) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Ticket category at least 1!',
+                })
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+        ////////////////coba multi
         //Remake Kode Barang 
         //alert("aaaaaaaaaaaaaa");
-        console.log("aaaaaaaaaaaaaaaaaaaa");
+        //console.log("aaaaaaaaaaaaaaaaaaaa");
         //inputElement.disabled = true;
-        function remakekodenourut() { 
-                var inputElement = document.getElementById("barang_kode").value;  
-                
+
+        //minus, klo dari 10 item ada yg sama semua aspek, maka nomer urut dari semua item sama
+        function remakekodenourut(i) {  
+                var inputElement = document.getElementById("barang_kode_"+i).value;   
                 var datas = @json($barangs);
                 var kodeBarang = inputElement.slice(0,8);
                 var countKodeSama = 0;
-                for (var i in datas) {
-                    var potonganKodeBarang = datas[i]['barang_kode'].slice(0,8);
+                for (var j in datas) {
+                    var potonganKodeBarang = datas[j]['barang_kode'].slice(0,8);
                      
+                    
                     if(kodeBarang == potonganKodeBarang){
                         countKodeSama++;
                     }
+                    //alert(kodeBarang + " a " + potonganKodeBarang+ " a " +countKodeSama);
                 }
                 countKodeSama++;
                 var nourut = countKodeSama.toString().padStart(5,'0');
                 
                 var newKodeBarang = inputElement.slice(0,8)+nourut;
                 
-                document.getElementById("barang_kode").value = newKodeBarang;
+                document.getElementById("barang_kode_"+i).value = newKodeBarang; 
         }
 
-        function remakekodesupplier() { 
-                var comboBox = document.getElementById("supplier_id");
+        function remakekodesupplier() {   
+            for (var i = 1; i <= x; i++) {
+                var comboBox = document.getElementById("supplier_id_"+i);
                 var selectedOption = comboBox.options[comboBox.selectedIndex];
                 var selectedKode = selectedOption.getAttribute("data-attribute");
-                selectedKode = selectedKode.slice(1,2);
-                var inputElement = document.getElementById("barang_kode");  
-                var newKodeBarang = selectedKode+inputElement.value.slice(1,13);
-                //alert(newKodeBarang);
-                inputElement.value = newKodeBarang;
-                remakekodenourut();
+                if (selectedKode) {
+                    selectedKode = selectedKode.slice(1,2);
+                    var inputElement = document.getElementById("barang_kode_"+i);  
+                    var newKodeBarang = selectedKode+inputElement.value.slice(1,13);
+                    //alert(newKodeBarang);
+                    inputElement.value = newKodeBarang;
+                    remakekodenourut(i);
+                } 
+            }
+                
         }
 
         function remakekodemodel() { 
-                var comboBox = document.getElementById("model_id");
+            for (var i = 1; i <= x; i++) {
+                var comboBox = document.getElementById("model_id_"+i);
                 var selectedOption = comboBox.options[comboBox.selectedIndex];
                 var selectedKode = selectedOption.getAttribute("data-attribute");
-                var inputElement = document.getElementById("barang_kode"); 
-                var newKodeBarang = inputElement.value.slice(0,1)+selectedKode+inputElement.value.slice(3,13);
+
+                if (selectedKode) {
+                    var inputElement = document.getElementById("barang_kode_"+i); 
+                    var newKodeBarang = inputElement.value.slice(0,1)+selectedKode+inputElement.value.slice(3,13);
+                    
+                    inputElement.value = newKodeBarang;
+                    remakekodenourut(i);
+                }
                 
-                inputElement.value = newKodeBarang;
-                remakekodenourut();
+            }
+                
         }
         
         function remakekodepabrik() { 
-                var comboBox = document.getElementById("pabrik_id");
+            for (var i = 1; i <= x; i++) {
+                var comboBox = document.getElementById("pabrik_id_"+i);
                 var selectedOption = comboBox.options[comboBox.selectedIndex];
                 var selectedKode = selectedOption.getAttribute("data-attribute");
-                var inputElement = document.getElementById("barang_kode"); 
-                var newKodeBarang = inputElement.value.slice(0,3)+selectedKode+inputElement.value.slice(5,13);
+
+                if (selectedKode) {
+                    var inputElement = document.getElementById("barang_kode_"+i); 
+                    var newKodeBarang = inputElement.value.slice(0,3)+selectedKode+inputElement.value.slice(5,13);
+                    
+                    inputElement.value = newKodeBarang;
+                    remakekodenourut(i);
+                }
                 
-                inputElement.value = newKodeBarang;
-                remakekodenourut();
+            }
+                
         }
         
         function remakekodekadar() { 
-                var comboBox = document.getElementById("kadar_id");
+            for (var i = 1; i <= x; i++) {
+                var comboBox = document.getElementById("kadar_id_"+i);
                 var selectedOption = comboBox.options[comboBox.selectedIndex];
                 var selectedKode = selectedOption.getAttribute("data-attribute");
-                //kadar kodenya cuma dipake 1 digit
-                var potonganSelectedKode = selectedKode.slice(1,2);
-                var inputElement = document.getElementById("barang_kode"); 
-                var newKodeBarang = inputElement.value.slice(0,5)+potonganSelectedKode+inputElement.value.slice(6,13);
+                if (selectedKode) {
+                    //kadar kodenya cuma dipake 1 digit
+                    var potonganSelectedKode = selectedKode.slice(1,2);
+                    var inputElement = document.getElementById("barang_kode_"+i); 
+                    var newKodeBarang = inputElement.value.slice(0,5)+potonganSelectedKode+inputElement.value.slice(6,13);
+                    
+                    inputElement.value = newKodeBarang;
+                    remakekodenourut(i);
+                }
                 
-                inputElement.value = newKodeBarang;
-                remakekodenourut();
+            }
+                
         }
 
         function remakekodeberat() { 
-                var beratTemp = document.getElementById("barang_berat");
+            for (var i = 1; i <= x; i++) {
+                var beratTemp = document.getElementById("barang_berat_"+i);
                 beratTemp = "0" + beratTemp.value.slice(0,1);
-                var inputElement = document.getElementById("barang_kode"); 
+                var inputElement = document.getElementById("barang_kode_"+i); 
                 var newKodeBarang = inputElement.value.slice(0,6)+beratTemp+inputElement.value.slice(8,13);
                 
                 inputElement.value = newKodeBarang;
-                remakekodenourut();
+                remakekodenourut(i);
+            }
+                
         }
 
         
@@ -467,34 +710,36 @@
             $('#barang-create').click(function() {
                 $('.alert').hide();
                 $('#saveBtn').val("create-barang");
-                $('#barang_id').val('');
+                $('#barang_id_1').val('');
                 $('#barangForm').trigger("reset");
                 $('#barangHeading').html("TAMBAH DATA BARANG BARU");
                 $('#barangModal').modal('show');
             });
 
-            $('#submitBarang').on('click', function(e){
-                var inputElement = document.getElementById("barang_kode");
-                //inputElement.disabled = true;
-                inputElement.disabled = false;
+            $('#submitBarang').on('click', function(e){ 
+                for (var i = 1; i <= x; i++) { 
+                    var inputElement = document.getElementById("barang_kode_"+i);
+                    inputElement.disabled = false;
+                }  
 
                 e.preventDefault();
 
                 $(this).html('Sending..');
-                //  var form = $(this).serialize(); 
+                //var form = $(this).serialize(); 
                  
                 //  alert(form);
+                 
                  $.ajax({
                     url: "{{ route('barang.store') }}",
                     data: new FormData(this.form),
                     cache: false,
                     processData: false,
                     contentType: false,
-                    type: "POST",
-
+                    type: "POST", 
+                    dataType: "json",
                     success: function(response) {
-                        console.log(response)
-                        if (response.errors) {
+                        console.log(response) 
+                        if (response.errors) { 
                             $('.alert').html('');
                             $.each(response.errors, function(key, value) {
                                 $('.alert-danger').show();
@@ -503,7 +748,8 @@
                             });
                             $('#submitBarang').html('Simpan');
 
-                        } else {
+                        } 
+                        else{ 
                             $('.btn-warning').hide();
 
                             const Toast = Swal.mixin({
@@ -528,15 +774,16 @@
                     }
                  });
 
-                 var inputElement = document.getElementById("barang_kode");
-                //inputElement.disabled = true;
-                inputElement.disabled = true;
+                for (var i = 1; i <= x; i++) { 
+                    var inputElement = document.getElementById("barang_kode_"+i);
+                    inputElement.disabled = true;
+                }  
             });
 
 
             // Edit Data Barang
-            $('body').on('click', '#user-edit', function() {
-                var inputElement = document.getElementById("barang_kode");
+            $('body').on('click', '#user-edit', function() { 
+                var inputElement = document.getElementById("barang_kode_1");
                 //inputElement.disabled = true;
                 inputElement.disabled = false;
 
@@ -555,20 +802,20 @@
                         $('#barangForm').trigger("reset");
                         $('#barangHeading').html("EDIT DATA Barang");
                         $('#barangModal').modal('show');
-                        $('#barang_kode').val(response.barang_kode);
-                        $('#barang_id').val(response.barang_id);
-                        $('#barang_nama').val(response.barang_nama);
-                        $('#barang_kondisi').val(response.barang_kondisi);
-                        $('#barang_berat').val(response.barang_berat);
-                        $('#supplier_id').val(response.supplier_id);
-                        $('#pabrik_id').val(response.pabrik_id);
-                        $('#kadar_id').val(response.kadar_id);
-                        $('#model_id').val(response.model_id);
-                        $('#barang_foto').val(response.barang_foto);
-                        $('#barang_status').val(response.barang_status); 
+                        $('#barang_kode_1').val(response.barang_kode);
+                        $('#barang_id_1').val(response.barang_id);
+                        $('#barang_nama_1').val(response.barang_nama);
+                        $('#barang_kondisi_1').val(response.barang_kondisi);
+                        $('#barang_berat_1').val(response.barang_berat);
+                        $('#supplier_id_1').val(response.supplier_id);
+                        $('#pabrik_id_1').val(response.pabrik_id);
+                        $('#kadar_id_1').val(response.kadar_id);
+                        $('#model_id_1').val(response.model_id);
+                        $('#barang_status_1').val(response.barang_status); 
+                        $('#barang_foto_1').val('');
                     }
                 });
-                var inputElement = document.getElementById("barang_kode");
+                var inputElement = document.getElementById("barang_kode_1");
                 //inputElement.disabled = true;
                 inputElement.disabled = true;
             });
