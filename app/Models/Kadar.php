@@ -24,4 +24,9 @@ class Kadar extends Model
         'kadar_harga_jual_2',
         'status'
     ];
+
+    public function barang()
+    {
+        return $this->hasMany(Barang::class, 'kadar_id');
+    }
 }

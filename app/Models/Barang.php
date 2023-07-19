@@ -8,23 +8,35 @@ use Illuminate\Database\Eloquent\Model;
 class Barang extends Model
 {
     protected $table = 'barangs';
-    protected $primaryKey = 'barang_id'; 
+
+    protected $primaryKey = 'barang_id';
+
     public $incrementing = true;
+
     public $timestamps = true;
+
     protected $fillable =
-    [ 
-     'barang_nama',
-     'barang_kode',
-     'barang_foto', 
-     'barang_berat', 
-     'barang_lokasi', 
-     'barang_kondisi', 
-     'barang_status', 
-     'model_id',
-     'pabrik_id', 
-     'supplier_id',
-     'kadar_id'
+    [
+        'barang_nama',
+        'barang_kode',
+        'barang_foto',
+        'barang_berat',
+        'barang_lokasi',
+        'barang_kondisi',
+        'barang_status',
+        'model_id',
+        'pabrik_id',
+        'supplier_id',
+        'kadar_id'
     ];
 
-    
+    public function kadar()
+    {
+        return $this->belongsTo(Kadar::class, 'kadar_id');
+    }
+
+    public function transaksipembeliandetail()
+    {
+        return $this->hasMany(TransaksiPembelianDetail::class, 'barang_id');
+    }
 }

@@ -39,6 +39,9 @@ Contact: contact@hencework.com
 
     <!-- CSS -->
     <link href="{{ asset('backend/dist/css/style.css') }}" rel="stylesheet" type="text/css">
+
+    {{-- MOMENT JS --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     @stack('style-alt')
 </head>
 

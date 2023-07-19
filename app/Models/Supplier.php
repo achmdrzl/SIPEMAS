@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Supplier extends Model
 {
     protected $table = 'suppliers';
-    
+
     protected $primaryKey = 'supplier_id';
 
     public $incrementing = true;
@@ -25,4 +25,9 @@ class Supplier extends Model
         'supplier_kota',
         'status'
     ];
+
+    public function pembelian()
+    {
+        return $this->hasMany(TransaksiPembelian::class, 'supplier_id');
+    }
 }

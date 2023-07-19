@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\MasterDataController;
 use App\Http\Controllers\Backend\ReturnPenjualanController;
 use App\Http\Controllers\Backend\TransaksiPembelianController;
 use App\Http\Controllers\Backend\TransaksiPenjualanController;
+use App\Models\TransaksiPenjualan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -80,12 +81,20 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::post('/transaksiHutangDestroy', MasterDataController::class . '@transaksiHutangDestroy')->name('transaksiHutang.Destroy');
     Route::get('/loadHutang', MasterDataController::class. '@loadHutang')->name('load.hutang');
  
-
     // TRANSAKSI PEMBELIAN
     Route::get('/pembelian', TransaksiPembelianController::class . '@transaksi_pembelian')->name('pembelian.index');
-
+    Route::get('/pembelianBarang', TransaksiPembelianController::class . '@barangIndex')->name('pembelian.barang.index');
+    Route::post('/pembelianStore', TransaksiPembelianController::class. '@pembelianStore')->name('pembelian.store');
+    Route::post('/pembelianDetail', TransaksiPembelianController::class. '@pembelianDetail')->name('pembelian.detail');
+    Route::post('/filterdDatePembelian', TransaksiPembelianController::class. '@filterdata')->name('filtered.data.pembelian');
+    
     // TRANSAKSI PENJUALAN
     Route::get('/penjualan', TransaksiPenjualanController::class . '@transaksi_penjualan')->name('penjualan.index');
+    Route::get('/penjualanBarang', TransaksiPenjualanController::class . '@barangIndex')->name('penjualan.barang.index');
+    Route::post('/loadSelectedBarang', TransaksiPenjualanController::class. '@loadSelectedBarang')->name('load.barangSelected');
+    Route::post('/penjualanStore', TransaksiPenjualanController::class. '@penjualanStore')->name('penjualan.store');
+    Route::post('/penjualanDetail', TransaksiPenjualanController::class . '@penjualanDetail')->name('penjualan.detail');
+    Route::post('/filterdDatePenjualan', TransaksiPenjualanController::class. '@filterdata')->name('filtered.data.penjualan');
 
     // TRANSAKSI PENJUALAN RETURN
     Route::get('/return_penjualan', ReturnPenjualanController::class . '@returnPenjualanIndex')->name('return.index');
@@ -96,7 +105,7 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::post('/barangkEdit', MasterBarangController::class. '@barangEdit')->name('barang.edit');
     Route::post('/barangDestroy', MasterBarangController::class. '@barangDestroy')->name('barang.destroy');
     Route::post('/barangPindahEtalase', MasterBarangController::class. '@barangPindahEtalase')->name('barang.etalase');
-    Route::get('/barangDetail', MasterBarangController::class. '@barangDetail')->name('barang.detail');
+    Route::get('/barangDetail/{barang_id}', MasterBarangController::class . '@barangDetail')->name('barang.detail');
     // Detail Barang
 
 
