@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Barang extends Model
+class Cuci extends Model
 {
-    protected $table = 'barangs';
-    protected $primaryKey = 'barang_id';  
+    protected $table = 'cucis';
+    protected $primaryKey = 'cuci_id';  
     public $timestamps = true;
-
     protected $fillable =
     [  
      'barang_id',
@@ -27,13 +26,4 @@ class Barang extends Model
      'kadar_id'
     ];
 
-    public function kadar()
-    {
-        return $this->belongsTo(Kadar::class, 'kadar_id');
-    }
-
-    public function transaksipembeliandetail()
-    {
-        return $this->hasMany(TransaksiPembelianDetail::class, 'barang_id');
-    }
 }

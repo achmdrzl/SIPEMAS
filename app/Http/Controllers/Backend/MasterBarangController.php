@@ -15,10 +15,37 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Yajra\DataTables\Facades\DataTables;
+use Milon\Barcode\DNS1D;
+use Yajra\DataTables\Facades\DataTables;  
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Illuminate\Http\Response;
+use PDF;
+use Psy\Readline\Hoa\Console;
 
 class MasterBarangController extends Controller
 {
+    // protected $barcodeGeneratorService;
+    // public function __construct(BarcodeGeneratorService $barcodeGeneratorService)
+    // {
+    //     $this->barcodeGeneratorService = $barcodeGeneratorService;
+    // }
+
+    // public function generatePDF()
+    // {
+    //     $barcodeTexts = ['123456', '789012', '345678']; // Replace with your barcode texts
+
+    //     $barcodes = [];
+    //     foreach ($barcodeTexts as $text) {
+    //         $barcodes[] = [
+    //             'text' => $text,
+    //             'image' => $this->barcodeGeneratorService->generateBarcode($text)
+    //         ];
+    //     }
+
+    //     $pdf = PDF::loadView('barcode.pdf', ['barcodes' => $barcodes]);
+    //     return $pdf->stream('barcodes.pdf');
+    // }
     // public function barangIndex()
     // {
     //     return view('masterdata.dummy');
@@ -34,18 +61,24 @@ class MasterBarangController extends Controller
 
     public function barangIndex(Request $request)
     {
+        
         ///////////////////////
         //////////////////////
         ///barang////////////
+        //dd("masuk controller brang index");
+        
+
         $barangs   =   Barang::all();
         $models = ModelBarang::all();
         $pabriks = Pabrik::all();
         $suppliers = Supplier::all();
         $kadars = Kadar::all();
         $detail_barangs = DetailBarang::all();
+
+        ///////tidak bisa masuk ke ajax
         if ($request->ajax()) {
             $barangs   =   Barang::all();
-
+            //dd("masuk controller brang index");
             return datatables::of($barangs)
                 ->addIndexColumn()
                 ->addColumn('barang_nama', function ($item) {
@@ -116,9 +149,7 @@ class MasterBarangController extends Controller
                     $btn = '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="user-edit" data-id="' . $item->barang_id . '"><span class="material-icons btn-sm" >edit</span></button>';
 
                     $btn = $btn . '<button class="btn btn-icon btn-' . $button . ' btn-rounded flush-soft-hover me-1" id="user-delete" data-id="' . $item->barang_id . '"><span class="material-icons btn-sm">' . $icon . '</span></button>';
-
-                    $btn = $btn . '<button onclick="tesdetail(' . $item->barang_id . ')" class="btn btn-icon btn-warning btn-rounded flush-soft-hover me-1" id="barang-detail"  data-id="' . $item->barang_id . '"><span class="material-icons btn-sm">dvr</span></button>';
-
+ 
                     $btn = $btn . '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" id="barang-etalase" data-id="' . $item->barang_id . '"><span class="material-icons btn-sm">store</span></button>';
 
                     $btn = $btn . '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" id="barang-barcode" data-id="' . $item->barang_id . '"><span class="material-icons btn-sm">print</span></button>';
@@ -134,107 +165,170 @@ class MasterBarangController extends Controller
     {
         //return response()->json(['errors' => "masok pak eko"]);
         //define validation rules  
-        //dd($request->input('barang_kode'));
 
-        //klo multi input validatornya gimana
+
+        //////////////////////////
+        ////////testing
+  
+
+        //dd($formData['supplier']);
+        $formData = $request->input('data');
+        //dd($formData); 
+ 
         $validator = Validator::make($request->all(), [
-            'barang_nama' => 'required',
-            'supplier_id' => 'required',
-            'pabrik_id' => 'required',
-            'barang_berat' => 'required',
-            'kadar_id' => 'required',
-            'model_id' => 'required',
+            'data.nama.*' => 'required',
+            'data.supplier.*' => 'required',
+            'data.pabrik.*' => 'required',
+            'data.berat.*' => 'required',
+            'data.kadar.*' => 'required',
+            'data.model.*' => 'required',
         ], [
-            'barang_nama.required' => 'Nama Barang Must be included!',
-            'supplier_id.required' => 'Supplier Must be included!',
-            'pabrik_id.required' => 'Pabrik Must be included!',
-            'barang_berat.required' => 'Berat Must be included!',
-            'kadar_id.required' => 'Kadar Must be included!',
-            'model_id.required' => 'Model Must be included!',
-
-        ]);
-
-        //check if validation fails
+            'data.nama.*.required' => 'Nama Barang Must be included!',
+            'data.supplier.*.required' => 'Supplier Must be included!',
+            'data.pabrik.*.required' => 'Pabrik Must be included!',
+            'data.berat.*.required' => 'Berat Must be included!',
+            'data.kadar.*.required' => 'Kadar Must be included!',
+            'data.model.*.required' => 'Model Must be included!', 
+        ]);  
+        //check if validation fails 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()]);
         }
+  
 
-        // Get the current date and time
-        $currentTime = Carbon::now();
-
-        // Get the formatted date portion (yymmdd)
-        $datePart = $currentTime->format('ymd');
-
-        // Get the last counter value from cache
-        $counter = Cache::increment('counter', 1, 1);
-
-        // Generate the new ID
-        $newId = $datePart . sprintf(
-            "%03d",
-            $counter
-        );
-
-
-        // get status from checkbox
-        $status = "";
-        if ($request->has('barang_status')) {
-            $status = "aktif";
-        } else {
-            $status = "non-aktif";
+        //masuk sini untuk create/update satu2
+        $dataCount = count($formData['id']); 
+        $pictures = $request->file('pictures');  
+        $masukedit =1;
+        $cekedit = Barang::find($formData['id'][0]);  
+        if(isset($cekedit)){ 
+            $masukedit =0;
         }
-
-        $barang = Barang::find($request->barang_id);
-
-        //upload or replace photo
-        $path = $request->file('barang_foto');
-
-        $filename = "";
-        if (isset($barang)) {
-            $filename = "foto_barang/" . $request->input('barang_nama') . "_" . $barang->barang_id . ".jpg";
-        } else {
-            $filename = "foto_barang/" . $request->input('barang_nama') . "_" . $newId . ".jpg";
+        // try { 
+        //     $cekedit = Barang::find($formData['id'][0]); 
+        //     print_r($cekedit);
+        // } catch (\Exception $e) {
+        //     $masukedit = 0;
+        // }
+        
+        for ($i = 0; $i < $dataCount; $i++) {
+            //cek status per item
+            $status = ""; 
+            //tidak bisa pake if has status biasa, sudah di coba, ngk masuk di else nya, return error
+            try {
+                //agak aneh tapi work
+                if ($formData['status'][$i]=="on" || $formData['status'][$i]=="aktif") {
+                    $status = "aktif";
+                } 
+                else{
+                    $status = "non-aktif"; 
+                }
+            } catch (\Exception $e) { 
+                $status = "non-aktif"; 
+            }
+            //dd($status); 
+            //if means update else mean create new barang
+            if (isset($cekedit)) {   
+                $barang = Barang::find($formData['id'][$i]);
+                $filename = "";  
+                //tidak bisa pake if has file biasa, sudah di coba, ngk masuk di else nya, return error 
+                try {
+                    $path = $pictures[$i];
+                    $filename = "foto_barang/" . $formData['nama'][$i] . "_" . $formData['id'][$i] . ".jpg";
+                    $location = public_path('/foto_barang');
+                    $path->move($location, $filename);
+                } catch (\Exception $e) { 
+                    $filename = ""; 
+                } 
+                if($filename == ""){
+                    Barang::updateOrCreate([
+                        'barang_id' => $barang->barang_id,
+                    ], [
+                        'barang_kode' => $formData['kode'][$i],
+                        'barang_nama' => $formData['nama'][$i],
+                        'barang_kondisi' => $formData['kondisi'][$i],
+                        'barang_berat' => $formData['berat'][$i],
+                        'supplier_id' => $formData['supplier'][$i],
+                        'pabrik_id' => $formData['pabrik'][$i],
+                        'kadar_id' => $formData['kadar'][$i],
+                        'model_id' => $formData['model'][$i], 
+                        'barang_status' => $status
+                    ]);
+                }
+                else{
+                    Barang::updateOrCreate([
+                        'barang_id' => $barang->barang_id,
+                    ], [
+                        'barang_kode' => $formData['kode'][$i],
+                        'barang_nama' => $formData['nama'][$i],
+                        'barang_kondisi' => $formData['kondisi'][$i],
+                        'barang_berat' => $formData['berat'][$i],
+                        'supplier_id' => $formData['supplier'][$i],
+                        'pabrik_id' => $formData['pabrik'][$i],
+                        'kadar_id' => $formData['kadar'][$i],
+                        'model_id' => $formData['model'][$i],
+                        'barang_foto' => $filename,
+                        'barang_status' => $status
+                    ]);
+                }
+                
+    
+            } 
+            else {   
+                //////////////bikin id baru
+                //210003
+                //2 digit tahun
+                //4 no urut
+                // Get the current date and time
+                $currentTime = Carbon::now(); 
+                $datePart = $currentTime->format('yy');
+                $datePart = substr($datePart, 0, 2);
+                $all_barang = Barang::all();
+                $counter =1;
+                $digitid = "";
+                foreach ($all_barang as $barang) {
+                    $digitid = substr($barang->barang_id, 0, 2); 
+                    if($datePart == $digitid){
+                        $counter++;
+                    }
+                } 
+                $nourut = str_pad($counter, 4, "0", STR_PAD_LEFT);
+                $newId = $datePart.$nourut;
+                $filename = "";
+                 
+                try {
+                    $path = $pictures[$i];
+                    $filename = "foto_barang/" . $formData['nama'][$i] . "_" . $newId . ".jpg";
+                    $location = public_path('/foto_barang');
+                    $path->move($location, $filename); 
+                } catch (\Exception $e) { 
+                    $filename = ""; 
+                } 
+             
+                Barang::updateOrCreate([ 
+                    'barang_id' => (int)$newId,
+                    'barang_kode' => $formData['kode'][$i],
+                    'barang_nama' => $formData['nama'][$i],
+                    'barang_kondisi' => $formData['kondisi'][$i],
+                    'barang_berat' => $formData['berat'][$i],
+                    'supplier_id' => $formData['supplier'][$i],
+                    'pabrik_id' => $formData['pabrik'][$i],
+                    'kadar_id' => $formData['kadar'][$i],
+                    'model_id' => $formData['model'][$i],
+                    'barang_foto' => $filename,
+                    'barang_status' => $status
+                ]);
+            } 
         }
-
-        $location = public_path('/foto_barang');
-        $path->move($location, $filename);
-
-        if (isset($barang)) {
-            Barang::updateOrCreate([
-                'barang_id' => $barang->barang_id,
-            ], [
-                'barang_kode' => $request->barang_kode,
-                'barang_nama' => $request->barang_nama,
-                'barang_kondisi' => $request->barang_kondisi,
-                'barang_berat' => $request->barang_berat,
-                'supplier_id' => $request->supplier_id,
-                'pabrik_id' => $request->pabrik_id,
-                'kadar_id' => $request->kadar_id,
-                'model_id' => $request->model_id,
-                'barang_foto' => $filename,
-                'barang_status' => $status
-            ]);
-        } else {
-            Barang::updateOrCreate([
-                'barang_id' => $newId
-            ], [
-                'barang_kode' => $request->barang_kode,
-                'barang_nama' => $request->barang_nama,
-                'barang_kondisi' => $request->barang_kondisi,
-                'barang_berat' => $request->barang_berat,
-                'supplier_id' => $request->supplier_id,
-                'pabrik_id' => $request->pabrik_id,
-                'kadar_id' => $request->kadar_id,
-                'model_id' => $request->model_id,
-                'barang_foto' => $filename,
-                'barang_status' => $status
-            ]);
-        }
-
+   
         //return response
+        //return response()->json(['errors' => "test"]);
+
         return response()->json([
             'success' => true,
-            'message' => 'Your data has been saved successfully!',
-        ]);
+            'message' => 'Your data has been saved successfully!'
+        ]); 
+
     }
 
     public function barangEdit(Request $request)
@@ -245,8 +339,12 @@ class MasterBarangController extends Controller
 
     public function barangDetail($barang_id, Request $request)
     {
-        
+       
         $barangs   =   DetailBarang::where('barang_id', $barang_id)->get();
+
+        // return DataTables::of($jurnals)->toJson();
+
+        //dd($request->query('age'));
         if ($request->ajax()) {
             //sudah masuk barang id nya
             $buatCompare = $request->barang_id;
@@ -290,6 +388,28 @@ class MasterBarangController extends Controller
         // return DataTables::of($jurnals)->toJson();
 
         return response()->json($barangs);
+    }
+    public function generatepdf($barang_id, Request $request)
+    {
+        //dd($barang_id);
+        $barcodeHTML = DNS1D::getBarcodeHTML($barang_id, 'CODABAR', 2, 50);
+
+        $tes = "<h1>halo halo</h1>";
+        $pdf = PDF::loadView('masterdata.pdf-barcode', ['data' => $barcodeHTML]); 
+        return $pdf->download('barcode.pdf');
+    }
+    public function barangBarcode(Request $request)
+    {
+         
+
+        $barang_id = $request->barang_id;
+
+        // return DataTables::of($jurnals)->toJson();
+
+        //dd($request->query('age'));
+        $barcodeHTML = DNS1D::getBarcodeHTML($barang_id, 'CODABAR', 2, 50);
+        //$barcodeHTML = DNS1D::getBarcodeSVG('4445645656', 'CODABAR');   
+        return response()->json($barcodeHTML);
     }
 
     public function barangDestroy(Request $request)

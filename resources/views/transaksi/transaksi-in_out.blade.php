@@ -89,7 +89,7 @@
                                         <label class="form-label">Tanggal Transaksi</label>
                                         <div class="form-group">
                                             <input class="form-control" type="date" placeholder="Masukkan Tanggal Transaksi"
-                                                name="tgl_transaksi" id="tgl_transaksi" />
+                                                name="tgl_transaksi" id="tgl_transaksi" value="{{ date('Y-m-d') }}" />
                                         </div>
                                     </div>
                                 </div>
