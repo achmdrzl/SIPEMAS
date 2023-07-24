@@ -8,23 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 class Barang extends Model
 {
     protected $table = 'barangs';
-    protected $primaryKey = 'barang_id';  
+    protected $primaryKey = 'barang_id';
     public $timestamps = true;
 
     protected $fillable =
-    [  
-     'barang_id',
-     'barang_nama',
-     'barang_kode',
-     'barang_foto', 
-     'barang_berat', 
-     'barang_lokasi', 
-     'barang_kondisi', 
-     'barang_status', 
-     'model_id',
-     'pabrik_id', 
-     'supplier_id',
-     'kadar_id'
+    [
+        'barang_id',
+        'barang_nama',
+        'barang_kode',
+        'barang_foto',
+        'barang_berat',
+        'barang_lokasi',
+        'barang_kondisi',
+        'barang_status',
+        'model_id',
+        'pabrik_id',
+        'supplier_id',
+        'kadar_id'
     ];
 
     public function kadar()
@@ -35,5 +35,10 @@ class Barang extends Model
     public function transaksipembeliandetail()
     {
         return $this->hasMany(TransaksiPembelianDetail::class, 'barang_id');
+    }
+
+    public function transaksipenjualandetail()
+    {
+        return $this->hasMany(TransaksiPenjualanDetail::class, 'barang_id');
     }
 }

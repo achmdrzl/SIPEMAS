@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('penjualan_id');
             $table->double('detail_penjualan_berat_jual');
             $table->integer('detail_penjualan_harga');
-            $table->integer('detail_penjualan_ongkos');
-            $table->integer('detail_penjualan_diskon');
+            $table->integer('detail_penjualan_ongkos')->nullable();
+            $table->integer('detail_penjualan_diskon')->nullable();
             $table->integer('detail_penjualan_jml_harga');
             $table->timestamps();
         });

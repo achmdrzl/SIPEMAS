@@ -38,9 +38,9 @@ class TransaksiPenjualanController extends Controller
                 })
                 ->addColumn('action', function ($item) {
 
-                    $btn = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" id="detail-penjualan"  data-id="' . $item->penjualan_id . '"><span class="material-icons btn-sm">visibility</span></button>';
+                    $btn = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Penjualan" id="detail-penjualan"  data-id="' . $item->penjualan_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
-                    $btn = $btn . '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="cetak-faktur" data-id="' . $item->penjualan_id . '"><span class="material-icons btn-sm">print</span></button>';
+                    $btn = $btn . '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" title="Cetak Faktur" id="cetak-faktur" data-id="' . $item->penjualan_id . '"><span class="material-icons btn-sm">print</span></button>';
 
                     return $btn;
                 })
@@ -97,7 +97,7 @@ class TransaksiPenjualanController extends Controller
     // LOAD SELECTED BARANG IN TRANSAKSI PENJUALAN
     public function loadSelectedBarang(Request $request)
     {
-        $barang = Barang::with(['kadar'])->whereIn('barang_id', $request->barang_id)->get();
+        $barang = Barang::with(['kadar', 'transaksipenjualandetail'])->whereIn('barang_id', $request->barang_id)->latest()->get();
 
         return response()->json($barang);
     }
@@ -234,10 +234,10 @@ class TransaksiPenjualanController extends Controller
             $penjualan_jenis          = 'Perhiasan';
             $penjualan_grandtotal     = $item->penjualan_grandtotal;
 
-            $action                   = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" id="detail-penjualan"  
+            $action                   = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Penjualan" id="detail-penjualan"  
             data-id="' . $item->penjualan_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
-            $action                   .= '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="cetak-faktur" 
+            $action                   .= '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" title="Cetak Faktur" id="cetak-faktur" 
                                          data-id="' . $item->penjualan_id . '"><span class="material-icons btn-sm">print</span></button>';
             $penjualan[] = [
                 'DT_RowIndex'            => $index++, // Add DT_RowIndex as the index plus 1

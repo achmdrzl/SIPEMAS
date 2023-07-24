@@ -28,12 +28,8 @@
                                     </li>
                                     <li
                                         class="nav-item {{ request()->segment(1) == 'return_penjualan' ? 'active' : '' }}">
-                                        <a class="nav-link" href="{{ route('return.index') }}"><span
+                                        <a class="nav-link" href="{{ route('penjualan.return.index') }}"><span
                                                 class="nav-link-text">Return Penjualan</span></a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#"><span
-                                                class="nav-link-text">Supplier</span></a>
                                     </li>
                                     <li class="nav-item {{ request()->segment(1) == 'pembelian' ? 'active' : '' }}">
                                         <a class="nav-link" href="{{ route('pembelian.index') }}"><span
@@ -41,18 +37,11 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#"><span
-                                                class="nav-link-text">Lebur/Cuci/Reparasi</span></a>
+                                                class="nav-link-text">Pengeluaran Barang</span></a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#"><span class="nav-link-text">Penerimaan
                                                 Barang</span></a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('transaksi.hutang') }}"><span class="nav-link-text">Hutang</span></a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('transaksi.in.out') }}"><span
-                                                class="nav-link-text">Pengeluaran / Pendapatan Lain</span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -66,10 +55,6 @@
                         <ul id="masterdata" class="nav flex-column collapse nav-children">
                             <li class="nav-item">
                                 <ul class="nav flex-column">
-                                    {{-- <li class="nav-item">
-                                        <a class="nav-link" href="#"><span
-                                                class="nav-link-text">Customer</span></a>
-                                    </li> --}}
                                     <li class="nav-item {{ request()->segment(1) == 'supplier' ? 'active' : '' }}">
                                         <a class="nav-link" href="{{ route('supplier.index') }}"><span
                                                 class="nav-link-text">Supplier</span></a>
@@ -82,16 +67,10 @@
                                         <a class="nav-link" href="{{ route('model.index') }}"><span
                                                 class="nav-link-text">Model</span></a>
                                     </li>
-                                    {{-- <li class="nav-item">
-                                        <a class="nav-link" href="#"><span class="nav-link-text">Satuan</span></a>
-                                    </li> --}}
                                     <li class="nav-item {{ request()->segment(1) == 'pabrik' ? 'active' : '' }}">
                                         <a class="nav-link" href="{{ route('pabrik.index') }}"><span
                                                 class="nav-link-text">Pabrik</span></a>
                                     </li>
-                                    {{-- <li class="nav-item">
-                                        <a class="nav-link" href="#"><span class="nav-link-text">Harga Jual</span></a>
-                                    </li> --}}
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('barang.index') }}"><span
                                                 class="nav-link-text">Barang</span></a>
@@ -99,10 +78,6 @@
                                     <li class="nav-item {{ request()->segment(1) == 'kadar' ? 'active' : '' }}">
                                         <a class="nav-link" href="{{ route('kadar.index') }}"><span 
                                                 class="nav-link-text">Kadar</span></a>
-                                    </li>
-                                    <li class="nav-item {{ request()->segment(1) == 'merk' ? 'active' : '' }}">
-                                        <a class="nav-link" href="{{ route('merk.index') }}"><span 
-                                                class="nav-link-text">Merk</span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -194,6 +169,25 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="#"><span class="nav-link-text">Cash on
                                                 Flow</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse"
+                            data-bs-target="#transaksi">
+                            <span class="nav-link-text">Kas Toko</span>
+                        </a>
+                        <ul id="transaksi" class="nav flex-column collapse   nav-children">
+                            <li class="nav-item">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('transaksi.hutang') }}"><span class="nav-link-text">Hutang</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('transaksi.in.out') }}"><span
+                                                class="nav-link-text">Pengeluaran / Pendapatan Lain</span></a>
                                     </li>
                                 </ul>
                             </li>

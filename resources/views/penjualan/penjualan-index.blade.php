@@ -311,6 +311,14 @@
                 }
             });
 
+            // FORMAT CURRENCY
+            const rupiah = (number) => {
+                return new Intl.NumberFormat("id-ID", {
+                    style: "currency",
+                    currency: "IDR"
+                }).format(number);
+            }
+
             var transaksiPenjualan = $('#datatable_7').DataTable({
                 scrollX: true,
                 autoWidth: false,
@@ -374,8 +382,8 @@
                     $('.dataTables_paginate > .pagination').addClass(
                         'custom-pagination pagination-simple');
                 },
-                processing: true,
-                serverSide: true,
+                // processing: false,
+                // serverSide: false,
                 ajax: "{{ route('penjualan.barang.index') }}",
                  columns: [{
                         data: 'select',
@@ -576,6 +584,7 @@
                 $("#penjualan_keterangan").prop('readonly', false)
                 $('#inputdiskon').prop('readonly', false);
                 $('#inputtunai').prop('readonly', false);
+                $("#submitPenjualan").prop('hidden', false);
                 $("#list-barang").html('')
 
                 var selectedValues = [];
@@ -620,13 +629,13 @@
                                                     <td>
                                                         <input class="form-control barang_id" type="hidden" value="`+ barangid +`"
                                                             placeholder="Barang Id" name="barang_id[]" />
-                                                        <input class="form-control penjualan_berat_jual" type="number" value=""
+                                                        <input class="form-control penjualan_berat_jual" type="number" value="`+ barangberat +`"
                                                             placeholder="Berat Jual" name="detail_penjualan_berat_jual[]" />
                                                     </td>
                                                     <td> <select class="form-select penjualan_harga" name="detail_penjualan_harga[]">
                                                                 <option value="" selected disabled>--</option>
-                                                                <option value="`+ harga_jual_1 +`">`+ harga_jual_1 +`</option>
-                                                                <option value="`+ harga_jual_2 +`">`+ harga_jual_2 +`</option>
+                                                                <option value="`+ harga_jual_1 +`">`+ rupiah(harga_jual_1) +`</option>
+                                                                <option value="`+ harga_jual_2 +`">`+ rupiah(harga_jual_2) +`</option>
                                                             </select>
                                                     </td>
                                                     <td> <input class="form-control penjualan_ongkos" type="number" value=""
@@ -666,6 +675,11 @@
                 var diskon = parseFloat(row.find('.penjualan_diskon').val()) || 0;
 
                 var total = ((beratJual * hargaJual + ongkos) - diskon); // Barang Berat * Harga Beli * Nilai Tukar
+                var decimalPlaces = 2; // Change this number to round to a different number of decimal places
+
+                // Round the total value to the specified decimal places
+                total = parseFloat(total.toFixed(decimalPlaces));
+
                 row.find('.penjualan_total').val(total);
                 calculateGrandTotal();
             })
@@ -724,7 +738,7 @@
                                 toast: true,
                                 position: 'top-end',
                                 showConfirmButton: false,
-                                timer: 3000,
+                                timer: 2000,
                                 timerProgressBar: true,
                             });
 
@@ -739,6 +753,9 @@
 
                             listbarang.draw();
                             transaksiPenjualan.draw();
+                            setInterval(function() {
+                                window.location.reload();
+                            }, 1000);
                         }
                     }
                 });
@@ -768,7 +785,7 @@
                         const penjualan_tanggal = response.penjualan_tanggal;
                         const keterangan        = response.penjualan_keterangan;
                         const subtotal          = response.penjualan_subtotal;
-                        const diskon            = response.penjualan_diskon;
+                        const diskon            = response.penjualan_diskon ?? 0;
                         const bayar             = response.penjualan_bayar;
                         const grandtotal        = response.penjualan_grandtotal;
                         const kembalian         = response.penjualan_kembalian;
@@ -789,8 +806,8 @@
                             const kadar         = value['barang']['kadar']['kadar_nama']
                             const berat_jual    = value['detail_penjualan_berat_jual']
                             const harga         = value['detail_penjualan_harga']
-                            const ongkos        = value['detail_penjualan_ongkos']
-                            const diskon        = value['detail_penjualan_diskon']
+                            const ongkos        = value['detail_penjualan_ongkos'] ?? 0
+                            const diskondetail  = value['detail_penjualan_diskon'] ?? 0
                             const total         = value['detail_penjualan_jml_harga']
 
                             const barang_kode   = value['barang']['barang_kode']
@@ -813,7 +830,7 @@
                                                     <td> <input class="form-control penjualan_ongkos" type="number" value="`+ ongkos +`"
                                                             placeholder="Ongkos" name="detail_penjualan_ongkos[]" readonly />
                                                     </td>
-                                                    <td> <input class="form-control penjualan_diskon" type="number" value="`+ diskon +`"
+                                                    <td> <input class="form-control penjualan_diskon" type="number" value="`+ diskondetail +`"
                                                             placeholder="Diskon" name="detail_penjualan_diskon[]" readonly />
                                                     </td>
                                                     <td> <input class="form-control penjualan_total" type="number" value="`+ total +`"

@@ -435,7 +435,7 @@ class MasterBarangController extends Controller
     {
         $barang = Barang::where('barang_id', $request->barang_id)->first();
         $barang->update([
-            'barang_lokasi' => 'etalase',
+            'barang_lokasi' => 'ETALASE',
         ]);
 
         return response()->json(['status' => 'Data is Moved to Etalase Successfully!']);

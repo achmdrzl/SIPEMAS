@@ -24,7 +24,7 @@ class TransaksiPembelianController extends Controller
         $supplier         = Supplier::where('status', 'aktif')->get();
 
         if ($request->ajax()) {
-            $pembelians   =   TransaksiPembelian::with(['supplier'])->get();
+            $pembelians   =   TransaksiPembelian::with(['supplier'])->latest()->get();
             return DataTables::of($pembelians)
                 ->addIndexColumn()
                 ->addColumn('pembelian_tanggal', function ($item) {
@@ -41,9 +41,7 @@ class TransaksiPembelianController extends Controller
                 })
                 ->addColumn('action', function ($item) {
 
-                    $btn = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" id="detail-pembelian"  data-id="' . $item->pembelian_id . '"><span class="material-icons btn-sm">visibility</span></button>';
-
-                    $btn = $btn . '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="cetak-faktur" data-id="' . $item->pembelian_id . '"><span class="material-icons btn-sm">print</span></button>';
+                    $btn = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Pembelian" id="detail-pembelian"  data-id="' . $item->pembelian_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
                     return $btn;
                 })
@@ -222,11 +220,9 @@ class TransaksiPembelianController extends Controller
             $pembelian_supplier_id    = ucfirst($item->supplier->supplier_nama);
             $pembelian_grandtotal     = $item->pembelian_grandtotal;
             
-            $action                   = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" id="detail-pembelian"  
+            $action                   = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Pembelian" id="detail-pembelian"  
             data-id="' . $item->pembelian_id . '"><span class="material-icons btn-sm">visibility</span></button>';
-            
-            $action                   .= '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="cetak-faktur" 
-                                         data-id="' . $item->pembelian_id . '"><span class="material-icons btn-sm">print</span></button>';
+
             $pembelian[] = [
                 'DT_RowIndex'            => $index++, // Add DT_RowIndex as the index plus 1
                 'pembelian_id'           => $pembelian_id,

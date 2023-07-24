@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\ReturnPenjualanController;
 use App\Http\Controllers\Backend\TransaksiPembelianController;
 use App\Http\Controllers\Backend\TransaksiPenjualanController;
 use App\Models\TransaksiPenjualan;
+use App\Models\TransaksiPenjualanReturn;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -97,7 +98,10 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::post('/filterdDatePenjualan', TransaksiPenjualanController::class. '@filterdata')->name('filtered.data.penjualan');
 
     // TRANSAKSI PENJUALAN RETURN
-    Route::get('/return_penjualan', ReturnPenjualanController::class . '@returnPenjualanIndex')->name('return.index');
+    Route::get('/return_penjualan', ReturnPenjualanController::class . '@returnPenjualanIndex')->name('penjualan.return.index');
+    Route::post('/return_penjualanStore', ReturnPenjualanController::class. '@returnPenjualanStore')->name('penjualan.return.store');
+    Route::post('/returnDetail', ReturnPenjualanController::class. '@returnDetail')->name('penjualan.return.detail');
+    Route::post('/filterdDatePenjualanReturn', ReturnPenjualanController::class . '@filterdata')->name('filtered.data.penjualan.return');
 
     // MASTER DATA BARANG
     Route::get('/barang', MasterBarangController::class . '@barangIndex')->name('barang.index');
@@ -122,18 +126,6 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
     // INVOICE PENJUALAN
     Route::get('/invoice_penjualan', TransaksiPenjualanController::class . '@invoice_penjualan');
 });
-
-
-
-
-// Route::get('/login', function () {
-//     return view('login');
-// });
-
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

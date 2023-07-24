@@ -526,8 +526,8 @@
                     $('.dataTables_paginate > .pagination').addClass(
                         'custom-pagination pagination-simple');
                 },
-                processing: true,
-                serverSide: true,
+                // processing: true,
+                // serverSide: true,
                 ajax: "{{ route('pembelian.barang.index') }}",
                 columns: [{
                         data: 'select',
@@ -564,12 +564,13 @@
                 ]
             });
 
+
             // FORMAT CURRENCY
-            function formatCurrency(amount) {
-                return amount.toLocaleString("id-ID", {
+            const rupiah = (number) => {
+                return new Intl.NumberFormat("id-ID", {
                     style: "currency",
                     currency: "IDR"
-                });
+                }).format(number);
             }
 
             //  CREATE DATA PENJUALAN.
@@ -666,6 +667,11 @@
                 var barangBerat = parseFloat(row.find('.barang_berat').val()) || 0;
                 var jmlbeli = hargaBeli * nilaiTukar; // Harga Beli * Nilai Tukar
                 var total = barangBerat * hargaBeli * nilaiTukar; // Barang Berat * Harga Beli * Nilai Tukar
+                var decimalPlaces = 2; // Change this number to round to a different number of decimal places
+
+                // Round the total value to the specified decimal places
+                total = parseFloat(total.toFixed(decimalPlaces));
+                
                 row.find('.jmlbeli').val(jmlbeli);
                 row.find('.total').val(total);
                 calculateGrandTotal();
@@ -724,7 +730,7 @@
                                 toast: true,
                                 position: 'top-end',
                                 showConfirmButton: false,
-                                timer: 3000,
+                                timer: 2000,
                                 timerProgressBar: true,
                             });
 
@@ -739,6 +745,9 @@
 
                             transaksiPembelian.draw();
                             listbarang.draw();
+                            setInterval(function() {
+                                window.location.reload();
+                            }, 1000);
                         }
                     }
                 });
