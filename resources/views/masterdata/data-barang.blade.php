@@ -337,11 +337,98 @@
 
         //Once add button is clicked
         $(addButtonTicket).click(function() {
+
+            //Ambil value seluruh data sebelumnya
+            var kodeBarang = document.getElementById('barang_kode_'+x).value;
+
+            var namaBarang = document.getElementById('barang_nama_'+x).value;
+
+            var selectElement = document.getElementById('supplier_id_'+x);
+            var selectedIndex = selectElement.selectedIndex;
+            var supplierBarang = selectElement.options[selectedIndex].value;  
+ 
+            var selectElement = document.getElementById('pabrik_id_'+x);
+            var selectedIndex = selectElement.selectedIndex;
+            var pabrikBarang = selectElement.options[selectedIndex].value; 
+ 
+            var selectElement = document.getElementById('kadar_id_'+x);
+            var selectedIndex = selectElement.selectedIndex;
+            var kadarBarang = selectElement.options[selectedIndex].value; 
+
+            var beratBarang = document.getElementById('barang_berat_'+x).value;
+ 
+            var selectElement = document.getElementById('model_id_'+x);
+            var selectedIndex = selectElement.selectedIndex;
+            var modelBarang = selectElement.options[selectedIndex].value; 
+
+            var kondisiBarang = document.getElementById('barang_kondisi_'+x).value;
+
+            //cari supplier yang sama dengan input sebelumnya
+            var dynamicJsArray = <?php echo json_encode($suppliers); ?>;
+            var optionSupplier =``;
+            for (var i = 0; i < dynamicJsArray.length; i++) { 
+                var nama = dynamicJsArray[i]['supplier_nama'] ; 
+                var id = dynamicJsArray[i]['supplier_id'] ;  
+                var kode = dynamicJsArray[i]['supplier_kode'] ;  
+                console.log(id);  
+                if(id == supplierBarang){
+                    optionSupplier +=  `<option value='`+id+`' data-attribute='`+kode+`' selected>`+nama+` </option> `
+                }
+                else{
+                    optionSupplier +=  `<option value='`+id+`' data-attribute='`+kode+`'>`+nama+` </option> `
+                }
+            }
+            //cari pabrik yang sama dengan input sebelumnya
+            var dynamicJsArray = <?php echo json_encode($pabriks); ?>;
+            var optionPabrik =``;
+            for (var i = 0; i < dynamicJsArray.length; i++) { 
+                var nama = dynamicJsArray[i]['pabrik_nama'] ; 
+                var id = dynamicJsArray[i]['pabrik_id'] ;  
+                var kode = dynamicJsArray[i]['pabrik_kode'] ;  
+                console.log(id);  
+                if(id == pabrikBarang){
+                    optionPabrik +=  `<option value='`+id+`' data-attribute='`+kode+`' selected>`+nama+` </option> `
+                }
+                else{
+                    optionPabrik +=  `<option value='`+id+`' data-attribute='`+kode+`'>`+nama+` </option> `
+                }
+            }
+            //cari kadar yang sama dengan input sebelumnya
+            var dynamicJsArray = <?php echo json_encode($kadars); ?>;
+            var optionKadar =``;
+            for (var i = 0; i < dynamicJsArray.length; i++) { 
+                var nama = dynamicJsArray[i]['kadar_nama'] ; 
+                var id = dynamicJsArray[i]['kadar_id'] ;  
+                var kode = dynamicJsArray[i]['kadar_kode'] ;  
+                console.log(id);  
+                if(id == kadarBarang){
+                    optionKadar +=  `<option value='`+id+`' data-attribute='`+kode+`' selected>`+nama+` </option> `
+                }
+                else{
+                    optionKadar +=  `<option value='`+id+`' data-attribute='`+kode+`'>`+nama+` </option> `
+                }
+            }
+            //cari supplier yang sama dengan input sebelumnya
+            var dynamicJsArray = <?php echo json_encode($models); ?>;
+            var optionModel =``;
+            for (var i = 0; i < dynamicJsArray.length; i++) { 
+                var nama = dynamicJsArray[i]['model_nama'] ; 
+                var id = dynamicJsArray[i]['model_id'] ;  
+                var kode = dynamicJsArray[i]['model_kode'] ;  
+                console.log(id);  
+                if(id == modelBarang){
+                    optionModel +=  `<option value='`+id+`' data-attribute='`+kode+`' selected>`+nama+` </option> `
+                }
+                else{
+                    optionModel +=  `<option value='`+id+`' data-attribute='`+kode+`'>`+nama+` </option> `
+                }
+            } 
+            
             //Check maximum number of input fields
             if (x < maxField) {
                 x++; //Increment field counter
                 var fieldHTMLTicket =
-                `<div class="accordion-item">
+                `<div class="accordion-item" id="container`+x+`">
                     <h2 class="accordion-header" id="panelsStayOpen-heading`+x+`">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
                             data-bs-target="#panelsStayOpen-collapse`+x+`" aria-expanded="true"
@@ -358,14 +445,14 @@
                                     <label class="form-label">Kode Barang</label>
                                     <div class="form-group">
                                         <input class="form-control" type="text"
-                                            name="data[kode][]" id="barang_kode_`+x+`"  value="0000000000001" disabled/>
+                                            name="data[kode][]" id="barang_kode_`+x+`"  value="`+kodeBarang+`" disabled/>
                                         </div> 
                                 </div>
                                 <div class="col-sm-12">  
                                     <label class="form-label">Nama Barang</label>
                                     <div class="form-group">
                                         <input class="form-control" type="text" placeholder="Masukkan Nama"
-                                            name="data[nama][]" id="barang_nama_`+x+`" />
+                                            name="data[nama][]" id="barang_nama_`+x+`" value="`+namaBarang+`"/>
                                         </div> 
                                 </div>
                             </div> 
@@ -374,14 +461,8 @@
                                     <div class="form-group">
                                         <label class="form-label">Supplier</label>
                                         <select class="form-select" name="data[supplier][]" id="supplier_id_`+x+`" onchange="remakekodesupplier()">
-                                            <option value=""  selected="">--</option>
-                                            <?php 
-                                            foreach ($suppliers as $supplier) {
-                                                $nama = $supplier['supplier_nama']; 
-                                                $id = $supplier['supplier_id'];  
-                                                $kode = $supplier['supplier_kode'];  
-                                                echo "<option value='$id' data-attribute='$kode'>$nama</option>";}
-                                            ?> 
+                                            <option value="" ="">--</option>
+                                            `+optionSupplier+`
                                         </select>
                                     </div>
                                 </div>
@@ -389,14 +470,8 @@
                                     <div class="form-group">
                                         <label class="form-label">Pabrik</label>
                                         <select class="form-select" name="data[pabrik][]" id="pabrik_id_`+x+`" onchange="remakekodepabrik()">
-                                            <option value=""  selected="">--</option>
-                                            <?php 
-                                            foreach ($pabriks as $pabrik) {
-                                                $nama = $pabrik['pabrik_nama']; 
-                                                $id = $pabrik['pabrik_id'];  
-                                                $kode = $pabrik['pabrik_kode'];  
-                                                echo "<option value='$id' data-attribute='$kode'>$nama</option>";}
-                                            ?> 
+                                            <option value=""  ="">--</option>
+                                            `+optionPabrik+`
                                         </select>
                                     </div>
                                 </div>
@@ -406,21 +481,15 @@
                                     <div class="form-group">
                                         <label class="form-label">Kadar</label>
                                         <select class="form-select" name="data[kadar][]" id="kadar_id_`+x+`" onchange="remakekodekadar()">
-                                            <option value=""  selected="">--</option>
-                                            <?php 
-                                            foreach ($kadars as $kadar) {
-                                                $nama = $kadar['kadar_nama']; 
-                                                $id = $kadar['kadar_id'];  
-                                                $kode = $kadar['kadar_kode'];  
-                                                echo "<option value='$id' data-attribute='$kode'>$nama</option>";}
-                                            ?> 
+                                            <option value=""   ="">--</option>
+                                            `+optionKadar+`
                                     </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="form-label">Berat</label>
-                                        <input class="form-control" type="number" step=0.01 value="0.01" min="0"
+                                        <input class="form-control" type="number" step=0.01 value="`+beratBarang+`" min="0"
                                             placeholder="Masukkan Berat" name="data[berat][]"
                                             id="barang_berat_`+x+`" onchange="remakekodeberat()"/>
                                     </div>
@@ -430,14 +499,8 @@
                                 <div class="col-sm-12"> 
                                     <label class="form-label">Model</label>
                                         <select class="form-select" name="data[model][]" id="model_id_`+x+`"  onchange="remakekodemodel()">
-                                            <option value=""  selected="">--</option>
-                                            <?php 
-                                            foreach ($models as $model) {
-                                                $nama = $model['model_nama']; 
-                                                $id = $model['model_id'];  
-                                                $kode = $model['model_kode'];  
-                                                echo "<option value='$id' data-attribute='$kode'>$nama</option>";}
-                                            ?> 
+                                            <option value=""   ="">--</option>
+                                            `+optionModel+`
                                         </select>
                                 </div>
                             </div> 
@@ -449,7 +512,7 @@
                                     </div>
                                 </div> 
                                 <div class="col-sm-10 form-group">
-                                    <textarea class="form-control mnh-100p" rows="4" id="barang_kondisi_`+x+`" name="data[kondisi][]"  placeholder="Kondisi"></textarea>
+                                    <textarea class="form-control mnh-100p" rows="4" id="barang_kondisi_`+x+`" name="data[kondisi][]"  placeholder="Kondisi"  >`+kondisiBarang+`</textarea>
                                 </div>
                             </div>
                             <div class="row gx-3">
@@ -496,23 +559,9 @@
             }
         });
 
+ 
 
-
-
-
-
-
-
-
-
-        ////////////////coba multi
-        //Remake Kode Barang 
-        //alert("aaaaaaaaaaaaaa");
-        //console.log("aaaaaaaaaaaaaaaaaaaa");
-        //inputElement.disabled = true;
-
-        //minus, klo dari 10 item ada yg sama semua aspek, maka nomer urut dari semua item sama
-        function remakekodenourut(i) {  
+         function remakekodenourut(i) {  
                 var inputElement = document.getElementById("barang_kode_"+i).value;   
                 var datas = @json($barangs);
                 var kodeBarang = inputElement.slice(0,8);
@@ -626,14 +675,7 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-            });
-            
-            /////////////////////////////////////////
-            /////////////
-            //nda masuk di script
-            /////////////
-            /////////////////////////////////////////
-            //alert("masuk script sebelum datatable 7");
+            }); 
 
             var datatable = $('#datatable_7').DataTable({
                 scrollX: true,
@@ -703,9 +745,18 @@
 
             // Create Data Barang.
             $('#barang-create').click(function() {
+                //kasih kembali button yang dikasih hilang setelah edit
+                var buttonTambah = document.getElementById("addBtnTicket");
+                buttonTambah.style.visibility = 'visible';
+
+                //kasih kosong id biar tidak masuk di controller edit
+                var tempx = x;
+                while (tempx >=1) { 
+                    $('#barang_id_'+tempx).val('');
+                    tempx--;
+                }
                 $('.alert').hide();
                 $('#saveBtn').val("create-barang");
-                $('#barang_id_1').val('');
                 $('#barangForm').trigger("reset");
                 $('#barangHeading').html("TAMBAH DATA BARANG BARU");
                 $('#barangModal').modal('show');
@@ -719,10 +770,7 @@
 
                 e.preventDefault();
 
-                $(this).html('Sending..');
-                //var form = $(this).serialize(); 
-                 
-                //  alert(form);
+                $(this).html('Sending..'); 
                  
                  $.ajax({
                     url: "{{ route('barang.store') }}",
@@ -782,6 +830,22 @@
                 //inputElement.disabled = true;
                 inputElement.disabled = false;
 
+
+                //hapus semua item tambahan
+                var buttonTambah = document.getElementById("addBtnTicket");
+                buttonTambah.style.visibility = 'hidden';
+
+                while (x > 1) {
+                    var hapus = document.getElementById("container"+x);
+
+                    if (hapus) { 
+                        var parentElement = hapus.parentNode;
+ 
+                        parentElement.removeChild(hapus);
+                        x--;
+                    }
+                }
+
                 var barang_id = $(this).attr('data-id');
                 $('.alert').hide();
                 $.ajax({
@@ -808,6 +872,8 @@
                         $('#model_id_1').val(response.model_id);
                         $('#barang_status_1').val(response.barang_status); 
                         $('#barang_foto_1').val('');
+
+
                     }
                 });
                 var inputElement = document.getElementById("barang_kode_1");

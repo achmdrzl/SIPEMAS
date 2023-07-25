@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('barang_kode');
             $table->string('barang_nama');
             $table->string('barang_foto')->nullable();
-            $table->double('barang_berat');
+            $table->double('barang_berat',15,2);
             $table->string('barang_lokasi')->nullable();
             $table->string('barang_kondisi')->nullable();
             $table->enum('barang_status', ['aktif', 'non-aktif'])->default('aktif');

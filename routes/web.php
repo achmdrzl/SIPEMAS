@@ -60,13 +60,7 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::post('/supplierStore', MasterDataController::class. '@supplierStore')->name("supplier.store");
     Route::post('/supplierkEdit', MasterDataController::class. '@supplierEdit')->name('supplier.edit');
     Route::post('/supplierDestroy', MasterDataController::class. '@supplierDestroy')->name('supplier.destroy');
-
-     // MASTER MERK
-     Route::get('/merk', MasterDataController::class . '@merkIndex')->name('merk.index');
-     Route::post('/merkStore', MasterDataController::class. '@merkStore')->name("merk.store");
-     Route::post('/merkkEdit', MasterDataController::class. '@merkEdit')->name('merk.edit');
-     Route::post('/merkDestroy', MasterDataController::class. '@merkDestroy')->name('merk.destroy');
-
+ 
     // MASTER DATA TRANSAKSI PENDAPATAN LAIN / PENGELUARAN
     Route::get('/transaksi-in_out', MasterDataController::class. '@transaksi_in_out')->name('transaksi.in.out');
     Route::post('/transaksiInOutStore', MasterDataController::class. '@transaksiInOutStore')->name('transaksiInOut.store');
