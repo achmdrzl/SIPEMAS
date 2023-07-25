@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('detail_pengeluaran_id');
             $table->string('pengeluaran_nobukti');
             $table->integer('kadar_id');
+            $table->integer('barang_id');
             $table->double('detail_pengeluaran_berat');
             $table->double('detail_pengeluaran_kembali');
             $table->string('detail_pengeluaran_kondisi');

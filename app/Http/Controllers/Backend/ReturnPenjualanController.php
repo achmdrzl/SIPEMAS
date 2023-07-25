@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Barang;
+use App\Models\Supplier;
+use App\Models\TransaksiPengeluaran;
+use App\Models\TransaksiPengeluaranDetail;
 use App\Models\TransaksiPenjualanReturn;
 use App\Models\TransaksiPenjualanReturnDetail;
 use Carbon\Carbon;
@@ -18,6 +21,8 @@ class ReturnPenjualanController extends Controller
     // INDEX RETURN PENJUALAN
     public function returnPenjualanIndex(Request $request)
     {
+        $supplier               = Supplier::where('status', 'aktif')->get();
+
         if ($request->ajax()) {
             $penjualanreturns   = TransaksiPenjualanReturn::with(['penjualan'])->latest()->get();
             return DataTables::of($penjualanreturns)
@@ -43,12 +48,14 @@ class ReturnPenjualanController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('penjualan.return-penjualan');
+
+        return view('penjualan.return-penjualan', compact('supplier'));
     }
 
     // STORED DATA RETURN PENJUALAN
     public function returnPenjualanStore(Request $request)
     {
+        // dd($request->all());
         //define validation rules  
         $validator = Validator::make($request->all(), [
             'detail_penjualan_return_berat' => 'required|array',
@@ -57,6 +64,7 @@ class ReturnPenjualanController extends Controller
             'detail_penjualan_return_harga_return.*' => 'required|numeric',
             'detail_penjualan_return_kondisi' => 'required|array',
             'detail_penjualan_return_kondisi.*' => 'required|in:LEBUR,CUCI,ETALASE,REPARASI',
+            'pembelian_supplier_id' => 'required_if:detail_penjualan_return_kondisi,CUCI,REPARASI',
         ], [
             'detail_penjualan_return_berat.required' => 'Berat Return must be included.',
             'detail_penjualan_return_berat.array' => 'Berat Return must be an array.',
@@ -70,6 +78,7 @@ class ReturnPenjualanController extends Controller
             'detail_penjualan_return_kondisi.array' => 'Kondisi must be an array.',
             'detail_penjualan_return_kondisi.*.required' => 'Each value in Kondisi must be present.',
             'detail_penjualan_return_kondisi.*.in' => 'Invalid value in Kondisi. Allowed values are: LEBUR, CUCI, ETALASE, REPARASI.',
+            'pembelian_supplier_id.required_if' => 'The supplier is required when the condition is CUCI or REPARASI.',
         ]);
 
         //check if validation fails
@@ -108,16 +117,17 @@ class ReturnPenjualanController extends Controller
         }
 
         // Generate the new ID
-        $newId      = $datePart . sprintf("%03d", $counter);
-        $nobukti    = 'RP.' . $datePart . sprintf("%03d", $counter);
-
+        $newId              = $datePart . sprintf("%03d", $counter);
+        $nobuktireturn      = 'RP.' . $datePart . sprintf("%03d", $counter);
+        $nobuktipengeluaran = 'LB.' . $datePart . sprintf("%03d", $counter);
+        
         for ($x = 0; $x < count($request->barang_id); $x++) {
 
             $penjualanreturn = TransaksiPenjualanReturn::updateOrCreate([
                 'penjualan_return_id'          => $newId,
             ], [
                 'penjualan_return_tanggal'     => $request->penjualan_return_tanggal,
-                'penjualan_return_nobukti'     => $nobukti,
+                'penjualan_return_nobukti'     => $nobuktireturn,
                 'penjualan_kode'               => $request->penjualan_kode[$x],
                 'penjualan_return_keterangan'  => $request->penjualan_return_keterangan == null ? '-' : $request->penjualan_return_keterangan,
                 'user_id'                      => Auth::user()->user_id,
@@ -127,7 +137,7 @@ class ReturnPenjualanController extends Controller
                 'detail_penjualan_return_id'                => $request->detail_penjualan_return_id,
             ], [
                 'barang_id'                                 => $request->barang_id[$x],
-                'penjualan_return_nobukti'                  => $nobukti,
+                'penjualan_return_nobukti'                  => $nobuktireturn,
                 'detail_penjualan_barang_berat'             => $request->penjualan_berat_jual[$x],
                 'detail_penjualan_return_berat'             => $request->detail_penjualan_return_berat[$x],
                 'detail_penjualan_return_harga_jual'        => $request->detail_penjualan_return_harga_jual[$x],
@@ -146,7 +156,28 @@ class ReturnPenjualanController extends Controller
 
             // CHECK STATUS KONDISI BARANG
             if ($barang->barang_lokasi == 'CUCI' || $barang->barang_lokasi == 'REPARASI') {
-                // 
+
+                $pengeluaran    = TransaksiPengeluaran::updateOrCreate([
+                    'pengeluaran_id'            => $request->pengeluaran_id,
+                ],[
+                    'pengeluaran_nobukti'       => $nobuktipengeluaran,
+                    'pengeluaran_tanggal'       => $request->penjualan_return_tanggal,
+                    'pengeluaran_keterangan'    => $request->pengeluaran_keterangan,
+                    'supplier_id'               => $request->pembelian_supplier_id,
+                    'user_id'                   => Auth::user()->user_id,
+                ]);
+
+                $detail         = TransaksiPengeluaranDetail::updateOrCreate([
+                    'detail_pengeluaran_id'         => $request->detail_pengeluaran_id,
+                ],[
+                    'pengeluaran_nobukti'           => $nobuktipengeluaran,
+                    'barang_id'                     => $request->barang_id[$x],
+                    'kadar_id'                      => $request->kadar_id[$x],
+                    'detail_pengeluaran_berat'      => $request->detail_penjualan_return_berat[$x],
+                    'detail_pengeluaran_kembali'    => 0,
+                    'detail_pengeluaran_kondisi'    => $request->detail_penjualan_return_kondisi[$x],
+                ]);
+
             } elseif ($barang->barang_lokasi == 'LEBUR') {
                 $barang->update(['barang_status'    => 'non-aktif']);
             } else {

@@ -3,7 +3,8 @@
 @push('style-alt')
     <style>
         .custom-modal-dialog {
-            max-width: 1280px; /* Set your desired width */
+            max-width: 1280px;
+            /* Set your desired width */
             width: 100%;
             margin: 1.75rem auto;
         }
@@ -54,13 +55,15 @@
                                                         <label class="form-label mb-xl-0">Tanggal :</label>
                                                     </div>
                                                     <div class="col-xl-auto mb-xl-0 mb-2">
-                                                        <input class="form-control" name="start_date" id="start_date" type="date" />
+                                                        <input class="form-control" name="start_date" id="start_date"
+                                                            type="date" />
                                                     </div>
                                                     <div class="col-xl-auto mb-xl-0 mb-2">
                                                         <label class="form-label mb-xl-0">s/d</label>
                                                     </div>
                                                     <div class="col-xl-auto mb-xl-0 mb-2">
-                                                        <input class="form-control" name="end_date" id="end_date" type="date" />
+                                                        <input class="form-control" name="end_date" id="end_date"
+                                                            type="date" />
                                                     </div>
                                                     <div class="col-xl-auto mb-xl-0 mb-2">
                                                         <button class="btn btn-sm btn-primary show-data"><span><span
@@ -106,14 +109,15 @@
                                                             <span class="badge badge-sm badge-light ms-1">5</span>
                                                         </h6>
                                                         <div class="card-action-wrap">
-                                                            <button class="btn btn-sm btn-primary ms-3 create-pembelian"><span><span
+                                                            <button
+                                                                class="btn btn-sm btn-primary ms-3 create-pembelian"><span><span
                                                                         class="icon"><span class="feather-icon"><i
                                                                                 data-feather="plus"></i></span></span><span
                                                                         class="btn-text">Tambah
                                                                         Pembelian</span></span></button>
                                                         </div>
                                                     </div>
-                                                     <div class="card-body">
+                                                    <div class="card-body">
                                                         <div class="contact-list-view">
                                                             <table id="datatable_8" class="table nowrap table-striped">
                                                                 <thead>
@@ -162,7 +166,7 @@
                     </div>
                     <form id="pembelianForm">
                         <div class="modal-body">
-                              <div class="alert alert-danger alert-dismissible fade show" role="alert"
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert"
                                 style="display: none;" style="color: red">
                             </div>
                             <div class="row">
@@ -172,7 +176,8 @@
                                             <label class="form-label mb-xl-0">Tanggal :</label>
                                         </div>
                                         <div class="col-xl-auto mb-xl-0 mb-2">
-                                            <input class="form-control" type="date" name="pembelian_tanggal" id="tanggal" value="{{ date('Y-m-d') }}" />
+                                            <input class="form-control" type="date" name="pembelian_tanggal"
+                                                id="tanggal" value="{{ date('Y-m-d') }}" />
                                         </div>
                                         <div class="col-xl-auto mb-xl-0 mb-2">
                                             <label class="form-label mb-xl-0">Supplier
@@ -181,8 +186,9 @@
                                         <div class="col-xl-auto mb-xl-0 mb-2">
                                             <select class="form-select" id="supplier_id" name="pembelian_supplier_id">
                                                 <option value="" selected disabled>--</option>
-                                                @foreach($supplier as $item)
-                                                    <option value="{{ $item->supplier_id }}">{{ $item->supplier_nama }}</option>
+                                                @foreach ($supplier as $item)
+                                                    <option value="{{ $item->supplier_id }}">{{ $item->supplier_nama }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -196,7 +202,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <table class="table">
                                 <thead>
                                     <th>No</th>
@@ -220,40 +226,52 @@
                                                 <tbody>
                                                     <tr>
                                                         <td colspan="3"
-                                                            class="rounded-top-start border-end-0 border-bottom-0">Subtotal :
+                                                            class="rounded-top-start border-end-0 border-bottom-0">Subtotal
+                                                            :
                                                         </td>
-                                                        <td class="rounded-top-end border-bottom-0 w-30 bg-primary-light-5">
+                                                        <td
+                                                            class="rounded-top-end border-bottom-0 w-30 bg-primary-light-5">
                                                             <input type="number"
                                                                 class="form-control bg-transparent border-0 p-0"
-                                                                value="0" id="subtotal" name="pembelian_subtotal" readonly>
+                                                                value="0" id="subtotal" name="pembelian_subtotal"
+                                                                readonly>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td class="border-end-0 border-bottom-0">Diskon : </td>
                                                         <td colspan="2" class="border-end-0 border-bottom-0 w-25">
-                                                            <input type="number" class="form-control"
-                                                                value="0" id="inputdiskon" name="inputdiskon"></td>
-                                                        <td class="border-bottom-0  bg-primary-light-5"><input type="number"
+                                                            <input type="number" class="form-control" value="0"
+                                                                id="inputdiskon" name="inputdiskon">
+                                                        </td>
+                                                        <td class="border-bottom-0  bg-primary-light-5"><input
+                                                                type="number"
                                                                 class="form-control bg-transparent border-0 p-0"
-                                                                value="0" id="diskon" name="pembelian_diskon" readonly></td>
+                                                                value="0" id="diskon" name="pembelian_diskon"
+                                                                readonly></td>
                                                     </tr>
                                                     <tr>
                                                         <td class="border-end-0 border-bottom-0">PPN : </td>
                                                         <td colspan="2" class="border-end-0 border-bottom-0 w-25">
-                                                            <input type="number" class="form-control"
-                                                                value="0" id="inputppn" name="inputppn"></td>
+                                                            <input type="number" class="form-control" value="0"
+                                                                id="inputppn" name="inputppn">
+                                                        </td>
                                                         <td class="border-bottom-0  bg-primary-light-5">
-                                                            <input type="number" class="form-control bg-transparent border-0 p-0"
-                                                                value="0" id="ppn" name="pembelian_ppn" readonly></td>
+                                                            <input type="number"
+                                                                class="form-control bg-transparent border-0 p-0"
+                                                                value="0" id="ppn" name="pembelian_ppn"
+                                                                readonly>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="3"
-                                                            class="rounded-bottom-start border-end-0 bg-primary-light-5"><span
-                                                                class="text-dark">Grand Total</span></td>
+                                                            class="rounded-bottom-start border-end-0 bg-primary-light-5">
+                                                            <span class="text-dark">Grand Total</span></td>
                                                         <td class="rounded-bottom-end  bg-primary-light-5">
                                                             <input type="number"
                                                                 class="form-control bg-transparent border-0 p-0"
-                                                                value="0" id="grandtotal" name="pembelian_grandtotal" readonly></td>
+                                                                value="0" id="grandtotal"
+                                                                name="pembelian_grandtotal" readonly>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -297,17 +315,16 @@
 
 @push('script-alt')
     <script>
+        $(document).ready(function() {
 
-        $(document).ready(function(){
-
-             $.ajaxSetup({
+            $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
 
             // DISPLAY TRANSAKSI PEMBELIAN
-             var transaksiPembelian = $('#datatable_7').DataTable({
+            var transaksiPembelian = $('#datatable_7').DataTable({
                 scrollX: true,
                 autoWidth: false,
                 language: {
@@ -333,7 +350,7 @@
                     {
                         data: 'pembelian_tanggal',
                         name: 'pembelian_tanggal',
-                    },  
+                    },
                     {
                         data: 'pembelian_nobukti',
                         name: 'pembelian_nobukti'
@@ -353,10 +370,10 @@
                 ],
             });
 
-           // FILTERED DATA
-           $('.show-data').on('click', function() {
-                var startDate   = $('#start_date').val();
-                var endDate     = $('#end_date').val();
+            // FILTERED DATA
+            $('.show-data').on('click', function() {
+                var startDate = $('#start_date').val();
+                var endDate = $('#end_date').val();
 
                 // Perform validation checks
                 if (startDate === '' || endDate === '') {
@@ -382,16 +399,16 @@
                     url: "{{ route('filtered.data.pembelian') }}",
                     data: {
                         startDate: startDate,
-                        endDate: endDate, 
+                        endDate: endDate,
                     },
                     dataType: "JSON",
-                    success: function (response) {
-                        
-                        if(response.data.length > 0){
+                    success: function(response) {
+
+                        if (response.data.length > 0) {
 
                             // Destroy the existing DataTable
                             transaksiPembelian.destroy();
-    
+
                             // Reinitialize the DataTable with the updated data
                             transaksiPembelian = $('#datatable_7').DataTable({
                                 scrollX: true,
@@ -406,19 +423,21 @@
                                     }
                                 },
                                 "drawCallback": function() {
-                                    $('.dataTables_paginate > .pagination').addClass(
-                                        'custom-pagination pagination-simple');
+                                    $('.dataTables_paginate > .pagination')
+                                        .addClass(
+                                            'custom-pagination pagination-simple');
                                 },
                                 // Other DataTable options
-                                data: response.data, // Pass the updated data to the DataTable
-                                 columns: [{
-                                    data: 'DT_RowIndex',
-                                    name: 'DT_RowIndex'
+                                data: response
+                                .data, // Pass the updated data to the DataTable
+                                columns: [{
+                                        data: 'DT_RowIndex',
+                                        name: 'DT_RowIndex'
                                     },
                                     {
                                         data: 'pembelian_tanggal',
                                         name: 'pembelian_tanggal',
-                                    },  
+                                    },
                                     {
                                         data: 'pembelian_nobukti',
                                         name: 'pembelian_nobukti'
@@ -437,12 +456,12 @@
                                     },
                                 ],
                             });
-    
+
                             // Hide the loading state
                             $('#datatable_7').removeClass('loading');
 
-                        }else{
-                             Swal.fire({
+                        } else {
+                            Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
                                 text: 'Data based on input date is null!',
@@ -455,57 +474,57 @@
             });
 
             // RESTART FILTER
-            $(".restart-sorting").on('click', function(){
+            $(".restart-sorting").on('click', function() {
                 $('#start_date').val('');
                 $('#end_date').val('');
                 // Destroy the existing DataTable
                 transaksiPembelian.destroy();
                 // DISPLAY TRANSAKSI PEMBELIAN
                 transaksiPembelian = $('#datatable_7').DataTable({
-                scrollX: true,
-                autoWidth: false,
-                language: {
-                    search: "",
-                    searchPlaceholder: "Search",
-                    sLengthMenu: "_MENU_item",
-                    paginate: {
-                        next: '<i class="ri-arrow-right-s-line"></i>', // or '→'
-                        previous: '<i class="ri-arrow-left-s-line"></i>' // or '←' 
-                    }
-                },
-                "drawCallback": function() {
-                    $('.dataTables_paginate > .pagination').addClass(
-                        'custom-pagination pagination-simple');
-                },
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('pembelian.index') }}",
-                columns: [{
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex'
+                    scrollX: true,
+                    autoWidth: false,
+                    language: {
+                        search: "",
+                        searchPlaceholder: "Search",
+                        sLengthMenu: "_MENU_item",
+                        paginate: {
+                            next: '<i class="ri-arrow-right-s-line"></i>', // or '→'
+                            previous: '<i class="ri-arrow-left-s-line"></i>' // or '←' 
+                        }
                     },
-                    {
-                        data: 'pembelian_tanggal',
-                        name: 'pembelian_tanggal',
-                    },  
-                    {
-                        data: 'pembelian_nobukti',
-                        name: 'pembelian_nobukti'
+                    "drawCallback": function() {
+                        $('.dataTables_paginate > .pagination').addClass(
+                            'custom-pagination pagination-simple');
                     },
-                    {
-                        data: 'pembelian_supplier_id',
-                        name: 'pembelian_supplier_id'
-                    },
-                    {
-                        data: 'pembelian_grandtotal',
-                        name: 'pembelian_grandtotal'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action'
-                    },
-                ],
-            });
+                    processing: true,
+                    serverSide: true,
+                    ajax: "{{ route('pembelian.index') }}",
+                    columns: [{
+                            data: 'DT_RowIndex',
+                            name: 'DT_RowIndex'
+                        },
+                        {
+                            data: 'pembelian_tanggal',
+                            name: 'pembelian_tanggal',
+                        },
+                        {
+                            data: 'pembelian_nobukti',
+                            name: 'pembelian_nobukti'
+                        },
+                        {
+                            data: 'pembelian_supplier_id',
+                            name: 'pembelian_supplier_id'
+                        },
+                        {
+                            data: 'pembelian_grandtotal',
+                            name: 'pembelian_grandtotal'
+                        },
+                        {
+                            data: 'action',
+                            name: 'action'
+                        },
+                    ],
+                });
 
             })
 
@@ -540,7 +559,7 @@
                     {
                         data: 'barang_nama',
                         name: 'barang_nama'
-                    },  
+                    },
                     {
                         data: 'barang_berat',
                         name: 'barang_berat'
@@ -591,13 +610,13 @@
                 var selectedValues = [];
 
                 $('.row-checkbox:checked').each(function() {
-                    var row         = $(this).closest('tr');
-                    var rowData     = listbarang.row(row).data();
-                    var barang_id   = rowData.barang_id;
+                    var row = $(this).closest('tr');
+                    var rowData = listbarang.row(row).data();
+                    var barang_id = rowData.barang_id;
                     selectedValues.push(barang_id);
                 });
 
-                if(selectedValues.length > 0){
+                if (selectedValues.length > 0) {
                     $('#pembelianModal').modal('show');
                     // REQUEST SELECTED BARANG
                     $.ajax({
@@ -607,30 +626,35 @@
                             barang_id: selectedValues,
                         },
                         dataType: "JSON",
-                        success: function (response) {
+                        success: function(response) {
                             console.log(response)
                             var listbarang = '';
                             var no = 1;
                             // LOOPING BARANG
-                            $.each(response, function (index, value) { 
-                                const barangid     = value['barang_id']
-                                const barangkode   = value['barang_kode']
-                                const barangnama   = value['barang_nama']
-                                const barangberat  = value['barang_berat']
-                                const kadar        = value['kadar']['kadar_nama']
-    
+                            $.each(response, function(index, value) {
+                                const barangid = value['barang_id']
+                                const barangkode = value['barang_kode']
+                                const barangnama = value['barang_nama']
+                                const barangberat = value['barang_berat']
+                                const kadar = value['kadar']['kadar_nama']
+
                                 listbarang += `<tr>
-                                                    <td>`+ no++ +`</td>
-                                                    <td>`+ barangkode +`</td>
-                                                    <td>`+ barangnama +`</td>
-                                                    <td>`+ kadar +`</td>
-                                                    <td>`+ barangberat +`</td>
+                                                    <td>` + no++ + `</td>
+                                                    <td>` + barangkode + `</td>
+                                                    <td>` + barangnama + `</td>
+                                                    <td>` + kadar + `</td>
+                                                    <td>` + barangberat +
+                                    `</td>
                                                     <td>
-                                                        <input class="form-control" id="barang_id" type="hidden" value="`+ barangid +`"
+                                                        <input class="form-control" id="barang_id" type="hidden" value="` +
+                                    barangid +
+                                    `"
                                                             placeholder="Harga Beli" name="barang_id[]" />
-                                                        <input class="form-control barang_berat" type="hidden" value="`+ barangberat +`"
+                                                        <input class="form-control barang_berat" type="hidden" value="` +
+                                    barangberat + `"
                                                             placeholder="Harga Beli" name="detail_pembelian_barang_berat[]" />
-                                                        <input class="form-control kadar" type="hidden" value="`+ kadar +`"
+                                                        <input class="form-control kadar" type="hidden" value="` +
+                                    kadar + `"
                                                             placeholder="Harga Beli" name="detail_pembelian_kadar[]" />
                                                         <input class="form-control jmlbeli" type="hidden" value=""
                                                             placeholder="Harga Beli" name="detail_pembelian_jml_beli[]" />
@@ -642,13 +666,13 @@
                                                     <td> <input class="form-control total" type="number" value=""
                                                             placeholder="Jumlah Harga" name="detail_pembelian_total[]" readonly /></td>
                                                 </tr>`;
-    
+
                             });
                             $("#list-barang").html(listbarang)
                         }
                     });
 
-                }else{
+                } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -659,19 +683,20 @@
                 }
             });
 
-           // Calculate and update the totals for each row
-           $('body').on('input', '.harga_beli, .nilai_tukar, #inputdiskon, #inputppn', function() {
+            // Calculate and update the totals for each row
+            $('body').on('input', '.harga_beli, .nilai_tukar, #inputdiskon, #inputppn', function() {
                 var row = $(this).closest('tr');
                 var hargaBeli = parseFloat(row.find('.harga_beli').val()) || 0;
                 var nilaiTukar = parseFloat(row.find('.nilai_tukar').val()) || 0;
                 var barangBerat = parseFloat(row.find('.barang_berat').val()) || 0;
                 var jmlbeli = hargaBeli * nilaiTukar; // Harga Beli * Nilai Tukar
                 var total = barangBerat * hargaBeli * nilaiTukar; // Barang Berat * Harga Beli * Nilai Tukar
-                var decimalPlaces = 2; // Change this number to round to a different number of decimal places
+                var decimalPlaces =
+                2; // Change this number to round to a different number of decimal places
 
                 // Round the total value to the specified decimal places
                 total = parseFloat(total.toFixed(decimalPlaces));
-                
+
                 row.find('.jmlbeli').val(jmlbeli);
                 row.find('.total').val(total);
                 calculateGrandTotal();
@@ -690,12 +715,12 @@
 
                 var grandTotal = (subtotal - diskon) + ppn;
 
-                $('#subtotal').val(subtotal);                
+                $('#subtotal').val(subtotal);
                 $('#diskon').val(diskon);
                 $('#ppn').val(ppn);
                 $('#grandtotal').val(grandTotal);
             }
-            
+
             // RUNNING FUNCTION SUM GRAND TOTAL
             calculateGrandTotal();
 
@@ -754,7 +779,7 @@
             });
 
             // DETAIL PEMBELIAN
-            $('body').on('click', '#detail-pembelian', function(){
+            $('body').on('click', '#detail-pembelian', function() {
                 var pembelian_id = $(this).attr('data-id')
                 $('.alert').hide();
                 $('#saveBtn').val("create-barang");
@@ -772,52 +797,58 @@
                         pembelian_id: pembelian_id,
                     },
                     dataType: "JSON",
-                    success: function (response) {
+                    success: function(response) {
                         console.log(response)
                         const pembelian_tanggal = response.pembelian_tanggal;
-                        const supplier_id       = response.supplier_id;
-                        const keterangan        = response.pembelian_keterangan;
-                        const subtotal          = response.pembelian_subtotal;
-                        const diskon            = response.pembelian_diskon;
-                        const ppn               = response.pembelian_ppn;
-                        const grandtotal        = response.pembelian_grandtotal;
+                        const supplier_id = response.supplier_id;
+                        const keterangan = response.pembelian_keterangan;
+                        const subtotal = response.pembelian_subtotal;
+                        const diskon = response.pembelian_diskon;
+                        const ppn = response.pembelian_ppn;
+                        const grandtotal = response.pembelian_grandtotal;
 
                         $("#tanggal").val(pembelian_tanggal).prop('readonly', true)
                         $("#supplier_id").val(supplier_id).prop('readonly', true)
                         $("#keterangan").val(keterangan).prop('readonly', true)
                         $('#inputdiskon').val(diskon).prop('readonly', true);
                         $('#inputppn').val(ppn).prop('readonly', true);
-                        $('#subtotal').val(subtotal)                
+                        $('#subtotal').val(subtotal)
                         $('#diskon').val(diskon)
                         $('#ppn').val(ppn)
                         $('#grandtotal').val(grandtotal)
 
                         var detailListBarang = '';
                         var no = 1;
-                        $.each(response.pembeliandetail, function (index, value) { 
-                            const kadar         = value['detail_pembelian_kadar']
-                            const berat         = value['detail_pembelian_berat']
-                            const harga_beli    = value['detail_pembelian_harga_beli']
-                            const nilai_tukar   = value['detail_pembelian_nilai_tukar']
-                            const total         = value['detail_pembelian_total']
+                        $.each(response.pembeliandetail, function(index, value) {
+                            const kadar = value['detail_pembelian_kadar']
+                            const berat = value['detail_pembelian_berat']
+                            const harga_beli = value['detail_pembelian_harga_beli']
+                            const nilai_tukar = value['detail_pembelian_nilai_tukar']
+                            const total = value['detail_pembelian_total']
 
-                            const barang_kode   = value['barang']['barang_kode']
-                            const barang_nama   = value['barang']['barang_nama']
+                            const barang_kode = value['barang']['barang_kode']
+                            const barang_nama = value['barang']['barang_nama']
 
                             detailListBarang += `<tr>
-                                                    <td>`+ no++ +`</td>
-                                                    <td>`+ barang_kode +`</td>
-                                                    <td>`+ barang_nama +`</td>
-                                                    <td>`+ kadar +`</td>
-                                                    <td>`+ berat +`</td>
+                                                    <td>` + no++ + `</td>
+                                                    <td>` + barang_kode + `</td>
+                                                    <td>` + barang_nama + `</td>
+                                                    <td>` + kadar + `</td>
+                                                    <td>` + berat +
+                                `</td>
                                                     <td>
                                                         <input class="form-control harga_beli" type="number"
-                                                            placeholder="Harga Beli" name="detail_pembelian_harga_beli[]" value="`+ harga_beli +`" readonly />
+                                                            placeholder="Harga Beli" name="detail_pembelian_harga_beli[]" value="` +
+                                harga_beli +
+                                `" readonly />
                                                     </td>
                                                     <td> <input class="form-control nilai_tukar" type="number"
-                                                            placeholder="Nilai Tukar" name="detail_pembelian_nilai_tukar[]" value="`+ nilai_tukar +`" readonly /></td>
+                                                            placeholder="Nilai Tukar" name="detail_pembelian_nilai_tukar[]" value="` +
+                                nilai_tukar +
+                                `" readonly /></td>
                                                     <td> <input class="form-control total" type="number"
-                                                            placeholder="Jumlah Harga" name="detail_pembelian_total[]" value="`+ total +`" readonly /></td>
+                                                            placeholder="Jumlah Harga" name="detail_pembelian_total[]" value="` +
+                                total + `" readonly /></td>
                                                 </tr>`;
                         });
                         $("#list-barang").html(detailListBarang)
