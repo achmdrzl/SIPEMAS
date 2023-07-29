@@ -19,6 +19,7 @@ use Milon\Barcode\DNS1D;
 use Yajra\DataTables\Facades\DataTables;  
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
 use PDF;
 use Psy\Readline\Hoa\Console;
@@ -390,12 +391,36 @@ class MasterBarangController extends Controller
         return response()->json($barangs);
     }
     public function generatepdf($barang_id, Request $request)
-    {
-        //dd($barang_id);
-        $barcodeHTML = DNS1D::getBarcodeHTML($barang_id, 'CODABAR', 2, 50);
+    { 
+        //urutan cetak
+        //berat
+        //kadar
+        //model
+        //barcode
+        //kode
+        $barcodeHTML = DNS1D::getBarcodeHTML($barang_id, 'CODABAR', 1.2, 30);
 
-        $tes = "<h1>halo halo</h1>";
-        $pdf = PDF::loadView('masterdata.pdf-barcode', ['data' => $barcodeHTML]); 
+        $tempBarang = Barang::find($barang_id);
+
+        $beratBarang = $tempBarang->barang_berat;
+
+        $tempKadar = Kadar::find($tempBarang->kadar_id);
+        $kadarBarang = $tempKadar->kadar_nama;
+
+
+        $tempModel = ModelBarang::find($tempBarang->model_id);
+        $modelBarang = $tempModel->model_nama; 
+
+        $kodeBarang = $tempBarang->barang_kode;
+
+ 
+        $pdf = PDF::loadView('masterdata.pdf-barcode', [
+            'data' => $barcodeHTML, 
+            'berat' => $beratBarang, 
+            'kadar' => $kadarBarang, 
+            'model' => $modelBarang, 
+            'kode' => $kodeBarang
+        ]); 
         return $pdf->download('barcode.pdf');
     }
     public function barangBarcode(Request $request)

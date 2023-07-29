@@ -24,8 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PabrikSeeder::class);
         $this->call(KadarSeeder::class);
         $this->call(SupplierSeeder::class);
-        $this->call(ModelSeeder::class);
-        $this->call(MerkSeeder::class);
+        $this->call(ModelSeeder::class); 
         $this->call(BarangSeeder::class);
     }
 }
