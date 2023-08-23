@@ -20,7 +20,7 @@
                 <div class="d-flex">
                     <div class="d-flex flex-wrap justify-content-between flex-1">
                         <div class="mb-lg-0 mb-2 me-8">
-                            <h1 class="pg-title">Transaksi Return Penjualan</h1>
+                            <h1 class="pg-title">Transaksi Penerimaan Barang</h1>
                             <p>Restock Kebutuhan Barang Pada Toko Emas</p>
                         </div>
                     </div>
@@ -28,12 +28,12 @@
                 <ul class="nav nav-line nav-light nav-tabs">
                     <li class="nav-item">
                         <a class="nav-link active" data-bs-toggle="tab" href="#data_penjualan">
-                            <span class="nav-link-text">Data Return Penjualan</span>
+                            <span class="nav-link-text">Data Penerimaan Barang</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="tab" href="#input_penjualan">
-                            <span class="nav-link-text">Input Return Penjualan</span>
+                            <span class="nav-link-text">Input Penerimaan Barang</span>
                         </a>
                     </li>
                 </ul>
@@ -88,7 +88,7 @@
                                                             <th>No</th>
                                                             <th>No Bukti</th>
                                                             <th>Tanggal</th>
-                                                            <th>No Faktur</th>
+                                                            <th>Supplier</th>
                                                             <th>Keterangan</th>
                                                             <th>Action</th>
                                                         </tr>
@@ -109,11 +109,10 @@
                                                         </h6>
                                                         <div class="card-action-wrap">
                                                             <button
-                                                                class="btn btn-sm btn-primary ms-3 create-penjualan-return"><span><span
+                                                                class="btn btn-sm btn-primary ms-3 create-penerimaan-barang"><span><span
                                                                         class="icon"><span class="feather-icon"><i
                                                                                 data-feather="plus"></i></span></span><span
-                                                                        class="btn-text">Tambah Return
-                                                                        Penjualan</span></span></button>
+                                                                        class="btn-text">Tambah Penerimaan Barang</span></span></button>
                                                         </div>
                                                     </div>
                                                     <div class="card-body">
@@ -152,17 +151,17 @@
         </div>
 
         {{-- Modal Tambah Penjualan --}}
-        <div class="modal fade" id="penjualanreturnModal" tabindex="-1" role="dialog" aria-labelledby="modalSupplier"
+        <div class="modal fade" id="penerimaanModal" tabindex="-1" role="dialog" aria-labelledby="modalSupplier"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered custom-modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h6 id="tambahpenjualanreturnHeading"></h6>
+                        <h6 id="tambahpenerimaanHeading"></h6>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <form id="penjualanreturnForm">
+                    <form id="penerimaanForm">
                         <div class="modal-body">
                             <div class="alert alert-danger alert-dismissible fade show" role="alert"
                                 style="display: none;" style="color: red"></div>
@@ -173,8 +172,8 @@
                                             <label class="form-label mb-xl-0">Tanggal :</label>
                                         </div>
                                         <div class="col-xl-auto mb-xl-0 mb-2">
-                                            <input class="form-control" type="date" id="penjualan_return_tanggal"
-                                                name="penjualan_return_tanggal" value="{{ date('Y-m-d') }}" />
+                                            <input class="form-control" type="date" id="pengeluaran_tanggal"
+                                                name="pengeluaran_tanggal" value="{{ date('Y-m-d') }}" />
                                         </div>
                                         <div class="col-xl-auto mb-xl-0 mb-2" id="supplier-label">
                                             
@@ -190,13 +189,6 @@
                                         <div class="col-xl-auto mb-xl-0 mb-2" id="keterangan-data">
                                             
                                         </div>
-                                        
-                                        <div class="col-xl-auto mb-xl-0 mb-2">
-                                            <label class="form-label mb-xl-0">Keterangan :</label>
-                                        </div>
-                                        <div class="col-xl-auto mb-xl-0 mb-2">
-                                            <textarea class="form-control" id="penjualan_return_keterangan" name="penjualan_return_keterangan"></textarea>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -206,42 +198,16 @@
                                     <th>Kode Barang</th>
                                     <th>Nama Barang</th>
                                     <th>Berat Asli</th>
-                                    <th>Berat Return</th>
-                                    <th>Harga Jual</th>
-                                    <th>Harga Return</th>
-                                    <th>Potongan</th>
-                                    <th>Jumlah</th>
+                                    <th>Berat Kembali</th>
                                     <th>Kondisi</th>
                                 </thead>
                                 <tbody id="list-barang">
                                 </tbody>
                             </table>
-                            <div class="row justify-content-end">
-                                <div class="col-xxl-8 mt-5">
-                                    <div class="table-wrap">
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered subtotal-table">
-                                                <tbody>
-                                                    <tr>
-                                                        <td colspan="3"
-                                                            class="rounded-bottom-start border-end-0 bg-primary-light-5">
-                                                            <span class="text-dark">Total</span></td>
-                                                        <td class="rounded-bottom-end  bg-primary-light-5"><input
-                                                                type="number"
-                                                                class="form-control bg-transparent border-0 p-0"
-                                                                value="0" id="penjualan_return_grandtotal"
-                                                                name="penjualan_return_grandtotal" readonly></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="modal-footer align-items-center">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" id="submitPenjualanReturn" class="btn btn-primary">Simpan</button>
+                            <button type="submit" id="submitPenerimaan" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -282,17 +248,7 @@
                 }
             });
 
-            // FORMAT CURRENCY
-            const rupiah = (number) => {
-                return new Intl.NumberFormat("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 0
-                }).format(number);
-            }
-
-            var transaksiPenjualanReturn = $('#datatable_7').DataTable({
+            var transaksiPenerimaan = $('#datatable_7').DataTable({
                 scrollX: true,
                 autoWidth: false,
                 language: {
@@ -310,26 +266,26 @@
                 },
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('penjualan.return.index') }}",
+                ajax: "{{ route('penerimaan.index') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
                     },
                     {
-                        data: 'penjualan_return_nobukti',
-                        name: 'penjualan_return_nobukti'
+                        data: 'pengeluaran_nobukti',
+                        name: 'pengeluaran_nobukti'
                     },
                     {
-                        data: 'penjualan_return_tanggal',
-                        name: 'penjualan_return_tanggal'
+                        data: 'pengeluaran_tanggal',
+                        name: 'pengeluaran_tanggal'
                     },
                     {
-                        data: 'penjualan_nobukti',
-                        name: 'penjualan_nobukti'
+                        data: 'supplier_nama',
+                        name: 'supplier_nama'
                     },
                     {
-                        data: 'penjualan_return_keterangan',
-                        name: 'penjualan_return_keterangan'
+                        data: 'pengeluaran_keterangan',
+                        name: 'pengeluaran_keterangan'
                     },
                     {
                         data: 'action',
@@ -407,14 +363,14 @@
                     return;
                 }
 
-                transaksiPenjualanReturn.one('preDraw', function() {
+                transaksiPenerimaan.one('preDraw', function() {
                     // Display the loading state
                     $('#datatable_7').addClass('loading');
                 }).draw();
 
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('filtered.data.penjualan.return') }}",
+                    url: "{{ route('filtered.data.penerimaan') }}",
                     data: {
                         startDate: startDate,
                         endDate: endDate,
@@ -425,10 +381,10 @@
                         if (response.data.length > 0) {
 
                             // Destroy the existing DataTable
-                            transaksiPenjualanReturn.destroy();
+                            transaksiPenerimaan.destroy();
 
                             // Reinitialize the DataTable with the updated data
-                            transaksiPenjualanReturn = $('#datatable_7').DataTable({
+                            transaksiPenerimaan = $('#datatable_7').DataTable({
                                 scrollX: true,
                                 autoWidth: false,
                                 language: {
@@ -453,20 +409,20 @@
                                         name: 'DT_RowIndex'
                                     },
                                     {
-                                        data: 'penjualan_return_nobukti',
-                                        name: 'penjualan_return_nobukti'
+                                        data: 'pengeluaran_nobukti',
+                                        name: 'pengeluaran_nobukti'
                                     },
                                     {
-                                        data: 'penjualan_return_tanggal',
-                                        name: 'penjualan_return_tanggal'
+                                        data: 'pengeluaran_tanggal',
+                                        name: 'pengeluaran_tanggal'
                                     },
                                     {
-                                        data: 'penjualan_nobukti',
-                                        name: 'penjualan_nobukti'
+                                        data: 'supplier_nama',
+                                        name: 'supplier_nama'
                                     },
                                     {
-                                        data: 'penjualan_return_keterangan',
-                                        name: 'penjualan_return_keterangan'
+                                        data: 'pengeluaran_keterangan',
+                                        name: 'pengeluaran_keterangan'
                                     },
                                     {
                                         data: 'action',
@@ -496,9 +452,9 @@
                 $('#start_date').val('');
                 $('#end_date').val('');
                 // Destroy the existing DataTable
-                transaksiPenjualanReturn.destroy();
+                transaksiPenerimaan.destroy();
                 // DISPLAY TRANSAKSI PEMBELIAN
-                transaksiPenjualanReturn = $('#datatable_7').DataTable({
+                transaksiPenerimaan = $('#datatable_7').DataTable({
                     scrollX: true,
                     autoWidth: false,
                     language: {
@@ -516,26 +472,26 @@
                     },
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('penjualan.return.index') }}",
+                    ajax: "{{ route('penerimaan.index') }}",
                     columns: [{
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex'
                         },
                         {
-                            data: 'penjualan_return_nobukti',
-                            name: 'penjualan_return_nobukti'
+                            data: 'pengeluaran_nobukti',
+                            name: 'pengeluaran_nobukti'
                         },
                         {
-                            data: 'penjualan_return_tanggal',
-                            name: 'penjualan_return_tanggal'
+                            data: 'pengeluaran_tanggal',
+                            name: 'pengeluaran_tanggal'
                         },
                         {
-                            data: 'penjualan_nobukti',
-                            name: 'penjualan_nobukti'
+                            data: 'supplier_nama',
+                            name: 'supplier_nama'
                         },
                         {
-                            data: 'penjualan_return_keterangan',
-                            name: 'penjualan_return_keterangan'
+                            data: 'pengeluaran_keterangan',
+                            name: 'pengeluaran_keterangan'
                         },
                         {
                             data: 'action',
@@ -546,15 +502,15 @@
 
             })
 
-            //  CREATE DATA PENJUALAN.
-            $('.create-penjualan-return').click(function() {
+            //  CREATE DATA PENERIMAAN.
+            $('.create-penerimaan-barang').click(function() {
                 $('.alert').hide();
                 $('#saveBtn').val("create-barang");
-                $('#penjualanreturnForm').trigger("reset");
-                $('#tambahpenjualanreturnHeading').html("TAMBAH DATA PENJUALAN RETURN BARU")
+                $('#penerimaanForm').trigger("reset");
+                $('#tambahpenerimaanHeading').html("TAMBAH DATA PENERIMAAN BARU")
                 $("#penjualan_return_tanggal").prop('readonly', false)
                 $("#penjualan_return_keterangan").prop('readonly', false)
-                $("#submitPenjualanReturn").prop('hidden', false);
+                $("#submitPenerimaan").prop('hidden', false);
                 $("#list-barang").html('')
 
                 var selectedValues = [];
@@ -566,8 +522,8 @@
                     selectedValues.push(barang_id);
                 });
 
-                if (selectedValues.length === 1) {
-                    $('#penjualanreturnModal').modal('show');
+                    if (selectedValues.length > 0) {
+                    $('#penerimaanModal').modal('show');
                     // REQUEST SELECTED BARANG
                     $.ajax({
                         type: "POST",
@@ -582,90 +538,42 @@
                             var no = 1;
                             // LOOPING BARANG
                             $.each(response, function(index, value) {
-                                const barangid      = value['barang_id']
-                                const kadar         = value['kadar_id']
-                                const barangkode    = value['barang_kode']
-                                const barangnama    = value['barang_nama']
-                                const barangberat   = value['barang_berat']
+                                const barangid    = value['barang_id']
+                                const barangkode  = value['barang_kode']
+                                const barangnama  = value['barang_nama']
+                                const barangberat = value['barang_berat']
+                                const kadar       = value['kadar']['kadar_id']
 
-                                const harga_jual = value.transaksipenjualandetail
-                                    .length > 0 ?
-                                    value.transaksipenjualandetail[value
-                                        .transaksipenjualandetail.length - 1]
-                                    .detail_penjualan_harga :
-                                    0;
-
-                                const penjualan_kode = value.transaksipenjualandetail
-                                    .length > 0 ?
-                                    value.transaksipenjualandetail[value
-                                        .transaksipenjualandetail.length - 1]
-                                    .penjualan_id :
-                                    0;
-
-                                const berat_jual = value.transaksipenjualandetail
-                                    .length > 0 ?
-                                    value.transaksipenjualandetail[value
-                                        .transaksipenjualandetail.length - 1]
-                                    .detail_penjualan_berat_jual :
-                                    0;
-
-                                // CHECK SELECTED ITEMS, WHETHER SALES HAVE BEEN MADE
-                                if (penjualan_kode === 0) {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Oops...',
-                                        text: 'Please crosscheck your selected items!',
-                                        showConfirmButton: false,
-                                        timer: 2000
-                                    });
-                                    $('#penjualanreturnModal').modal('hide');
-                                } else {
-                                    listbarang += `<tr>
-                                                        <td>` + no++ + `</td>
-                                                        <td>` + barangkode + `</td>
-                                                        <td>` + barangnama + `</td>
-                                                        <td>` + barangberat + `</td>
-                                                        <td>
-                                                            <input class="form-control barang_id" type="hidden" value="` +  barangid + `"
-                                                                placeholder="Barang Id" name="barang_id[]" />
-                                                            <input class="form-control kadar_id" type="hidden" value="` +  kadar + `"
-                                                                placeholder="Barang Id" name="kadar_id[]" />
-                                                            <input class="form-control penjualan_kode" type="hidden" value="` + penjualan_kode + `"
-                                                                placeholder="Barang Id" name="penjualan_kode[]" />
-                                                            <input class="form-control penjualan_berat_jual" type="hidden" value="` + berat_jual + `"
-                                                                placeholder="Barang Id" name="penjualan_berat_jual[]" />
-                                                            <input class="form-control return_berat" type="number" value=""
-                                                                placeholder="Berat Return" name="detail_penjualan_return_berat[]" />
-                                                        </td>
-                                                        <td> <input class="form-control return_harga_jual" type="number" value="` + harga_jual + `"
-                                                                placeholder="Harga Jual" name="detail_penjualan_return_harga_jual[]" readonly />
-                                                        </td>
-                                                        <td> <input class="form-control return_harga_return" type="number" value=""
-                                                                placeholder="Harga Return" name="detail_penjualan_return_harga_return[]" />
-                                                        </td>
-                                                        <td> <input class="form-control return_potongan" type="number" value="0"
-                                                                placeholder="Potongan" name="detail_penjualan_return_potongan[]" />
-                                                        </td>
-                                                        <td> <input class="form-control return_total" type="number" value=""
-                                                                placeholder="Jumlah Harga" name="detail_penjualan_return_total[]" readonly />
-                                                        </td>
-                                                         <td> <select class="form-select return_kondisi" name="detail_penjualan_return_kondisi[]">
-                                                                    <option value="" selected disabled>--</option>
-                                                                    <option value="CUCI">Cuci</option>
-                                                                    <option value="LEBUR">Lebur</option>
-                                                                    <option value="REPARASI">Reparasi</option>
-                                                                    <option value="ETALASE">Etalase</option>
-                                                                </select>
-                                                        </td>
-                                                 </tr>`;
-                                }
+                                listbarang += `<tr>
+                                                    <td>` + no++ + `</td>
+                                                    <td>` + barangkode + `</td>
+                                                    <td>` + barangnama + `</td>
+                                                    <td>` + barangberat + `</td>
+                                                    <td><input class="form-control barang_berat" type="number" value="` + barangberat + `"
+                                                            placeholder="Berat Kembali" name="detail_pengeluaran_berat_kembali[]" /></td>
+                                                    <td>
+                                                        <input class="form-control" id="barang_id" type="hidden" value="` + barangid + `"
+                                                            placeholder="Harga Beli" name="barang_id[]" />
+                                                        <input class="form-control barang_berat" type="hidden" value="` + barangberat + `"
+                                                            placeholder="Harga Beli" name="detail_pengeluaran_berat[]" />
+                                                        <input class="form-control kadar" type="hidden" value="` + kadar + `"
+                                                            placeholder="Harga Beli" name="kadar_id[]" />
+                                                        <select class="form-select return_kondisi" name="detail_pengeluaran_kondisi[]">
+                                                            <option value="" selected disabled>--</option>
+                                                            <option value="CUCI">Cuci</option>
+                                                            <option value="LEBUR">Lebur</option>
+                                                            <option value="REPARASI">Reparasi</option>
+                                                            <option value="ETALASE">Etalase</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>`;
 
                             });
                             $("#list-barang").html(listbarang)
                         }
                     });
 
-                } else if (selectedValues.length < 1) {
+                } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -673,15 +581,39 @@
                         showConfirmButton: false,
                         timer: 2000
                     });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Select only one item!',
-                        showConfirmButton: false,
-                        timer: 2000
-                    });
                 }
+
+                // ADDING KETERANGAN AND SUPPLIER
+                var supplierData    = @json($supplier);
+                
+                var labelsupplier   = `<div class="col-xl-auto mb-xl-0 mb-2">
+                                            <label class="form-label mb-xl-0">Supplier:</label>
+                                        </div>`;
+
+                var supplier        = `<div class="col-xl-auto mb-xl-0 mb-2">
+                                            <select class="form-select" id="supplier_id" name="supplier_id">
+                                                <option value="" selected disabled>--</option>`;
+
+                                        // Loop through the values of $supplier and generate <option> elements
+                                        $.each(supplierData, function(index, value) {
+                                            supplier += `<option value="${value.supplier_id}">${value.supplier_nama}</option>`;
+                                        });
+
+                                        supplier += `</select>
+                                                    </div>`;
+
+                var labelket    = ` <div class="col-xl-auto mb-xl-0 mb-2">
+                                    <label class="form-label mb-xl-0">Keterangan :</label>
+                                </div>`;
+
+                var keterangan  = `<div class="col-xl-auto mb-xl-0 mb-2">
+                                      <textarea class="form-control" id="pengeluaran_keterangan" name="pengeluaran_keterangan"></textarea>
+                                   </div>`;
+
+                $("#supplier-label").html(labelsupplier)
+                $("#supplier-data").html(supplier)
+                $("#keterangan-label").html(labelket)
+                $("#keterangan-data").html(keterangan)
 
             });
 
@@ -718,13 +650,13 @@
             // RUNNING FUNCTION SUM GRAND TOTAL
             calculateGrandTotal();
 
-            // SUBMIT PENJUALAN
-            $('#submitPenjualanReturn').click(function(e) {
+            // SUBMIT PENGELUARAN
+            $('#submitPenerimaan').click(function(e) {
                 e.preventDefault();
                 $(this).html('Sending..');
 
                 $.ajax({
-                    url: "{{ route('penjualan.return.store') }}",
+                    url: "{{ route('penerimaan.store') }}",
                     data: new FormData(this.form),
                     cache: false,
                     processData: false,
@@ -740,7 +672,7 @@
                                 $('.alert-danger').append('<strong><li>' + value +
                                     '</li></strong>');
                             });
-                            $('#submitPenjualanReturn').html('Simpan');
+                            $('#submitPenerimaan').html('Simpan');
 
                         } else {
                             $('.btn-warning').hide();
@@ -758,12 +690,12 @@
                                 title: `${response.message}`,
                             })
 
-                            $('#penjualanreturnForm').trigger("reset");
-                            $('#submitPenjualanReturn').html('Simpan');
-                            $('#penjualanreturnModal').modal('hide');
+                            $('#penerimaanForm').trigger("reset");
+                            $('#submitPenerimaan').html('Simpan');
+                            $('#penerimaanModal').modal('hide');
 
                             listbarang.draw();
-                            transaksiPenjualanReturn.draw();
+                            transaksiPenerimaan.draw();
                             setInterval(function() {
                                 window.location.reload();
                             }, 1000);
@@ -772,121 +704,57 @@
                 });
             });
 
-            // DETAIL PENJUALAN RETURN
-            $('body').on('click', '#detail-penjualan-return', function() {
-                var penjualan_return_id = $(this).attr('data-id')
+            // DETAIL PENGELUARAN
+            $('body').on('click', '#detail-penerimaan', function() {
+                var pengeluaran_id = $(this).attr('data-id')
                 $('.alert').hide();
                 $('#saveBtn').val("create-barang");
-                $('#penjualanreturnForm').trigger("reset");
-                $('#submitPenjualanReturn').html('Simpan');
-                $('#tambahpenjualanreturnHeading').html("SHOW DATA DETAIL PENJUALAN RETURN")
+                $('#penerimaanForm').trigger("reset");
+                $('#submitPenerimaan').html('Simpan');
+                $('#tambahpenerimaanHeading').html("SHOW DATA DETAIL PENERIMAAN BARANG")
 
                 $("#list-barang").html('')
-                $('#penjualanreturnModal').modal('show');
+                $('#penerimaanModal').modal('show');
 
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('penjualan.return.detail') }}",
+                    url: "{{ route('pengeluaran.detail') }}",
                     data: {
-                        penjualan_return_id: penjualan_return_id,
+                        pengeluaran_id: pengeluaran_id,
                     },
                     dataType: "JSON",
                     success: function(response) {
                         console.log(response)
-                        const keterangan    = response.penjualan_return_keterangan;
-                        const grandtotal    = response.returndetail.detail_penjualan_return_jml_harga;
-                        const barangkode    = response.returndetail.barang.barang_kode;
-                        const barangnama    = response.returndetail.barang.barang_nama;
-                        const barangberat   = response.returndetail.detail_penjualan_barang_berat;
-                        const beratreturn   = response.returndetail.detail_penjualan_return_berat;
-                        const harga_jual    = response.returndetail.detail_penjualan_return_harga_jual;
-                        const harga_return  = response.returndetail.detail_penjualan_return_harga_return;
-                        const potongan      = response.returndetail.detail_penjualan_return_potongan;
-                        const jml_harga     = response.returndetail.detail_penjualan_return_jml_harga;
-                        const kondisi       = response.returndetail.detail_penjualan_return_kondisi;
+                        const pengeluarantanggal    = response.pengeluaran_tanggal
+                        const keterangan            = response.pengeluaran_keterangan;
                         
-                        $('#penjualan_return_grandtotal').val(grandtotal)
-                        $('#penjualan_return_keterangan').val(keterangan).prop('readonly', true)
-
+                        $('#pengeluaran_tanggal').val(pengeluarantanggal).prop('readonly', true)
+                        
                         var detailListBarang = '';
                         var no = 1;
+                        $.each(response.pengeluarandetail, function (index, value) { 
+                            const barangkode            = value.barang['barang_kode'];
+                            const barangnama            = value.barang['barang_nama'];
+                            const barangberat           = value['detail_pengeluaran_berat'];
+                            const barangberatkembali    = value['detail_pengeluaran_kembali'];
+                            const kondisi               = value['detail_pengeluaran_kondisi'];
 
-                        detailListBarang += `<tr>
-                                                <td>` + no + `</td>
-                                                <td>` + barangkode + `</td>
-                                                <td>` + barangnama + `</td>
-                                                <td>` + barangberat + `</td>
-                                                <td>
-                                                    <input class="form-control return_berat" type="number" value="` + beratreturn + `"
-                                                        placeholder="Berat Return" name="detail_penjualan_return_berat[]" readonly/>
-                                                </td>
-                                                <td> <input class="form-control return_harga_jual" type="number" value="` + harga_jual + `"
-                                                        placeholder="Harga Jual" name="detail_penjualan_return_harga_jual[]" readonly />
-                                                </td>
-                                                <td> <input class="form-control return_harga_return" type="number" value="` + harga_return + `"
-                                                        placeholder="Harga Return" name="detail_penjualan_return_harga_return[]" readonly />
-                                                </td>
-                                                <td> <input class="form-control return_potongan" type="number" value="` + potongan + `"
-                                                        placeholder="Potongan" name="detail_penjualan_return_potongan[]" readonly />
-                                                </td>
-                                                <td> <input class="form-control return_total" type="number" value="` + jml_harga + `"
-                                                        placeholder="Jumlah Harga" name="detail_penjualan_return_total[]" readonly />
-                                                </td>
-                                                    <td> 
-                                                    <input class="form-control return_berat" type="text" value="` + kondisi + `"
-                                                        placeholder="Berat Return" name="detail_penjualan_return_kondisi[]" readonly />
-                                                </td>
-                                            </tr>`;
+                             detailListBarang += `<tr>
+                                                     <td>` + no++ + `</td>
+                                                     <td>` + barangkode + `</td>
+                                                     <td>` + barangnama + `</td>
+                                                     <td>` + barangberat + `</td>
+                                                     <td>` + barangberatkembali + `</td>
+                                                     <td>` + kondisi + `</td>
+                                                 </tr>`;
+                        });
 
                         $("#list-barang").html(detailListBarang)
-                        $("#submitPenjualanReturn").prop('hidden', true);
+                        $("#submitPenerimaan").prop('hidden', true);
                     }
 
                 });
 
-            })
-
-            // ADDING SUPPLIER SECTION IF SELECTION CONDITION IN : LEBUR or REPARASI
-            $('body').on('change', '.return_kondisi', function(){
-                var condition       = $(".return_kondisi").val();
-
-                var supplierData    = @json($supplier);
-                
-                var labelsupplier   = `<div class="col-xl-auto mb-xl-0 mb-2">
-                                            <label class="form-label mb-xl-0">Supplier:</label>
-                                        </div>`;
-
-                var supplier        = `<div class="col-xl-auto mb-xl-0 mb-2">
-                                            <select class="form-select" id="supplier_id" name="pembelian_supplier_id">
-                                                <option value="" selected disabled>--</option>`;
-
-                                        // Loop through the values of $supplier and generate <option> elements
-                                        $.each(supplierData, function(index, value) {
-                                            supplier += `<option value="${value.supplier_id}">${value.supplier_nama}</option>`;
-                                        });
-
-                                        supplier += `</select>
-                                                    </div>`;
-
-                var labelket    = ` <div class="col-xl-auto mb-xl-0 mb-2">
-                                    <label class="form-label mb-xl-0">Keterangan Pengeluaran :</label>
-                                </div>`;
-
-                var keterangan  = `<div class="col-xl-auto mb-xl-0 mb-2">
-                                      <textarea class="form-control" id="pengeluaran_keterangan" name="pengeluaran_keterangan"></textarea>
-                                   </div>`;
-
-                if(condition == 'CUCI' || condition == 'REPARASI'){
-                    $("#supplier-label").html(labelsupplier)
-                    $("#supplier-data").html(supplier)
-                    $("#keterangan-label").html(labelket)
-                    $("#keterangan-data").html(keterangan)
-                }else{
-                    $("#supplier-label").html('')
-                    $("#supplier-data").html('')
-                    $("#keterangan-label").html('')
-                    $("#keterangan-data").html('')
-                }
             })
 
         })

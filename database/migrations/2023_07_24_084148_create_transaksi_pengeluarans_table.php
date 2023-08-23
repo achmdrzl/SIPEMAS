@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('pengeluaran_nobukti');
             $table->date('pengeluaran_tanggal');
             $table->string('pengeluaran_keterangan');
+            $table->enum('jenis', ['pengeluaran', 'penerimaan']);
             $table->integer('supplier_id')->nullable();
             $table->integer('user_id')->nullable();
             $table->timestamps();

@@ -382,8 +382,8 @@
                     $('.dataTables_paginate > .pagination').addClass(
                         'custom-pagination pagination-simple');
                 },
-                // processing: false,
-                // serverSide: false,
+                // processing: true,
+                // serverSide: true,
                 ajax: "{{ route('penjualan.barang.index') }}",
                  columns: [{
                         data: 'select',

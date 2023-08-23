@@ -58,27 +58,27 @@ class ReturnPenjualanController extends Controller
         // dd($request->all());
         //define validation rules  
         $validator = Validator::make($request->all(), [
-            'detail_penjualan_return_berat' => 'required|array',
-            'detail_penjualan_return_berat.*' => 'required|numeric',
-            'detail_penjualan_return_harga_return' => 'required|array',
+            'detail_penjualan_return_berat'          => 'required|array',
+            'detail_penjualan_return_berat.*'        => 'required|numeric',
+            'detail_penjualan_return_harga_return'   => 'required|array',
             'detail_penjualan_return_harga_return.*' => 'required|numeric',
-            'detail_penjualan_return_kondisi' => 'required|array',
-            'detail_penjualan_return_kondisi.*' => 'required|in:LEBUR,CUCI,ETALASE,REPARASI',
-            'pembelian_supplier_id' => 'required_if:detail_penjualan_return_kondisi,CUCI,REPARASI',
+            'detail_penjualan_return_kondisi'        => 'required|array',
+            'detail_penjualan_return_kondisi.*'      => 'required|in:LEBUR,CUCI,ETALASE,REPARASI',
+            'pembelian_supplier_id'                  => 'required_if:detail_penjualan_return_kondisi,CUCI,REPARASI',
         ], [
-            'detail_penjualan_return_berat.required' => 'Berat Return must be included.',
-            'detail_penjualan_return_berat.array' => 'Berat Return must be an array.',
-            'detail_penjualan_return_berat.*.required' => 'Each value in Berat Return must be present.',
-            'detail_penjualan_return_berat.*.numeric' => 'Each value in Berat Return must be numeric.',
-            'detail_penjualan_return_harga_return.required' => 'Harga Return must be included.',
-            'detail_penjualan_return_harga_return.array' => 'Harga Return must be an array.',
+            'detail_penjualan_return_berat.required'          => 'Berat Return must be included.',
+            'detail_penjualan_return_berat.array'             => 'Berat Return must be an array.',
+            'detail_penjualan_return_berat.*.required'        => 'Each value in Berat Return must be present.',
+            'detail_penjualan_return_berat.*.numeric'         => 'Each value in Berat Return must be numeric.',
+            'detail_penjualan_return_harga_return.required'   => 'Harga Return must be included.',
+            'detail_penjualan_return_harga_return.array'      => 'Harga Return must be an array.',
             'detail_penjualan_return_harga_return.*.required' => 'Each value in Harga Return must be present.',
-            'detail_penjualan_return_harga_return.*.numeric' => 'Each value in Harga Return must be numeric.',
-            'detail_penjualan_return_kondisi.required' => 'Kondisi must be included.',
-            'detail_penjualan_return_kondisi.array' => 'Kondisi must be an array.',
-            'detail_penjualan_return_kondisi.*.required' => 'Each value in Kondisi must be present.',
-            'detail_penjualan_return_kondisi.*.in' => 'Invalid value in Kondisi. Allowed values are: LEBUR, CUCI, ETALASE, REPARASI.',
-            'pembelian_supplier_id.required_if' => 'The supplier is required when the condition is CUCI or REPARASI.',
+            'detail_penjualan_return_harga_return.*.numeric'  => 'Each value in Harga Return must be numeric.',
+            'detail_penjualan_return_kondisi.required'        => 'Kondisi must be included.',
+            'detail_penjualan_return_kondisi.array'           => 'Kondisi must be an array.',
+            'detail_penjualan_return_kondisi.*.required'      => 'Each value in Kondisi must be present.',
+            'detail_penjualan_return_kondisi.*.in'            => 'Invalid value in Kondisi. Allowed values are: LEBUR, CUCI, ETALASE, REPARASI.',
+            'pembelian_supplier_id.required_if'               => 'The supplier is required when the condition is CUCI or REPARASI.',
         ]);
 
         //check if validation fails
@@ -119,7 +119,39 @@ class ReturnPenjualanController extends Controller
         // Generate the new ID
         $newId              = $datePart . sprintf("%03d", $counter);
         $nobuktireturn      = 'RP.' . $datePart . sprintf("%03d", $counter);
-        $nobuktipengeluaran = 'LB.' . $datePart . sprintf("%03d", $counter);
+
+        // Define the model name
+        $modelName2 = 'TransaksiPengeluaran';
+
+        // Get the current date and time
+        $currentTime = Carbon::now();
+
+        // Get the formatted date portion (yymmdd)
+        $datePart2 = $currentTime->format('ymd');
+
+        // Get the current counter value from cache for the specific model
+        $counter2 = Cache::get($modelName2 . '_counter');
+
+        // Get the last date stored in the cache for the specific model
+        $lastDate2 = Cache::get($modelName2 . '_counter_date');
+
+        // Check if the counter needs to be reset
+        if ($lastDate2 !== $datePart2
+        ) {
+            // Reset the counter
+            $counter2 = 1;
+            Cache::put($modelName2 . '_counter', $counter2);
+            Cache::put(
+                $modelName2 . '_counter_date',
+                $datePart2
+            );
+        } else {
+            // Increment the counter
+            $counter2++;
+            Cache::put($modelName2 . '_counter', $counter2);
+        }
+
+        $nobuktipengeluaran = 'LB.' . $datePart2 . sprintf("%03d", $counter2);
         
         for ($x = 0; $x < count($request->barang_id); $x++) {
 
@@ -171,6 +203,7 @@ class ReturnPenjualanController extends Controller
                     'detail_pengeluaran_id'         => $request->detail_pengeluaran_id,
                 ],[
                     'pengeluaran_nobukti'           => $nobuktipengeluaran,
+                    'pengeluaran_id'                => $pengeluaran->pengeluaran_id,
                     'barang_id'                     => $request->barang_id[$x],
                     'kadar_id'                      => $request->kadar_id[$x],
                     'detail_pengeluaran_berat'      => $request->detail_penjualan_return_berat[$x],

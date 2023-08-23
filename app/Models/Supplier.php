@@ -30,4 +30,9 @@ class Supplier extends Model
     {
         return $this->hasMany(TransaksiPembelian::class, 'supplier_id');
     }
+
+    public function pengeluaran()
+    {
+        return $this->hasOne(TransaksiPengeluaran::class, 'supplier_id');
+    }
 }

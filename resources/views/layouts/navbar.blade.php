@@ -35,12 +35,12 @@
                                         <a class="nav-link" href="{{ route('pembelian.index') }}"><span
                                                 class="nav-link-text">Pembelian</span></a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#"><span
+                                    <li class="nav-item {{ request()->segment(1) == 'pengeluaran' ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('pengeluaran.index') }}"><span
                                                 class="nav-link-text">Pengeluaran Barang</span></a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#"><span class="nav-link-text">Penerimaan
+                                    <li class="nav-item {{ request()->segment(1) == 'penerimaan' ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('penerimaan.index') }}"><span class="nav-link-text">Penerimaan
                                                 Barang</span></a>
                                     </li>
                                 </ul>
