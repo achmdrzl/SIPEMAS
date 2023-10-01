@@ -10,7 +10,9 @@ use App\Http\Controllers\Backend\TransaksiPembelianController;
 use App\Http\Controllers\Backend\TransaksiPenerimaanController;
 use App\Http\Controllers\Backend\TransaksiPengeluaranController;
 use App\Http\Controllers\Backend\TransaksiPenjualanController;
+use App\Models\TransaksiPembelian;
 use App\Models\TransaksiPengeluaran;
+use App\Models\TransaksiPenjualan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -97,6 +99,8 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::post('/penjualanStore', TransaksiPenjualanController::class . '@penjualanStore')->name('penjualan.store');
     Route::post('/penjualanDetail', TransaksiPenjualanController::class . '@penjualanDetail')->name('penjualan.detail');
     Route::post('/filterdDatePenjualan', TransaksiPenjualanController::class . '@filterdata')->name('filtered.data.penjualan');
+    Route::get('/cetakFakturPenjualan', TransaksiPenjualanController::class . '@cetakFakturPenjualan')->name('cetak.faktur.penjualan');
+    Route::get('/latest-penjualan', [TransaksiPenjualanController::class, 'getLatestPenjualanId']);
 
     // TRANSAKSI PENJUALAN RETURN
     Route::get('/return_penjualan', ReturnPenjualanController::class . '@returnPenjualanIndex')->name('penjualan.return.index');
@@ -105,20 +109,20 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::post('/filterdDatePenjualanReturn', ReturnPenjualanController::class . '@filterdata')->name('filtered.data.penjualan.return');
 
     // TRANSAKSI PENGELUARAN BARANG
-    Route::get('/pengeluaran', TransaksiPengeluaranController::class. '@pengeluaranIndex')->name('pengeluaran.index');
-    Route::post('/pengeluaranDetail', TransaksiPengeluaranController::class. '@pengeluaranDetail')->name('pengeluaran.detail');
-    Route::post('/pengeluaranStore', TransaksiPengeluaranController::class. '@pengeluaranStore')->name('pengeluaran.store');
-    Route::post('filterDatePengeluaran', TransaksiPengeluaranController::class. '@filterdata')->name('filtered.data.pengeluaran');
+    Route::get('/pengeluaran', TransaksiPengeluaranController::class . '@pengeluaranIndex')->name('pengeluaran.index');
+    Route::post('/pengeluaranDetail', TransaksiPengeluaranController::class . '@pengeluaranDetail')->name('pengeluaran.detail');
+    Route::post('/pengeluaranStore', TransaksiPengeluaranController::class . '@pengeluaranStore')->name('pengeluaran.store');
+    Route::post('filterDatePengeluaran', TransaksiPengeluaranController::class . '@filterdata')->name('filtered.data.pengeluaran');
 
     // TRANSAKSI PENERIMAAN BARANG
-    Route::get('/penerimaan', TransaksiPenerimaanController::class. '@penerimaanIndex')->name('penerimaan.index');
-    Route::post('/penerimaanStore', TransaksiPenerimaanController::class. '@penerimaanStore')->name('penerimaan.store');
-    Route::post('/filteredDatePenerimaan', TransaksiPenerimaanController::class. '@filterdata')->name('filtered.data.penerimaan');
-    
+    Route::get('/penerimaan', TransaksiPenerimaanController::class . '@penerimaanIndex')->name('penerimaan.index');
+    Route::post('/penerimaanStore', TransaksiPenerimaanController::class . '@penerimaanStore')->name('penerimaan.store');
+    Route::post('/filteredDatePenerimaan', TransaksiPenerimaanController::class . '@filterdata')->name('filtered.data.penerimaan');
 
-    Route::get('/cekRelasi', function(){
+
+    Route::get('/cekRelasi', function () {
         $pengeluarans   =   TransaksiPengeluaran::with(['pengeluarandetail', 'supplier'])->latest()->get();
-        
+
         return $pengeluarans;
     });
 
@@ -130,7 +134,7 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::post('/barangPindahEtalase', MasterBarangController::class . '@barangPindahEtalase')->name('barang.etalase');
     Route::get('/barangDetail/{barang_id}', MasterBarangController::class . '@barangDetail')->name('barang.detail');
     Route::post('/barangBarcode', MasterBarangController::class . '@barangBarcode')->name('barang.barcode');
-    Route::get('/generatepdf/{barang_id}', MasterBarangController::class . '@generatepdf')->name('barang.pdf');
+    Route::get('/barangCetak', MasterBarangController::class . '@barangCetak')->name('barang.cetak');
 
     // MASTER DATA SUPPLIER
     Route::get('/supplier', MasterDataController::class . '@supplierIndex')->name('supplier.index');
@@ -138,9 +142,61 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
     // MASTER DATA MODEL
     Route::get('/model', MasterDataController::class . '@modelIndex')->name('model.index');
 
-    // LAPORAN SECTION
-    Route::get('/laporan_stock', DataLaporanController::class . '@laporanStockIndex')->name('laporanStock.index');
-    Route::get('/history_barang', DataLaporanController::class . '@historyBarang')->name('history.barang');
+    // LAPORAN SECTION ROUTE
+    // PEMBELIAN
+    Route::get('/laporanPembelian', DataLaporanController::class . '@laporanPembelianIndex')->name('laporan.pembelian.index');
+    Route::get('/laporanPembelianDetail', DataLaporanController::class . '@laporanPembelianIndexDetail')->name('laporan.pembelianDetail.index');
+    Route::get('/cetakPembelian', DataLaporanController::class . '@cetakPembelian')->name('cetak.pembelian');
+
+    // PENJUALAN
+    Route::get('/laporanPenjualan', DataLaporanController::class . '@laporanPenjualanIndex')->name('laporan.penjualan.index');
+    Route::get('/laporanPenjualanDetail', DataLaporanController::class . '@laporanPenjualanIndexDetail')->name('laporan.penjualanDetail.index');
+    Route::get('/cetakPenjualan', DataLaporanController::class . '@cetakPenjualan')->name('cetak.penjualan');
+
+    // RETURNPENJUALAN
+    Route::get('/laporanReturnPenjualan', DataLaporanController::class . '@laporanReturnPenjualanIndex')->name('laporan.returnPenjualan.index');
+    Route::get('/laporanReturnPenjualanDetail', DataLaporanController::class . '@laporanReturnPenjualanIndexDetail')->name('laporan.returnPenjualanDetail.index');
+    Route::get('/cetakReturn', DataLaporanController::class . '@cetakReturn')->name('cetak.return');
+
+    // PENGELUARAN
+    Route::get('/laporanPengeluaran', DataLaporanController::class . '@laporanPengeluaranIndex')->name('laporan.pengeluaran.index');
+    Route::get('/laporanPengeluaranDetail', DataLaporanController::class . '@laporanPengeluaranIndexDetail')->name('laporan.pengeluaranDetail.index');
+    Route::get('/cetakPengeluaran', DataLaporanController::class . '@cetakPengeluaran')->name('cetak.pengeluaran');
+
+    // PENERIMAAN
+    Route::get('/laporanPenerimaan', DataLaporanController::class . '@laporanPenerimaanIndex')->name('laporan.penerimaan.index');
+    Route::get('/laporanPenerimaanDetail', DataLaporanController::class . '@laporanPenerimaanIndexDetail')->name('laporan.penerimaanDetail.index');
+    Route::get('/cetakPenerimaan', DataLaporanController::class . '@cetakPenerimaan')->name('cetak.penerimaan');
+
+    // HUTANG
+    Route::get('/laporanHutang', DataLaporanController::class . '@laporanHutang')->name('laporan.hutang.index');
+    Route::get('/cetakHutang', DataLaporanController::class . '@cetakHutang')->name('cetak.hutang');
+
+    // PENDAPATAN - PENGELUARAN LAIN
+    Route::get('/laporanInOut', DataLaporanController::class . '@laporanInOut')->name('laporan.inOut.index');
+    Route::get('/cetakInOut', DataLaporanController::class . '@cetakInOut')->name('cetak.inOut');
+
+    // STOCK
+    Route::get('/laporanStock', DataLaporanController::class . '@laporanStock')->name('laporan.stock.index');
+    Route::get('/cetakStock', DataLaporanController::class . '@cetakStock')->name('cetak.stock');
+
+    // HISTORY BARANG
+    Route::get('/laporanHistory', DataLaporanController::class . '@laporanHistoryBarang')->name('laporan.history.index');
+    Route::get('/cetakHistory', DataLaporanController::class . '@cetakHistory')->name('cetak.history');
+
+    //Get Data Filter For Laporan
+    Route::post('/filterData', DataLaporanController::class . '@filter_data')->name('filter_data');
+    Route::post('/filteredPembelian', DataLaporanController::class . '@sortingPembelian')->name('sorting.pembelian');
+    Route::post('/filteredPenjualan', DataLaporanController::class . '@sortingPenjualan')->name('sorting.penjualan');
+    Route::post('/filteredReturnPenjualan', DataLaporanController::class . '@sortingReturnPenjualan')->name('sorting.returnPenjualan');
+    Route::post('/filteredPengeluaran', DataLaporanController::class . '@sortingPengeluaran')->name('sorting.pengeluaran');
+    Route::post('/filteredPenerimaan', DataLaporanController::class . '@sortingPenerimaan')->name('sorting.penerimaan');
+    Route::post('/filteredHutang', DataLaporanController::class . '@sortingHutang')->name('sorting.hutang');
+    Route::post('/filteredInOut', DataLaporanController::class . '@sortingInOut')->name('sorting.inOut');
+    Route::post('/filteredStock', DataLaporanController::class . '@sortingStock')->name('sorting.stock');
+    Route::post('/filteredHistory', DataLaporanController::class . '@sortingHistory')->name('sorting.history');
+
+    // END LAPORAN SECTION ROUTE
 
     // INVOICE PENJUALAN
     Route::get('/invoice_penjualan', TransaksiPenjualanController::class . '@invoice_penjualan');

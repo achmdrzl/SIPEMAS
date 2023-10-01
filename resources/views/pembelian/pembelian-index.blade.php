@@ -8,6 +8,15 @@
             width: 100%;
             margin: 1.75rem auto;
         }
+        .custom-width-column {
+            width: 10px; /* Set your desired width here */
+        }
+
+        #datatable_8 tbody td {
+            font-size: 16px; /*Adjust the font size as needed*/
+            text-align: center;
+            padding: 4px;
+        }
     </style>
 @endpush
 
@@ -119,7 +128,7 @@
                                                     </div>
                                                     <div class="card-body">
                                                         <div class="contact-list-view">
-                                                            <table id="datatable_8" class="table nowrap table-striped">
+                                                            <table id="datatable_8" class="table table-striped">
                                                                 <thead>
                                                                     <tr>
                                                                         <th></th>
@@ -281,7 +290,7 @@
                             </div>
                         </div>
                         <div class="modal-footer align-items-center">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
                             <button type="submit" id="submitPembelian" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
@@ -290,23 +299,7 @@
         </div>
 
         <!-- Page Footer -->
-        <div class="hk-footer">
-            <footer class="container-xxl footer">
-                <div class="row">
-                    <div class="col-xl-8">
-                        <p class="footer-text"><span class="copy-text">Jampack © 2022 All rights reserved.</span> <a
-                                href="#" class="" target="_blank">Privacy Policy</a><span
-                                class="footer-link-sep">|</span><a href="#" class=""
-                                target="_blank">T&C</a><span class="footer-link-sep">|</span><a href="#"
-                                class="" target="_blank">System Status</a></p>
-                    </div>
-                    <div class="col-xl-4">
-                        <a href="#" class="footer-extr-link link-default"><span class="feather-icon"><i
-                                    data-feather="external-link"></i></span><u>Send feedback to our help forum</u></a>
-                    </div>
-                </div>
-            </footer>
-        </div>
+        @include('layouts.footer')
         <!-- / Page Footer -->
 
     </div>
@@ -530,6 +523,9 @@
 
             // DISPLAY DATA BARANG
             var listbarang = $('#datatable_8').DataTable({
+                dom: "<'row'<'col-sm-6'l><'col-sm-3'p><'col-sm-3'f>>" +
+                     "<'row'<'col-sm-12'tr>>" +
+                     "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 scrollX: true,
                 autoWidth: false,
                 language: {
@@ -558,7 +554,8 @@
                     },
                     {
                         data: 'barang_nama',
-                        name: 'barang_nama'
+                        name: 'barang_nama',
+                        className: 'custom-width-column' // Add a class for styling
                     },
                     {
                         data: 'barang_berat',
@@ -580,9 +577,10 @@
                         data: 'barang_lokasi',
                         name: 'barang_lokasi'
                     },
-                ]
+                ],
+                pageLength: 100,
+                lengthMenu: [10, 20, 50, 100, 1000, 10000, 100000, 1000000],
             });
-
 
             // FORMAT CURRENCY
             const rupiah = (number) => {
@@ -598,7 +596,7 @@
                 $('#saveBtn').val("create-barang");
                 $('#pembelianForm').trigger("reset");
                 $('#submitPembelian').html('Simpan');
-                $('#tambahpembelianHeading').html("TAMBAH DATA PENJUALAN BARU")
+                $('#tambahpembelianHeading').html("TAMBAH DATA PEMBELIAN BARU")
                 $("#submitPembelian").prop('hidden', false);
                 $("#tanggal").prop('readonly', false)
                 $("#supplier_id").prop('readonly', false)
@@ -641,20 +639,15 @@
                                 listbarang += `<tr>
                                                     <td>` + no++ + `</td>
                                                     <td>` + barangkode + `</td>
-                                                    <td>` + barangnama + `</td>
+                                                    <td style="width:200px">` + barangnama + `</td>
                                                     <td>` + kadar + `</td>
-                                                    <td>` + barangberat +
-                                    `</td>
+                                                    <td>` + barangberat + `</td>
                                                     <td>
-                                                        <input class="form-control" id="barang_id" type="hidden" value="` +
-                                    barangid +
-                                    `"
+                                                        <input class="form-control" id="barang_id" type="hidden" value="` + barangid + `"
                                                             placeholder="Harga Beli" name="barang_id[]" />
-                                                        <input class="form-control barang_berat" type="hidden" value="` +
-                                    barangberat + `"
+                                                        <input class="form-control barang_berat" type="hidden" value="` + barangberat + `"
                                                             placeholder="Harga Beli" name="detail_pembelian_barang_berat[]" />
-                                                        <input class="form-control kadar" type="hidden" value="` +
-                                    kadar + `"
+                                                        <input class="form-control kadar" type="hidden" value="` + kadar + `"
                                                             placeholder="Harga Beli" name="detail_pembelian_kadar[]" />
                                                         <input class="form-control jmlbeli" type="hidden" value=""
                                                             placeholder="Harga Beli" name="detail_pembelian_jml_beli[]" />
@@ -685,14 +678,13 @@
 
             // Calculate and update the totals for each row
             $('body').on('input', '.harga_beli, .nilai_tukar, #inputdiskon, #inputppn', function() {
-                var row = $(this).closest('tr');
-                var hargaBeli = parseFloat(row.find('.harga_beli').val()) || 0;
-                var nilaiTukar = parseFloat(row.find('.nilai_tukar').val()) || 0;
-                var barangBerat = parseFloat(row.find('.barang_berat').val()) || 0;
-                var jmlbeli = hargaBeli * nilaiTukar; // Harga Beli * Nilai Tukar
-                var total = barangBerat * hargaBeli * nilaiTukar; // Barang Berat * Harga Beli * Nilai Tukar
-                var decimalPlaces =
-                2; // Change this number to round to a different number of decimal places
+                var row           = $(this).closest('tr');
+                var hargaBeli     = parseFloat(row.find('.harga_beli').val()) || 0;
+                var nilaiTukar    = parseFloat(row.find('.nilai_tukar').val()) || 0;
+                var barangBerat   = parseFloat(row.find('.barang_berat').val()) || 0;
+                var jmlbeli       = hargaBeli * nilaiTukar; // Harga Beli * Nilai Tukar
+                var total         = barangBerat * hargaBeli * nilaiTukar; // Barang Berat * Harga Beli * Nilai Tukar
+                var decimalPlaces = 2; // Change this number to round to a different number of decimal places
 
                 // Round the total value to the specified decimal places
                 total = parseFloat(total.toFixed(decimalPlaces));
@@ -710,8 +702,8 @@
                     subtotal += totalValue;
                 });
 
-                var diskon = parseFloat($("#inputdiskon").val()) || 0;
-                var ppn = parseFloat($("#inputppn").val()) || 0;
+                var diskon     = parseFloat($("#inputdiskon").val()) || 0;
+                var ppn        = parseFloat($("#inputppn").val()) || 0;
 
                 var grandTotal = (subtotal - diskon) + ppn;
 
@@ -834,21 +826,15 @@
                                                     <td>` + barang_kode + `</td>
                                                     <td>` + barang_nama + `</td>
                                                     <td>` + kadar + `</td>
-                                                    <td>` + berat +
-                                `</td>
+                                                    <td>` + berat + `</td>
                                                     <td>
                                                         <input class="form-control harga_beli" type="number"
-                                                            placeholder="Harga Beli" name="detail_pembelian_harga_beli[]" value="` +
-                                harga_beli +
-                                `" readonly />
+                                                            placeholder="Harga Beli" name="detail_pembelian_harga_beli[]" value="` + harga_beli + `" readonly />
                                                     </td>
                                                     <td> <input class="form-control nilai_tukar" type="number"
-                                                            placeholder="Nilai Tukar" name="detail_pembelian_nilai_tukar[]" value="` +
-                                nilai_tukar +
-                                `" readonly /></td>
+                                                            placeholder="Nilai Tukar" name="detail_pembelian_nilai_tukar[]" value="` + nilai_tukar + `" readonly /></td>
                                                     <td> <input class="form-control total" type="number"
-                                                            placeholder="Jumlah Harga" name="detail_pembelian_total[]" value="` +
-                                total + `" readonly /></td>
+                                                            placeholder="Jumlah Harga" name="detail_pembelian_total[]" value="` + total + `" readonly /></td>
                                                 </tr>`;
                         });
                         $("#list-barang").html(detailListBarang)

@@ -24,14 +24,19 @@ class ReturnPenjualanController extends Controller
         $supplier               = Supplier::where('status', 'aktif')->get();
 
         if ($request->ajax()) {
-            $penjualanreturns   = TransaksiPenjualanReturn::with(['penjualan'])->latest()->get();
+            $today = Carbon::today(); // Get the current date
+            $penjualanreturns   = TransaksiPenjualanReturn::with(['penjualan'])
+                ->whereDate('created_at', $today)
+                ->latest()
+                ->get();
+
             return DataTables::of($penjualanreturns)
                 ->addIndexColumn()
                 ->addColumn('penjualan_return_nobukti', function ($item) {
                     return $item->penjualan_return_nobukti;
                 })
                 ->addColumn('penjualan_return_tanggal', function ($item) {
-                    return $item->penjualan_return_tanggal;
+                    return \Carbon\Carbon::parse($item->penjualan_return_tanggal)->format('d-M-Y');
                 })
                 ->addColumn('penjualan_nobukti', function ($item) {
                     return $item->penjualan->penjualan_nobukti;
@@ -41,7 +46,7 @@ class ReturnPenjualanController extends Controller
                 })
                 ->addColumn('action', function ($item) {
 
-                    $btn = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Return Penjualan" id="detail-penjualan-return"  data-id="' . $item->penjualan_return_id . '"><span class="material-icons btn-sm">visibility</span></button>';
+                    $btn = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Return Penjualan" id="detail-penjualan-return"  data-id="' . $item->penjualan_return_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
                     return $btn;
                 })
@@ -136,7 +141,8 @@ class ReturnPenjualanController extends Controller
         $lastDate2 = Cache::get($modelName2 . '_counter_date');
 
         // Check if the counter needs to be reset
-        if ($lastDate2 !== $datePart2
+        if (
+            $lastDate2 !== $datePart2
         ) {
             // Reset the counter
             $counter2 = 1;
@@ -152,7 +158,7 @@ class ReturnPenjualanController extends Controller
         }
 
         $nobuktipengeluaran = 'LB.' . $datePart2 . sprintf("%03d", $counter2);
-        
+
         for ($x = 0; $x < count($request->barang_id); $x++) {
 
             $penjualanreturn = TransaksiPenjualanReturn::updateOrCreate([
@@ -174,7 +180,9 @@ class ReturnPenjualanController extends Controller
                 'detail_penjualan_return_berat'             => $request->detail_penjualan_return_berat[$x],
                 'detail_penjualan_return_harga_jual'        => $request->detail_penjualan_return_harga_jual[$x],
                 'detail_penjualan_return_harga_return'      => $request->detail_penjualan_return_harga_return[$x],
-                'detail_penjualan_return_potongan'          => $request->detail_penjualan_return_potongan[$x],
+                'detail_penjualan_return_potongan'          => $request->detail_penjualan_return_potongan[$x] == null ? null : $request->detail_penjualan_return_potongan[$x],
+                'detail_penjualan_return_ppn'               => $request->detail_penjualan_return_total[$x] * (1.65 / 100),
+                // 'detail_penjualan_return_jml_harga'         => $request->detail_penjualan_return_total[$x] + ($request->detail_penjualan_return_total[$x] * (1.65 / 100)),
                 'detail_penjualan_return_jml_harga'         => $request->detail_penjualan_return_total[$x],
                 'detail_penjualan_return_kondisi'           => $request->detail_penjualan_return_kondisi[$x],
             ]);
@@ -191,17 +199,18 @@ class ReturnPenjualanController extends Controller
 
                 $pengeluaran    = TransaksiPengeluaran::updateOrCreate([
                     'pengeluaran_id'            => $request->pengeluaran_id,
-                ],[
+                ], [
                     'pengeluaran_nobukti'       => $nobuktipengeluaran,
                     'pengeluaran_tanggal'       => $request->penjualan_return_tanggal,
                     'pengeluaran_keterangan'    => $request->pengeluaran_keterangan,
+                    'jenis'                     => 'pengeluaran',
                     'supplier_id'               => $request->pembelian_supplier_id,
                     'user_id'                   => Auth::user()->user_id,
                 ]);
 
                 $detail         = TransaksiPengeluaranDetail::updateOrCreate([
                     'detail_pengeluaran_id'         => $request->detail_pengeluaran_id,
-                ],[
+                ], [
                     'pengeluaran_nobukti'           => $nobuktipengeluaran,
                     'pengeluaran_id'                => $pengeluaran->pengeluaran_id,
                     'barang_id'                     => $request->barang_id[$x],
@@ -210,7 +219,6 @@ class ReturnPenjualanController extends Controller
                     'detail_pengeluaran_kembali'    => 0,
                     'detail_pengeluaran_kondisi'    => $request->detail_penjualan_return_kondisi[$x],
                 ]);
-
             } elseif ($barang->barang_lokasi == 'LEBUR') {
                 $barang->update(['barang_status'    => 'non-aktif']);
             } else {
@@ -236,18 +244,18 @@ class ReturnPenjualanController extends Controller
     // FILTERED DATA
     public function filterdata(Request $request)
     {
-        $returns     = TransaksiPenjualanReturn::with(['penjualan'])->whereBetween('penjualan_return_tanggal', [$request->startDate, $request->endDate])->get();
+        $returns     = TransaksiPenjualanReturn::with(['penjualan'])->whereBetween('penjualan_return_tanggal', [$request->startDate, $request->endDate])->latest()->get();
 
         $return = [];
         $index     = 1;
         foreach ($returns as $item) {
             $penjualan_return_id             = $item->penjualan_return_id;
-            $penjualan_return_tanggal        = $item->penjualan_return_tanggal;
+            $penjualan_return_tanggal        = \Carbon\Carbon::parse($item->penjualan_return_tanggal)->format('d-M-Y');
             $penjualan_return_nobukti        = $item->penjualan_return_nobukti;
             $penjualan_nobukti               = $item->penjualan->penjualan_nobukti;
             $penjualan_return_keterangan     = $item->penjualan_return_keterangan;
 
-            $action                   = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Return Penjualan" id="detail-penjualan-return"  
+            $action                   = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Return Penjualan" id="detail-penjualan-return"  
             data-id="' . $item->penjualan_return_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
             $return[] = [

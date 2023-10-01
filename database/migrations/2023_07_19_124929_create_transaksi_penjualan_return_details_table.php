@@ -19,7 +19,8 @@ return new class extends Migration
             $table->double('detail_penjualan_return_berat');
             $table->integer('detail_penjualan_return_harga_jual');
             $table->integer('detail_penjualan_return_harga_return');
-            $table->integer('detail_penjualan_return_potongan');
+            $table->integer('detail_penjualan_return_potongan')->nullable();
+            $table->integer('detail_penjualan_return_ppn')->nullable();
             $table->integer('detail_penjualan_return_jml_harga');
             $table->string('detail_penjualan_return_kondisi');
             $table->timestamps();

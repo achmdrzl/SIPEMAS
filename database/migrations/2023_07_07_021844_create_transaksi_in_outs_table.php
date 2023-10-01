@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('jenis_transaksi', ['Pengeluaran', 'Pemasukan']);
             $table->integer('total');
             $table->string('keterangan');
+            $table->enum('status', ['aktif', 'non-aktif'])->default('aktif');
             $table->timestamps();
         });
     }

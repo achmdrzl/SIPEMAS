@@ -19,6 +19,7 @@ class TransaksiPenjualanReturnDetail extends Model
         'detail_penjualan_return_harga_jual',
         'detail_penjualan_return_harga_return',
         'detail_penjualan_return_potongan',
+        'detail_penjualan_return_ppn',
         'detail_penjualan_return_jml_harga',
         'detail_penjualan_return_kondisi',
     ];

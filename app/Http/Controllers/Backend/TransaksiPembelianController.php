@@ -24,11 +24,16 @@ class TransaksiPembelianController extends Controller
         $supplier         = Supplier::where('status', 'aktif')->get();
 
         if ($request->ajax()) {
-            $pembelians   =   TransaksiPembelian::with(['supplier'])->latest()->get();
+            $today = Carbon::today(); // Get the current date
+            $pembelians   =   TransaksiPembelian::with(['supplier'])
+            ->whereDate('created_at', $today)
+            ->latest()
+            ->get();
+            
             return DataTables::of($pembelians)
                 ->addIndexColumn()
                 ->addColumn('pembelian_tanggal', function ($item) {
-                    return $item->pembelian_tanggal;
+                    return \Carbon\Carbon::parse($item->pembelian_tanggal)->format('d-M-Y');
                 })
                 ->addColumn('pembelian_nobukti', function ($item) {
                     return $item->pembelian_nobukti;
@@ -41,7 +46,7 @@ class TransaksiPembelianController extends Controller
                 })
                 ->addColumn('action', function ($item) {
 
-                    $btn = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Pembelian" id="detail-pembelian"  data-id="' . $item->pembelian_id . '"><span class="material-icons btn-sm">visibility</span></button>';
+                    $btn = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Pembelian" id="detail-pembelian"  data-id="' . $item->pembelian_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
                     return $btn;
                 })
@@ -54,7 +59,7 @@ class TransaksiPembelianController extends Controller
     // BARANG INDEX
     public function barangIndex(Request $request)
     {
-        $barangs   =   Barang::with('kadar')->get();
+        $barangs   =   Barang::with('kadar')->latest()->get();
 
         $barang = [];
         $no = 1;
@@ -209,18 +214,19 @@ class TransaksiPembelianController extends Controller
     {
         $pembelians     = TransaksiPembelian::with('supplier')
             ->whereBetween('pembelian_tanggal', [$request->startDate, $request->endDate])
+            ->latest()
             ->get();
 
         $pembelian = [];
         $index     = 1;
         foreach ($pembelians as $item) {
             $pembelian_id             = $item->pembelian_id;
-            $pembelian_tanggal        = $item->pembelian_tanggal;
+            $pembelian_tanggal        = \Carbon\Carbon::parse($item->pembelian_tanggal)->format('d-M-Y');
             $pembelian_nobukti        = $item->pembelian_nobukti;
             $pembelian_supplier_id    = ucfirst($item->supplier->supplier_nama);
             $pembelian_grandtotal     = $item->pembelian_grandtotal;
             
-            $action                   = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Pembelian" id="detail-pembelian"  
+            $action                   = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Pembelian" id="detail-pembelian"  
             data-id="' . $item->pembelian_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
             $pembelian[] = [

@@ -48,14 +48,18 @@ class MasterDataController extends Controller
                     return $item->email;
                 })
                 ->addColumn('role', function ($item) {
-                    return ucfirst($item->role);
+                    if($item->role == 'user'){
+                        return ucfirst('kasir');
+                    }else{
+                        return ucfirst($item->role);
+                    }
                 })
                 ->addColumn('phone_number', function ($item) {
                     return $item->phone_number;
                 })
                 ->addColumn('action', function ($item) {
 
-                    $btn = '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="user-edit" data-id="' . $item->user_id . '"><span class="material-icons btn-sm">edit</span></button>';
+                    $btn = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" id="user-edit" data-id="' . $item->user_id . '"><span class="material-icons btn-sm">edit</span></button>';
 
                     $btn = $btn . '<button class="btn btn-icon btn-danger btn-rounded flush-soft-hover me-1" id="user-delete" data-id="' . $item->user_id . '"><span class="material-icons btn-sm">visibility_off</span></button>';
 
@@ -160,7 +164,7 @@ class MasterDataController extends Controller
                         $icon = 'visibility';
                     }
 
-                    $btn = '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="user-edit" data-id="' . $item->pabrik_id . '"><span class="material-icons btn-sm">edit</span></button>';
+                    $btn = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" id="user-edit" data-id="' . $item->pabrik_id . '"><span class="material-icons btn-sm">edit</span></button>';
 
                     $btn = $btn . '<button class="btn btn-icon btn-' . $button . ' btn-rounded flush-soft-hover me-1" id="user-delete" data-id="' . $item->pabrik_id . '"><span class="material-icons btn-sm">' . $icon . '</span></button>';
 
@@ -327,7 +331,7 @@ class MasterDataController extends Controller
                         $icon = 'visibility';
                     }
 
-                    $btn = '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="user-edit" data-id="' . $item->kadar_id . '"><span class="material-icons btn-sm">edit</span></button>';
+                    $btn = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" id="user-edit" data-id="' . $item->kadar_id . '"><span class="material-icons btn-sm">edit</span></button>';
 
                     $btn = $btn . '<button class="btn btn-icon btn-' . $button . ' btn-rounded flush-soft-hover me-1" id="user-delete" data-id="' . $item->kadar_id . '"><span class="material-icons btn-sm">' . $icon . '</span></button>';
 
@@ -495,7 +499,7 @@ class MasterDataController extends Controller
                         $icon = 'visibility';
                     }
 
-                    $btn = '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="user-edit" data-id="' . $item->model_id . '"><span class="material-icons btn-sm">edit</span></button>';
+                    $btn = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" id="user-edit" data-id="' . $item->model_id . '"><span class="material-icons btn-sm">edit</span></button>';
 
                     $btn = $btn . '<button class="btn btn-icon btn-' . $button . ' btn-rounded flush-soft-hover me-1" id="user-delete" data-id="' . $item->model_id . '"><span class="material-icons btn-sm">' . $icon . '</span></button>';
 
@@ -647,7 +651,7 @@ class MasterDataController extends Controller
                 ->addIndexColumn()
                 ->addColumn('supplier_kota', function ($item) {
                     return ucfirst($item->supplier_kota);
-                }) 
+                })
                 ->addColumn('status', function ($item) {
                     if ($item->status == 'aktif') {
                         $status = '<div class="badge bg-success">' . ucfirst($item->status) . '</div>';
@@ -666,7 +670,7 @@ class MasterDataController extends Controller
                         $icon = 'visibility';
                     }
 
-                    $btn = '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="user-edit" data-id="' . $item->supplier_id . '"><span class="material-icons btn-sm">edit</span></button>';
+                    $btn = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" id="user-edit" data-id="' . $item->supplier_id . '"><span class="material-icons btn-sm">edit</span></button>';
 
                     $btn = $btn . '<button class="btn btn-icon btn-' . $button . ' btn-rounded flush-soft-hover me-1" id="user-delete" data-id="' . $item->supplier_id . '"><span class="material-icons btn-sm">' . $icon . '</span></button>';
 
@@ -710,7 +714,6 @@ class MasterDataController extends Controller
                 'supplier_no_telp' => $request->supplier_no_telp,
                 'supplier_kota' => $request->supplier_kota,
             ]);
-
         } else {
 
             // Check if any records exist
@@ -837,7 +840,7 @@ class MasterDataController extends Controller
                         $icon = 'visibility';
                     }
 
-                    $btn = '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="user-edit" data-id="' . $item->merk_id . '"><span class="material-icons btn-sm">edit</span></button>';
+                    $btn = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" id="user-edit" data-id="' . $item->merk_id . '"><span class="material-icons btn-sm">edit</span></button>';
 
                     $btn = $btn . '<button class="btn btn-icon btn-' . $button . ' btn-rounded flush-soft-hover me-1" id="user-delete" data-id="' . $item->merk_id . '"><span class="material-icons btn-sm">' . $icon . '</span></button>';
 
@@ -970,14 +973,14 @@ class MasterDataController extends Controller
     public function transaksi_in_out(Request $request)
     {
         if ($request->ajax()) {
-            $datas   =   TransaksiInOut::all();
+            $datas   =   TransaksiInOut::where('status', 'aktif')->get();
             return DataTables::of($datas)
                 ->addIndexColumn()
                 ->addColumn('kode_transaksi', function ($item) {
                     return ucfirst($item->kode_transaksi);
                 })
                 ->addColumn('tgl_transaksi', function ($item) {
-                    return $item->tgl_transaksi;
+                    return \Carbon\Carbon::parse($item->tgl_transaksi)->format('d-M-Y');
                 })
                 ->addColumn('jenis_transaksi', function ($item) {
                     return ucfirst($item->jenis_transaksi);
@@ -989,7 +992,7 @@ class MasterDataController extends Controller
                     return ucfirst($item->keterangan);
                 })
                 ->addColumn('action', function ($item) {
-                    $btn = '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="transaksi-edit" data-id="' . $item->transaksi_id . '"><span class="material-icons btn-sm">edit</span></button>';
+                    $btn = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" id="transaksi-edit" data-id="' . $item->transaksi_id . '"><span class="material-icons btn-sm">edit</span></button>';
 
                     $btn = $btn . '<button class="btn btn-icon btn-danger btn-rounded flush-soft-hover me-1" id="transaksi-delete" data-id="' . $item->transaksi_id . '"><span class="material-icons btn-sm">delete</span></button>';
 
@@ -1033,7 +1036,6 @@ class MasterDataController extends Controller
                 'total' => $request->total,
                 'keterangan' => $request->keterangan,
             ]);
-            
         } else {
 
             // Define the model name
@@ -1094,7 +1096,9 @@ class MasterDataController extends Controller
     // TRANKSAKSI IN OUT DELETE DATA
     public function transaksiInOutDestroy(Request $request)
     {
-        $transaksi = TransaksiInOut::find($request->transaksi_id)->delete();
+        $transaksi = TransaksiInOut::find($request->transaksi_id)->update([
+            'status'    => 'non-aktif'
+        ]);
 
         return response()->json(['status' => 'Data Deleted Successfully!']);
     }
@@ -1102,8 +1106,8 @@ class MasterDataController extends Controller
     // LOAD IN OUT
     public function loadInOut(Request $request)
     {
-        $pemasukan = TransaksiInOut::where('jenis_transaksi', 'Pemasukan')->sum('total');
-        $pengeluaran = TransaksiInOut::where('jenis_transaksi', 'Pengeluaran')->sum('total');
+        $pemasukan = TransaksiInOut::where('jenis_transaksi', 'Pemasukan')->where('status', 'aktif')->sum('total');
+        $pengeluaran = TransaksiInOut::where('jenis_transaksi', 'Pengeluaran')->where('status', 'aktif')->sum('total');
 
         return response()->json([
             'pemasukan' => $pemasukan,
@@ -1115,14 +1119,14 @@ class MasterDataController extends Controller
     public function transaksiHutang(Request $request)
     {
         if ($request->ajax()) {
-            $datas   =   TransaksiHutang::all();
+            $datas   =   TransaksiHutang::where('status', 'aktif')->get();
             return DataTables::of($datas)
                 ->addIndexColumn()
                 ->addColumn('kode_hutang', function ($item) {
                     return ucfirst($item->kode_hutang);
                 })
                 ->addColumn('tgl_transaksi', function ($item) {
-                    return $item->tgl_transaksi;
+                    return \Carbon\Carbon::parse($item->tgl_transaksi)->format('d-M-Y');
                 })
                 ->addColumn('total', function ($item) {
                     return 'Rp.' . number_format($item->total);
@@ -1131,7 +1135,7 @@ class MasterDataController extends Controller
                     return ucfirst($item->keterangan);
                 })
                 ->addColumn('action', function ($item) {
-                    $btn = '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" id="hutang-edit" data-id="' . $item->hutang_id . '"><span class="material-icons btn-sm">edit</span></button>';
+                    $btn = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" id="hutang-edit" data-id="' . $item->hutang_id . '"><span class="material-icons btn-sm">edit</span></button>';
 
                     $btn = $btn . '<button class="btn btn-icon btn-danger btn-rounded flush-soft-hover me-1" id="hutang-delete" data-id="' . $item->hutang_id . '"><span class="material-icons btn-sm">delete</span></button>';
 
@@ -1231,14 +1235,16 @@ class MasterDataController extends Controller
     // TRANKSAKSI IN OUT DELETE DATA
     public function transaksiHutangDestroy(Request $request)
     {
-        $transaksi = TransaksiHutang::find($request->hutang_id)->delete();
+        $transaksi = TransaksiHutang::find($request->hutang_id)->update([
+            'status'    => 'non-aktif'
+        ]);
 
         return response()->json(['status' => 'Data Deleted Successfully!']);
     }
 
     public function loadHutang(Request $request)
     {
-        $hutang = TransaksiHutang::sum('total');
+        $hutang = TransaksiHutang::where('status', 'aktif')->sum('total');
 
         return response()->json($hutang);
     }

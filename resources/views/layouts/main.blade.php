@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<!--
-Jampack
-Author: Hencework
-Contact: contact@hencework.com
--->
 <html lang="en">
 
 <head>
@@ -11,10 +6,9 @@ Contact: contact@hencework.com
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jampack - Admin CRM Dashboard Template</title>
+    <title>BINTANG KENCANA - MANAGEMENT</title>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <meta name="description"
-        content="A modern CRM Dashboard Template with reusable and flexible components for your SaaS web applications by hencework. Based on Bootstrap." />
+    <meta name="description" content="SIPEMAS" />
     
     <!-- Favicon -->
     <link rel="shortcut icon" href="favicon.ico">
@@ -56,9 +50,9 @@ Contact: contact@hencework.com
                 <div class="nav-start-wrap flex-fill">
                     <!-- Brand -->
                     <a class="navbar-brand d-xl-flex d-none flex-shrink-0" href="{{ route('dashboard.index') }}">
-                        <img class="brand-img img-fluid" src="{{ asset('backend/dist/img/brand-sm.svg') }}"
+                        <img class="brand-img img-fluid" src="{{ asset('backend/dist/img/bintangkencana.svg') }}"
                             alt="brand" />
-                        <img class="brand-img img-fluid" src="{{ asset('backend/dist/img/Jampack.svg') }}"
+                        <img class="brand-img img-fluid" src="{{ asset('backend/dist/img/bintangkencana3.svg') }}" style="margin-top: 5px;"
                             alt="brand" />
                     </a>
                     <!-- /Brand -->
@@ -73,9 +67,9 @@ Contact: contact@hencework.com
                         <div class="menu-header d-xl-none">
                             <span>
                                 <a class="navbar-brand" href="{{ route('dashboard.index') }}">
-                                    <img class="brand-img img-fluid" src="{{ asset('backend/dist/img/brand-sm.svg') }}"
+                                    <img class="brand-img img-fluid" src="{{ asset('backend/dist/img/bintangkencana.svg') }}"
                                         alt="brand" />
-                                    <img class="brand-img img-fluid" src="{{ asset('backend/dist/img/Jampack.svg') }}"
+                                    <img class="brand-img img-fluid" src="{{ asset('backend/dist/img/bintangkencana3.svg') }}" style="margin-top: 5px;"
                                         alt="brand" />
                                 </a>
                                 <button class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover navbar-toggle">
@@ -115,7 +109,7 @@ Contact: contact@hencework.com
                 <!-- End Nav -->
                 <div class="nav-end-wrap">
                     <!-- Search -->
-                    <form class="dropdown navbar-search me-2">
+                    {{-- <form class="dropdown navbar-search me-2">
                         <div class="dropdown-toggle no-caret" data-bs-toggle="dropdown" data-dropdown-animation
                             data-bs-auto-close="outside">
                             <a href="#"
@@ -258,12 +252,12 @@ Contact: contact@hencework.com
                             <div class="dropdown-footer d-xl-flex d-none"><a href="#"><u>Search all</u></a>
                             </div>
                         </div>
-                    </form>
+                    </form> --}}
                     <!-- /Search -->
 
                     <ul class="navbar-nav flex-row">
                         <li class="nav-item">
-                            <div class="dropdown dropdown-notifications">
+                            {{-- <div class="dropdown dropdown-notifications">
                                 <a href="#"
                                     class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover dropdown-toggle no-caret"
                                     data-bs-toggle="dropdown" data-dropdown-animation role="button"
@@ -408,7 +402,7 @@ Contact: contact@hencework.com
                                     <div class="dropdown-footer"><a href="#"><u>View all notifications</u></a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </li>
                         <li class="nav-item">
                             <div class="dropdown ps-2">
@@ -416,7 +410,7 @@ Contact: contact@hencework.com
                                     data-bs-display="static" data-bs-toggle="dropdown" data-dropdown-animation
                                     data-bs-auto-close="outside" aria-expanded="false">
                                     <div class="avatar avatar-rounded avatar-xs">
-                                        <img src="{{ asset('backend/dist/img/avatar12.jpg') }}" alt="user"
+                                        <img src="{{ asset('backend/dist/img/1.png') }}" alt="user"
                                             class="avatar-img">
                                     </div>
                                 </a>
@@ -425,13 +419,21 @@ Contact: contact@hencework.com
                                         <div class="media">
                                             <div class="media-head me-2">
                                                 <div class="avatar avatar-primary avatar-sm avatar-rounded">
-                                                    <span class="initial-wrap">Hk</span>
+                                                    @php
+                                                        if(Auth::user()->role == 'admin'){
+                                                            $name = 'ADM';
+                                                        }else{
+                                                            $name = 'USR';
+                                                        }
+
+                                                    @endphp
+                                                    <span class="initial-wrap">{{ $name }}</span>
                                                 </div>
                                             </div>
                                             <div class="media-body">
                                                 <div class="dropdown">
                                                     <a href="#"
-                                                        class="d-block dropdown-toggle link-dark fw-medium"
+                                                        class="d-block link-dark fw-medium"
                                                         data-bs-toggle="dropdown" data-dropdown-animation
                                                         data-bs-auto-close="inside">{{ Auth::user()->name }}</a>
                                                 </div>
@@ -454,7 +456,6 @@ Contact: contact@hencework.com
             </div>
         </nav>
         <!-- /Top Navbar -->
-
         @yield('content')
     </div>
     <!-- /Wrapper -->

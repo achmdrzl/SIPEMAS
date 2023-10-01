@@ -18,4 +18,9 @@ class ModelBarang extends Model
      'model_nama',
      'status'
     ];
+
+    public function barang()
+    {
+        return $this->hasMany(Barang::class, 'model_id');
+    }
 }

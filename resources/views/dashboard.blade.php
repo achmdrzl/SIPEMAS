@@ -15,10 +15,9 @@
                         <div class="pg-header-action-wrap">
                             <div class="input-group w-300p">
                                 <span class="input-affix-wrapper">
-                                    <span class="input-prefix"><span class="feather-icon"><i
-                                                data-feather="calendar"></i></span></span>
-                                    <input class="form-control form-wth-icon" name="datetimes"
-                                        value="Aug 18,2020 - Aug 19, 2020">
+                                    <div class="" id="clock"></div>
+                                    <div>&nbsp;</div>
+                                    <div id="date"></div>
                                 </span>
                             </div>
                         </div>
@@ -33,25 +32,40 @@
         </div>
 
         <!-- Page Footer -->
-        <div class="hk-footer">
-            <footer class="container-xxl footer">
-                <div class="row">
-                    <div class="col-xl-8">
-                        <p class="footer-text"><span class="copy-text">Jampack © 2022 All rights reserved.</span> <a
-                                href="#" class="" target="_blank">Privacy Policy</a><span
-                                class="footer-link-sep">|</span><a href="#" class=""
-                                target="_blank">T&C</a><span class="footer-link-sep">|</span><a href="#"
-                                class="" target="_blank">System Status</a></p>
-                    </div>
-                    <div class="col-xl-4">
-                        <a href="#" class="footer-extr-link link-default"><span class="feather-icon"><i
-                                    data-feather="external-link"></i></span><u>Send feedback to our help forum</u></a>
-                    </div>
-                </div>
-            </footer>
-        </div>
+        @include('layouts.footer')
         <!-- / Page Footer -->
 
     </div>
     <!-- /Main Content -->
 @endsection
+
+@push('script-alt')
+        <script>
+            function updateClockAndDate() {
+                const clockElement = document.getElementById('clock');
+                const dateElement = document.getElementById('date');
+                const now = new Date();
+
+                // Update the clock
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const seconds = String(now.getSeconds()).padStart(2, '0');
+                const timeString = `${hours}:${minutes}:${seconds}`;
+                clockElement.textContent = timeString;
+
+                // Update the date
+                const year = now.getFullYear();
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                const day = String(now.getDate()).padStart(2, '0');
+                const dateString = `${day}/${month}/${year}`;
+                dateElement.textContent = dateString;
+            }
+
+            // Call the function to update the clock and date every second
+            setInterval(updateClockAndDate, 1000);
+
+            // Initial update
+            updateClockAndDate();
+
+        </script>
+    @endpush

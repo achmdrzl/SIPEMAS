@@ -86273,7 +86273,7 @@ Project:	Jampack
   display: flex;
   flex-flow: column;
   left: 0;
-  width: 270px;
+  width: 290px;
   margin-left: 0;
   top: 0;
   height: 100%;
@@ -86332,7 +86332,7 @@ Project:	Jampack
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  overflow: hidden;
+  overflow: auto;
   padding-left: 270px;
   position: relative;
   height: 100%;
@@ -86513,7 +86513,7 @@ Project:	Jampack
   max-width: 150px;
 }
 .emailapp-wrap .emailapp-content .emailapp-aside .aside-body .email-list .list-group-item .media .media-body > div .email-text {
-  overflow: hidden;
+  overflow: auto;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;

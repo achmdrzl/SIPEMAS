@@ -8,6 +8,15 @@
             width: 100%;
             margin: 1.75rem auto;
         }
+        .custom-width-column {
+            width: 10px; /* Set your desired width here */
+        }
+
+        #datatable_8 tbody td {
+            font-size: 16px; /*Adjust the font size as needed*/
+            text-align: center;
+            padding: 4px;
+        }
     </style>
 @endpush
 
@@ -118,7 +127,7 @@
                                                     </div>
                                                     <div class="card-body">
                                                         <div class="contact-list-view">
-                                                            <table id="datatable_8" class="table nowrap table-striped">
+                                                            <table id="datatable_8" class="table table-striped">
                                                                 <thead>
                                                                     <tr>
                                                                         <th></th>
@@ -200,7 +209,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <table class="table nowrap table-striped">
+                            <table class="table table-striped">
                                 <thead>
                                     <th>No</th>
                                     <th>Kode Barang</th>
@@ -240,7 +249,7 @@
                             </div>
                         </div>
                         <div class="modal-footer align-items-center">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
                             <button type="submit" id="submitPenjualanReturn" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
@@ -249,23 +258,7 @@
         </div>
 
         <!-- Page Footer -->
-        <div class="hk-footer">
-            <footer class="container-xxl footer">
-                <div class="row">
-                    <div class="col-xl-8">
-                        <p class="footer-text"><span class="copy-text">Jampack © 2022 All rights reserved.</span> <a
-                                href="#" class="" target="_blank">Privacy Policy</a><span
-                                class="footer-link-sep">|</span><a href="#" class=""
-                                target="_blank">T&C</a><span class="footer-link-sep">|</span><a href="#"
-                                class="" target="_blank">System Status</a></p>
-                    </div>
-                    <div class="col-xl-4">
-                        <a href="#" class="footer-extr-link link-default"><span class="feather-icon"><i
-                                    data-feather="external-link"></i></span><u>Send feedback to our help forum</u></a>
-                    </div>
-                </div>
-            </footer>
-        </div>
+        @include('layouts.footer')
         <!-- / Page Footer -->
 
     </div>
@@ -339,6 +332,9 @@
             });
 
             var listbarang = $('#datatable_8').DataTable({
+                dom: "<'row'<'col-sm-6'l><'col-sm-3'p><'col-sm-3'f>>" +
+                     "<'row'<'col-sm-12'tr>>" +
+                     "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 scrollX: true,
                 autoWidth: false,
                 language: {
@@ -367,7 +363,8 @@
                     },
                     {
                         data: 'barang_nama',
-                        name: 'barang_nama'
+                        name: 'barang_nama',
+                        className: 'custom-width-column' // Add a class for styling
                     },
                     {
                         data: 'barang_berat',
@@ -385,7 +382,9 @@
                         data: 'barang_lokasi',
                         name: 'barang_lokasi'
                     },
-                ]
+                ],
+                pageLength: 100,
+                lengthMenu: [10, 20, 50, 100, 1000, 10000, 100000, 1000000],
             });
 
             // FILTERED DATA
@@ -623,7 +622,7 @@
                                     listbarang += `<tr>
                                                         <td>` + no++ + `</td>
                                                         <td>` + barangkode + `</td>
-                                                        <td>` + barangnama + `</td>
+                                                        <td style="width:200px">` + barangnama + `</td>
                                                         <td>` + barangberat + `</td>
                                                         <td>
                                                             <input class="form-control barang_id" type="hidden" value="` +  barangid + `"
@@ -634,7 +633,7 @@
                                                                 placeholder="Barang Id" name="penjualan_kode[]" />
                                                             <input class="form-control penjualan_berat_jual" type="hidden" value="` + berat_jual + `"
                                                                 placeholder="Barang Id" name="penjualan_berat_jual[]" />
-                                                            <input class="form-control return_berat" type="number" value=""
+                                                            <input class="form-control return_berat" type="number" value="`+ berat_jual +`"
                                                                 placeholder="Berat Return" name="detail_penjualan_return_berat[]" />
                                                         </td>
                                                         <td> <input class="form-control return_harga_jual" type="number" value="` + harga_jual + `"

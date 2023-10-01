@@ -8,6 +8,16 @@
             width: 100%;
             margin: 1.75rem auto;
         }
+
+        .custom-width-column {
+            width: 10px; /* Set your desired width here */
+        }
+
+        #datatable_8 tbody td {
+            font-size: 16px; /*Adjust the font size as needed*/
+            text-align: center;
+            padding: 4px;
+        }
     </style>
 @endpush
 
@@ -117,7 +127,7 @@
                                                     </div>
                                                     <div class="card-body">
                                                         <div class="contact-list-view">
-                                                            <table id="datatable_8" class="table nowrap table-striped">
+                                                            <table id="datatable_8" class="table table-striped">
                                                                 <thead>
                                                                     <tr>
                                                                         <th></th>
@@ -192,7 +202,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <table class="table nowrap table-striped">
+                            <table class="table table-striped">
                                 <thead>
                                     <th>No</th>
                                     <th>Kode Barang</th>
@@ -206,7 +216,7 @@
                             </table>
                         </div>
                         <div class="modal-footer align-items-center">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
                             <button type="submit" id="submitPenerimaan" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
@@ -215,23 +225,7 @@
         </div>
 
         <!-- Page Footer -->
-        <div class="hk-footer">
-            <footer class="container-xxl footer">
-                <div class="row">
-                    <div class="col-xl-8">
-                        <p class="footer-text"><span class="copy-text">Jampack © 2022 All rights reserved.</span> <a
-                                href="#" class="" target="_blank">Privacy Policy</a><span
-                                class="footer-link-sep">|</span><a href="#" class=""
-                                target="_blank">T&C</a><span class="footer-link-sep">|</span><a href="#"
-                                class="" target="_blank">System Status</a></p>
-                    </div>
-                    <div class="col-xl-4">
-                        <a href="#" class="footer-extr-link link-default"><span class="feather-icon"><i
-                                    data-feather="external-link"></i></span><u>Send feedback to our help forum</u></a>
-                    </div>
-                </div>
-            </footer>
-        </div>
+        @include('layouts.footer')
         <!-- / Page Footer -->
 
     </div>
@@ -295,6 +289,9 @@
             });
 
             var listbarang = $('#datatable_8').DataTable({
+                dom: "<'row'<'col-sm-6'l><'col-sm-3'p><'col-sm-3'f>>" +
+                     "<'row'<'col-sm-12'tr>>" +
+                     "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 scrollX: true,
                 autoWidth: false,
                 language: {
@@ -323,7 +320,8 @@
                     },
                     {
                         data: 'barang_nama',
-                        name: 'barang_nama'
+                        name: 'barang_nama',
+                        className: 'custom-width-column' // Add a class for styling
                     },
                     {
                         data: 'barang_berat',
@@ -341,7 +339,9 @@
                         data: 'barang_lokasi',
                         name: 'barang_lokasi'
                     },
-                ]
+                ],
+                pageLength: 100,
+                lengthMenu: [10, 20, 50, 100, 1000, 10000, 100000, 1000000],
             });
 
             // FILTERED DATA
@@ -547,7 +547,7 @@
                                 listbarang += `<tr>
                                                     <td>` + no++ + `</td>
                                                     <td>` + barangkode + `</td>
-                                                    <td>` + barangnama + `</td>
+                                                    <td style="width:200px">` + barangnama + `</td>
                                                     <td>` + barangberat + `</td>
                                                     <td><input class="form-control barang_berat" type="number" value="` + barangberat + `"
                                                             placeholder="Berat Kembali" name="detail_pengeluaran_berat_kembali[]" /></td>
@@ -726,6 +726,7 @@
                     success: function(response) {
                         console.log(response)
                         const pengeluarantanggal    = response.pengeluaran_tanggal
+                        const supplierdata          = response.supplier_id
                         const keterangan            = response.pengeluaran_keterangan;
                         
                         $('#pengeluaran_tanggal').val(pengeluarantanggal).prop('readonly', true)
@@ -748,6 +749,40 @@
                                                      <td>` + kondisi + `</td>
                                                  </tr>`;
                         });
+
+                        // ADDING KETERANGAN AND SUPPLIER
+                        var supplierData    = @json($supplier);
+                        
+                        var labelsupplier   = `<div class="col-xl-auto mb-xl-0 mb-2">
+                                                    <label class="form-label mb-xl-0">Supplier:</label>
+                                                </div>`;
+
+                        var supplier        = `<div class="col-xl-auto mb-xl-0 mb-2">
+                                                    <select class="form-select" id="supplier_id" name="supplier_id">
+                                                        <option value="" selected disabled>--</option>`;
+
+                                                // Loop through the values of $supplier and generate <option> elements
+                                                $.each(supplierData, function(index, value) {
+                                                    supplier += `<option value="${value.supplier_id}">${value.supplier_nama}</option>`;
+                                                });
+
+                                                supplier += `</select>
+                                                            </div>`;
+
+                        var labelket    = ` <div class="col-xl-auto mb-xl-0 mb-2">
+                                            <label class="form-label mb-xl-0">Keterangan :</label>
+                                        </div>`;
+
+                        var dataketerangan  = `<div class="col-xl-auto mb-xl-0 mb-2">
+                                            <textarea class="form-control" id="pengeluaran_keterangan" name="pengeluaran_keterangan" value="` + keterangan + `" disabled></textarea>
+                                        </div>`;
+
+                        $("#supplier-label").html(labelsupplier)
+                        $("#supplier-data").html(supplier)
+                        $("#keterangan-label").html(labelket)
+                        $("#keterangan-data").html(dataketerangan)
+                        $('#supplier_id').val(supplierdata).prop('disabled', true)
+                        $('#pengeluaran_keterangan').val(keterangan)
 
                         $("#list-barang").html(detailListBarang)
                         $("#submitPenerimaan").prop('hidden', true);

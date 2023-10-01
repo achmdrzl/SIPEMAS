@@ -32,6 +32,21 @@ class Barang extends Model
         return $this->belongsTo(Kadar::class, 'kadar_id');
     }
 
+    public function model()
+    {
+        return $this->belongsTo(ModelBarang::class, 'model_id');
+    }
+
+    public function pabrik()
+    {
+        return $this->belongsTo(Pabrik::class, 'pabrik_id');
+    }
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class, 'supplier_id');
+    }
+
     public function transaksipembeliandetail()
     {
         return $this->hasMany(TransaksiPembelianDetail::class, 'barang_id');
@@ -40,6 +55,11 @@ class Barang extends Model
     public function transaksipenjualandetail()
     {
         return $this->hasMany(TransaksiPenjualanDetail::class, 'barang_id');
+    }
+
+    public function transaksipenjualanreturndetail()
+    {
+        return $this->hasMany(TransaksiPenjualanReturnDetail::class, 'barang_id');
     }
 
     public function transaksipengeluarandetail()

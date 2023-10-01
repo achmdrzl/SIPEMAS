@@ -21,6 +21,10 @@
                         <ul id="transaksi" class="nav flex-column collapse   nav-children">
                             <li class="nav-item">
                                 <ul class="nav flex-column">
+                                    <li class="nav-item {{ request()->segment(1) == 'pembelian' ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('pembelian.index') }}"><span
+                                                class="nav-link-text">Pembelian</span></a>
+                                    </li>
                                     <li class="nav-item {{ request()->segment(1) == 'penjualan' ? 'active' : '' }}">
                                         <a class="nav-link" href="{{ route('penjualan.index') }}">
                                             <span class="nav-link-text">Penjualan</span>
@@ -30,10 +34,6 @@
                                         class="nav-item {{ request()->segment(1) == 'return_penjualan' ? 'active' : '' }}">
                                         <a class="nav-link" href="{{ route('penjualan.return.index') }}"><span
                                                 class="nav-link-text">Return Penjualan</span></a>
-                                    </li>
-                                    <li class="nav-item {{ request()->segment(1) == 'pembelian' ? 'active' : '' }}">
-                                        <a class="nav-link" href="{{ route('pembelian.index') }}"><span
-                                                class="nav-link-text">Pembelian</span></a>
                                     </li>
                                     <li class="nav-item {{ request()->segment(1) == 'pengeluaran' ? 'active' : '' }}">
                                         <a class="nav-link" href="{{ route('pengeluaran.index') }}"><span
@@ -92,83 +92,125 @@
                             <li class="nav-item">
                                 <ul class="nav flex-column">
                                     <li
-                                        class="nav-item {{ request()->segment(1) == 'laporan_stock' ? 'active' : '' }}">
-                                        <a class="nav-link" href="{{ route('laporanStock.index') }}"><span
+                                        class="nav-item {{ request()->segment(1) == 'laporanStock' ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('laporan.stock.index') }}"><span
                                                 class="nav-link-text">Stock</span></a>
                                     </li>
                                     <li
-                                        class="nav-item {{ request()->segment(1) == 'history_barang' ? 'active' : '' }}">
-                                        <a class="nav-link" href="{{ route('history.barang') }}"><span
+                                        class="nav-item {{ request()->segment(1) == 'laporanHistory' ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('laporan.history.index') }}"><span
                                                 class="nav-link-text">History Perhiasan</span></a>
                                     </li>
-                                    <li class="nav-item">
+                                   <li class="nav-item {{ request()->segment(1) === 'laporanPembelian' || request()->segment(1) === 'laporanPembelianDetail' ? 'active' : '' }}">
+                                        <a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse"
+                                            data-bs-target="#dash_wizard">
+                                            <span class="nav-link-text">Pembelian</span>
+                                        </a>
+                                        <ul id="dash_wizard" class="nav flex-column collapse nav-children">
+                                            <li class="nav-item">
+                                                <ul class="nav flex-column">
+                                                    <li class="nav-item {{ request()->segment(1) == 'laporanPembelian' ? 'active' : '' }}">
+                                                        <a class="nav-link" href="{{ route('laporan.pembelian.index') }}"><span
+                                                                class="nav-link-text">Rekap Pembelian</span></a>
+                                                    </li>
+                                                    <li class="nav-item {{ request()->segment(1) == 'laporanPembelianDetail' ? 'active' : '' }}">
+                                                        <a class="nav-link" href="{{ route('laporan.pembelianDetail.index') }}"><span
+                                                                class="nav-link-text">Detail Pembelian</span></a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                   <li class="nav-item {{ request()->segment(1) === 'laporanPenjualan' || request()->segment(1) === 'laporanPenjualanDetail' ? 'active' : '' }}">
                                         <a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse"
                                             data-bs-target="#dash_wizard">
                                             <span class="nav-link-text">Penjualan</span>
                                         </a>
-                                        <ul id="dash_wizard" class="nav flex-column collapse   nav-children">
+                                        <ul id="dash_wizard" class="nav flex-column collapse nav-children">
                                             <li class="nav-item">
                                                 <ul class="nav flex-column">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="#"><span
+                                                    <li class="nav-item {{ request()->segment(1) == 'laporanPenjualan' ? 'active' : '' }}">
+                                                        <a class="nav-link" href="{{ route('laporan.penjualan.index') }}"><span
                                                                 class="nav-link-text">Rekap Penjualan</span></a>
                                                     </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="#"><span
+                                                    <li class="nav-item {{ request()->segment(1) == 'laporanPenjualanDetail' ? 'active' : '' }}">
+                                                        <a class="nav-link" href="{{ route('laporan.penjualanDetail.index') }}"><span
                                                                 class="nav-link-text">Detail Penjualan</span></a>
                                                     </li>
                                                 </ul>
                                             </li>
                                         </ul>
                                     </li>
-                                    <li class="nav-item">
+                                   <li class="nav-item {{ request()->segment(1) === 'laporanReturnPenjualan' || request()->segment(1) === 'laporanReturnPenjualanDetail' ? 'active' : '' }}">
                                         <a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse"
                                             data-bs-target="#dash_wizard">
                                             <span class="nav-link-text">Return Penjualan</span>
                                         </a>
-                                        <ul id="dash_wizard" class="nav flex-column collapse   nav-children">
+                                        <ul id="dash_wizard" class="nav flex-column collapse nav-children">
                                             <li class="nav-item">
                                                 <ul class="nav flex-column">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="#"><span
+                                                    <li class="nav-item {{ request()->segment(1) == 'laporanReturnPenjualan' ? 'active' : '' }}">
+                                                        <a class="nav-link" href="{{ route('laporan.returnPenjualan.index') }}"><span
                                                                 class="nav-link-text">Rekap Return Penjualan</span></a>
                                                     </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="#"><span
-                                                                class="nav-link-text">Detail Return
-                                                                Penjualan</span></a>
+                                                    <li class="nav-item {{ request()->segment(1) == 'laporanReturnPenjualanDetail' ? 'active' : '' }}">
+                                                        <a class="nav-link" href="{{ route('laporan.returnPenjualanDetail.index') }}"><span
+                                                                class="nav-link-text">Detail Return Penjualan</span></a>
                                                     </li>
                                                 </ul>
                                             </li>
                                         </ul>
                                     </li>
-                                    <li class="nav-item">
+                                   <li class="nav-item {{ request()->segment(1) === 'laporanPengeluaran' || request()->segment(1) === 'laporanPengeluaranDetail' ? 'active' : '' }}">
                                         <a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse"
                                             data-bs-target="#dash_wizard">
-                                            <span class="nav-link-text">Pembelian</span>
+                                            <span class="nav-link-text">Pengeluaran</span>
                                         </a>
-                                        <ul id="dash_wizard" class="nav flex-column collapse   nav-children">
+                                        <ul id="dash_wizard" class="nav flex-column collapse nav-children">
                                             <li class="nav-item">
                                                 <ul class="nav flex-column">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="#"><span
-                                                                class="nav-link-text">Direct Message</span></a>
+                                                    <li class="nav-item {{ request()->segment(1) == 'laporanPengeluaran' ? 'active' : '' }}">
+                                                        <a class="nav-link" href="{{ route('laporan.pengeluaran.index') }}"><span
+                                                                class="nav-link-text">Rekap Pengeluaran</span></a>
                                                     </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="#"><span
-                                                                class="nav-link-text">Chatbot Chat</span></a>
+                                                    <li class="nav-item {{ request()->segment(1) == 'laporanPengeluaranDetail' ? 'active' : '' }}">
+                                                        <a class="nav-link" href="{{ route('laporan.pengeluaranDetail.index') }}"><span
+                                                                class="nav-link-text">Detail Pengeluaran</span></a>
                                                     </li>
                                                 </ul>
                                             </li>
                                         </ul>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#"><span
-                                                class="nav-link-text">Lebur/Cuci/Reparasi</span></a>
+                                   <li class="nav-item {{ request()->segment(1) === 'laporanPenerimaan' || request()->segment(1) === 'laporanPenerimaanDetail' ? 'active' : '' }}">
+                                        <a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse"
+                                            data-bs-target="#dash_wizard">
+                                            <span class="nav-link-text">Penerimaan</span>
+                                        </a>
+                                        <ul id="dash_wizard" class="nav flex-column collapse nav-children">
+                                            <li class="nav-item">
+                                                <ul class="nav flex-column">
+                                                    <li class="nav-item {{ request()->segment(1) == 'laporanPenerimaan' ? 'active' : '' }}">
+                                                        <a class="nav-link" href="{{ route('laporan.penerimaan.index') }}"><span
+                                                                class="nav-link-text">Rekap Penerimaan</span></a>
+                                                    </li>
+                                                    <li class="nav-item {{ request()->segment(1) == 'laporanPenerimaanDetail' ? 'active' : '' }}">
+                                                        <a class="nav-link" href="{{ route('laporan.penerimaanDetail.index') }}"><span
+                                                                class="nav-link-text">Detail Penerimaan</span></a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item {{ request()->segment(1) == 'laporanHutang' ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('laporan.hutang.index') }}"><span class="nav-link-text">
+                                            Hutang</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item {{ request()->segment(1) == 'laporanInOut' ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('laporan.inOut.index') }}"><span class="nav-link-text">Pengeluaran / Pendapatan Lain</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#"><span class="nav-link-text">Cash on
-                                                Flow</span></a>
+                                        <a class="nav-link" href="#"><span class="nav-link-text">Cash on Flow</span></a>
                                     </li>
                                 </ul>
                             </li>

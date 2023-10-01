@@ -12,6 +12,6 @@ class TransaksiHutang extends Model
     protected $primaryKey = 'hutang_id';
 
     protected $fillable = [
-        'hutang_id', 'kode_hutang', 'tgl_transaksi', 'total', 'keterangan'
+        'hutang_id', 'kode_hutang', 'tgl_transaksi', 'total', 'keterangan', 'status'
     ];
 }

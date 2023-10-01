@@ -16,7 +16,8 @@ return new class extends Migration
             $table->date('penjualan_tanggal');
             $table->string('penjualan_nobukti');
             $table->integer('penjualan_subtotal');
-            $table->integer('penjualan_diskon');
+            $table->integer('penjualan_diskon')->nullable();
+            $table->integer('penjualan_ppn')->nullable();
             $table->integer('penjualan_grandtotal');
             $table->integer('penjualan_bayar');
             $table->integer('penjualan_kembalian');

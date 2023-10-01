@@ -9,10 +9,13 @@ use App\Models\TransaksiPembelian;
 use App\Models\TransaksiPenjualan;
 use App\Models\TransaksiPenjualanDetail;
 use Carbon\Carbon;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
+use Milon\Barcode\DNS1D;
 use Yajra\DataTables\Facades\DataTables;
 
 class TransaksiPenjualanController extends Controller
@@ -21,26 +24,28 @@ class TransaksiPenjualanController extends Controller
     public function transaksi_penjualan(Request $request)
     {
         if ($request->ajax()) {
-            $penjualans   =   TransaksiPenjualan::latest()->get();
+            $today = Carbon::today(); // Get the current date
+            $penjualans   =   TransaksiPenjualan::whereDate('created_at', $today)->latest()->get();
+
             return DataTables::of($penjualans)
                 ->addIndexColumn()
                 ->addColumn('penjualan_tanggal', function ($item) {
-                    return $item->penjualan_tanggal;
+                    return \Carbon\Carbon::parse($item->penjualan_tanggal)->format('d-M-Y');
                 })
                 ->addColumn('penjualan_nobukti', function ($item) {
                     return ucfirst($item->penjualan_nobukti);
                 })
                 ->addColumn('penjualan_grandtotal', function ($item) {
-                    return 'Rp. '. number_format($item->penjualan_grandtotal);
+                    return 'Rp. ' . number_format($item->penjualan_grandtotal);
                 })
                 ->addColumn('penjualan_jenis', function ($item) {
                     return 'Perhiasan';
                 })
                 ->addColumn('action', function ($item) {
 
-                    $btn = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Penjualan" id="detail-penjualan"  data-id="' . $item->penjualan_id . '"><span class="material-icons btn-sm">visibility</span></button>';
+                    $btn = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Penjualan" id="detail-penjualan"  data-id="' . $item->penjualan_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
-                    $btn = $btn . '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" title="Cetak Faktur" id="cetak-faktur" data-id="' . $item->penjualan_id . '"><span class="material-icons btn-sm">print</span></button>';
+                    $btn = $btn . '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Cetak Faktur" id="cetak-faktur" data-id="' . $item->penjualan_id . '"><span class="material-icons btn-sm">print</span></button>';
 
                     return $btn;
                 })
@@ -53,7 +58,7 @@ class TransaksiPenjualanController extends Controller
     // BARANG INDEX
     public function barangIndex(Request $request)
     {
-        $barangs   =   Barang::all();
+        $barangs   =   Barang::latest()->get();
 
         $barang = [];
         $no = 1;
@@ -107,19 +112,21 @@ class TransaksiPenjualanController extends Controller
     {
         //define validation rules  
         $validator = Validator::make($request->all(), [
-            'detail_penjualan_berat_jual' => 'required|array',
+            'detail_penjualan_berat_jual'   => 'required|array',
             'detail_penjualan_berat_jual.*' => 'required|numeric',
-            'detail_penjualan_harga' => 'required|array',
-            'detail_penjualan_harga.*' => 'required|numeric',
+            'detail_penjualan_harga'        => 'required|array',
+            'detail_penjualan_harga.*'      => 'required|numeric',
+            'inputtunai'                   => 'required',
         ], [
-            'detail_penjualan_berat_jual.required' => 'Berat Jual must be included.',
-            'detail_penjualan_berat_jual.array' => 'Berat Jual must be an array.',
+            'detail_penjualan_berat_jual.required'   => 'Berat Jual must be included.',
+            'detail_penjualan_berat_jual.array'      => 'Berat Jual must be an array.',
             'detail_penjualan_berat_jual.*.required' => 'Each value in Berat Jual must be present.',
-            'detail_penjualan_berat_jual.*.numeric' => 'Each value in Berat Jual must be numeric.',
-            'detail_penjualan_harga.required' => 'Harga Jual must be included.',
-            'detail_penjualan_harga.array' => 'Harga Jual must be an array.',
-            'detail_penjualan_harga.*.required' => 'Each value in Harga Jual must be present.',
-            'detail_penjualan_harga.*.numeric' => 'Each value in Harga Jual must be numeric.',
+            'detail_penjualan_berat_jual.*.numeric'  => 'Each value in Berat Jual must be numeric.',
+            'detail_penjualan_harga.required'        => 'Harga Jual must be included.',
+            'detail_penjualan_harga.array'           => 'Harga Jual must be an array.',
+            'detail_penjualan_harga.*.required'      => 'Each value in Harga Jual must be present.',
+            'detail_penjualan_harga.*.numeric'       => 'Each value in Harga Jual must be numeric.',
+            'inputtunai.required'                   => 'Total Pembayaran Tunai must be included',
         ]);
 
         //check if validation fails
@@ -169,6 +176,13 @@ class TransaksiPenjualanController extends Controller
             $counter
         );
 
+        $ppn = [];
+        for ($x = 0; $x < count($request->barang_id); $x++) {
+            $ppn[] = ($request->ppn[$x] / 100) *  $request->detail_penjualan_total[$x];
+        }
+
+        $penjualan_ppn = array_sum($ppn);
+
         $penjualan = TransaksiPenjualan::updateOrCreate([
             'penjualan_id'          => $newId,
         ], [
@@ -176,6 +190,8 @@ class TransaksiPenjualanController extends Controller
             'penjualan_nobukti'     => $KodePenjualan,
             'penjualan_subtotal'    => $request->penjualan_subtotal,
             'penjualan_diskon'      => $request->penjualan_diskon,
+            'penjualan_ppn'         => $penjualan_ppn,
+            // 'penjualan_grandtotal'  => $request->penjualan_grandtotal + $penjualan_ppn,
             'penjualan_grandtotal'  => $request->penjualan_grandtotal,
             'penjualan_bayar'       => $request->penjualan_tunai,
             'penjualan_kembalian'   => $request->penjualan_kembalian,
@@ -222,22 +238,21 @@ class TransaksiPenjualanController extends Controller
     // FILTERED DATA
     public function filterdata(Request $request)
     {
-        $penjualans     = TransaksiPenjualan::whereBetween('penjualan_tanggal', [$request->startDate, $request->endDate])
-        ->get();
+        $penjualans     = TransaksiPenjualan::whereBetween('penjualan_tanggal', [$request->startDate, $request->endDate])->latest()->get();
 
         $penjualan = [];
         $index     = 1;
         foreach ($penjualans as $item) {
             $penjualan_id             = $item->penjualan_id;
-            $penjualan_tanggal        = $item->penjualan_tanggal;
+            $penjualan_tanggal        = \Carbon\Carbon::parse($item->penjualan_tanggal)->format('d-M-Y');
             $penjualan_nobukti        = $item->penjualan_nobukti;
             $penjualan_jenis          = 'Perhiasan';
             $penjualan_grandtotal     = $item->penjualan_grandtotal;
 
-            $action                   = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Penjualan" id="detail-penjualan"  
+            $action                   = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Penjualan" id="detail-penjualan"  
             data-id="' . $item->penjualan_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
-            $action                   .= '<button class="btn btn-icon btn-info btn-rounded flush-soft-hover me-1" title="Cetak Faktur" id="cetak-faktur" 
+            $action                   .= '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Cetak Faktur" id="cetak-faktur" 
                                          data-id="' . $item->penjualan_id . '"><span class="material-icons btn-sm">print</span></button>';
             $penjualan[] = [
                 'DT_RowIndex'            => $index++, // Add DT_RowIndex as the index plus 1
@@ -251,8 +266,67 @@ class TransaksiPenjualanController extends Controller
         }
 
         return DataTables::of($penjualan)
-        ->rawColumns(['action']) // Specify the columns containing HTML
-        ->toJson();
+            ->rawColumns(['action']) // Specify the columns containing HTML
+            ->toJson();
+    }
+
+    // GET LATEST PENJUALAN ID
+    public function getLatestPenjualanId()
+    {
+        $latestPenjualan = TransaksiPenjualan::latest()->first();
+        if ($latestPenjualan) {
+            return response()->json(['latestPenjualanId' => $latestPenjualan->penjualan_id]);
+        } else {
+            return response()->json(['latestPenjualanId' => 0]); // Default value if no Penjualan records exist
+        }
+    }
+
+    // PRINT FAKTUR
+    public function cetakFakturPenjualan(Request $request)
+    {
+        $data = $request->query('data');
+        $dataArray = json_decode($data, true);
+
+        $penjualan = TransaksiPenjualan::with(['penjualandetail.barang.kadar'])->where('penjualan_id', $dataArray)->first();
+        
+        $filename = 'Faktur Penjualan ' . $penjualan->penjualan_nobukti . ' ';
+        $formatPaper = 'landscape';
+
+        // Generate barcode HTML
+        $barcodeHtml = [];
+        foreach ($penjualan->penjualandetail as $detail) {
+            $barcodeHtml2[] = $detail->barang;
+            // Generate a barcode for each item using its unique identifier
+            $barcodeHtml[] = DNS1D::getBarcodeHTML($detail->barang->barang_id, 'CODABAR', 2, 50);
+        }
+        
+        // Load the HTML view with the data
+        $html = view('penjualan.invoice-struk-penjualan2', ['penjualans' => $penjualan, 'barcode' => $barcodeHtml])->render();
+
+        // Create Dompdf instance
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true); // Enable HTML5 parser
+        $options->set('isPhpEnabled', true); // Enable PHP
+
+        // Create a new Dompdf instance
+        $dompdf = new Dompdf($options);
+
+        // Load the HTML into Dompdf
+        $dompdf->loadHtml($html);
+
+        // (Optional) Set paper size and orientation
+        $dompdf->setPaper('A4', $formatPaper);
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Get the PDF content as a string
+        $pdfContent = $dompdf->output();
+
+        // Return the PDF content with appropriate headers
+        return response($pdfContent)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'attachment; filename="' . $filename . '.pdf"');
     }
 
     public function retur_penjualan()
@@ -261,6 +335,6 @@ class TransaksiPenjualanController extends Controller
     }
     public function invoice_penjualan()
     {
-        return view('penjualan.invoice-struk-penjualan');
+        return view('penjualan.invoice-struk-penjualan2');
     }
 }

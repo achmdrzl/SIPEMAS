@@ -22,14 +22,20 @@ class TransaksiPenerimaanController extends Controller
         $supplier               = Supplier::where('status', 'aktif')->get();
 
         if ($request->ajax()) {
-            $pengeluarans   =   TransaksiPengeluaran::with(['pengeluarandetail', 'supplier'])->where('jenis', 'penerimaan')->latest()->get();
+            $today = Carbon::today(); // Get the current date
+            $pengeluarans   =   TransaksiPengeluaran::with(['pengeluarandetail', 'supplier'])
+            ->whereDate('created_at', $today)
+            ->where('jenis', 'penerimaan')
+            ->latest()
+            ->get();
+
             return DataTables::of($pengeluarans)
                 ->addIndexColumn()
                 ->addColumn('pengeluaran_nobukti', function ($item) {
                     return $item->pengeluaran_nobukti;
                 })
                 ->addColumn('pengeluaran_tanggal', function ($item) {
-                    return $item->pengeluaran_tanggal;
+                    return \Carbon\Carbon::parse($item->pengeluaran_tanggal)->format('d-M-Y');
                 })
                 ->addColumn('supplier_nama', function ($item) {
                     return $item->supplier->supplier_nama;
@@ -39,7 +45,7 @@ class TransaksiPenerimaanController extends Controller
                 })
                 ->addColumn('action', function ($item) {
 
-                    $btn = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Return Penjualan" id="detail-penerimaan"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">visibility</span></button>';
+                    $btn = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Return Penjualan" id="detail-penerimaan"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
                     return $btn;
                 })
@@ -80,7 +86,41 @@ class TransaksiPenerimaanController extends Controller
         }
 
         // Define the model name
-        $modelName2 = 'TransaksiPenerimaan';
+        $modelName = 'TransaksiPenerimaan';
+
+        // Get the current date and time
+        $currentTime = Carbon::now();
+
+        // Get the formatted date portion (yymmdd)
+        $datePart = $currentTime->format('ymd');
+
+        // Get the current counter value from cache for the specific model
+        $counter = Cache::get($modelName . '_counter');
+
+        // Get the last date stored in the cache for the specific model
+        $lastDate = Cache::get($modelName . '_counter_date');
+
+        // Check if the counter needs to be reset
+        if (
+            $lastDate !== $datePart
+        ) {
+            // Reset the counter
+            $counter = 1;
+            Cache::put($modelName . '_counter', $counter);
+            Cache::put(
+                $modelName . '_counter_date',
+                $datePart
+            );
+        } else {
+            // Increment the counter
+            $counter++;
+            Cache::put($modelName . '_counter', $counter);
+        }
+
+        $nobuktipenerimaan = 'TRM.' . $datePart . sprintf("%03d", $counter);
+
+        // Define the model name
+        $modelName2 = 'TransaksiPengeluaran';
 
         // Get the current date and time
         $currentTime = Carbon::now();
@@ -111,12 +151,12 @@ class TransaksiPenerimaanController extends Controller
             Cache::put($modelName2 . '_counter', $counter2);
         }
 
-        $nobuktipengeluaran = 'TRM.' . $datePart2 . sprintf("%03d", $counter2);
-
-        $pengeluaran    = TransaksiPengeluaran::updateOrCreate([
+        $nobuktipengeluaran = 'LB.' . $datePart2 . sprintf("%03d", $counter2);
+        
+        $penerimaan    = TransaksiPengeluaran::updateOrCreate([
             'pengeluaran_id'            => $request->pengeluaran_id,
         ], [
-            'pengeluaran_nobukti'       => $nobuktipengeluaran,
+            'pengeluaran_nobukti'       => $nobuktipenerimaan,
             'pengeluaran_tanggal'       => $request->pengeluaran_tanggal,
             'pengeluaran_keterangan'    => $request->pengeluaran_keterangan == null ? '-' : $request->pengeluaran_keterangan,
             'supplier_id'               => $request->supplier_id,
@@ -137,8 +177,8 @@ class TransaksiPenerimaanController extends Controller
             $detail         = TransaksiPengeluaranDetail::updateOrCreate([
                 'detail_pengeluaran_id'         => $request->detail_pengeluaran_id,
             ], [
-                'pengeluaran_nobukti'           => $nobuktipengeluaran,
-                'pengeluaran_id'                => $pengeluaran->pengeluaran_id,
+                'pengeluaran_nobukti'           => $nobuktipenerimaan,
+                'pengeluaran_id'                => $penerimaan->pengeluaran_id,
                 'barang_id'                     => $request->barang_id[$x],
                 'kadar_id'                      => $request->kadar_id[$x],
                 'detail_pengeluaran_berat'      => $request->detail_pengeluaran_berat[$x],
@@ -146,7 +186,33 @@ class TransaksiPenerimaanController extends Controller
                 'detail_pengeluaran_kondisi'    => $request->detail_pengeluaran_kondisi[$x],
             ]);
 
-            if ($barang->barang_lokasi == 'LEBUR') {
+            // CHECK STATUS KONDISI BARANG
+            if ($barang->barang_lokasi == 'CUCI' || $barang->barang_lokasi == 'REPARASI') {
+
+                $pengeluaran    = TransaksiPengeluaran::updateOrCreate([
+                    'pengeluaran_id'            => $request->pengeluaran_id,
+                ], [
+                    'pengeluaran_nobukti'       => $nobuktipengeluaran,
+                    'pengeluaran_tanggal'       => $request->pengeluaran_tanggal,
+                    'pengeluaran_keterangan'    => $request->pengeluaran_keterangan == null ? '-' : $request->pengeluaran_keterangan,
+                    'supplier_id'               => $request->supplier_id,
+                    'user_id'                   => Auth::user()->user_id,
+                    'jenis'                     => 'pengeluaran',
+                ]);
+
+                $detail         = TransaksiPengeluaranDetail::updateOrCreate([
+                        'detail_pengeluaran_id'         => $request->detail_pengeluaran_id,
+                    ], [
+                        'pengeluaran_nobukti'           => $nobuktipengeluaran,
+                        'pengeluaran_id'                => $pengeluaran->pengeluaran_id,
+                        'barang_id'                     => $request->barang_id[$x],
+                        'kadar_id'                      => $request->kadar_id[$x],
+                        'detail_pengeluaran_berat'      => $request->detail_pengeluaran_berat[$x],
+                        'detail_pengeluaran_kembali'    => 0,
+                        'detail_pengeluaran_kondisi'    => $request->detail_pengeluaran_kondisi[$x],
+                    ]);
+
+            }else if ($barang->barang_lokasi == 'LEBUR') {
                 $barang->update(['barang_status'    => 'non-aktif']);
             } else if ($barang->barang_lokasi == 'ETALASE') {
                 $barang->update(['barang_lokasi'    => 'ETALASE']);
@@ -164,20 +230,21 @@ class TransaksiPenerimaanController extends Controller
     public function filterdata(Request $request)
     {
         $pengeluarans     = TransaksiPengeluaran::with(['pengeluarandetail', 'supplier'])
-        ->where('jenis', 'penerimaan')
-        ->whereBetween('pengeluaran_tanggal', [$request->startDate, $request->endDate])
-        ->get();
+            ->where('jenis', 'penerimaan')
+            ->whereBetween('pengeluaran_tanggal', [$request->startDate, $request->endDate])
+            ->latest()
+            ->get();
 
         $pengeluaran = [];
         $index     = 1;
         foreach ($pengeluarans as $item) {
             $pengeluaran_id           = $item->pengeluaran_id;
             $pengeluaran_nobukti      = $item->pengeluaran_nobukti;
-            $pengeluaran_tanggal      = $item->pengeluaran_tanggal;
+            $pengeluaran_tanggal      = \Carbon\Carbon::parse($item->pengeluaran_tanggal)->format('d-M-Y');
             $supplier_nama            = ucfirst($item->supplier->supplier_nama);
             $pengeluaran_keterangan   = $item->pengeluaran_keterangan;
 
-            $action                   = '<<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Return Penjualan" id="detail-pengeluaran"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">visibility</span></button>';
+            $action                   = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Return Penjualan" id="detail-penerimaan"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
             $pengeluaran[] = [
                 'DT_RowIndex'            => $index++, // Add DT_RowIndex as the index plus 1
@@ -185,13 +252,13 @@ class TransaksiPenerimaanController extends Controller
                 'pengeluaran_nobukti'    => $pengeluaran_nobukti,
                 'pengeluaran_tanggal'    => $pengeluaran_tanggal,
                 'supplier_nama'          => $supplier_nama,
-                'pengeluaran_keterangan' => $pengeluaran_keterangan,
+                'pengeluaran_keterangan' => strtoupper($pengeluaran_keterangan),
                 'action'                 => $action,
             ];
         }
 
         return DataTables::of($pengeluaran)
-        ->rawColumns(['action']) // Specify the columns containing HTML
-        ->toJson();
+            ->rawColumns(['action']) // Specify the columns containing HTML
+            ->toJson();
     }
 }

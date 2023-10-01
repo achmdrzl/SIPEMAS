@@ -22,14 +22,20 @@ class TransaksiPengeluaranController extends Controller
         $supplier               = Supplier::where('status', 'aktif')->get();
 
         if ($request->ajax()) {
-            $pengeluarans   =   TransaksiPengeluaran::with(['pengeluarandetail', 'supplier'])->where('jenis', 'pengeluaran')->latest()->get();
+            $today = Carbon::today(); // Get the current date
+            $pengeluarans   =   TransaksiPengeluaran::with(['pengeluarandetail', 'supplier'])
+            ->whereDate('created_at', $today)
+            ->where('jenis', 'pengeluaran')
+            ->latest()
+            ->get();
+
             return DataTables::of($pengeluarans)
                 ->addIndexColumn()
                 ->addColumn('pengeluaran_nobukti', function ($item) {
                     return $item->pengeluaran_nobukti;
                 })
                 ->addColumn('pengeluaran_tanggal', function ($item) {
-                    return $item->pengeluaran_tanggal;
+                    return \Carbon\Carbon::parse($item->pengeluaran_tanggal)->format('d-M-Y');
                 })
                 ->addColumn('supplier_nama', function ($item) {
                     return $item->supplier->supplier_nama;
@@ -39,7 +45,7 @@ class TransaksiPengeluaranController extends Controller
                 })
                 ->addColumn('action', function ($item) {
 
-                    $btn = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Return Penjualan" id="detail-pengeluaran"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">visibility</span></button>';
+                    $btn = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Return Penjualan" id="detail-pengeluaran"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
                     return $btn;
                 })
@@ -176,6 +182,7 @@ class TransaksiPengeluaranController extends Controller
         $pengeluarans     = TransaksiPengeluaran::with(['pengeluarandetail', 'supplier'])
         ->where('jenis', 'pengeluaran')
         ->whereBetween('pengeluaran_tanggal', [$request->startDate, $request->endDate])
+        ->latest()
         ->get();
 
         $pengeluaran = [];
@@ -183,11 +190,11 @@ class TransaksiPengeluaranController extends Controller
         foreach ($pengeluarans as $item) {
             $pengeluaran_id           = $item->pengeluaran_id;
             $pengeluaran_nobukti      = $item->pengeluaran_nobukti;
-            $pengeluaran_tanggal      = $item->pengeluaran_tanggal;
+            $pengeluaran_tanggal      = \Carbon\Carbon::parse($item->pengeluaran_tanggal)->format('d-M-Y');
             $supplier_nama            = ucfirst($item->supplier->supplier_nama);
             $pengeluaran_keterangan   = $item->pengeluaran_keterangan;
 
-            $action                   = '<<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Return Penjualan" id="detail-pengeluaran"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">visibility</span></button>';
+            $action                   = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Return Penjualan" id="detail-pengeluaran"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
             $pengeluaran[] = [
                 'DT_RowIndex'            => $index++, // Add DT_RowIndex as the index plus 1
@@ -195,7 +202,7 @@ class TransaksiPengeluaranController extends Controller
                 'pengeluaran_nobukti'    => $pengeluaran_nobukti,
                 'pengeluaran_tanggal'    => $pengeluaran_tanggal,
                 'supplier_nama'          => $supplier_nama,
-                'pengeluaran_keterangan' => $pengeluaran_keterangan,
+                'pengeluaran_keterangan' => strtoupper($pengeluaran_keterangan),
                 'action'                 => $action,
             ];
         }

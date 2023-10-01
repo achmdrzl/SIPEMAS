@@ -7,6 +7,15 @@
             width: 100%;
             margin: 1.75rem auto;
         }
+        .custom-width-column {
+            width: 10px; /* Set your desired width here */
+        }
+
+        #datatable_8 tbody td {
+            font-size: 16px; /*Adjust the font size as needed*/
+            text-align: center;
+            padding: 4px;
+        }
     </style>
 @endpush
 
@@ -114,12 +123,12 @@
                                                     </div>
                                                     <div class="card-body">
                                                         <div class="contact-list-view">
-                                                            <table id="datatable_8" class="table nowrap table-striped">
+                                                            <table id="datatable_8" class="table table-striped">
                                                                 <thead>
                                                                     <tr>
                                                                         <th></th>
                                                                         <th>No</th>
-                                                                        <th>Nama</th>
+                                                                        <th style="width:100px">Nama</th>
                                                                         <th>Berat</th>
                                                                         <th>Satuan</th>
                                                                         <th>Jenis</th>
@@ -192,7 +201,7 @@
                                     </div>
                                 </div>
                             </div> --}}
-                            <table class="table nowrap table-striped">
+                            <table class="table table-striped">
                                 <thead>
                                     <th>No</th>
                                     <th>Kode Barang</th>
@@ -269,7 +278,7 @@
                             </div>
                         </div>
                         <div class="modal-footer align-items-center">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
                             <button type="submit" id="submitPenjualan" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
@@ -278,23 +287,7 @@
         </div>
 
         <!-- Page Footer -->
-        <div class="hk-footer">
-            <footer class="container-xxl footer">
-                <div class="row">
-                    <div class="col-xl-8">
-                        <p class="footer-text"><span class="copy-text">Jampack © 2022 All rights reserved.</span> <a
-                                href="#" class="" target="_blank">Privacy Policy</a><span
-                                class="footer-link-sep">|</span><a href="#" class=""
-                                target="_blank">T&C</a><span class="footer-link-sep">|</span><a href="#"
-                                class="" target="_blank">System Status</a></p>
-                    </div>
-                    <div class="col-xl-4">
-                        <a href="#" class="footer-extr-link link-default"><span class="feather-icon"><i
-                                    data-feather="external-link"></i></span><u>Send feedback to our help forum</u></a>
-                    </div>
-                </div>
-            </footer>
-        </div>
+        @include('layouts.footer')
         <!-- / Page Footer -->
 
     </div>
@@ -318,6 +311,23 @@
                     currency: "IDR"
                 }).format(number);
             }
+
+            // Define an array of column indexes that need formatting
+            var columnsToFormat = [3];
+
+            // Loop through the columns and apply the rendering function
+            var columnDefs = columnsToFormat.map(function(columnIndex) {
+                return {
+                    targets: columnIndex,
+                    render: function(data, type, row) {
+                        if (type === 'display') {
+                            // Format as Rupiah
+                            return 'Rp ' + parseFloat(data).toLocaleString('id-ID');
+                        }
+                        return data;
+                    },
+                };
+            });
 
             var transaksiPenjualan = $('#datatable_7').DataTable({
                 scrollX: true,
@@ -363,10 +373,13 @@
                         data: 'action',
                         name: 'action'
                     },
-                ]
+                ],
             });
 
             var listbarang = $('#datatable_8').DataTable({
+                dom: "<'row'<'col-sm-6'l><'col-sm-3'p><'col-sm-3'f>>" +
+                     "<'row'<'col-sm-12'tr>>" +
+                     "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 scrollX: true,
                 autoWidth: false,
                 language: {
@@ -395,7 +408,8 @@
                     },
                     {
                         data: 'barang_nama',
-                        name: 'barang_nama'
+                        name: 'barang_nama',
+                        className: 'custom-width-column' // Add a class for styling
                     },  
                     {
                         data: 'barang_berat',
@@ -413,7 +427,9 @@
                         data: 'barang_lokasi',
                         name: 'barang_lokasi'
                     },
-                ]
+                ],
+                pageLength: 100,
+                lengthMenu: [10, 20, 50, 100, 1000, 10000, 100000, 1000000],
             });
 
             // FILTERED DATA
@@ -499,7 +515,8 @@
                                             data: 'action',
                                             name: 'action'
                                         },
-                                    ]
+                                    ],
+                                    columnDefs: columnDefs,
                             });
     
                             // Hide the loading state
@@ -620,15 +637,27 @@
                                 const harga_jual_1 = value['kadar']['kadar_harga_jual_1']
                                 const harga_jual_2 = value['kadar']['kadar_harga_jual_2']
 
+                                let ppn; // Declare the ppn variable
+
+                                if (value.transaksipenjualandetail.length > 0) {
+                                // If the length is greater than 0, set ppn to 1.65
+                                ppn = 1.65;
+                                } else {
+                                // If the length is not greater than 0, set ppn to 1.15
+                                ppn = 1.15;
+                                }
+
                                 listbarang += `<tr>
                                                     <td>`+ no++ +`</td>
                                                     <td>`+ barangkode +`</td>
-                                                    <td>`+ barangnama +`</td>
+                                                    <td style="width:200px">`+ barangnama +`</td>
                                                     <td>`+ kadar +`</td>
                                                     <td>`+ barangberat +`</td>
                                                     <td>
                                                         <input class="form-control barang_id" type="hidden" value="`+ barangid +`"
                                                             placeholder="Barang Id" name="barang_id[]" />
+                                                        <input class="form-control ppn" type="hidden" value="`+ ppn +`"
+                                                            placeholder="ppn" name="ppn[]" />
                                                         <input class="form-control penjualan_berat_jual" type="number" value="`+ barangberat +`"
                                                             placeholder="Berat Jual" name="detail_penjualan_berat_jual[]" />
                                                     </td>
@@ -667,7 +696,7 @@
             });
 
             // Calculate and update the totals for each row
-           $('body').on('input', '.penjualan_berat_jual, .penjualan_harga, .penjualan_diskon, #inputdiskon, #inputtunai', function() {
+           $('body').on('input', '.penjualan_berat_jual, .penjualan_harga, .penjualan_ongkos, .penjualan_diskon, #inputdiskon, #inputtunai', function() {
                 var row = $(this).closest('tr');
                 var beratJual = parseFloat(row.find('.penjualan_berat_jual').val()) || 0;
                 var hargaJual = parseFloat(row.find('.penjualan_harga').val()) || 0;
@@ -753,15 +782,69 @@
 
                             listbarang.draw();
                             transaksiPenjualan.draw();
-                            setInterval(function() {
-                                window.location.reload();
-                            }, 1000);
+
+                            
+                            setTimeout(function() {
+
+                                $.ajax({
+                                    url: '/latest-penjualan',
+                                    type: 'GET',
+                                    success: function(data) {
+                                        var penjualan_id = data.latestPenjualanId;
+                                        // Use the penjualan_id in your code
+                                        console.log('Latest Penjualan ID: ' + penjualan_id);
+
+                                        const swalWithBootstrapButtons = Swal.mixin({
+                                            customClass: {
+                                                confirmButton: "btn btn-success",
+                                                cancelButton: "btn btn-danger me-2",
+                                            },
+                                            buttonsStyling: false,
+                                        });
+
+                                        swalWithBootstrapButtons
+                                            .fire({
+                                                title: "Apakah kamu ingin mencetak faktur penjualan?",
+                                                text: "Faktur akan dicetak!",
+                                                icon: "warning",
+                                                showCancelButton: true,
+                                                confirmButtonClass: "me-2",
+                                                cancelButtonText: "Tidak",
+                                                confirmButtonText: "Ya",
+                                                reverseButtons: true,
+                                            })
+                                            .then((result) => {
+                                                if (result.value) {
+            
+                                                    // Convert the array to a query parameter string
+                                                    var queryString = 'data=' + JSON.stringify(penjualan_id);
+            
+                                                    // Create the URL with query parameters
+                                                    var url = "{{ route('cetak.faktur.penjualan') }}?" + queryString;
+            
+                                                    // Open the PDF in a new tab/window
+                                                    window.open(url, '_blank');
+            
+                                                    // Introduce a delay of, for example, 2 seconds (2000 milliseconds) before reloading
+                                                    setTimeout(function() {
+                                                        window.location.reload();
+                                                    }, 2000);
+
+                                                } else {
+                                                    Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
+                                                }
+                                            });
+                                    }
+                                });
+    
+                            }, 2000);
+
                         }
                     }
                 });
             });
 
-            // DETAIL PEMBELIAN
+            // DETAIL PENJUALAN
             $('body').on('click', '#detail-penjualan', function(){
                 var penjualan_id = $(this).attr('data-id')
                 $('.alert').hide();
@@ -846,7 +929,50 @@
                 });
 
             })
-            
+
+            // CETAK FAKTUR PENJUALAN
+            $('body').on('click', '#cetak-faktur', function() {
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: "btn btn-success",
+                        cancelButton: "btn btn-danger me-2",
+                    },
+                    buttonsStyling: false,
+
+                });
+
+                var penjualan_id  = $(this).attr('data-id')
+
+                swalWithBootstrapButtons
+                    .fire({
+                        title: "Apakah kamu ingin mencetak faktur penjualan?",
+                        text: "Faktur akan dicetak!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonClass: "me-2",
+                        cancelButtonText: "Tidak",
+                        confirmButtonText: "Ya",
+                        reverseButtons: true,
+                    })
+                    .then((result) => {
+                        if (result.value) {
+
+                            // Convert the array to a query parameter string
+                            var queryString = 'data=' + JSON.stringify(penjualan_id);
+
+                            // Create the URL with query parameters
+                            var url = "{{ route('cetak.faktur.penjualan') }}?" + queryString;
+
+                            // Open the PDF in a new tab/window
+                            window.open(url, '_blank');
+
+                        } else {
+                            Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
+                        }
+                    });
+
+            });            
         })
     </script>
 @endpush

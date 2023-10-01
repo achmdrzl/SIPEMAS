@@ -8,14 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Pabrik extends Model
 {
     protected $table = 'pabriks';
-    protected $primaryKey = 'pabrik_id'; 
+    protected $primaryKey = 'pabrik_id';
     public $incrementing = true;
     public $timestamps = true;
     protected $fillable =
     [
-     'pabrik_id',
-     'pabrik_kode',
-     'pabrik_nama',
-     'status'
+        'pabrik_id',
+        'pabrik_kode',
+        'pabrik_nama',
+        'status'
     ];
+
+    public function barang()
+    {
+        return $this->hasMany(Barang::class, 'pabrik_id');
+    }
 }

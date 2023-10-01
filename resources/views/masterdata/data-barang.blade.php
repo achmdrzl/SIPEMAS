@@ -1,5 +1,25 @@
 @extends('layouts.main')
 
+@push('style-alt')
+    <style>
+        .custom-width-column {
+            width: 100px; /* Set your desired width here */
+        }
+
+        #datatable_7 tbody td {
+            font-size: 16px; /*Adjust the font size as needed*/
+            text-align: center;
+            padding: 4px;
+        }
+        .centered-content2 {
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100%; /* Make the div take the full height of the table cell */
+        }
+    </style>
+@endpush
+
 @section('content')
     <!-- Main Content -->
     <div class="hk-pg-wrapper">
@@ -45,7 +65,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="contact-list-view">
-                                            <table id="datatable_7" class="table nowrap  table-striped">
+                                            <table id="datatable_7" class="table table-striped w-100">
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
@@ -53,11 +73,11 @@
                                                         <th>Berat</th>
                                                         <th>Model</th>
                                                         <th>Pabrik</th> 
-                                                        <th>Supplier</th>
+                                                        {{-- <th>Supplier</th> --}}
                                                         <th>Kadar</th> 
                                                         <th>Lokasi</th> 
-                                                        <th>Kondisi</th> 
-                                                        <th>Status</th> 
+                                                        {{-- <th>Kondisi</th>  --}}
+                                                        {{-- <th>Status</th>  --}}
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -226,8 +246,6 @@
                                         <button type="submit" class="btn btn-primary" id="submitBarang">Simpan</button>
                                     </div> 
                                 </form>
-
-
                             <!-- coba multi -->
                         </div>
                     </div>
@@ -246,17 +264,41 @@
                             </button>
                         </div>
                         <div class="modal-body text-center">
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert"
-                                style="display: none;" style="color: red">
-                            </div> 
-                              
-                            <div style=" 
-                            position: absolute; 
-                            top: 30%;
-                            left: 50%;
-                            transform: translate(-50%, -50%); "
-                            id="barcodebarang" name="barcodebarang"></div> 
-                            <br><br><br>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none;"></div>
+                            <table class="table">
+                                <tr>
+                                    <th>Berat Barang</th>
+                                    <td>
+                                        <div class="centered-content" id="beratbarang" name="beratbarang"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Kadar</th>
+                                    <td>
+                                        <div class="centered-content" id="kadarbarang" name="kadarbarang"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Model</th>
+                                    <td>
+                                        <div class="centered-content" id="modelbarang" name="modelbarang"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Barcode</th>
+                                    <td style="text-align: center;">
+                                        <div class="centered-content2" id="barcodebarang" name="barcodebarang"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Kode Barang</th>
+                                    <td>
+                                        <div class="centered-content" id="kodebarang" name="kodebarang"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer text-center">
                             <a href="" id="generatepdf">
                                 <button class="btn btn-primary">Generate PDF</button>
                             </a>
@@ -298,23 +340,7 @@
         </div>
 
         <!-- Page Footer -->
-        <div class="hk-footer">
-            <footer class="container-xxl footer">
-                <div class="row">
-                    <div class="col-xl-8">
-                        <p class="footer-text"><span class="copy-text">Jampack © 2022 All rights reserved.</span> <a
-                                href="#" class="" target="_blank">Privacy Policy</a><span
-                                class="footer-link-sep">|</span><a href="#" class=""
-                                target="_blank">T&C</a><span class="footer-link-sep">|</span><a href="#"
-                                class="" target="_blank">System Status</a></p>
-                    </div>
-                    <div class="col-xl-4">
-                        <a href="#" class="footer-extr-link link-default"><span class="feather-icon"><i
-                                    data-feather="external-link"></i></span><u>Send feedback to our help forum</u></a>
-                    </div>
-                </div>
-            </footer>
-        </div>
+        @include('layouts.footer')
         <!-- / Page Footer -->
 
     </div>
@@ -327,7 +353,7 @@
 
 
         // max field dinamis input
-        var maxField = 10; //Input fields increment limitation
+        var maxField = 5; //Input fields increment limitation
 
         // Append Ticket Category Input
         var addButtonTicket = $('#addBtnTicket'); //Add button selector
@@ -463,14 +489,14 @@
                     </div>
                 </div>`;
                 $(wrapperTicket).append(fieldHTMLTicket);
-                if (x == 10) {
+                if (x == 5) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Maksimal Multi Input Adalah 10 Barang',
+                        text: 'Maksimal Multi Input Adalah 5 Barang',
                     })
                 }
-                var myElement = document.getElementById('barang_foto_'+x); 
+                var myElement = document.getElementById('barang_foto_' + x); 
                 var dropify = new Dropify(myElement, {
                 messages: {
                     default: 'Upload Photo' 
@@ -495,14 +521,6 @@
                 })
             }
         });
-
-
-
-
-
-
-
-
 
 
         ////////////////coba multi
@@ -627,17 +645,13 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            
-            /////////////////////////////////////////
-            /////////////
-            //nda masuk di script
-            /////////////
-            /////////////////////////////////////////
-            //alert("masuk script sebelum datatable 7");
 
             var datatable = $('#datatable_7').DataTable({
+                dom: "<'row'<'col-sm-6'l><'col-sm-3'p><'col-sm-3'f>>" +
+                     "<'row'<'col-sm-12'tr>>" +
+                     "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 scrollX: true,
-                autoWidth: false,
+                autoWidth: true,
                 language: {
                     search: "",
                     searchPlaceholder: "Search",
@@ -660,7 +674,8 @@
                     },
                     {
                         data: 'barang_nama',
-                        name: 'barang_nama'
+                        name: 'barang_nama',
+                        className: 'custom-width-column' // Add a class for styling
                     },  
                     {
                         data: 'barang_berat',
@@ -674,10 +689,10 @@
                         data: 'pabrik_id',
                         name: 'pabrik_id'
                     },  
-                    {
-                        data: 'supplier_id',
-                        name: 'supplier_id'
-                    }, 
+                    // {
+                    //     data: 'supplier_id',
+                    //     name: 'supplier_id'
+                    // }, 
                     {
                         data: 'kadar_id',
                         name: 'kadar_id'
@@ -686,19 +701,21 @@
                         data: 'barang_lokasi',
                         name: 'barang_lokasi'
                     }, 
-                    {
-                        data: 'barang_kondisi',
-                        name: 'barang_kondisi'
-                    }, 
-                    {
-                        data: 'barang_status',
-                        name: 'barang_status'
-                    }, 
+                    // {
+                    //     data: 'barang_kondisi',
+                    //     name: 'barang_kondisi'
+                    // }, 
+                    // {
+                    //     data: 'barang_status',
+                    //     name: 'barang_status'
+                    // }, 
                     {
                         data: 'action',
                         name: 'action'
                     }
-                ]
+                ],
+                pageLength: 100,
+                lengthMenu: [10, 20, 50, 100, 1000, 10000, 100000, 1000000],
             });
 
             // Create Data Barang.
@@ -709,6 +726,7 @@
                 $('#barangForm').trigger("reset");
                 $('#barangHeading').html("TAMBAH DATA BARANG BARU");
                 $('#barangModal').modal('show');
+                $('#addBtnTicket').attr('hidden', false);
             });
 
             $('#submitBarang').on('click', function(e){ 
@@ -720,9 +738,6 @@
                 e.preventDefault();
 
                 $(this).html('Sending..');
-                //var form = $(this).serialize(); 
-                 
-                //  alert(form);
                  
                  $.ajax({
                     url: "{{ route('barang.store') }}",
@@ -775,14 +790,14 @@
                 }  
             });
 
-
             // Edit Data Barang
             $('body').on('click', '#user-edit', function() { 
                 var inputElement = document.getElementById("barang_kode_1");
                 //inputElement.disabled = true;
                 inputElement.disabled = false;
-
+                $('#addBtnTicket').attr('hidden', true);
                 var barang_id = $(this).attr('data-id');
+
                 $('.alert').hide();
                 $.ajax({
                     type: "POST",
@@ -795,7 +810,7 @@
                         console.log(response)
                         $('#submitBtnBarang').val("barang-edit");
                         $('#barangForm').trigger("reset");
-                        $('#barangHeading').html("EDIT DATA Barang");
+                        $('#barangHeading').html("EDIT DATA BARANG");
                         $('#barangModal').modal('show');
                         $('#barang_kode_1').val(response.barang_kode);
                         $('#barang_id_1').val(response.barang_id);
@@ -812,7 +827,7 @@
                 });
                 var inputElement = document.getElementById("barang_kode_1");
                 //inputElement.disabled = true;
-                inputElement.disabled = true;
+                inputElement.disabled = false;
             });
 
             // Detail Data Barang
@@ -885,37 +900,22 @@
 
             });
 
-            //generate PDF
-            // $('body').on('click', '#generatepdf', function() {
-            //     var barang_id = $(this).attr('data-id');
-            //     //alert("masuk di js");
-            //     $('.alert').hide();
-            //     $.ajax({
-            //         type: "get",
-            //         url: "/generatepdf/"+barang_id,  
-            //         success: function(response) {
-  
-            //             console.log(response);
-
-
-            //             // $("#barcodebarangModal").modal('show'); 
-        
-            //             // // Insert the barcode HTML into the container element
-            //             // //document.getElementById("barcodeContainer").innerHTML = barcodeHTML;
-            //             // $('#barcodebarang').html(response); 
- 
-                        
-            //         }
-            //     }); 
-
-            // });
-
             //barang barcode
             $('body').on('click', '#barang-barcode', function() {
                 var barang_id = $(this).attr('data-id'); 
                 
-                $('#barangdetailHeading').html("Barang Id: "+barang_id);
-                document.getElementById("generatepdf").href="/generatepdf/"+barang_id; 
+                $('#barangdetailHeading').html("Barang Id : " + barang_id);
+
+                // Convert the array to a query parameter string
+                var queryString = 'data=' + JSON.stringify(barang_id);
+
+                // Create the URL with query parameters
+                var url = "{{ route('barang.cetak') }}?" + queryString;
+
+                // Open the PDF in a new tab/window
+                var pdfLink = document.getElementById("generatepdf");
+                pdfLink.href = url;
+                pdfLink.target = "_blank"; // Set the target attribute to "_blank"
 
                 $('.alert').hide();
                 $.ajax({
@@ -926,22 +926,17 @@
                     },
                     dataType: "json",
                     success: function(response) {
- 
-
-
-
                         console.log(response) 
                         $("#barcodebarangModal").modal('show'); 
         
                         // Insert the barcode HTML into the container element
-                        //document.getElementById("barcodeContainer").innerHTML = barcodeHTML;
-                        $('#barcodebarang').html(response); 
-
-                        
-                        
+                        $('#beratbarang').html(response.barang.barang_berat);
+                        $('#kadarbarang').html(response.barang.kadar.kadar_nama);
+                        $('#modelbarang').html(response.barang.model.model_nama);
+                        $('#barcodebarang').html(response.barcode);
+                        $('#kodebarang').html(response.barang.barang_kode);
                     }
                 }); 
-                //barangDetail(barang_id)
 
             });
 
@@ -1005,57 +1000,57 @@
             // Pindah Etalase Data Barang
             $('body').on('click', '#barang-etalase', function() {
 
-            const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    confirmButton: "btn btn-success",
-                    cancelButton: "btn btn-danger me-2",
-                },
-                buttonsStyling: false,
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: "btn btn-success",
+                        cancelButton: "btn btn-danger me-2",
+                    },
+                    buttonsStyling: false,
 
-            });
-
-            var barang_id = $(this).attr('data-id');
-
-            swalWithBootstrapButtons
-                .fire({
-                    title: "Do you want to move this data to etalase?",
-                    text: "This data location will be set!",
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonClass: "me-2",
-                    cancelButtonText: "Tidak",
-                    confirmButtonText: "Ya",
-                    reverseButtons: true,
-                })
-                .then((result) => {
-                    if (result.value) {
-                        $.ajax({
-                            type: "POST",
-                            url: "{{ route('barang.etalase') }}",
-                            data: {
-                                barang_id: barang_id,
-                            },
-                            dataType: "json",
-                            success: function(response) {
-                                const Toast = Swal.mixin({
-                                    toast: true,
-                                    position: 'top-end',
-                                    showConfirmButton: false,
-                                    timer: 3000,
-                                    timerProgressBar: true,
-                                });
-
-                                Toast.fire({
-                                    icon: 'success',
-                                    title: `${response.status}`,
-                                })
-                                datatable.draw();
-                            }
-                        });
-                    } else {
-                        Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
-                    }
                 });
+
+                var barang_id = $(this).attr('data-id');
+
+                swalWithBootstrapButtons
+                    .fire({
+                        title: "Do you want to move this data to etalase?",
+                        text: "This data location will be set!",
+                        icon: "question",
+                        showCancelButton: true,
+                        confirmButtonClass: "me-2",
+                        cancelButtonText: "Tidak",
+                        confirmButtonText: "Ya",
+                        reverseButtons: true,
+                    })
+                    .then((result) => {
+                        if (result.value) {
+                            $.ajax({
+                                type: "POST",
+                                url: "{{ route('barang.etalase') }}",
+                                data: {
+                                    barang_id: barang_id,
+                                },
+                                dataType: "json",
+                                success: function(response) {
+                                    const Toast = Swal.mixin({
+                                        toast: true,
+                                        position: 'top-end',
+                                        showConfirmButton: false,
+                                        timer: 3000,
+                                        timerProgressBar: true,
+                                    });
+
+                                    Toast.fire({
+                                        icon: 'success',
+                                        title: `${response.status}`,
+                                    })
+                                    datatable.draw();
+                                }
+                            });
+                        } else {
+                            Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
+                        }
+                    });
 
             });
 

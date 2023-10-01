@@ -16,6 +16,7 @@ class TransaksiPenjualanReturn extends Model
         'penjualan_return_tanggal',
         'penjualan_return_nobukti',
         'penjualan_kode',
+        'penjualan_ppn',
         'penjualan_return_keterangan',
         'user_id',
     ];

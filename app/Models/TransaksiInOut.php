@@ -12,7 +12,7 @@ class TransaksiInOut extends Model
     protected $primaryKey = 'transaksi_id';
 
     protected $fillable = [
-        'transaksi_id', 'kode_transaksi', 'tgl_transaksi', 'jenis_transaksi', 'total', 'keterangan'
+        'transaksi_id', 'kode_transaksi', 'tgl_transaksi', 'jenis_transaksi', 'total', 'keterangan', 'status'
     ];
 
 }
