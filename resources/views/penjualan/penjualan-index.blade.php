@@ -254,8 +254,7 @@
                                                     <tr>
                                                         <td class="border-end-0 border-bottom-0">Tunai : </td>
                                                         <td colspan="2" class="border-end-0 border-bottom-0 w-25"><input
-                                                                type="number" class="form-control"
-                                                                value="0" id="inputtunai" name="inputtunai"></td>
+                                                                type="number" class="form-control" id="inputtunai" name="inputtunai"></td>
                                                         <td class="border-bottom-0  bg-primary-light-5"><input type="number"
                                                                 class="form-control bg-transparent border-0 p-0"
                                                                 value="0" id="penjualan_tunai" name="penjualan_tunai" readonly></td>

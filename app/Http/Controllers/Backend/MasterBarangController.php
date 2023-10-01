@@ -25,39 +25,12 @@ use Psy\Readline\Hoa\Console;
 
 class MasterBarangController extends Controller
 {
-    // protected $barcodeGeneratorService;
-    // public function __construct(BarcodeGeneratorService $barcodeGeneratorService)
-    // {
-    //     $this->barcodeGeneratorService = $barcodeGeneratorService;
-    // }
-
-    // public function generatePDF()
-    // {
-    //     $barcodeTexts = ['123456', '789012', '345678']; // Replace with your barcode texts
-
-    //     $barcodes = [];
-    //     foreach ($barcodeTexts as $text) {
-    //         $barcodes[] = [
-    //             'text' => $text,
-    //             'image' => $this->barcodeGeneratorService->generateBarcode($text)
-    //         ];
-    //     }
-
-    //     $pdf = PDF::loadView('barcode.pdf', ['barcodes' => $barcodes]);
-    //     return $pdf->stream('barcodes.pdf');
-    // }
-    // public function barangIndex()
-    // {
-    //     return view('masterdata.dummy');
-    // }
-
     //////////////LOKASI///////////
     //-blm dipajang = sdh beli
     //-tejual = sudah terjual
     //-etalase = sdh pindah etalase
     //-kosong(" ") = belum beli
     //-cuci, lebur, reparasi
-    //
 
     // INDEX BARANG
     public function barangIndex(Request $request)
@@ -160,17 +133,8 @@ class MasterBarangController extends Controller
     // BARANG STORE
     public function barangStore(Request $request)
     {
-        //return response()->json(['errors' => "masok pak eko"]);
         //define validation rules  
-
-
-        //////////////////////////
-        ////////testing
-
-
-        //dd($formData['supplier']);
         $formData = $request->input('data');
-        //dd($formData); 
 
         $validator = Validator::make($request->all(), [
             'data.nama.*' => 'required',
@@ -187,11 +151,11 @@ class MasterBarangController extends Controller
             'data.kadar.*.required' => 'Kadar Must be included!',
             'data.model.*.required' => 'Model Must be included!',
         ]);
+
         //check if validation fails 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()]);
         }
-
 
         //masuk sini untuk create/update satu2
         $dataCount = count($formData['id']);
@@ -222,7 +186,7 @@ class MasterBarangController extends Controller
             } catch (\Exception $e) {
                 $status = "non-aktif";
             }
-            //dd($status); 
+            
             //if means update else mean create new barang
             if (isset($cekedit)) {
                 $barang = Barang::find($formData['id'][$i]);
@@ -314,8 +278,6 @@ class MasterBarangController extends Controller
         }
 
         //return response
-        //return response()->json(['errors' => "test"]);
-
         return response()->json([
             'success' => true,
             'message' => 'Your data has been saved successfully!'

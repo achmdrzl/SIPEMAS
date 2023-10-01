@@ -722,53 +722,125 @@
                 e.preventDefault();
                 $(this).html('Sending..');
 
-                $.ajax({
-                    url: "{{ route('penjualan.return.store') }}",
-                    data: new FormData(this.form),
-                    cache: false,
-                    processData: false,
-                    contentType: false,
-                    type: "POST",
+                var kondisi = $('.return_kondisi').val();
 
-                    success: function(response) {
-                        console.log(response)
-                        if (response.errors) {
-                            $('.alert').html('');
-                            $.each(response.errors, function(key, value) {
-                                $('.alert-danger').show();
-                                $('.alert-danger').append('<strong><li>' + value +
-                                    '</li></strong>');
-                            });
-                            $('#submitPenjualanReturn').html('Simpan');
+                if(kondisi == 'REPARASI' || kondisi == 'CUCI'){
 
-                        } else {
-                            $('.btn-warning').hide();
+                    var supplier = $('#supplier_id').val();
 
-                            const Toast = Swal.mixin({
-                                toast: true,
-                                position: 'top-end',
-                                showConfirmButton: false,
-                                timer: 2000,
-                                timerProgressBar: true,
-                            });
+                    if(supplier != null){
+                        
+                        $.ajax({
+                            url: "{{ route('penjualan.return.store') }}",
+                            data: new FormData(this.form),
+                            cache: false,
+                            processData: false,
+                            contentType: false,
+                            type: "POST",
+        
+                            success: function(response) {
+                                console.log(response)
+                                if (response.errors) {
+                                    $('.alert').html('');
+                                    $.each(response.errors, function(key, value) {
+                                        $('.alert-danger').show();
+                                        $('.alert-danger').append('<strong><li>' + value +
+                                            '</li></strong>');
+                                    });
+                                    $('#submitPenjualanReturn').html('Simpan');
+        
+                                } else {
+                                    $('.btn-warning').hide();
+        
+                                    const Toast = Swal.mixin({
+                                        toast: true,
+                                        position: 'top-end',
+                                        showConfirmButton: false,
+                                        timer: 2000,
+                                        timerProgressBar: true,
+                                    });
+        
+                                    Toast.fire({
+                                        icon: 'success',
+                                        title: `${response.message}`,
+                                    })
+        
+                                    $('#penjualanreturnForm').trigger("reset");
+                                    $('#submitPenjualanReturn').html('Simpan');
+                                    $('#penjualanreturnModal').modal('hide');
+        
+                                    listbarang.draw();
+                                    transaksiPenjualanReturn.draw();
+                                    setInterval(function() {
+                                        window.location.reload();
+                                    }, 1000);
+                                }
+                            }
+                        });
 
-                            Toast.fire({
-                                icon: 'success',
-                                title: `${response.message}`,
-                            })
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Supplier Must Be Included!',
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
 
-                            $('#penjualanreturnForm').trigger("reset");
-                            $('#submitPenjualanReturn').html('Simpan');
-                            $('#penjualanreturnModal').modal('hide');
-
-                            listbarang.draw();
-                            transaksiPenjualanReturn.draw();
-                            setInterval(function() {
-                                window.location.reload();
-                            }, 1000);
-                        }
+                        $('#submitPenjualanReturn').html('Simpan');
                     }
-                });
+
+                }else{
+
+                    $.ajax({
+                        url: "{{ route('penjualan.return.store') }}",
+                        data: new FormData(this.form),
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        type: "POST",
+    
+                        success: function(response) {
+                            console.log(response)
+                            if (response.errors) {
+                                $('.alert').html('');
+                                $.each(response.errors, function(key, value) {
+                                    $('.alert-danger').show();
+                                    $('.alert-danger').append('<strong><li>' + value +
+                                        '</li></strong>');
+                                });
+                                $('#submitPenjualanReturn').html('Simpan');
+    
+                            } else {
+                                $('.btn-warning').hide();
+    
+                                const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timer: 2000,
+                                    timerProgressBar: true,
+                                });
+    
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: `${response.message}`,
+                                })
+    
+                                $('#penjualanreturnForm').trigger("reset");
+                                $('#submitPenjualanReturn').html('Simpan');
+                                $('#penjualanreturnModal').modal('hide');
+    
+                                listbarang.draw();
+                                transaksiPenjualanReturn.draw();
+                                setInterval(function() {
+                                    window.location.reload();
+                                }, 1000);
+                            }
+                        }
+                    });
+                }
+
             });
 
             // DETAIL PENJUALAN RETURN

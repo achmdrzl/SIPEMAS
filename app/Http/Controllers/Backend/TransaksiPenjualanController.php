@@ -126,7 +126,7 @@ class TransaksiPenjualanController extends Controller
             'detail_penjualan_harga.array'           => 'Harga Jual must be an array.',
             'detail_penjualan_harga.*.required'      => 'Each value in Harga Jual must be present.',
             'detail_penjualan_harga.*.numeric'       => 'Each value in Harga Jual must be numeric.',
-            'inputtunai.required'                   => 'Total Pembayaran Tunai must be included',
+            'inputtunai.required'                    => 'Total Pembayaran Tunai must be included',
         ]);
 
         //check if validation fails

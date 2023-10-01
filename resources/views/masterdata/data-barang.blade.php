@@ -778,7 +778,6 @@
                             $('#barangForm').trigger("reset");
                             $('#submitBarang').html('Simpan');
                             $('#barangModal').modal('hide');
-
                             datatable.draw();
                         }
                     }

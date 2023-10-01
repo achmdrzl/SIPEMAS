@@ -136,7 +136,7 @@ class DataLaporanController extends Controller
                 })
                 ->addColumn('action', function ($item) {
 
-                    $btn = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Pembelian" id="detail-pembelian"  data-id="' . $item->pembelian_id . '"><span class="material-icons btn-sm">visibility</span></button>';
+                    $btn = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Pembelian" id="detail-pembelian"  data-id="' . $item->pembelian_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
                     return $btn;
                 })
@@ -211,7 +211,7 @@ class DataLaporanController extends Controller
                 })
                 ->addColumn('action', function ($item) {
 
-                    $btn = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Penjualan" id="detail-penjualan"  data-id="' . $item->penjualan_id . '"><span class="material-icons btn-sm">visibility</span></button>';
+                    $btn = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Penjualan" id="detail-penjualan"  data-id="' . $item->penjualan_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
                     return $btn;
                 })
@@ -284,7 +284,7 @@ class DataLaporanController extends Controller
                 })
                 ->addColumn('action', function ($item) {
 
-                    $btn = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Return Penjualan" id="detail-penjualan-return"  data-id="' . $item->penjualan_return_id . '"><span class="material-icons btn-sm">visibility</span></button>';
+                    $btn = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Return Penjualan" id="detail-penjualan-return"  data-id="' . $item->penjualan_return_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
                     return $btn;
                 })
@@ -365,7 +365,7 @@ class DataLaporanController extends Controller
                 })
                 ->addColumn('action', function ($item) {
 
-                    $btn = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Pengeluaran" id="detail-pengeluaran"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">visibility</span></button>';
+                    $btn = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Pengeluaran" id="detail-pengeluaran"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
                     return $btn;
                 })
@@ -445,7 +445,7 @@ class DataLaporanController extends Controller
                 })
                 ->addColumn('action', function ($item) {
 
-                    $btn = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Return Penjualan" id="detail-penerimaan"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">visibility</span></button>';
+                    $btn = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Return Penjualan" id="detail-penerimaan"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
                     return $btn;
                 })
@@ -658,7 +658,7 @@ class DataLaporanController extends Controller
             $pembelian_supplier_id    = ucfirst($item->supplier->supplier_nama);
             $pembelian_grandtotal     = $item->pembelian_grandtotal;
 
-            $action                   = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Pembelian" id="detail-pembelian"  
+            $action                   = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Pembelian" id="detail-pembelian"  
             data-id="' . $item->pembelian_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
             $pembelian[] = [
@@ -748,7 +748,7 @@ class DataLaporanController extends Controller
             $penjualan_ppn            = $item->penjualan_ppn;
             $penjualan_grandtotal     = $item->penjualan_grandtotal;
 
-            $action                   = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Penjualan" id="detail-penjualan"  data-id="' . $item->penjualan_id . '"><span class="material-icons btn-sm">visibility</span></button>';
+            $action                   = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Penjualan" id="detail-penjualan"  data-id="' . $item->penjualan_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
             $penjualan[] = [
                 'DT_RowIndex'            => $index++, // Add DT_RowIndex as the index plus 1
@@ -843,7 +843,7 @@ class DataLaporanController extends Controller
             $penjualan_nobukti               = $item->penjualan->penjualan_nobukti;
             $penjualan_return_keterangan     = $item->penjualan_return_keterangan;
 
-            $action                   = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Return Penjualan" id="detail-penjualan-return"  data-id="' . $item->penjualan_return_id . '"><span class="material-icons btn-sm">visibility</span></button>';
+            $action                   = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Return Penjualan" id="detail-penjualan-return"  data-id="' . $item->penjualan_return_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
             $returnpenjualan[] = [
                 'DT_RowIndex'                   => $index++, // Add DT_RowIndex as the index plus 1
@@ -924,7 +924,7 @@ class DataLaporanController extends Controller
             $supplier_nama              = $item->supplier->supplier_nama;
             $pengeluaran_keterangan     = $item->pengeluaran_keterangan;
 
-            $action                   = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Pengeluaran" id="detail-pengeluaran"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">visibility</span></button>';
+            $action                   = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Pengeluaran" id="detail-pengeluaran"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
             $pengeluaran[] = [
                 'DT_RowIndex'              => $index++, // Add DT_RowIndex as the index plus 1
@@ -1005,7 +1005,7 @@ class DataLaporanController extends Controller
             $supplier_nama              = $item->supplier->supplier_nama;
             $pengeluaran_keterangan     = $item->pengeluaran_keterangan;
 
-            $action                   = '<button class="btn btn-icon btn-secondary btn-rounded flush-soft-hover me-1" title="Detail Return Penjualan" id="detail-penerimaan"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">visibility</span></button>';
+            $action                   = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Return Penjualan" id="detail-penerimaan"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
             $pengeluaran[] = [
                 'DT_RowIndex'              => $index++, // Add DT_RowIndex as the index plus 1
