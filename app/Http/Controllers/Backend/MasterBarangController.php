@@ -353,7 +353,7 @@ class MasterBarangController extends Controller
 
         $barang = Barang::with(['kadar', 'model'])->where('barang_id', $dataArray)->first();
 
-        $filename = "Barcode ' . $barang->barang_kode. ' ";
+        $filename = 'Barcode ' . $barang->barang_kode;
         $formatPaper = 'landscape';
 
         // Load the HTML view with the data
