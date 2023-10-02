@@ -115,7 +115,7 @@ class MasterBarangController extends Controller
 
                     $btn = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" id="user-edit" data-id="' . $item->barang_id . '" title="EDIT BARANG"><span class="material-icons btn-sm" >edit</span></button>';
 
-                    $btn = $btn . '<button class="btn btn-icon btn-' . $button . ' btn-rounded flush-soft-hover me-1" id="user-delete" data-id="' . $item->barang_id . '" title="' . $text . ' BARANG"><span class="material-icons btn-sm">' . $icon . '</span></button>';
+                    // $btn = $btn . '<button class="btn btn-icon btn-' . $button . ' btn-rounded flush-soft-hover me-1" id="user-delete" data-id="' . $item->barang_id . '" title="' . $text . ' BARANG"><span class="material-icons btn-sm">' . $icon . '</span></button>';
 
                     $btn = $btn . '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" id="barang-etalase" data-id="' . $item->barang_id . '" title="PINDAH ETALASE"><span class="material-icons btn-sm">store</span></button>';
 
