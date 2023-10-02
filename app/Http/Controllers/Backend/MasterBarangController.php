@@ -35,14 +35,12 @@ class MasterBarangController extends Controller
     // INDEX BARANG
     public function barangIndex(Request $request)
     {
-        $barangs   =   Barang::all();
-        $models = ModelBarang::all();
-        $pabriks = Pabrik::all();
-        $suppliers = Supplier::all();
-        $kadars = Kadar::all();
-        $detail_barangs = DetailBarang::all();
+        $barangs    = Barang::all();
+        $models     = ModelBarang::all();
+        $pabriks    = Pabrik::all();
+        $suppliers  = Supplier::all();
+        $kadars     = Kadar::all();
 
-        ///////tidak bisa masuk ke ajax
         if ($request->ajax()) {
             $barangs   =   Barang::latest()->get();
             //dd("masuk controller brang index");
@@ -127,7 +125,7 @@ class MasterBarangController extends Controller
                 ->rawColumns(['barang_nama', 'barang_status', 'action'])
                 ->make(true);
         }
-        return view('masterdata.data-barang', compact('barangs', 'models', 'pabriks', 'suppliers', 'kadars', 'detail_barangs'));
+        return view('masterdata.data-barang', compact('barangs', 'models', 'pabriks', 'suppliers', 'kadars'));
     }
 
     // BARANG STORE

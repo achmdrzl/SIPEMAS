@@ -138,7 +138,7 @@ class MasterDataController extends Controller
         //dd("asasas");
         $pabriks   =   Pabrik::all();
         if ($request->ajax()) {
-            $pabriks   =   Pabrik::all();
+            $pabriks   =   Pabrik::orderBy('pabrik_id', 'desc')->get();
             return DataTables::of($pabriks)
                 ->addIndexColumn()
                 ->addColumn('pabrik_kode', function ($item) {
@@ -207,7 +207,7 @@ class MasterDataController extends Controller
                 $initialId = '01';
             } else {
                 // Retrieve the last record from the table
-                $lastRecord = Pabrik::latest()->first();
+                $lastRecord = Pabrik::orderBy('pabrik_id', 'desc')->first();
 
                 // Retrieve the last custom code
                 $lastCode = $lastRecord->pabrik_kode;
@@ -296,7 +296,7 @@ class MasterDataController extends Controller
     {
         $kadars   =   Kadar::all();
         if ($request->ajax()) {
-            $kadars   =   Kadar::all();
+            $kadars   =   Kadar::orderBy('kadar_id', 'desc')->get();
             return DataTables::of($kadars)
                 ->addIndexColumn()
                 ->addColumn('kadar_kode', function ($item) {
@@ -378,16 +378,16 @@ class MasterDataController extends Controller
 
             // Check if any records exist
             if (Kadar::count() === 0) {
-                $initialId = '01';
+                $initialId = '1';
             } else {
                 // Retrieve the last record from the table
-                $lastRecord = Kadar::latest()->first();
+                $lastRecord = Kadar::orderBy('kadar_id', 'desc')->first();
 
                 // Retrieve the last custom code
                 $lastCode = $lastRecord->kadar_kode;
 
                 // Increment the last code by 1
-                $nextCode = sprintf("%02d", intval($lastCode) + 1);
+                $nextCode = sprintf("%2d", intval($lastCode) + 1);
 
                 $initialId = $nextCode;
             }
@@ -470,10 +470,9 @@ class MasterDataController extends Controller
     // MODEL INDEX
     public function modelIndex(Request $request)
     {
-        //dd("asasas");
         $models   =   ModelBarang::all();
         if ($request->ajax()) {
-            $models   =   ModelBarang::all();
+            $models   =   ModelBarang::orderBy('model_id', 'desc')->get();
             return DataTables::of($models)
                 ->addIndexColumn()
                 ->addColumn('model_kode', function ($item) {
@@ -539,16 +538,16 @@ class MasterDataController extends Controller
 
             // Check if any records exist
             if (ModelBarang::count() === 0) {
-                $initialId = '01';
+                $initialId = '1';
             } else {
                 // Retrieve the last record from the table
-                $lastRecord = ModelBarang::latest()->first();
+                $lastRecord = ModelBarang::orderBy('model_id', 'desc')->first();
 
                 // Retrieve the last custom code
                 $lastCode = $lastRecord->model_kode;
 
                 // Increment the last code by 1
-                $nextCode = sprintf("%02d", intval($lastCode) + 1);
+                $nextCode = sprintf("%2d", intval($lastCode) + 1);
 
                 $initialId = $nextCode;
             }
@@ -631,7 +630,7 @@ class MasterDataController extends Controller
     {
         $suppliers   =   Supplier::all();
         if ($request->ajax()) {
-            $suppliers   =   Supplier::all();
+            $suppliers   =   Supplier::orderBy('supplier_id', 'desc')->get();
             return DataTables::of($suppliers)
                 ->addIndexColumn()
                 ->addColumn('supplier_kode', function ($item) {
@@ -718,16 +717,16 @@ class MasterDataController extends Controller
 
             // Check if any records exist
             if (Supplier::count() === 0) {
-                $initialId = '01';
+                $initialId = '1';
             } else {
                 // Retrieve the last record from the table
-                $lastRecord = Supplier::latest()->first();
+                $lastRecord = Supplier::orderBy('supplier_id', 'desc')->first();
 
                 // Retrieve the last custom code
                 $lastCode = $lastRecord->supplier_kode;
 
                 // Increment the last code by 1
-                $nextCode = sprintf("%02d", intval($lastCode) + 1);
+                $nextCode = sprintf("%2d", intval($lastCode) + 1);
 
                 $initialId = $nextCode;
             }
@@ -814,7 +813,7 @@ class MasterDataController extends Controller
     {
         $merks   =   Merk::all();
         if ($request->ajax()) {
-            $merks   =   Merk::all();
+            $merks   =   Merk::orderBy('merk_id', 'desc')->get();
             return DataTables::of($merks)
                 ->addIndexColumn()
                 ->addColumn('merk_kode', function ($item) {
@@ -883,7 +882,7 @@ class MasterDataController extends Controller
                 $initialId = '01';
             } else {
                 // Retrieve the last record from the table
-                $lastRecord = Merk::latest()->first();
+                $lastRecord = Merk::orderBy('merk_id', 'desc')->first();
 
                 // Retrieve the last custom code
                 $lastCode = $lastRecord->merk_kode;
@@ -973,7 +972,7 @@ class MasterDataController extends Controller
     public function transaksi_in_out(Request $request)
     {
         if ($request->ajax()) {
-            $datas   =   TransaksiInOut::where('status', 'aktif')->get();
+            $datas   =   TransaksiInOut::where('status', 'aktif')->latest()->get();
             return DataTables::of($datas)
                 ->addIndexColumn()
                 ->addColumn('kode_transaksi', function ($item) {
@@ -1119,7 +1118,7 @@ class MasterDataController extends Controller
     public function transaksiHutang(Request $request)
     {
         if ($request->ajax()) {
-            $datas   =   TransaksiHutang::where('status', 'aktif')->get();
+            $datas   =   TransaksiHutang::where('status', 'aktif')->latest()->get();
             return DataTables::of($datas)
                 ->addIndexColumn()
                 ->addColumn('kode_hutang', function ($item) {

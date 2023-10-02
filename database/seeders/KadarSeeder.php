@@ -14,17 +14,51 @@ class KadarSeeder extends Seeder
     public function run(): void
     {
         Kadar::create([
-            'kadar_kode'      =>  '01',
-            'kadar_nama'      =>  'test kadar 1',
-            'kadar_harga_jual_1'      =>  1100 ,
-            'kadar_harga_jual_2'      =>  110 
+            'kadar_id'            => 210114001,
+            'kadar_kode'          =>  '1',
+            'kadar_nama'          =>  '8K',
+            'kadar_harga_jual_1'  =>  440000,
+            'kadar_harga_jual_2'  =>  460000
         ]);
 
         Kadar::create([
-            'kadar_kode'      =>  '02',
-            'kadar_nama'      =>  'test kadar 2',
-            'kadar_harga_jual_1'      =>  12000 ,
-            'kadar_harga_jual_2'      =>  1200 
+            'kadar_id'            => 210114002,
+            'kadar_kode'          =>  '2',
+            'kadar_nama'          =>  '9K',
+            'kadar_harga_jual_1'  =>  460000,
+            'kadar_harga_jual_2'  =>  0
+        ]);
+
+        Kadar::create([
+            'kadar_id'            => 210114003,
+            'kadar_kode'          =>  '3',
+            'kadar_nama'          =>  '16K',
+            'kadar_harga_jual_1'  =>  705000,
+            'kadar_harga_jual_2'  =>  0
+        ]);
+
+        Kadar::create([
+            'kadar_id'            => 210114005,
+            'kadar_kode'          =>  '0',
+            'kadar_nama'          =>  '0',
+            'kadar_harga_jual_1'  =>  0,
+            'kadar_harga_jual_2'  =>  0
+        ]);
+
+        Kadar::create([
+            'kadar_id'            => 210114006,
+            'kadar_kode'          =>  '4',
+            'kadar_nama'          =>  '17K',
+            'kadar_harga_jual_1'  =>  765000,
+            'kadar_harga_jual_2'  =>  0
+        ]);
+
+        Kadar::create([
+            'kadar_id'            => 210228007,
+            'kadar_kode'          =>  '5',
+            'kadar_nama'          =>  '24K',
+            'kadar_harga_jual_1'  =>  0,
+            'kadar_harga_jual_2'  =>  0
         ]);
     }
 }
