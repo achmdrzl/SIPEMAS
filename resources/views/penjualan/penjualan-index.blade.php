@@ -17,6 +17,26 @@
             padding: 4px;
         }
     </style>
+
+    <script>
+        function test(element) {
+
+            var val = element.value;
+
+            // Remove commas from the input value
+            var unformattedValue = val.replace(/,/g, '');
+
+            // Add the 'data-value' attribute with the unformatted value
+            element.setAttribute('data-value', unformattedValue);
+
+            // Format the value with addCommas
+            element.value = addCommas(unformattedValue);
+        }
+
+        function addCommas(str) {
+            return str.replace(/^0+/, '').replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+    </script>
 @endpush
 
 @section('content')
@@ -138,10 +158,10 @@
                                                             </table>
                                                         </div>
                                                     </div>
-                                                    <div class="card-footer">
+                                                    {{-- <div class="card-footer">
                                                         <p style="font-size: 18px">BERAT TOTAL : <strong>126,2
                                                                 gram</strong></p>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -228,7 +248,7 @@
                                                             class="rounded-top-start border-end-0 border-bottom-0">Subtotal :
                                                         </td>
                                                         <td class="rounded-top-end border-bottom-0 w-30 bg-primary-light-5">
-                                                            <input type="number"
+                                                            <input type="text"
                                                                 class="form-control bg-transparent border-0 p-0 gross-total"
                                                                 value="0" id="penjualan_subtotal" name="penjualan_subtotal" readonly>
                                                         </td>
@@ -236,9 +256,9 @@
                                                     <tr>
                                                         <td class="border-end-0 border-bottom-0">Diskon : </td>
                                                         <td colspan="2" class="border-end-0 border-bottom-0 w-25"><input
-                                                                type="number" class="form-control"
+                                                                type="text" oninput="test(this);" class="form-control"
                                                                 value="0" id="inputdiskon" name="inputdiskon"></td>
-                                                        <td class="border-bottom-0  bg-primary-light-5"><input type="number"
+                                                        <td class="border-bottom-0  bg-primary-light-5"><input type="text"
                                                                 class="form-control bg-transparent border-0 p-0"
                                                                 value="0" id="penjualan_diskon" name="penjualan_diskon" readonly></td>
                                                     </tr>
@@ -247,15 +267,15 @@
                                                             class="rounded-bottom-start border-end-0 bg-primary-light-5"><span
                                                                 class="text-dark">Total</span></td>
                                                         <td class="rounded-bottom-end  bg-primary-light-5"><input
-                                                                type="number"
+                                                                type="text"
                                                                 class="form-control bg-transparent border-0 p-0"
                                                                 value="0" id="penjualan_grandtotal" name="penjualan_grandtotal" readonly></td>
                                                     </tr>
                                                     <tr>
                                                         <td class="border-end-0 border-bottom-0">Tunai : </td>
                                                         <td colspan="2" class="border-end-0 border-bottom-0 w-25"><input
-                                                                type="number" class="form-control" id="inputtunai" name="inputtunai"></td>
-                                                        <td class="border-bottom-0  bg-primary-light-5"><input type="number"
+                                                                type="text" oninput="test(this);" class="form-control" id="inputtunai" name="inputtunai"></td>
+                                                        <td class="border-bottom-0  bg-primary-light-5"><input type="text"
                                                                 class="form-control bg-transparent border-0 p-0"
                                                                 value="0" id="penjualan_tunai" name="penjualan_tunai" readonly></td>
                                                     </tr>
@@ -264,7 +284,7 @@
                                                             class="rounded-top-start border-end-0 border-bottom-0">Kembalian :
                                                         </td>
                                                         <td class="rounded-top-end border-bottom-0 w-30 bg-primary-light-5">
-                                                            <input type="number"
+                                                            <input type="text"
                                                                 class="form-control bg-transparent border-0 p-0"
                                                                 value="0" id="penjualan_kembalian" name="penjualan_kembalian" readonly>
                                                         </td>
@@ -542,51 +562,51 @@
                 transaksiPenjualan.destroy();
                 // DISPLAY TRANSAKSI PEMBELIAN
                 transaksiPenjualan = $('#datatable_7').DataTable({
-                scrollX: true,
-                autoWidth: false,
-                language: {
-                    search: "",
-                    searchPlaceholder: "Search",
-                    sLengthMenu: "_MENU_item",
-                    paginate: {
-                        next: '<i class="ri-arrow-right-s-line"></i>', // or '→'
-                        previous: '<i class="ri-arrow-left-s-line"></i>' // or '←' 
-                    }
-                },
-                "drawCallback": function() {
-                    $('.dataTables_paginate > .pagination').addClass(
-                        'custom-pagination pagination-simple');
-                },
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('penjualan.index') }}",
-                 columns: [
-                    {
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex'
+                    scrollX: true,
+                    autoWidth: false,
+                    language: {
+                        search: "",
+                        searchPlaceholder: "Search",
+                        sLengthMenu: "_MENU_item",
+                        paginate: {
+                            next: '<i class="ri-arrow-right-s-line"></i>', // or '→'
+                            previous: '<i class="ri-arrow-left-s-line"></i>' // or '←' 
+                        }
                     },
-                    {
-                        data: 'penjualan_tanggal',
-                        name: 'penjualan_tanggal'
-                    },  
-                    {
-                        data: 'penjualan_nobukti',
-                        name: 'penjualan_nobukti'
+                    "drawCallback": function() {
+                        $('.dataTables_paginate > .pagination').addClass(
+                            'custom-pagination pagination-simple');
                     },
-                    {
-                        data: 'penjualan_grandtotal',
-                        name: 'penjualan_grandtotal'
-                    },
-                    {
-                        data: 'penjualan_jenis',
-                        name: 'penjualan_jenis'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action'
-                    },
-                ]
-            });
+                    processing: true,
+                    serverSide: true,
+                    ajax: "{{ route('penjualan.index') }}",
+                    columns: [
+                        {
+                            data: 'DT_RowIndex',
+                            name: 'DT_RowIndex'
+                        },
+                        {
+                            data: 'penjualan_tanggal',
+                            name: 'penjualan_tanggal'
+                        },  
+                        {
+                            data: 'penjualan_nobukti',
+                            name: 'penjualan_nobukti'
+                        },
+                        {
+                            data: 'penjualan_grandtotal',
+                            name: 'penjualan_grandtotal'
+                        },
+                        {
+                            data: 'penjualan_jenis',
+                            name: 'penjualan_jenis'
+                        },
+                        {
+                            data: 'action',
+                            name: 'action'
+                        },
+                    ]
+                });
             
             })
 
@@ -602,6 +622,9 @@
                 $('#inputtunai').prop('readonly', false);
                 $("#submitPenjualan").prop('hidden', false);
                 $("#list-barang").html('')
+
+                var submitPenjualan = $('#submitPenjualan'); // Note the '#' for selecting by ID
+                submitPenjualan.removeClass('edit');
 
                 var selectedValues = [];
 
@@ -666,19 +689,21 @@
                                                                 <option value="`+ harga_jual_2 +`">`+ rupiah(harga_jual_2) +`</option>
                                                             </select>
                                                     </td>
-                                                    <td> <input class="form-control penjualan_ongkos" type="number" value=""
+                                                    <td> <input class="form-control penjualan_ongkos" type="text" oninput="test(this);" value=""
                                                             placeholder="Ongkos" name="detail_penjualan_ongkos[]" />
                                                     </td>
-                                                    <td> <input class="form-control penjualan_diskon" type="number" value=""
+                                                    <td> <input class="form-control penjualan_diskon" type="text" oninput="test(this);" value=""
                                                             placeholder="Diskon" name="detail_penjualan_diskon[]" />
                                                     </td>
-                                                    <td> <input class="form-control penjualan_total" type="number" value=""
+                                                    <td> <input class="form-control penjualan_total" type="text" value=""
                                                             placeholder="Jumlah Harga" name="detail_penjualan_total[]" readonly />
                                                     </td>
                                              </tr>`;
     
                             });
                             $("#list-barang").html(listbarang)
+                            $("#submitPenjualan").prop('hidden', false);
+
                         }
                     });
 
@@ -694,42 +719,206 @@
 
             });
 
+            // EDIT PENJUALAN
+            $('body').on('click', '#edit-penjualan', function(){
+                var penjualan_id = $(this).attr('data-id')
+                $('.alert').hide();
+                $('#saveBtn').val("create-barang");
+                $('#penjualanForm').trigger("reset");
+                $('#submitPenjualan').html('Simpan');
+                $('#tambahpenjualanHeading').html("EDIT DATA PENJUALAN")
+
+                var submitPenjualan = $('#submitPenjualan'); // Note the '#' for selecting by ID
+                submitPenjualan.addClass('edit');
+
+                $("#list-barang").html('')
+                $('#penjualanModal').modal('show');
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('penjualan.detail') }}",
+                    data: {
+                        penjualan_id: penjualan_id,
+                    },
+                    dataType: "JSON",
+                    success: function (response) {
+                        console.log(response)
+                        const penjualan_tanggal     = response.penjualan_tanggal;
+                        const keterangan            = response.penjualan_keterangan;
+                        const subtotal              = response.penjualan_subtotal;
+                        const subtotalFormatted     = formatWithCommaSeparator(response.penjualan_subtotal);
+                        const diskon                = response.penjualan_diskon ?? 0;
+                        const diskonFormatted       = formatWithCommaSeparator(response.penjualan_diskon ?? 0);
+                        const bayar                 = response.penjualan_bayar;
+                        const bayarFormatted        = formatWithCommaSeparator(response.penjualan_bayar);
+                        const grandtotal            = response.penjualan_grandtotal;
+                        const grandTotalFormatted   = formatWithCommaSeparator(response.penjualan_grandtotal);
+                        const kembalian             = response.penjualan_kembalian;
+                        const kembalianFormatted    = formatWithCommaSeparator(response.penjualan_kembalian);
+
+                        $("#penjualan_tanggal").val(penjualan_tanggal).prop('readonly', false)
+                        $("#penjualan_keterangan").val(keterangan).prop('readonly', false)
+
+                        $('#inputdiskon').val(diskonFormatted).prop('readonly', false);
+                        $('#inputdiskon').attr('data-value', diskon);
+
+                        $('#inputtunai').val(bayarFormatted).prop('readonly', false);             
+                        $('#inputtunai').attr('data-value', bayar);             
+
+                        $('#penjualan_subtotal').val(subtotalFormatted)                
+                        $('#penjualan_subtotal').attr('data-value', subtotal)       
+
+                        $('#penjualan_diskon').val(diskonFormatted)
+                        $('#penjualan_diskon').attr('data-value', diskon)
+
+                        $('#penjualan_kembalian').val(kembalianFormatted)
+                        $('#penjualan_kembalian').attr('data-value', kembalian)
+
+                        $('#penjualan_tunai').val(bayarFormatted)
+                        $('#penjualan_tunai').attr('data-value', bayar)
+
+                        $('#penjualan_grandtotal').val(grandTotalFormatted)
+                        $('#penjualan_grandtotal').attr('data-value', grandtotal)
+
+                        let ppn; // Declare the ppn variable
+
+                        if (response.penjualandetail.length > 0) {
+                            // If the length is greater than 0, set ppn to 1.65
+                            ppn = 1.65;
+                        } else {
+                            // If the length is not greater than 0, set ppn to 1.15
+                            ppn = 1.15;
+                        }
+
+                        var detailListBarang = '';
+                        var no = 1;
+                        $.each(response.penjualandetail, function (index, value) {
+                            const kadar             = value['barang']['kadar']['kadar_nama']
+                            const berat_jual        = value['detail_penjualan_berat_jual']
+                            const harga             = value['detail_penjualan_harga']
+                            const ongkos            = value['detail_penjualan_ongkos'] ?? 0
+                            const ongkosFormatted   = formatWithCommaSeparator(value['detail_penjualan_ongkos'] ?? 0) 
+                            const diskon            = value['detail_penjualan_diskon'] ?? 0
+                            const diskonFormatted   = formatWithCommaSeparator(value['detail_penjualan_diskon'] ?? 0) 
+                            const total             = value['detail_penjualan_jml_harga']
+                            const totalFormatted    = formatWithCommaSeparator(value['detail_penjualan_jml_harga']) 
+
+                            const barang_kode       = value['barang']['barang_kode']
+                            const barang_nama       = value['barang']['barang_nama']
+                            const barang_berat      = value['barang']['barang_berat']
+
+                            const barangid          = value['barang_id']
+
+                            const harga_jual_1      = value['barang']['kadar']['kadar_harga_jual_1']
+                            const harga_jual_2      = value['barang']['kadar']['kadar_harga_jual_2']
+
+                            const penjualan_id      = value['penjualan_id']
+
+                            detailListBarang += `<tr>
+                                                    <td>`+ no++ +`</td>
+                                                    <td>`+ barang_kode +`</td>
+                                                    <td>`+ barang_nama +`</td>
+                                                    <td>`+ kadar +`</td>
+                                                    <td>`+ barang_berat +`</td>
+                                                    <td>
+                                                        <input class="form-control barang_id" type="hidden" value="`+ barangid +`"
+                                                            placeholder="Barang Id" name="barang_id[]" />
+                                                        <input class="form-control ppn" type="hidden" value="`+ ppn +`"
+                                                            placeholder="ppn" name="ppn[]" />
+                                                        <input class="form-control penjualan_id" type="hidden" value="`+ penjualan_id +`"
+                                                            placeholder="Barang Id" name="penjualan_id[]" />
+
+                                                        <input class="form-control penjualan_berat_jual" type="number"
+                                                            placeholder="Berat Jual" name="detail_penjualan_berat_jual[]" value="`+ berat_jual +`" />
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-select penjualan_harga" name="detail_penjualan_harga[]">
+                                                            <option value="" selected disabled>--</option>
+                                                            <option value="` + harga_jual_1 + `" ` + (harga === harga_jual_1 ? "selected" : "") + `>` + rupiah(harga_jual_1) + `</option>
+                                                            <option value="` + harga_jual_2 + `" ` + (harga === harga_jual_2 ? "selected" : "") + `>` + rupiah(harga_jual_2) + `</option>
+                                                        </select>
+                                                    </td>
+                                                    </td>
+                                                    <td> <input class="form-control penjualan_ongkos" type="text" oninput="test(this);" value="`+ ongkosFormatted +`" data-value="${ongkos}"
+                                                            placeholder="Ongkos" name="detail_penjualan_ongkos[]" />
+                                                    </td>
+                                                    <td> <input class="form-control penjualan_diskon" type="text" oninput="test(this);" value="`+ diskonFormatted +`" data-value="${diskon}"
+                                                            placeholder="Diskon" name="detail_penjualan_diskon[]" />
+                                                    </td>
+                                                    <td> <input class="form-control penjualan_total" type="text" value="`+ totalFormatted +`" data-value="${total}"
+                                                            placeholder="Jumlah Harga" name="detail_penjualan_total[]" readonly />
+                                                    </td>
+                                             </tr>`;
+                        });
+
+                        $("#list-barang").html(detailListBarang)
+                        $("#submitPenjualan").prop('hidden', false);
+                    }
+
+                });
+
+            })
+
+            // Function to format a number with a comma separator per 1,000
+            function formatWithCommaSeparator(number) {
+                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }   
+
             // Calculate and update the totals for each row
            $('body').on('input', '.penjualan_berat_jual, .penjualan_harga, .penjualan_ongkos, .penjualan_diskon, #inputdiskon, #inputtunai', function() {
-                var row = $(this).closest('tr');
-                var beratJual = parseFloat(row.find('.penjualan_berat_jual').val()) || 0;
-                var hargaJual = parseFloat(row.find('.penjualan_harga').val()) || 0;
-                var ongkos = parseFloat(row.find('.penjualan_ongkos').val()) || 0;
-                var diskon = parseFloat(row.find('.penjualan_diskon').val()) || 0;
+                var row         = $(this).closest('tr');
+                var beratJual   = parseFloat(row.find('.penjualan_berat_jual').val()) || 0;
+                var hargaJual   = parseFloat(row.find('.penjualan_harga').val()) || 0;
+                // var ongkos   = parseFloat(row.find('.penjualan_ongkos').val()) || 0;
+                var ongkos      = parseFloat(row.find('.penjualan_ongkos').attr('data-value')) || 0;
+                // var diskon   = parseFloat(row.find('.penjualan_diskon').val()) || 0;
+                var diskon      = parseFloat(row.find('.penjualan_diskon').attr('data-value')) || 0;
 
-                var total = ((beratJual * hargaJual + ongkos) - diskon); // Barang Berat * Harga Beli * Nilai Tukar
-                var decimalPlaces = 2; // Change this number to round to a different number of decimal places
+                var total       = ((beratJual * hargaJual + ongkos) - diskon); // Barang Berat * Harga Beli * Nilai Tukar
+                var decimalPlaces = 0; // Change this number to round to a different number of decimal places
 
                 // Round the total value to the specified decimal places
                 total = parseFloat(total.toFixed(decimalPlaces));
 
-                row.find('.penjualan_total').val(total);
+                var totalFormatted = formatWithCommaSeparator(total);
+
+                row.find('.penjualan_total').val(totalFormatted);
+                row.find('.penjualan_total').attr('data-value', total);
                 calculateGrandTotal();
-            })
+            });
 
             // Calculate the grandtotal
             function calculateGrandTotal() {
                 var subtotal = 0;
                 $('.penjualan_total').each(function() {
-                    var totalValue  = parseFloat($(this).val()) || 0;
+                    // var totalValue  = parseFloat($(this).val()) || 0;
+                    var totalValue  = parseFloat($(this).attr('data-value')) || 0;
                     subtotal += totalValue;
                 });
 
-                var inputdiskon     = parseFloat($("#inputdiskon").val()) || 0;
-                var inputtunai      = parseFloat($("#inputtunai").val()) || 0;
+                // var inputdiskon  = parseFloat($("#inputdiskon").val()) || 0;
+                var inputdiskon     = parseFloat($("#inputdiskon").attr('data-value')) || 0;
+                // var inputtunai   = parseFloat($("#inputtunai").val()) || 0;
+                var inputtunai      = parseFloat($("#inputtunai").attr('data-value')) || 0;
                 var grandTotal      = subtotal - inputdiskon; // Grand Total Formula
                 var kembalian       = inputtunai - grandTotal; // Kembalian Formula
 
-                $('#penjualan_subtotal').val(subtotal);                
-                $('#penjualan_diskon').val(inputdiskon);
-                $('#penjualan_grandtotal').val(grandTotal);
-                $('#penjualan_tunai').val(inputtunai);
-                $("#penjualan_kembalian").val(kembalian)
+                var diskonFormatted     = formatWithCommaSeparator(inputdiskon)
+                var tunaiFormatted      = formatWithCommaSeparator(inputtunai)
+                var subtotalFormatted   = formatWithCommaSeparator(subtotal)
+                var grandTotalFormatted = formatWithCommaSeparator(grandTotal)
+                var kembalianFormatted  = formatWithCommaSeparator(kembalian)
+
+                $('#penjualan_subtotal').val(subtotalFormatted);           
+                $('#penjualan_subtotal').attr('data-value', subtotal);           
+                $('#penjualan_diskon').val(diskonFormatted);
+                $('#penjualan_diskon').attr('data-value', inputdiskon);
+                $('#penjualan_grandtotal').val(grandTotalFormatted);
+                $('#penjualan_grandtotal').attr('data-value', grandTotal);
+                $('#penjualan_tunai').val(tunaiFormatted);
+                $('#penjualan_tunai').attr('data-value', inputtunai);
+                $("#penjualan_kembalian").val(kembalianFormatted)
+                $("#penjualan_kembalian").attr('data-value', kembalian)
             }
             
             // RUNNING FUNCTION SUM GRAND TOTAL
@@ -831,6 +1020,10 @@
 
                                                 } else {
                                                     Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
+                                                    // Introduce a delay of, for example, 2 seconds (2000 milliseconds) before reloading
+                                                    setTimeout(function() {
+                                                        window.location.reload();
+                                                    }, 2000);
                                                 }
                                             });
                                     }
@@ -864,33 +1057,55 @@
                     dataType: "JSON",
                     success: function (response) {
                         console.log(response)
-                        const penjualan_tanggal = response.penjualan_tanggal;
-                        const keterangan        = response.penjualan_keterangan;
-                        const subtotal          = response.penjualan_subtotal;
-                        const diskon            = response.penjualan_diskon ?? 0;
-                        const bayar             = response.penjualan_bayar;
-                        const grandtotal        = response.penjualan_grandtotal;
-                        const kembalian         = response.penjualan_kembalian;
+                        const penjualan_tanggal     = response.penjualan_tanggal;
+                        const keterangan            = response.penjualan_keterangan;
+                        const subtotal              = response.penjualan_subtotal;
+                        const subtotalFormatted     = formatWithCommaSeparator(response.penjualan_subtotal);
+                        const diskon                = response.penjualan_diskon ?? 0;
+                        const diskonFormatted       = formatWithCommaSeparator(response.penjualan_diskon ?? 0);
+                        const bayar                 = response.penjualan_bayar;
+                        const bayarFormatted        = formatWithCommaSeparator(response.penjualan_bayar);
+                        const grandtotal            = response.penjualan_grandtotal;
+                        const grandTotalFormatted   = formatWithCommaSeparator(response.penjualan_grandtotal);
+                        const kembalian             = response.penjualan_kembalian;
+                        const kembalianFormatted    = formatWithCommaSeparator(response.penjualan_kembalian);
 
                         $("#penjualan_tanggal").val(penjualan_tanggal).prop('readonly', true)
                         $("#penjualan_keterangan").val(keterangan).prop('readonly', true)
-                        $('#inputdiskon').val(diskon).prop('readonly', true);
-                        $('#inputtunai').val(bayar).prop('readonly', true);               
-                        $('#penjualan_subtotal').val(subtotal)                
-                        $('#penjualan_diskon').val(diskon)
-                        $('#penjualan_kembalian').val(kembalian)
-                        $('#penjualan_tunai').val(bayar)
-                        $('#penjualan_grandtotal').val(grandtotal)
+
+                        $('#inputdiskon').val(diskonFormatted).prop('readonly', true);
+                        $('#inputdiskon').attr('data-value', diskon);
+
+                        $('#inputtunai').val(bayarFormatted).prop('readonly', true);             
+                        $('#inputtunai').attr('data-value', bayar);             
+
+                        $('#penjualan_subtotal').val(subtotalFormatted)                
+                        $('#penjualan_subtotal').attr('data-value', subtotal)       
+
+                        $('#penjualan_diskon').val(diskonFormatted)
+                        $('#penjualan_diskon').attr('data-value', diskon)
+
+                        $('#penjualan_kembalian').val(kembalianFormatted)
+                        $('#penjualan_kembalian').attr('data-value', kembalian)
+
+                        $('#penjualan_tunai').val(bayarFormatted)
+                        $('#penjualan_tunai').attr('data-value', bayar)
+
+                        $('#penjualan_grandtotal').val(grandTotalFormatted)
+                        $('#penjualan_grandtotal').attr('data-value', grandtotal)
 
                         var detailListBarang = '';
                         var no = 1;
                         $.each(response.penjualandetail, function (index, value) {
-                            const kadar         = value['barang']['kadar']['kadar_nama']
-                            const berat_jual    = value['detail_penjualan_berat_jual']
-                            const harga         = value['detail_penjualan_harga']
-                            const ongkos        = value['detail_penjualan_ongkos'] ?? 0
-                            const diskondetail  = value['detail_penjualan_diskon'] ?? 0
-                            const total         = value['detail_penjualan_jml_harga']
+                            const kadar             = value['barang']['kadar']['kadar_nama']
+                            const berat_jual        = value['detail_penjualan_berat_jual']
+                            const harga             = formatWithCommaSeparator(value['detail_penjualan_harga']) 
+                            const ongkos            = value['detail_penjualan_ongkos'] ?? 0
+                            const ongkosFormatted   = formatWithCommaSeparator(value['detail_penjualan_ongkos'] ?? 0) 
+                            const diskon            = value['detail_penjualan_diskon'] ?? 0
+                            const diskonFormatted   = formatWithCommaSeparator(value['detail_penjualan_diskon'] ?? 0) 
+                            const total             = value['detail_penjualan_jml_harga']
+                            const totalFormatted    = formatWithCommaSeparator(value['detail_penjualan_jml_harga']) 
 
                             const barang_kode   = value['barang']['barang_kode']
                             const barang_nama   = value['barang']['barang_nama']
@@ -906,16 +1121,16 @@
                                                         <input class="form-control penjualan_berat_jual" type="number"
                                                             placeholder="Berat Jual" name="detail_penjualan_berat_jual[]" value="`+ berat_jual +`" readonly />
                                                     </td>
-                                                    <td> <input class="form-control penjualan_harga" type="number" value="`+ harga +`"
+                                                    <td> <input class="form-control penjualan_harga" type="text" value="`+ harga +`"
                                                             placeholder="Harga" name="detail_penjualan_harga[]" readonly />
                                                     </td>
-                                                    <td> <input class="form-control penjualan_ongkos" type="number" value="`+ ongkos +`"
+                                                    <td> <input class="form-control penjualan_ongkos" type="text" value="`+ ongkosFormatted +`"
                                                             placeholder="Ongkos" name="detail_penjualan_ongkos[]" readonly />
                                                     </td>
-                                                    <td> <input class="form-control penjualan_diskon" type="number" value="`+ diskondetail +`"
+                                                    <td> <input class="form-control penjualan_diskon" type="text" value="`+ diskonFormatted +`"
                                                             placeholder="Diskon" name="detail_penjualan_diskon[]" readonly />
                                                     </td>
-                                                    <td> <input class="form-control penjualan_total" type="number" value="`+ total +`"
+                                                    <td> <input class="form-control penjualan_total" type="text" value="`+ totalFormatted +`"
                                                             placeholder="Jumlah Harga" name="detail_penjualan_total[]" readonly />
                                                     </td>
                                              </tr>`;

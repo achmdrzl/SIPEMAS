@@ -18,6 +18,26 @@
             padding: 4px;
         }
     </style>
+
+    <script>
+        function test(element) {
+
+            var val = element.value;
+
+            // Remove commas from the input value
+            var unformattedValue = val.replace(/,/g, '');
+
+            // Add the 'data-value' attribute with the unformatted value
+            element.setAttribute('data-value', unformattedValue);
+
+            // Format the value with addCommas
+            element.value = addCommas(unformattedValue);
+        }
+
+        function addCommas(str) {
+            return str.replace(/^0+/, '').replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+    </script>
 @endpush
 
 @section('content')
@@ -142,10 +162,10 @@
                                                             </table>
                                                         </div>
                                                     </div>
-                                                    <div class="card-footer">
+                                                    {{-- <div class="card-footer">
                                                         <p style="font-size: 18px">BERAT TOTAL : <strong>126,2
                                                                 gram</strong></p>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -236,7 +256,7 @@
                                                             class="rounded-bottom-start border-end-0 bg-primary-light-5">
                                                             <span class="text-dark">Total</span></td>
                                                         <td class="rounded-bottom-end  bg-primary-light-5"><input
-                                                                type="number"
+                                                                type="text"
                                                                 class="form-control bg-transparent border-0 p-0"
                                                                 value="0" id="penjualan_return_grandtotal"
                                                                 name="penjualan_return_grandtotal" readonly></td>
@@ -352,7 +372,7 @@
                 },
                 // processing: true,
                 // serverSide: true,
-                ajax: "{{ route('penjualan.barang.index') }}",
+                ajax: "{{ route('return.barang.index') }}",
                 columns: [{
                         data: 'select',
                         name: 'select',
@@ -636,16 +656,16 @@
                                                             <input class="form-control return_berat" type="number" value="`+ berat_jual +`"
                                                                 placeholder="Berat Return" name="detail_penjualan_return_berat[]" />
                                                         </td>
-                                                        <td> <input class="form-control return_harga_jual" type="number" value="` + harga_jual + `"
+                                                        <td> <input class="form-control return_harga_jual" type="text" value="` + formatWithCommaSeparator(harga_jual) + `"
                                                                 placeholder="Harga Jual" name="detail_penjualan_return_harga_jual[]" readonly />
                                                         </td>
-                                                        <td> <input class="form-control return_harga_return" type="number" value=""
+                                                        <td> <input class="form-control return_harga_return" type="text" oninput="test(this);" value=""
                                                                 placeholder="Harga Return" name="detail_penjualan_return_harga_return[]" />
                                                         </td>
-                                                        <td> <input class="form-control return_potongan" type="number" value="0"
+                                                        <td> <input class="form-control return_potongan" type="text" oninput="test(this);" value="0"
                                                                 placeholder="Potongan" name="detail_penjualan_return_potongan[]" />
                                                         </td>
-                                                        <td> <input class="form-control return_total" type="number" value=""
+                                                        <td> <input class="form-control return_total" type="text" value=""
                                                                 placeholder="Jumlah Harga" name="detail_penjualan_return_total[]" readonly />
                                                         </td>
                                                          <td> <select class="form-select return_kondisi" name="detail_penjualan_return_kondisi[]">
@@ -661,6 +681,7 @@
 
                             });
                             $("#list-barang").html(listbarang)
+                            $("#submitPenjualanReturn").prop('hidden', false);
                         }
                     });
 
@@ -684,22 +705,116 @@
 
             });
 
+            // EDIT PENJUALAN RETURN
+            $('body').on('click', '#edit-penjualan-return', function() {
+                var penjualan_return_id = $(this).attr('data-id')
+                $('.alert').hide();
+                $('#saveBtn').val("create-barang");
+                $('#penjualanreturnForm').trigger("reset");
+                $('#submitPenjualanReturn').html('Simpan');
+                $('#tambahpenjualanreturnHeading').html("EDIT DATA PENJUALAN RETURN")
+
+                $("#list-barang").html('')
+                $('#penjualanreturnModal').modal('show');
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('penjualan.return.detail') }}",
+                    data: {
+                        penjualan_return_id: penjualan_return_id,
+                    },
+                    dataType: "JSON",
+                    success: function(response) {
+                        console.log(response)
+                        const keterangan                     = response.penjualan_return_keterangan;
+                        const grandtotal                     = response.returndetail.detail_penjualan_return_jml_harga;
+                        const grandTotalFormatted            = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_jml_harga);
+                        const barangkode                     = response.returndetail.barang.barang_kode;
+                        const barangnama                     = response.returndetail.barang.barang_nama;
+                        const barangberat                    = response.returndetail.detail_penjualan_barang_berat;
+                        const beratreturn                    = response.returndetail.detail_penjualan_return_berat;
+                        const harga_jual                     = response.returndetail.detail_penjualan_return_harga_jual;
+                        const harga_jualFormatted            = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_harga_jual);
+                        const harga_return                   = response.returndetail.detail_penjualan_return_harga_return;
+                        const harga_returnFormatted          = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_harga_return);
+                        const potongan                       = response.returndetail.detail_penjualan_return_potongan;
+                        const potonganFormatted              = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_potongan);
+                        const jml_harga                      = response.returndetail.detail_penjualan_return_jml_harga;
+                        const jml_hargaFormatted             = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_jml_harga);
+                        const kondisi                        = response.returndetail.detail_penjualan_return_kondisi;
+                        const barangid                       = response.returndetail.barang_id;
+                        const penjualan_return_nobukti       = response.returndetail.penjualan_return_nobukti;
+                        
+                        $('#penjualan_return_grandtotal').val(grandTotalFormatted)
+                        $('#penjualan_return_grandtotal').attr('data-value', grandtotal)
+                        $('#penjualan_return_keterangan').val(keterangan).prop('readonly', false)
+
+                        var detailListBarang = '';
+                        var no = 1;
+
+                        detailListBarang += `<tr>
+                                                <td>` + no + `</td>
+                                                <td>` + barangkode + `</td>
+                                                <td>` + barangnama + `</td>
+                                                <td>` + barangberat + `</td>
+                                                <td>
+                                                    <input class="form-control barang_id" type="hidden" value="` +  barangid + `"
+                                                                placeholder="Barang Id" name="barang_id[]" />
+                                                    <input class="form-control penjualan_return_nobukti" type="hidden" value="` +  penjualan_return_nobukti + `"
+                                                                placeholder="Barang Id" name="penjualan_return_nobukti[]" />
+                                                    <input class="form-control return_berat" type="number" value="` + beratreturn + `"
+                                                        placeholder="Berat Return" name="detail_penjualan_return_berat[]"/>
+                                                </td>
+                                                <td> <input class="form-control return_harga_jual" type="text" value="` + harga_jualFormatted + `" data-value="${harga_jual}"
+                                                        placeholder="Harga Jual" name="detail_penjualan_return_harga_jual[]" readonly />
+                                                </td>
+                                                <td> <input class="form-control return_harga_return" type="text" oninput="test(this);" value="` + harga_returnFormatted + `" data-value="${harga_return}"
+                                                        placeholder="Harga Return" name="detail_penjualan_return_harga_return[]" />
+                                                </td>
+                                                <td> <input class="form-control return_potongan" type="text" oninput="test(this);" value="` + potonganFormatted + `" data-value="${potongan}"
+                                                        placeholder="Potongan" name="detail_penjualan_return_potongan[]" />
+                                                </td>
+                                                <td> <input class="form-control return_total" type="text" value="` + jml_hargaFormatted + `" data-value="${jml_harga}"
+                                                        placeholder="Jumlah Harga" name="detail_penjualan_return_total[]" readonly />
+                                                </td>
+                                                    <td> 
+                                                    <input class="form-control return_berat" type="text" value="` + kondisi + `"
+                                                        placeholder="Berat Return" name="detail_penjualan_return_kondisi[]" readonly />
+                                                </td>
+                                            </tr>`;
+
+                        $("#list-barang").html(detailListBarang)
+                        $("#submitPenjualanReturn").prop('hidden', false);
+                    }
+
+                });
+
+            })
+
+            // Function to format a number with a comma separator per 1,000
+            function formatWithCommaSeparator(number) {
+                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            } 
+
             // Calculate and update the totals for each row
             $('body').on('input', '.return_berat, .return_harga_return, .return_potongan', function() {
-                var row = $(this).closest('tr');
-                var beratReturn = parseFloat(row.find('.return_berat').val()) || 0;
-                var hargaJual = parseFloat(row.find('.return_harga_return').val()) || 0;
-                var potongan = parseFloat(row.find('.return_potongan').val()) || 0;
+                var row             = $(this).closest('tr');
+                var beratReturn     = parseFloat(row.find('.return_berat').val()) || 0;
+                // var hargaJual    = parseFloat(row.find('.return_harga_return').val()) || 0;
+                var hargaJual       = parseFloat(row.find('.return_harga_return').attr('data-value')) || 0;
+                // var potongan     = parseFloat(row.find('.return_potongan').val()) || 0;
+                var potongan        = parseFloat(row.find('.return_potongan').attr('data-value')) || 0;
 
-                var total = ((beratReturn * hargaJual) -
-                potongan); // Barang Berat * Harga Beli * Nilai Tukar
-                var decimalPlaces =
-                2; // Change this number to round to a different number of decimal places
+                var total           = ((beratReturn * hargaJual) - potongan); // Barang Berat * Harga Beli * Nilai Tukar
+                var decimalPlaces = 0; // Change this number to round to a different number of decimal places
 
                 // Round the total value to the specified decimal places
                 total = parseFloat(total.toFixed(decimalPlaces));
 
-                row.find('.return_total').val(total);
+                var totalFormatted = formatWithCommaSeparator(total);
+
+                row.find('.return_total').val(totalFormatted);
+                row.find('.return_total').attr('data-value', total);
                 calculateGrandTotal();
             })
 
@@ -707,11 +822,15 @@
             function calculateGrandTotal() {
                 var subtotal = 0;
                 $('.return_total').each(function() {
-                    var totalValue = parseFloat($(this).val()) || 0;
+                    // var totalValue = parseFloat($(this).val()) || 0;
+                    var totalValue = parseFloat($(this).attr('data-value')) || 0;
                     subtotal += totalValue;
                 });
 
-                $('#penjualan_return_grandtotal').val(subtotal);
+                var subtotalFormatted = formatWithCommaSeparator(subtotal);
+
+                $('#penjualan_return_grandtotal').val(subtotalFormatted);
+                $('#penjualan_return_grandtotal').attr('data-value', subtotal);
             }
 
             // RUNNING FUNCTION SUM GRAND TOTAL
@@ -864,19 +983,27 @@
                     dataType: "JSON",
                     success: function(response) {
                         console.log(response)
-                        const keterangan    = response.penjualan_return_keterangan;
-                        const grandtotal    = response.returndetail.detail_penjualan_return_jml_harga;
-                        const barangkode    = response.returndetail.barang.barang_kode;
-                        const barangnama    = response.returndetail.barang.barang_nama;
-                        const barangberat   = response.returndetail.detail_penjualan_barang_berat;
-                        const beratreturn   = response.returndetail.detail_penjualan_return_berat;
-                        const harga_jual    = response.returndetail.detail_penjualan_return_harga_jual;
-                        const harga_return  = response.returndetail.detail_penjualan_return_harga_return;
-                        const potongan      = response.returndetail.detail_penjualan_return_potongan;
-                        const jml_harga     = response.returndetail.detail_penjualan_return_jml_harga;
-                        const kondisi       = response.returndetail.detail_penjualan_return_kondisi;
+                         const keterangan                     = response.penjualan_return_keterangan;
+                        const grandtotal                     = response.returndetail.detail_penjualan_return_jml_harga;
+                        const grandTotalFormatted            = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_jml_harga);
+                        const barangkode                     = response.returndetail.barang.barang_kode;
+                        const barangnama                     = response.returndetail.barang.barang_nama;
+                        const barangberat                    = response.returndetail.detail_penjualan_barang_berat;
+                        const beratreturn                    = response.returndetail.detail_penjualan_return_berat;
+                        const harga_jual                     = response.returndetail.detail_penjualan_return_harga_jual;
+                        const harga_jualFormatted            = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_harga_jual);
+                        const harga_return                   = response.returndetail.detail_penjualan_return_harga_return;
+                        const harga_returnFormatted          = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_harga_return);
+                        const potongan                       = response.returndetail.detail_penjualan_return_potongan;
+                        const potonganFormatted              = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_potongan);
+                        const jml_harga                      = response.returndetail.detail_penjualan_return_jml_harga;
+                        const jml_hargaFormatted             = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_jml_harga);
+                        const kondisi                        = response.returndetail.detail_penjualan_return_kondisi;
+                        const barangid                       = response.returndetail.barang_id;
+                        const penjualan_return_nobukti       = response.returndetail.penjualan_return_nobukti;
                         
-                        $('#penjualan_return_grandtotal').val(grandtotal)
+                        $('#penjualan_return_grandtotal').val(grandTotalFormatted)
+                        $('#penjualan_return_grandtotal').attr('data-value', grandtotal)
                         $('#penjualan_return_keterangan').val(keterangan).prop('readonly', true)
 
                         var detailListBarang = '';
@@ -891,16 +1018,16 @@
                                                     <input class="form-control return_berat" type="number" value="` + beratreturn + `"
                                                         placeholder="Berat Return" name="detail_penjualan_return_berat[]" readonly/>
                                                 </td>
-                                                <td> <input class="form-control return_harga_jual" type="number" value="` + harga_jual + `"
+                                                <td> <input class="form-control return_harga_jual" type="text" value="` + harga_jualFormatted + `"
                                                         placeholder="Harga Jual" name="detail_penjualan_return_harga_jual[]" readonly />
                                                 </td>
-                                                <td> <input class="form-control return_harga_return" type="number" value="` + harga_return + `"
+                                                <td> <input class="form-control return_harga_return" type="text" value="` + harga_returnFormatted + `"
                                                         placeholder="Harga Return" name="detail_penjualan_return_harga_return[]" readonly />
                                                 </td>
-                                                <td> <input class="form-control return_potongan" type="number" value="` + potongan + `"
+                                                <td> <input class="form-control return_potongan" type="text" value="` + potonganFormatted + `"
                                                         placeholder="Potongan" name="detail_penjualan_return_potongan[]" readonly />
                                                 </td>
-                                                <td> <input class="form-control return_total" type="number" value="` + jml_harga + `"
+                                                <td> <input class="form-control return_total" type="text" value="` + jml_hargaFormatted + `"
                                                         placeholder="Jumlah Harga" name="detail_penjualan_return_total[]" readonly />
                                                 </td>
                                                     <td> 

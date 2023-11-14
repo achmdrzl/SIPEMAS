@@ -137,7 +137,11 @@
                             <div>{{ $item->barang->barang_kode }}</div>
                         </div>
                         <div class="right">
-                            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path($item->barang->barang_foto))) }}" alt="Gambar Barang" class="gambar">
+                            @if($item->barang->foto_barang == null)
+                            
+                            @else
+                                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/storage/foto_barang/' . $item->barang->barang_foto))) }}" alt="Gambar Barang" class="gambar">
+                            @endif
                         </div>
                     </td>
                     <td>{{ $item->barang->kadar->kadar_nama }}</td>

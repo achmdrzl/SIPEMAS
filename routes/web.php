@@ -104,6 +104,7 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
 
     // TRANSAKSI PENJUALAN RETURN
     Route::get('/return_penjualan', ReturnPenjualanController::class . '@returnPenjualanIndex')->name('penjualan.return.index');
+    Route::get('/returnBarang', ReturnPenjualanController::class. '@barangIndex')->name('return.barang.index');
     Route::post('/return_penjualanStore', ReturnPenjualanController::class . '@returnPenjualanStore')->name('penjualan.return.store');
     Route::post('/returnDetail', ReturnPenjualanController::class . '@returnDetail')->name('penjualan.return.detail');
     Route::post('/filterdDatePenjualanReturn', ReturnPenjualanController::class . '@filterdata')->name('filtered.data.penjualan.return');
@@ -116,6 +117,7 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
 
     // TRANSAKSI PENERIMAAN BARANG
     Route::get('/penerimaan', TransaksiPenerimaanController::class . '@penerimaanIndex')->name('penerimaan.index');
+    Route::get('/penerimaanBarang', TransaksiPenerimaanController::class . '@barangIndex')->name('penerimaan.barang.index');
     Route::post('/penerimaanStore', TransaksiPenerimaanController::class . '@penerimaanStore')->name('penerimaan.store');
     Route::post('/filteredDatePenerimaan', TransaksiPenerimaanController::class . '@filterdata')->name('filtered.data.penerimaan');
 
@@ -135,6 +137,7 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::get('/barangDetail/{barang_id}', MasterBarangController::class . '@barangDetail')->name('barang.detail');
     Route::post('/barangBarcode', MasterBarangController::class . '@barangBarcode')->name('barang.barcode');
     Route::get('/barangCetak', MasterBarangController::class . '@barangCetak')->name('barang.cetak');
+    Route::get('/loadBerat', MasterBarangController::class . '@loadBerat')->name('load.berat');
 
     // MASTER DATA SUPPLIER
     Route::get('/supplier', MasterDataController::class . '@supplierIndex')->name('supplier.index');

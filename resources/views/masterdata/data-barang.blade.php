@@ -84,6 +84,9 @@
                                             </table>
                                         </div>
                                     </div>
+                                    <div class="card-footer">
+                                        <p id="load-berat" style="font-size: 18px"></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -129,7 +132,7 @@
                                                             <label class="form-label">Kode Barang</label>
                                                             <div class="form-group">
                                                                 <input class="form-control" type="text"
-                                                                    name="data[kode][]" id="barang_kode_1"  value="0000000000001" disabled/>
+                                                                    name="data[kode][]" id="barang_kode_1" data-index="1" data-item="barang_kode" value="0000000000" disabled/>
                                                             </div> 
                                                         </div>
                                                         <div class="col-sm-12">  
@@ -144,23 +147,24 @@
                                                         <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <label class="form-label">Supplier</label>
-                                                                <select class="form-select" name="data[supplier][]" id="supplier_id_1" onchange="remakekodesupplier()">
-                                                                    <option value="" selected="">--</option>
-                                                                    <?php 
+                                                                <select class="form-select" name="data[supplier][]" id="supplier_id_1" onchange="remakekodesupplier(this, 1)">
+                                                                    <option value="0" selected>--</option>
+                                                                    <?php
                                                                     foreach ($suppliers as $supplier) {
-                                                                        $nama = $supplier['supplier_nama']; 
-                                                                        $id = $supplier['supplier_id'];  
-                                                                        $kode = $supplier['supplier_kode'];  
-                                                                        echo "<option value='$id' data-attribute='$kode'>$nama</option>";}
-                                                                    ?> 
+                                                                        $nama = $supplier['supplier_nama'];
+                                                                        $id = $supplier['supplier_id'];
+                                                                        $kode = $supplier['supplier_kode'];
+                                                                        echo "<option value='$id' data-attribute='$kode'>$nama</option>";
+                                                                    }
+                                                                    ?>
                                                                 </select>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <label class="form-label">Pabrik</label>
-                                                                <select class="form-select" name="data[pabrik][]" id="pabrik_id_1" onchange="remakekodepabrik()">
-                                                                    <option value=""  selected="">--</option>
+                                                                <select class="form-select" name="data[pabrik][]" id="pabrik_id_1" onchange="remakekodepabrik(this, 1)">
+                                                                    <option value="0" selected>--</option>
                                                                     <?php 
                                                                     foreach ($pabriks as $pabrik) {
                                                                         $nama = $pabrik['pabrik_nama']; 
@@ -176,8 +180,8 @@
                                                         <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <label class="form-label">Kadar</label>
-                                                                <select class="form-select" name="data[kadar][]" id="kadar_id_1" onchange="remakekodekadar()">
-                                                                    <option value=""  selected="">--</option>
+                                                                <select class="form-select" name="data[kadar][]" id="kadar_id_1" onchange="remakekodekadar(this, 1)">
+                                                                    <option value="0" selected>--</option>
                                                                     <?php 
                                                                     foreach ($kadars as $kadar) {
                                                                         $nama = $kadar['kadar_nama']; 
@@ -193,15 +197,15 @@
                                                                 <label class="form-label">Berat</label>
                                                                 <input class="form-control" type="number" step=0.01 value="0.01" min="0"
                                                                     placeholder="Masukkan Berat" name="data[berat][]"
-                                                                    id="barang_berat_1" onchange="remakekodeberat()"/>
+                                                                    id="barang_berat_1" onchange="remakekodeberat(this, 1)"/>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row gx-3">
                                                         <div class="col-sm-12"> 
                                                             <label class="form-label">Model</label>
-                                                                <select class="form-select" name="data[model][]" id="model_id_1"  onchange="remakekodemodel()">
-                                                                    <option value=""  selected="">--</option>
+                                                                <select class="form-select" name="data[model][]" id="model_id_1"  onchange="remakekodemodel(this, 1)">
+                                                                    <option value="0" selected>--</option>
                                                                     <?php 
                                                                     foreach ($models as $model) {
                                                                         $nama = $model['model_nama']; 
@@ -238,7 +242,7 @@
                                             </div> -->
                                         </div>
                                         <div class="mt-2">
-                                            <button type="button" id="addBtnTicket" class="btn btn-primary">Tambah Item</button>
+                                            <button type="button" id="addBtnTicket" class="btn btn-primary" hidden>Tambah Item</button>
                                         </div>
                                     </div>
                                     <div class="modal-footer align-items-center">
@@ -349,8 +353,20 @@
 
 @push('script-alt')
     <script>
-        ////////////////coba multi
 
+        // LOAD BERAT
+        loadBerat();
+        function loadBerat(){
+            $.ajax({
+                type: "GET",
+                url: "{{ route('load.berat') }}",
+                dataType: "JSON",
+                success: function (response) {
+                    var berat = `TOTAL BERAT: <strong>` + response + ` gram</strong>`;
+                    $("#load-berat").html(berat)
+                }
+            });
+        }
 
         // max field dinamis input
         var maxField = 5; //Input fields increment limitation
@@ -360,12 +376,23 @@
         var wrapperTicket = $('.ticket_wrapper'); //Input field wrapper accordion item
         var x = 1; //Initial field counter is 1
         
-
+        var itemCounter = 1;
         //Once add button is clicked
         $(addButtonTicket).click(function() {
+            // var inputElement = document.getElementById("barang_kode_" + itemCounter);
+
+            // if (inputElement) {
+            //     incrementKodeBarang(inputElement);
+            //     itemCounter++;
+            // }
+
             //Check maximum number of input fields
             if (x < maxField) {
                 x++; //Increment field counter
+
+                // Generate a unique ID for the new item
+                var itemID = "barang_kode_" + x;
+
                 var fieldHTMLTicket =
                 `<div class="accordion-item">
                     <h2 class="accordion-header" id="panelsStayOpen-heading`+x+`">
@@ -384,8 +411,8 @@
                                     <label class="form-label">Kode Barang</label>
                                     <div class="form-group">
                                         <input class="form-control" type="text"
-                                            name="data[kode][]" id="barang_kode_`+x+`"  value="0000000000001" disabled/>
-                                        </div> 
+                                            name="data[kode][]" id="barang_kode_`+x+`" data-index="${x}" data-item="barang_kode"  value="0000000000" disabled/>
+                                    </div> 
                                 </div>
                                 <div class="col-sm-12">  
                                     <label class="form-label">Nama Barang</label>
@@ -399,7 +426,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="form-label">Supplier</label>
-                                        <select class="form-select" name="data[supplier][]" id="supplier_id_`+x+`" onchange="remakekodesupplier()">
+                                        <select class="form-select" name="data[supplier][]" id="supplier_id_`+x+`" onchange="remakekodesupplier(this, ${x})">
                                             <option value=""  selected="">--</option>
                                             <?php 
                                             foreach ($suppliers as $supplier) {
@@ -414,7 +441,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="form-label">Pabrik</label>
-                                        <select class="form-select" name="data[pabrik][]" id="pabrik_id_`+x+`" onchange="remakekodepabrik()">
+                                        <select class="form-select" name="data[pabrik][]" id="pabrik_id_`+x+`" onchange="remakekodepabrik(this, ${x})">
                                             <option value=""  selected="">--</option>
                                             <?php 
                                             foreach ($pabriks as $pabrik) {
@@ -431,7 +458,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="form-label">Kadar</label>
-                                        <select class="form-select" name="data[kadar][]" id="kadar_id_`+x+`" onchange="remakekodekadar()">
+                                        <select class="form-select" name="data[kadar][]" id="kadar_id_`+x+`" onchange="remakekodekadar(this, ${x})">
                                             <option value=""  selected="">--</option>
                                             <?php 
                                             foreach ($kadars as $kadar) {
@@ -448,14 +475,14 @@
                                         <label class="form-label">Berat</label>
                                         <input class="form-control" type="number" step=0.01 value="0.01" min="0"
                                             placeholder="Masukkan Berat" name="data[berat][]"
-                                            id="barang_berat_`+x+`" onchange="remakekodeberat()"/>
+                                            id="barang_berat_`+x+`" onchange="remakekodeberat(this, ${x})"/>
                                     </div>
                                 </div>
                             </div>
                             <div class="row gx-3">
                                 <div class="col-sm-12"> 
                                     <label class="form-label">Model</label>
-                                        <select class="form-select" name="data[model][]" id="model_id_`+x+`"  onchange="remakekodemodel()">
+                                        <select class="form-select" name="data[model][]" id="model_id_`+x+`"  onchange="remakekodemodel(this, ${x})">
                                             <option value=""  selected="">--</option>
                                             <?php 
                                             foreach ($models as $model) {
@@ -488,19 +515,28 @@
                         </div>
                     </div>
                 </div>`;
+
                 $(wrapperTicket).append(fieldHTMLTicket);
+
+                // // Increment Kode Barang for the new item
+                // var newIndex = x;
+                // incrementKodeBarangForItem(newIndex);
+
                 if (x == 5) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Maksimal Multi Input Adalah 5 Barang',
-                    })
+                        text: 'Maksimal Input 5 Barang',
+                    });
+                    // hidden that button
+                    $('#addBtnTicket').attr('hidden', true);
                 }
+
                 var myElement = document.getElementById('barang_foto_' + x); 
                 var dropify = new Dropify(myElement, {
-                messages: {
-                    default: 'Upload Photo' 
-                }
+                    messages: {
+                        default: 'Upload Photo' 
+                    }
                 });
             }
 
@@ -522,119 +558,332 @@
             }
         });
 
-
-        ////////////////coba multi
-        //Remake Kode Barang 
-        //alert("aaaaaaaaaaaaaa");
-        //console.log("aaaaaaaaaaaaaaaaaaaa");
-        //inputElement.disabled = true;
-
-        //minus, klo dari 10 item ada yg sama semua aspek, maka nomer urut dari semua item sama
-        function remakekodenourut(i) {  
-                var inputElement = document.getElementById("barang_kode_"+i).value;   
-                var datas = @json($barangs);
-                var kodeBarang = inputElement.slice(0,8);
-                var countKodeSama = 0;
-                for (var j in datas) {
-                    var potonganKodeBarang = datas[j]['barang_kode'].slice(0,8);
+        // function remakekodenourut(selectElement, i) {  
+        //         var inputElement = document.getElementById("barang_kode_"+i).value;   
+        //         var datas = @json($barangs);
+        //         var kodeBarang = inputElement.slice(0,8);
+        //         var countKodeSama = 0;
+        //         for (var j in datas) {
+        //             var potonganKodeBarang = datas[j]['barang_kode'].slice(0,8);
                      
                     
-                    if(kodeBarang == potonganKodeBarang){
-                        countKodeSama++;
+        //             if(kodeBarang == potonganKodeBarang){
+        //                 countKodeSama++;
+        //             }
+        //             //alert(kodeBarang + " a " + potonganKodeBarang+ " a " +countKodeSama);
+        //         }
+        //         countKodeSama++;
+        //         var nourut = countKodeSama.toString().padStart(5,'0');
+                
+        //         var newKodeBarang = inputElement.slice(0,8)+nourut;
+                
+        //         document.getElementById("barang_kode_"+i).value = newKodeBarang; 
+        // }
+
+        // Function to find the highest last digit of Kode Barang
+        function findHighestLastDigit() {
+            var kodeBarangInputs = document.querySelectorAll('input[data-item="barang_kode"]');
+            var highestLastDigit = -1; // Initialize to -1 to handle the case when no items exist.
+
+            kodeBarangInputs.forEach(function(inputElement) {
+                var currentKodeBarang = inputElement.value;
+                var lastDigit = parseInt(currentKodeBarang.charAt(currentKodeBarang.length - 1), 10);
+                if (lastDigit > highestLastDigit) {
+                    highestLastDigit = lastDigit;
+                }
+            });
+
+            return highestLastDigit;
+        }
+
+        // Function to increment the Kode Barang for a specific item
+        function incrementKodeBarangForItem(itemIndex) {
+            var kodeBarangInput = document.querySelector('input[data-item="barang_kode"][data-index="' + itemIndex + '"]');
+            var currentKodeBarang = kodeBarangInput.value;
+            var highestLastDigit = findHighestLastDigit();
+            var incrementedLastDigit = (highestLastDigit + 1) % 10; // Ensure it stays within single digits
+            var newKodeBarang = currentKodeBarang.slice(0, -1) + incrementedLastDigit;
+            kodeBarangInput.value = newKodeBarang;
+        }
+
+        // function remakekodesupplier() {   
+        //     for (var i = 1; i <= x; i++) {
+        //         var comboBox = document.getElementById("supplier_id_"+i);
+        //         var selectedOption = comboBox.options[comboBox.selectedIndex];
+        //         var selectedKode = selectedOption.getAttribute("data-attribute");
+        //         if (selectedKode) {
+        //             selectedKode = selectedKode.slice(0,2);
+        //             var inputElement = document.getElementById("barang_kode_"+i);  
+        //             var newKodeBarang = selectedKode+inputElement.value.slice(1,13);
+        //             // alert(newKodeBarang);
+        //             inputElement.value = newKodeBarang;
+        //             remakekodenourut(i);
+        //         } 
+        //     }
+                
+        // }
+
+        // function remakekodesupplier(selectElement, i) {
+        //     var selectedOption = selectElement.options[selectElement.selectedIndex];
+        //     var selectedKode = selectedOption.getAttribute("data-attribute");
+        //     if (selectedKode) {
+        //         selectedKode = selectedKode.slice(0, 2);
+        //         var inputElement = document.getElementById("barang_kode_" + i);
+        //         var newKodeBarang = selectedKode + inputElement.value.slice(1, 13);
+        //         inputElement.value = newKodeBarang;
+        //     }
+        // }
+
+        function remakekodesupplier(selectElement, i) {
+            var selectedOption = selectElement.options[selectElement.selectedIndex];
+            var selectedKode = selectedOption.getAttribute("data-attribute");
+            var inputElement = document.getElementById("barang_kode_" + i);
+
+            if (selectedKode) {
+                if (selectedKode.length === 1) {
+                    // If "Kode Supplier" has one digit, set "Kode Barang" to "0X" where X is the single digit
+                    inputElement.value = "0" + selectedKode + inputElement.value.substring(2);
+                } else if (selectedKode.length >= 2) {
+                    // If "Kode Supplier" has two or more digits, replace the first two characters of "Kode Barang" with "Kode Supplier"
+                    inputElement.value = selectedKode + inputElement.value.substring(2);
+                }
+            }
+        }
+
+        // function remakekodemodel(selectElement, i) { 
+        //     for (var i = 1; i <= x; i++) {
+        //         var comboBox = document.getElementById("model_id_"+i);
+        //         var selectedOption = comboBox.options[comboBox.selectedIndex];
+        //         var selectedKode = selectedOption.getAttribute("data-attribute");
+
+        //         if (selectedKode) {
+        //             var inputElement = document.getElementById("barang_kode_"+i); 
+        //             var newKodeBarang = inputElement.value.slice(0,1)+selectedKode+inputElement.value.slice(3,13);
+                    
+        //             inputElement.value = newKodeBarang;
+        //             remakekodenourut(i);
+        //         }
+                
+        //     }
+                
+        // }
+
+        function remakekodemodel(selectElement, i) {
+            var selectedOption = selectElement.options[selectElement.selectedIndex];
+            var selectedKode = selectedOption.getAttribute("data-attribute");
+            var inputElement = document.getElementById("barang_kode_" + i);
+            if (selectedKode) {
+                if (selectedKode.length === 1) {
+                    // Replace the fourth character of "Kode Barang" with the single digit from "Kode Model"
+                    inputElement.value = inputElement.value.substring(0, 2) + "0" + selectedKode + inputElement.value.substring(4);
+                } else {
+                    if (inputElement.value.length >= 4) {
+                        // Replace the third and fourth characters of "Kode Barang" with the first two characters of "Kode Model"
+                        inputElement.value = inputElement.value.substring(0, 2) + selectedKode + inputElement.value.substring(4);
+                    } else if (inputElement.value.length >= 2) {
+                        // If "Kode Barang" has at least two characters, append the "Kode Model" to it
+                        inputElement.value = inputElement.value.substring(0, 2) + selectedKode + inputElement.value;
+                    } else {
+                        // If "Kode Barang" has less than two characters, simply replace it with "Kode Model"
+                        inputElement.value = selectedKode;
                     }
-                    //alert(kodeBarang + " a " + potonganKodeBarang+ " a " +countKodeSama);
                 }
-                countKodeSama++;
-                var nourut = countKodeSama.toString().padStart(5,'0');
-                
-                var newKodeBarang = inputElement.slice(0,8)+nourut;
-                
-                document.getElementById("barang_kode_"+i).value = newKodeBarang; 
-        }
-
-        function remakekodesupplier() {   
-            for (var i = 1; i <= x; i++) {
-                var comboBox = document.getElementById("supplier_id_"+i);
-                var selectedOption = comboBox.options[comboBox.selectedIndex];
-                var selectedKode = selectedOption.getAttribute("data-attribute");
-                if (selectedKode) {
-                    selectedKode = selectedKode.slice(1,2);
-                    var inputElement = document.getElementById("barang_kode_"+i);  
-                    var newKodeBarang = selectedKode+inputElement.value.slice(1,13);
-                    //alert(newKodeBarang);
-                    inputElement.value = newKodeBarang;
-                    remakekodenourut(i);
-                } 
             }
-                
         }
 
-        function remakekodemodel() { 
-            for (var i = 1; i <= x; i++) {
-                var comboBox = document.getElementById("model_id_"+i);
-                var selectedOption = comboBox.options[comboBox.selectedIndex];
-                var selectedKode = selectedOption.getAttribute("data-attribute");
+        // function remakekodepabrik(selectElement, i) { 
+        //     for (var i = 1; i <= x; i++) {
+        //         var comboBox = document.getElementById("pabrik_id_"+i);
+        //         var selectedOption = comboBox.options[comboBox.selectedIndex];
+        //         var selectedKode = selectedOption.getAttribute("data-attribute");
 
-                if (selectedKode) {
-                    var inputElement = document.getElementById("barang_kode_"+i); 
-                    var newKodeBarang = inputElement.value.slice(0,1)+selectedKode+inputElement.value.slice(3,13);
+        //         if (selectedKode) {
+        //             var inputElement = document.getElementById("barang_kode_"+i); 
+        //             var newKodeBarang = inputElement.value.slice(0,3)+selectedKode+inputElement.value.slice(5,13);
                     
-                    inputElement.value = newKodeBarang;
-                    remakekodenourut(i);
+        //             inputElement.value = newKodeBarang;
+        //             remakekodenourut(i);
+        //         }
+                
+        //     }      
+        // }
+
+        function remakekodepabrik(selectElement, i) {
+            var selectedOption = selectElement.options[selectElement.selectedIndex];
+            var selectedKode = selectedOption.getAttribute("data-attribute");
+            var inputElement = document.getElementById("barang_kode_" + i);
+            if (selectedKode) {
+                if (selectedKode.length === 1) {
+                    // Replace the fourth character of "Kode Barang" with the single digit from "Kode Pabrik"
+                    inputElement.value = inputElement.value.substring(0, 4) + "0" + selectedKode + inputElement.value.substring(6);
+                } else {
+                    if (inputElement.value.length >= 6) {
+                        // Replace the third and fourth characters of "Kode Barang" with the first two characters of "Kode Pabrik"
+                        inputElement.value = inputElement.value.substring(0, 4) + selectedKode + inputElement.value.substring(6);
+                    } else if (inputElement.value.length >= 4) {
+                        // If "Kode Barang" has at least two characters, append the "Kode Pabrik" to it
+                        inputElement.value = inputElement.value.substring(0, 4) + selectedKode + inputElement.value;
+                    } else {
+                        // If "Kode Barang" has less than two characters, simply replace it with "Kode Pabrik"
+                        inputElement.value = selectedKode;
+                    }
                 }
-                
             }
-                
         }
         
-        function remakekodepabrik() { 
-            for (var i = 1; i <= x; i++) {
-                var comboBox = document.getElementById("pabrik_id_"+i);
-                var selectedOption = comboBox.options[comboBox.selectedIndex];
-                var selectedKode = selectedOption.getAttribute("data-attribute");
-
-                if (selectedKode) {
-                    var inputElement = document.getElementById("barang_kode_"+i); 
-                    var newKodeBarang = inputElement.value.slice(0,3)+selectedKode+inputElement.value.slice(5,13);
+        // function remakekodekadar(selectElement, i) { 
+        //     for (var i = 1; i <= x; i++) {
+        //         var comboBox = document.getElementById("kadar_id_"+i);
+        //         var selectedOption = comboBox.options[comboBox.selectedIndex];
+        //         var selectedKode = selectedOption.getAttribute("data-attribute");
+        //         if (selectedKode) {
+        //             //kadar kodenya cuma dipake 1 digit
+        //             var potonganSelectedKode = selectedKode.slice(0,2);
+        //             var inputElement = document.getElementById("barang_kode_"+i); 
+        //             var newKodeBarang = inputElement.value.slice(0,5)+potonganSelectedKode+inputElement.value.slice(6,13);
                     
-                    inputElement.value = newKodeBarang;
-                    remakekodenourut(i);
+        //             inputElement.value = newKodeBarang;
+        //             remakekodenourut(i);
+        //         }
+                
+        //     }      
+        // }
+
+        function remakekodekadar(selectElement, i) {
+            var selectedOption = selectElement.options[selectElement.selectedIndex];
+            var selectedKode = selectedOption.getAttribute("data-attribute");
+            var inputElement = document.getElementById("barang_kode_" + i);
+            if (selectedKode) {
+                if (selectedKode.length === 1) {
+                    // Replace the fourth character of "Kode Barang" with the single digit from "Kode Kadar"
+                    inputElement.value = inputElement.value.substring(0, 6) + "0" +selectedKode + inputElement.value.substring(8);
+                } else {
+                    if (inputElement.value.length >= 8) {
+                        // Replace the third and fourth characters of "Kode Barang" with the first two characters of "Kode Kadar"
+                        inputElement.value = inputElement.value.substring(0, 6) + selectedKode + inputElement.value.substring(8);
+                    } else if (inputElement.value.length >= 6) {
+                        // If "Kode Barang" has at least two characters, append the "Kode Kadar" to it
+                        inputElement.value = inputElement.value.substring(0, 6) + selectedKode + inputElement.value;
+                    } else {
+                        // If "Kode Barang" has less than two characters, simply replace it with "Kode Kadar"
+                        inputElement.value = selectedKode;
+                    }
                 }
-                
             }
-                
-        }
-        
-        function remakekodekadar() { 
-            for (var i = 1; i <= x; i++) {
-                var comboBox = document.getElementById("kadar_id_"+i);
-                var selectedOption = comboBox.options[comboBox.selectedIndex];
-                var selectedKode = selectedOption.getAttribute("data-attribute");
-                if (selectedKode) {
-                    //kadar kodenya cuma dipake 1 digit
-                    var potonganSelectedKode = selectedKode.slice(1,2);
-                    var inputElement = document.getElementById("barang_kode_"+i); 
-                    var newKodeBarang = inputElement.value.slice(0,5)+potonganSelectedKode+inputElement.value.slice(6,13);
-                    
-                    inputElement.value = newKodeBarang;
-                    remakekodenourut(i);
-                }
-                
-            }
-                
         }
 
-        function remakekodeberat() { 
-            for (var i = 1; i <= x; i++) {
-                var beratTemp = document.getElementById("barang_berat_"+i);
-                beratTemp = "0" + beratTemp.value.slice(0,1);
-                var inputElement = document.getElementById("barang_kode_"+i); 
-                var newKodeBarang = inputElement.value.slice(0,6)+beratTemp+inputElement.value.slice(8,13);
+        // function remakekodeberat(selectElement, i) { 
+        //     for (var i = 1; i <= x; i++) {
+        //         var beratTemp = document.getElementById("barang_berat_"+i);
+        //         beratTemp = "0" + beratTemp.value.slice(0,1);
+        //         var inputElement = document.getElementById("barang_kode_"+i); 
+        //         console.log(beratTemp)
+        //         var newKodeBarang = inputElement.value.slice(0,8)+beratTemp+inputElement.value.slice(10,14);
                 
-                inputElement.value = newKodeBarang;
-                remakekodenourut(i);
+        //         inputElement.value = newKodeBarang;
+        //         remakekodenourut(i);
+        //     }      
+        // }
+
+        // function remakekodeberat(selectElement, i) {
+        //     var beratTemp = parseFloat(selectElement.value);  // Parse the berat as a number
+        //     console.log(beratTemp)
+        //     if (!isNaN(beratTemp)) {
+        //         beratTemp = "0" + Math.floor(beratTemp).toString();  // Convert to a string with leading zero
+        //         console.log('beratTemp2', beratTemp)
+        //         var inputElement = document.getElementById("barang_kode_" + i);
+        //         console.log(inputElement)
+        //         var newKodeBarang = inputElement.value.substring(0, 8) + beratTemp + inputElement.value.substring(10, 14);
+        //         console.log(newKodeBarang)
+        //         inputElement.value = newKodeBarang;
+        //         remakekodenourut(i);
+        //     }
+        // }
+
+        // function remakekodeberat(selectElement, i) { 
+        //     for (var i = 1; i <= x; i++) {
+        //         var beratTemp = document.getElementById("barang_berat_"+i);
+        //         beratTemp = "0" + beratTemp.value.slice(0,1);
+        //         var inputElement = document.getElementById("barang_kode_"+i); 
+        //         var newKodeBarang = inputElement.value.slice(0,8) + beratTemp + inputElement.value.slice(10,13);
+                
+        //         inputElement.value = newKodeBarang;
+        //         remakekodenourut(i);
+        //     }
+                
+        // }
+
+        // function remakekodeberat(selectElement, i) {
+        //     var beratTemp = document.getElementById("barang_berat_" + i).value;
+
+        //     // Check if beratTemp is a single-digit number
+        //     if (beratTemp.length === 1) {
+        //         beratTemp = "0" + beratTemp;
+        //     } else if (beratTemp.length > 2) {
+        //         // Handle the case where beratTemp is longer than two digits
+        //         // You may want to display an error message or handle this differently
+        //     }
+
+        //     var inputElement = document.getElementById("barang_kode_" + i);
+        //     var kodeBarang = inputElement.value;
+            
+        //     // Replace the ninth and tenth characters of "Kode Barang" with beratTemp
+        //     kodeBarang = kodeBarang.substring(0, 9) + beratTemp + kodeBarang.substring(10);
+            
+        //     inputElement.value = kodeBarang;
+        //     remakekodenourut(i);
+        // }
+
+        // function remakekodeberat(selectElement, i) {
+        //     for (var i = 1; i <= x; i++) {
+        //         var beratTemp = document.getElementById("barang_berat_" + i).value;
+
+        //         // Check if beratTemp is a single-digit number
+        //         if (beratTemp.length === 1) {
+        //             beratTemp = "0" + beratTemp;
+        //         } else if (beratTemp.length > 2) {
+        //             // Handle the case where beratTemp is longer than two digits
+        //             // You may want to display an error message or handle this differently
+        //         }
+
+        //         var inputElement = document.getElementById("barang_kode_" + i);
+        //         var newKodeBarang = inputElement.value.slice(0, 8) + beratTemp + inputElement.value.slice(10, 13);
+
+        //         inputElement.value = newKodeBarang;
+        //         remakekodenourut(i);
+        //     }
+        // }
+
+        function remakekodeberat(selectElement, i) {
+            var beratTemp = document.getElementById("barang_berat_" + i).value;
+            console.log('beratTemp', beratTemp);
+
+            // Remove any commas and convert to a number
+            beratTemp = parseFloat(beratTemp.replace(',', '.'));
+
+            console.log('beratTemp2', beratTemp);
+
+            if (!isNaN(beratTemp)) {
+                var inputElement = document.getElementById("barang_kode_" + i);
+                var kodeBarang = "";
+                console.log('inputelement', inputElement);
+
+                if (beratTemp <= 0) {
+                    kodeBarang = "00";
+                } else if (beratTemp < 10) {
+                    // If berat is between 0 and 10, format it as a two-digit string
+                    kodeBarang = Math.floor(beratTemp).toString().padStart(2, '0');
+                    console.log('kodebarang', kodeBarang);
+                } else {
+                    // If berat is 10 or more, use the two leading digits
+                    kodeBarang = Math.floor(beratTemp).toString().slice(0, 2);
+                    console.log('kodebarang2', kodeBarang);
+                }
+
+                // Update the ninth and tenth characters of "Kode Barang"
+                inputElement.value = inputElement.value.substring(0, 8) + kodeBarang + inputElement.value.substring(10);
+                console.log('inputelement value', inputElement.value);
             }
-                
         }
 
         
@@ -779,6 +1028,8 @@
                             $('#submitBarang').html('Simpan');
                             $('#barangModal').modal('hide');
                             datatable.draw();
+                            loadBerat();
+
                         }
                     }
                  });
@@ -790,10 +1041,10 @@
             });
 
             // Edit Data Barang
-            $('body').on('click', '#user-edit', function() { 
-                var inputElement = document.getElementById("barang_kode_1");
-                //inputElement.disabled = true;
-                inputElement.disabled = false;
+            $('body').on('click', '#barang-edit', function() { 
+                // var inputElement = document.getElementById("barang_kode_1");
+                // //inputElement.disabled = true;
+                // inputElement.disabled = false;
                 $('#addBtnTicket').attr('hidden', true);
                 var barang_id = $(this).attr('data-id');
 
@@ -811,7 +1062,7 @@
                         $('#barangForm').trigger("reset");
                         $('#barangHeading').html("EDIT DATA BARANG");
                         $('#barangModal').modal('show');
-                        $('#barang_kode_1').val(response.barang_kode);
+                        $('#barang_kode_1').val(response.barang_kode).attr('disabled', true);
                         $('#barang_id_1').val(response.barang_id);
                         $('#barang_nama_1').val(response.barang_nama);
                         $('#barang_kondisi_1').val(response.barang_kondisi);
@@ -824,9 +1075,9 @@
                         $('#barang_foto_1').val('');
                     }
                 });
-                var inputElement = document.getElementById("barang_kode_1");
-                //inputElement.disabled = true;
-                inputElement.disabled = false;
+                // var inputElement = document.getElementById("barang_kode_1");
+                // //inputElement.disabled = true;
+                // inputElement.disabled = false;
             });
 
             // Detail Data Barang
@@ -891,7 +1142,7 @@
  
             $('body').on('click', '#barang-detail', function() {
                 var barang_id = $(this).attr('data-id');
-                 
+         
 
                 $('.alert').hide();
                 $("#detailbarangModal").modal('show')

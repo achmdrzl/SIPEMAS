@@ -1367,7 +1367,7 @@ class DataLaporanController extends Controller
             // Return the PDF content with appropriate headers
             return response($pdfContent)
                 ->header('Content-Type', 'application/pdf')
-                ->header('Content-Disposition', 'attachment; filename="' . $filename . $dataArray[0] . '/' . $dataArray[1] . '.pdf"');
+                ->header('Content-Disposition', 'inline; filename="' . $filename . $dataArray[0] . '/' . $dataArray[1] . '.pdf"');
         } else {
 
             if ($dataArray[9] === 'rekap-pembelian') {
@@ -1481,7 +1481,7 @@ class DataLaporanController extends Controller
             // Return the PDF content with appropriate headers
             return response($pdfContent)
                 ->header('Content-Type', 'application/pdf')
-                ->header('Content-Disposition', 'attachment; filename="' . $filename . $dataArray[0] . '/' . $dataArray[1] . '.pdf"');
+                ->header('Content-Disposition', 'inline; filename="' . $filename . $dataArray[0] . '/' . $dataArray[1] . '.pdf"');
         } else {
 
             if ($dataArray[9] === 'rekap-penjualan') {
@@ -1602,7 +1602,7 @@ class DataLaporanController extends Controller
             // Return the PDF content with appropriate headers
             return response($pdfContent)
                 ->header('Content-Type', 'application/pdf')
-                ->header('Content-Disposition', 'attachment; filename="' . $filename . $dataArray[0] . '/' . $dataArray[1] . '.pdf"');
+                ->header('Content-Disposition', 'inline; filename="' . $filename . $dataArray[0] . '/' . $dataArray[1] . '.pdf"');
         } else {
 
             if ($dataArray[9] === 'rekap-returnpenjualan') {
@@ -1716,7 +1716,7 @@ class DataLaporanController extends Controller
             // Return the PDF content with appropriate headers
             return response($pdfContent)
                 ->header('Content-Type', 'application/pdf')
-                ->header('Content-Disposition', 'attachment; filename="' . $filename . $dataArray[0] . '/' . $dataArray[1] . '.pdf"');
+                ->header('Content-Disposition', 'inline; filename="' . $filename . $dataArray[0] . '/' . $dataArray[1] . '.pdf"');
         } else {
 
             if ($dataArray[9] === 'rekap-pengeluaran') {
@@ -1830,7 +1830,7 @@ class DataLaporanController extends Controller
             // Return the PDF content with appropriate headers
             return response($pdfContent)
                 ->header('Content-Type', 'application/pdf')
-                ->header('Content-Disposition', 'attachment; filename="' . $filename . $dataArray[0] . '/' . $dataArray[1] . '.pdf"');
+                ->header('Content-Disposition', 'inline; filename="' . $filename . $dataArray[0] . '/' . $dataArray[1] . '.pdf"');
         } else {
 
             if ($dataArray[9] === 'rekap-penerimaan') {
@@ -1893,7 +1893,7 @@ class DataLaporanController extends Controller
             // Return the PDF content with appropriate headers
             return response($pdfContent)
                 ->header('Content-Type', 'application/pdf')
-                ->header('Content-Disposition', 'attachment; filename="' . $filename . $dataArray[0] . '/' . $dataArray[1] . '.pdf"');
+                ->header('Content-Disposition', 'inline; filename="' . $filename . $dataArray[0] . '/' . $dataArray[1] . '.pdf"');
         } else {
 
             // Send to Exports Function
@@ -1949,7 +1949,7 @@ class DataLaporanController extends Controller
             // Return the PDF content with appropriate headers
             return response($pdfContent)
                 ->header('Content-Type', 'application/pdf')
-                ->header('Content-Disposition', 'attachment; filename="' . $filename . $dataArray[0] . '/' . $dataArray[1] . '.pdf"');
+                ->header('Content-Disposition', 'inline; filename="' . $filename . $dataArray[0] . '/' . $dataArray[1] . '.pdf"');
         } else {
 
             // Send to Exports Function
@@ -2040,7 +2040,7 @@ class DataLaporanController extends Controller
             // Return the PDF content with appropriate headers
             return response($pdfContent)
                 ->header('Content-Type', 'application/pdf')
-                ->header('Content-Disposition', 'attachment; filename="' . $filename . '.pdf"');
+                ->header('Content-Disposition', 'inline; filename="' . $filename . '.pdf"');
         } else {
 
             // Send to Exports Function
@@ -2167,7 +2167,7 @@ class DataLaporanController extends Controller
             // Return the PDF content with appropriate headers
             return response($pdfContent)
                 ->header('Content-Type', 'application/pdf')
-                ->header('Content-Disposition', 'attachment; filename="' . $filename . '.pdf"');
+                ->header('Content-Disposition', 'inline; filename="' . $filename . '.pdf"');
         } else {
 
             // Send to Exports Function

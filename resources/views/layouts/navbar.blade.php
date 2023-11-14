@@ -218,10 +218,10 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse"
-                            data-bs-target="#transaksi">
+                            data-bs-target="#kas">
                             <span class="nav-link-text">Kas Toko</span>
                         </a>
-                        <ul id="transaksi" class="nav flex-column collapse   nav-children">
+                        <ul id="kas" class="nav flex-column collapse  nav-children">
                             <li class="nav-item">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">

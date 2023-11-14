@@ -142,10 +142,10 @@
                                                             </table>
                                                         </div>
                                                     </div>
-                                                    <div class="card-footer">
+                                                    {{-- <div class="card-footer">
                                                         <p style="font-size: 18px">BERAT TOTAL : <strong>126,2
                                                                 gram</strong></p>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -309,7 +309,7 @@
                 },
                 // processing: true,
                 // serverSide: true,
-                ajax: "{{ route('penjualan.barang.index') }}",
+                ajax: "{{ route('penerimaan.barang.index') }}",
                 columns: [{
                         data: 'select',
                         name: 'select',
@@ -614,8 +614,111 @@
                 $("#supplier-data").html(supplier)
                 $("#keterangan-label").html(labelket)
                 $("#keterangan-data").html(keterangan)
+                $("#submitPenerimaan").prop('hidden', false);
 
             });
+
+            // EDIT PENERIMAAN
+            $('body').on('click', '#edit-penerimaan', function() {
+                var pengeluaran_id = $(this).attr('data-id')
+                $('.alert').hide();
+                $('#saveBtn').val("create-barang");
+                $('#penerimaanForm').trigger("reset");
+                $('#submitPenerimaan').html('Simpan');
+                $('#tambahpenerimaanHeading').html("EDIT DATA PENERIMAAN BARANG")
+
+                $("#list-barang").html('')
+                $('#penerimaanModal').modal('show');
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('pengeluaran.detail') }}",
+                    data: {
+                        pengeluaran_id: pengeluaran_id,
+                    },
+                    dataType: "JSON",
+                    success: function(response) {
+                        console.log(response)
+                        const pengeluarantanggal    = response.pengeluaran_tanggal
+                        const supplierdata          = response.supplier_id
+                        const keterangan            = response.pengeluaran_keterangan;
+                        
+                        $('#pengeluaran_tanggal').val(pengeluarantanggal).prop('readonly', false)
+                        
+                        var detailListBarang = '';
+                        var no = 1;
+                        $.each(response.pengeluarandetail, function (index, value) { 
+                            const barangkode            = value.barang['barang_kode'];
+                            const barangnama            = value.barang['barang_nama'];
+                            const barangberat           = value['detail_pengeluaran_berat'];
+                            const barangberatkembali    = value['detail_pengeluaran_kembali'];
+                            const kondisi               = value['detail_pengeluaran_kondisi'];
+                            const pengeluaran_nobukti   = value['pengeluaran_nobukti'];
+                            const barang_id             = value['barang_id'];
+
+                             detailListBarang += `<tr>
+                                                     <td>` + no++ + `</td>
+                                                     <td>` + barangkode + `</td>
+                                                     <td>` + barangnama + `</td>
+                                                     <td>` + barangberat + `</td>
+                                                     <td>
+                                                        <input class="form-control pengeluaran_nobukti" type="hidden" value="` + pengeluaran_nobukti + `"
+                                                            placeholder="Berat Kembali" name="pengeluaran_nobukti[]" />
+                                                        <input class="form-control barang_id" type="hidden" value="` + barang_id + `"
+                                                            placeholder="Berat Kembali" name="barang_id[]" />
+                                                        <input class="form-control barang_berat" type="hidden" value="` + barangberat + `"
+                                                            placeholder="Harga Beli" name="detail_pengeluaran_berat[]" />
+                                                        <input class="form-control detail_pengeluaran_kondisi" type="hidden" value="` + kondisi + `"
+                                                            placeholder="Harga Beli" name="detail_pengeluaran_kondisi[]" />
+
+                                                        <input class="form-control barang_berat" type="number" value="` + barangberatkembali + `"
+                                                            placeholder="Berat Kembali" name="detail_pengeluaran_berat_kembali[]" />
+                                                    </td>
+                                                     <td>` + kondisi + `</td>
+                                                 </tr>`;
+                        });
+
+                        // ADDING KETERANGAN AND SUPPLIER
+                        var supplierData    = @json($supplier);
+                        
+                        var labelsupplier   = `<div class="col-xl-auto mb-xl-0 mb-2">
+                                                    <label class="form-label mb-xl-0">Supplier:</label>
+                                                </div>`;
+
+                        var supplier        = `<div class="col-xl-auto mb-xl-0 mb-2">
+                                                    <select class="form-select" id="supplier_id" name="supplier_id">
+                                                        <option value="" selected disabled>--</option>`;
+
+                                                // Loop through the values of $supplier and generate <option> elements
+                                                $.each(supplierData, function(index, value) {
+                                                    supplier += `<option value="${value.supplier_id}">${value.supplier_nama}</option>`;
+                                                });
+
+                                                supplier += `</select>
+                                                            </div>`;
+
+                        var labelket    = ` <div class="col-xl-auto mb-xl-0 mb-2">
+                                            <label class="form-label mb-xl-0">Keterangan :</label>
+                                        </div>`;
+
+                        var dataketerangan  = `<div class="col-xl-auto mb-xl-0 mb-2">
+                                            <textarea class="form-control" id="pengeluaran_keterangan" name="pengeluaran_keterangan" value="` + keterangan + `" disabled></textarea>
+                                        </div>`;
+
+                        $("#supplier-label").html(labelsupplier)
+                        $("#supplier-data").html(supplier)
+                        $("#keterangan-label").html(labelket)
+                        $("#keterangan-data").html(dataketerangan)
+                        $('#supplier_id').val(supplierdata).prop('disabled', false)
+                        $('#pengeluaran_keterangan').val(keterangan)
+
+                        $("#list-barang").html(detailListBarang)
+                        $("#submitPenerimaan").prop('hidden', false);
+                    }
+
+                });
+
+            })
 
             // Calculate and update the totals for each row
             $('body').on('input', '.return_berat, .return_harga_return, .return_potongan', function() {
@@ -650,7 +753,7 @@
             // RUNNING FUNCTION SUM GRAND TOTAL
             calculateGrandTotal();
 
-            // SUBMIT PENGELUARAN
+            // SUBMIT PENERIMAAN
             $('#submitPenerimaan').click(function(e) {
                 e.preventDefault();
                 $(this).html('Sending..');
@@ -704,7 +807,7 @@
                 });
             });
 
-            // DETAIL PENGELUARAN
+            // DETAIL PENERIMAAN
             $('body').on('click', '#detail-penerimaan', function() {
                 var pengeluaran_id = $(this).attr('data-id')
                 $('.alert').hide();

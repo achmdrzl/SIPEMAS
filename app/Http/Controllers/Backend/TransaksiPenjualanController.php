@@ -45,7 +45,10 @@ class TransaksiPenjualanController extends Controller
 
                     $btn = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Penjualan" id="detail-penjualan"  data-id="' . $item->penjualan_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
+                    $btn = $btn . '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Edit Penjualan" id="edit-penjualan" data-id="' . $item->penjualan_id . '"><span class="material-icons btn-sm">edit</span></button>';
+
                     $btn = $btn . '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Cetak Faktur" id="cetak-faktur" data-id="' . $item->penjualan_id . '"><span class="material-icons btn-sm">print</span></button>';
+
 
                     return $btn;
                 })
@@ -58,7 +61,7 @@ class TransaksiPenjualanController extends Controller
     // BARANG INDEX
     public function barangIndex(Request $request)
     {
-        $barangs   =   Barang::latest()->get();
+        $barangs   =   Barang::where('barang_lokasi', 'ETALASE')->latest()->get();
 
         $barang = [];
         $no = 1;
@@ -68,8 +71,9 @@ class TransaksiPenjualanController extends Controller
             $barang_nama    = '<div class="media align-items-center">
                                 <div class="media-head me-2">
                                     <div class="avatar avatar-xs avatar-rounded">
-                                        <img src="' . $item->barang_foto . '"
-                                        alt="user" class="avatar-img">
+                                        <a href="' . asset('storage/foto_barang/' . $item->barang_foto) . '" download>
+                                            <img src="' . asset('storage/foto_barang/' . $item->barang_foto) . '" alt="user" class="avatar-img">
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="media-body">
@@ -110,13 +114,14 @@ class TransaksiPenjualanController extends Controller
     // PENJUALAN STORED DATA
     public function penjualanStore(Request $request)
     {
+        // dd($request->all());
         //define validation rules  
         $validator = Validator::make($request->all(), [
             'detail_penjualan_berat_jual'   => 'required|array',
             'detail_penjualan_berat_jual.*' => 'required|numeric',
             'detail_penjualan_harga'        => 'required|array',
             'detail_penjualan_harga.*'      => 'required|numeric',
-            'inputtunai'                   => 'required',
+            'inputtunai'                    => 'required',
         ], [
             'detail_penjualan_berat_jual.required'   => 'Berat Jual must be included.',
             'detail_penjualan_berat_jual.array'      => 'Berat Jual must be an array.',
@@ -134,91 +139,133 @@ class TransaksiPenjualanController extends Controller
             return response()->json(['errors' => $validator->errors()->all()]);
         }
 
-        // Define the model name
-        $modelName = 'TransaksiPenjualan';
+        if($request->penjualan_id != null){
 
-        // Get the current date and time
-        $currentTime = Carbon::now();
+            $ppn = [];
+            for ($x = 0; $x < count($request->barang_id); $x++) {
+                $ppn[] = ($request->ppn[$x] / 100) *  (int)str_replace(',', '', $request->detail_penjualan_total[$x]);
+            }
 
-        // Get the formatted date portion (yymmdd)
-        $datePart = $currentTime->format('ymd');
+            $penjualan_ppn = array_sum($ppn);
 
-        // Get the current counter value from cache for the specific model
-        $counter = Cache::get($modelName . '_counter');
-
-        // Get the last date stored in the cache for the specific model
-        $lastDate = Cache::get($modelName . '_counter_date');
-
-        // Check if the counter needs to be reset
-        if ($lastDate !== $datePart) {
-            // Reset the counter
-            $counter = 1;
-            Cache::put($modelName . '_counter', $counter);
-            Cache::put(
-                $modelName . '_counter_date',
-                $datePart
-            );
-        } else {
-            // Increment the counter
-            $counter++;
-            Cache::put($modelName . '_counter', $counter);
-        }
-
-        // Generate the new ID
-        $newId = $datePart . sprintf(
-            "%03d",
-            $counter
-        );
-
-        // Generate the new Kode Penjualan
-        $KodePenjualan = 'FP.' . $datePart . sprintf(
-            "%03d",
-            $counter
-        );
-
-        $ppn = [];
-        for ($x = 0; $x < count($request->barang_id); $x++) {
-            $ppn[] = ($request->ppn[$x] / 100) *  $request->detail_penjualan_total[$x];
-        }
-
-        $penjualan_ppn = array_sum($ppn);
-
-        $penjualan = TransaksiPenjualan::updateOrCreate([
-            'penjualan_id'          => $newId,
-        ], [
-            'penjualan_tanggal'     => $request->penjualan_tanggal,
-            'penjualan_nobukti'     => $KodePenjualan,
-            'penjualan_subtotal'    => $request->penjualan_subtotal,
-            'penjualan_diskon'      => $request->penjualan_diskon,
-            'penjualan_ppn'         => $penjualan_ppn,
-            // 'penjualan_grandtotal'  => $request->penjualan_grandtotal + $penjualan_ppn,
-            'penjualan_grandtotal'  => $request->penjualan_grandtotal,
-            'penjualan_bayar'       => $request->penjualan_tunai,
-            'penjualan_kembalian'   => $request->penjualan_kembalian,
-            'penjualan_keterangan'  => $request->penjualan_keterangan == null ? '-' : $request->penjualan_keterangan,
-            'user_id'               => Auth::user()->user_id,
-        ]);
-
-        for ($x = 0; $x < count($request->barang_id); $x++) {
-
-            $pembeliandetail = TransaksiPenjualanDetail::updateOrCreate([
-                'detail_penjualan_id' => $request->detail_pembelian_id,
+            $penjualan = TransaksiPenjualan::updateOrCreate([
+                'penjualan_id'          => $request->penjualan_id,
             ], [
-                'penjualan_id'                  => $penjualan->penjualan_id,
-                'barang_id'                     => $request->barang_id[$x],
-                'detail_penjualan_berat_jual'   => $request->detail_penjualan_berat_jual[$x],
-                'detail_penjualan_harga'        => $request->detail_penjualan_harga[$x],
-                'detail_penjualan_ongkos'       => $request->detail_penjualan_ongkos[$x],
-                'detail_penjualan_diskon'       => $request->detail_penjualan_diskon[$x],
-                'detail_penjualan_jml_harga'    => $request->detail_penjualan_total[$x],
+                'penjualan_tanggal'     => $request->penjualan_tanggal,
+                'penjualan_subtotal'    => (int)str_replace(',', '', $request->penjualan_subtotal),
+                'penjualan_diskon'      => (int)str_replace(',', '', $request->penjualan_diskon),
+                'penjualan_ppn'         => (int)str_replace(',', '', $penjualan_ppn),
+                // 'penjualan_grandtotal'  => $request->penjualan_grandtotal + $penjualan_ppn,
+                'penjualan_grandtotal'  => (int)str_replace(',', '', $request->penjualan_grandtotal),
+                'penjualan_bayar'       => (int)str_replace(',', '', $request->penjualan_tunai),
+                'penjualan_kembalian'   => (int)str_replace(',', '', $request->penjualan_kembalian),
+                'penjualan_keterangan'  => $request->penjualan_keterangan == null ? '-' : $request->penjualan_keterangan,
+                'user_id'               => Auth::user()->user_id,
             ]);
+
+            for ($x = 0; $x < count($request->barang_id); $x++) {
+
+                $pembeliandetail = TransaksiPenjualanDetail::updateOrCreate([
+                    'penjualan_id' => $request->penjualan_id, 'barang_id' => $request->barang_id[$x],
+                ], [
+                    'penjualan_id'                  => $penjualan->penjualan_id,
+                    'barang_id'                     => $request->barang_id[$x],
+                    'detail_penjualan_berat_jual'   => $request->detail_penjualan_berat_jual[$x],
+                    'detail_penjualan_harga'        => $request->detail_penjualan_harga[$x],
+                    'detail_penjualan_ongkos'       => (int)str_replace(',', '', $request->detail_penjualan_ongkos[$x]),
+                    'detail_penjualan_diskon'       => (int)str_replace(',', '', $request->detail_penjualan_diskon[$x]),
+                    'detail_penjualan_jml_harga'    => (int)str_replace(',', '', $request->detail_penjualan_total[$x]),
+                ]);
+            }
+        }else{
+
+            // Define the model name
+            $modelName = 'TransaksiPenjualan';
+    
+            // Get the current date and time
+            $currentTime = Carbon::now();
+    
+            // Get the formatted date portion (yymmdd)
+            $datePart = $currentTime->format('ymd');
+    
+            // Get the current counter value from cache for the specific model
+            $counter = Cache::get($modelName . '_counter');
+    
+            // Get the last date stored in the cache for the specific model
+            $lastDate = Cache::get($modelName . '_counter_date');
+    
+            // Check if the counter needs to be reset
+            if ($lastDate !== $datePart) {
+                // Reset the counter
+                $counter = 1;
+                Cache::put($modelName . '_counter', $counter);
+                Cache::put(
+                    $modelName . '_counter_date',
+                    $datePart
+                );
+            } else {
+                // Increment the counter
+                $counter++;
+                Cache::put($modelName . '_counter', $counter);
+            }
+    
+            // Generate the new ID
+            $newId = $datePart . sprintf(
+                "%03d",
+                $counter
+            );
+    
+            // Generate the new Kode Penjualan
+            $KodePenjualan = 'FP.' . $datePart . sprintf(
+                "%03d",
+                $counter
+            );
+    
+            $ppn = [];
+            for ($x = 0; $x < count($request->barang_id); $x++) {
+                $ppn[] = ($request->ppn[$x] / 100) * (int)str_replace(',', '', $request->detail_penjualan_total[$x]);
+            }
+    
+            $penjualan_ppn = array_sum($ppn);
+    
+            $penjualan = TransaksiPenjualan::updateOrCreate([
+                'penjualan_id'          => $newId,
+            ], [
+                'penjualan_tanggal'     => $request->penjualan_tanggal,
+                'penjualan_nobukti'     => $KodePenjualan,
+                'penjualan_subtotal'    => (int)str_replace(',', '', $request->penjualan_subtotal),
+                'penjualan_diskon'      => (int)str_replace(',', '', $request->penjualan_diskon),
+                'penjualan_ppn'         => (int)str_replace(',', '', $penjualan_ppn),
+                // 'penjualan_grandtotal'  => $request->penjualan_grandtotal + $penjualan_ppn,
+                'penjualan_grandtotal'  => (int)str_replace(',', '', $request->penjualan_grandtotal),
+                'penjualan_bayar'       => (int)str_replace(',', '', $request->penjualan_tunai),
+                'penjualan_kembalian'   => (int)str_replace(',', '', $request->penjualan_kembalian),
+                'penjualan_keterangan'  => $request->penjualan_keterangan == null ? '-' : $request->penjualan_keterangan,
+                'user_id'               => Auth::user()->user_id,
+            ]);
+    
+            for ($x = 0; $x < count($request->barang_id); $x++) {
+    
+                $pembeliandetail = TransaksiPenjualanDetail::updateOrCreate([
+                    'detail_penjualan_id' => $request->detail_pembelian_id,
+                ], [
+                    'penjualan_id'                  => $penjualan->penjualan_id,
+                    'barang_id'                     => $request->barang_id[$x],
+                    'detail_penjualan_berat_jual'   => $request->detail_penjualan_berat_jual[$x],
+                    'detail_penjualan_harga'        => $request->detail_penjualan_harga[$x],
+                    'detail_penjualan_ongkos'       => (int)str_replace(',', '', $request->detail_penjualan_ongkos[$x]),
+                    'detail_penjualan_diskon'       => (int)str_replace(',', '', $request->detail_penjualan_diskon[$x]),
+                    'detail_penjualan_jml_harga'    => (int)str_replace(',', '', $request->detail_penjualan_total[$x]),
+                ]);
+            }
+    
+            // UPDATE STATUS BARANG 
+            $barang     = Barang::whereIn('barang_id', $request->barang_id)->get();
+            foreach ($barang as $item) {
+                $item->update(['barang_lokasi'  => 'TERJUAL']);
+            }
         }
 
-        // UPDATE STATUS BARANG 
-        $barang     = Barang::whereIn('barang_id', $request->barang_id)->get();
-        foreach ($barang as $item) {
-            $item->update(['barang_lokasi'  => 'TERJUAL']);
-        }
 
         //return response
         return response()->json([
@@ -249,8 +296,9 @@ class TransaksiPenjualanController extends Controller
             $penjualan_jenis          = 'Perhiasan';
             $penjualan_grandtotal     = $item->penjualan_grandtotal;
 
-            $action                   = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Penjualan" id="detail-penjualan"  
-            data-id="' . $item->penjualan_id . '"><span class="material-icons btn-sm">visibility</span></button>';
+            $action                   = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Penjualan"            id="detail-penjualan" data-id="' . $item->penjualan_id . '"><span class="material-icons btn-sm">visibility</span></button>';
+
+            $action                  .= '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Edit Penjualan" id="edit-penjualan" data-id="' . $item->penjualan_id . '"><span class="material-icons btn-sm">edit</span></button>';
 
             $action                   .= '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Cetak Faktur" id="cetak-faktur" 
                                          data-id="' . $item->penjualan_id . '"><span class="material-icons btn-sm">print</span></button>';
@@ -326,7 +374,7 @@ class TransaksiPenjualanController extends Controller
         // Return the PDF content with appropriate headers
         return response($pdfContent)
             ->header('Content-Type', 'application/pdf')
-            ->header('Content-Disposition', 'attachment; filename="' . $filename . '.pdf"');
+            ->header('Content-Disposition', 'inline; filename="' . $filename . '.pdf"');
     }
 
     public function retur_penjualan()

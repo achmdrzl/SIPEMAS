@@ -48,9 +48,9 @@ class MasterDataController extends Controller
                     return $item->email;
                 })
                 ->addColumn('role', function ($item) {
-                    if($item->role == 'user'){
+                    if ($item->role == 'user') {
                         return ucfirst('kasir');
-                    }else{
+                    } else {
                         return ucfirst($item->role);
                     }
                 })
