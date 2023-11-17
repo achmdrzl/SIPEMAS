@@ -137,10 +137,10 @@
                             <div>{{ $item->barang->barang_kode }}</div>
                         </div>
                         <div class="right">
-                            @if($item->barang->foto_barang == null)
-                            
+                            @if($item->barang->barang_foto)
+                                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('storage/foto_barang/' . $item->barang->barang_foto))) }}" alt="Gambar Barang" class="gambar">
                             @else
-                                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/storage/foto_barang/' . $item->barang->barang_foto))) }}" alt="Gambar Barang" class="gambar">
+                                <span>no photo</span>
                             @endif
                         </div>
                     </td>
@@ -153,7 +153,7 @@
         </tbody>
     </table>
     <div id="keterangan">
-        Keterangan: {{ $penjualans->penjualan_keterangan }}
+        <p style="font-size: 10px; width:200px;">Keterangan: {{ $penjualans->penjualan_keterangan }}</p>
     </div>
     <div class="subtotal-perhatian">
         <div id="perhatian" style="width: 450px">

@@ -79,6 +79,7 @@ class TransaksiPembelianController extends Controller
                                 <div class="media-body">
                                     <div class="text-high-em">' . ucfirst($item->barang_nama) . '</div>
                                     <div class="fs-7" class="table-link-text link-medium-em">' . $item->barang_kode . ' </div>
+                                    <p style="font-size:1px;">'. $item->barang_id .'</p>
                                 </div>
                             </div>';
 
@@ -265,7 +266,7 @@ class TransaksiPembelianController extends Controller
 
             $action                   = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Pembelian" id="detail-pembelian" data-id="' . $item->pembelian_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
-            $action                  .='<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" data-check="edit" title="Edit Pembelian" id="edit-pembelian"  data-id="' . $item->pembelian_id . '"><span class="material-icons btn-sm">edit</span></button>';
+            $action                  .= '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" data-check="edit" title="Edit Pembelian" id="edit-pembelian"  data-id="' . $item->pembelian_id . '"><span class="material-icons btn-sm">edit</span></button>';
 
             $pembelian[] = [
                 'DT_RowIndex'            => $index++, // Add DT_RowIndex as the index plus 1

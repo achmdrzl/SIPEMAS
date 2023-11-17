@@ -232,7 +232,6 @@
                             <table class="table table-striped">
                                 <thead>
                                     <th>No</th>
-                                    <th>Kode Barang</th>
                                     <th>Nama Barang</th>
                                     <th>Berat Asli</th>
                                     <th>Berat Return</th>
@@ -576,6 +575,9 @@
                 $("#submitPenjualanReturn").prop('hidden', false);
                 $("#list-barang").html('')
 
+                var submitReturnPenjualan = $('#submitPenjualanReturn'); // Note the '#' for selecting by ID
+                submitReturnPenjualan.removeClass('edit');
+
                 var selectedValues = [];
 
                 $('.row-checkbox:checked').each(function() {
@@ -606,6 +608,7 @@
                                 const barangkode    = value['barang_kode']
                                 const barangnama    = value['barang_nama']
                                 const barangberat   = value['barang_berat']
+                                const barangfoto    = value['barang_foto']
 
                                 const harga_jual = value.transaksipenjualandetail
                                     .length > 0 ?
@@ -641,8 +644,21 @@
                                 } else {
                                     listbarang += `<tr>
                                                         <td>` + no++ + `</td>
-                                                        <td>` + barangkode + `</td>
-                                                        <td style="width:200px">` + barangnama + `</td>
+                                                        <td style="width:200px">
+                                                            <div class="media align-items-center">
+                                                                <div class="media-head me-2">
+                                                                    <div class="avatar avatar-xs avatar-rounded">
+                                                                        <a href="${'storage/foto_barang/' + barangfoto}" download>
+                                                                            <img src="${'storage/foto_barang/' + barangfoto}" alt="user" class="avatar-img">
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="media-body">
+                                                                    <div class="text-high-em">${barangnama}</div>
+                                                                    <div class="fs-7" class="table-link-text link-medium-em">${barangkode}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
                                                         <td>` + barangberat + `</td>
                                                         <td>
                                                             <input class="form-control barang_id" type="hidden" value="` +  barangid + `"
@@ -714,6 +730,9 @@
                 $('#submitPenjualanReturn').html('Simpan');
                 $('#tambahpenjualanreturnHeading').html("EDIT DATA PENJUALAN RETURN")
 
+                var submitReturnPenjualan = $('#submitPenjualanReturn'); // Note the '#' for selecting by ID
+                submitReturnPenjualan.addClass('edit');
+
                 $("#list-barang").html('')
                 $('#penjualanreturnModal').modal('show');
 
@@ -731,6 +750,7 @@
                         const grandTotalFormatted            = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_jml_harga);
                         const barangkode                     = response.returndetail.barang.barang_kode;
                         const barangnama                     = response.returndetail.barang.barang_nama;
+                        const barangfoto                     = response.returndetail.barang.barang_foto;
                         const barangberat                    = response.returndetail.detail_penjualan_barang_berat;
                         const beratreturn                    = response.returndetail.detail_penjualan_return_berat;
                         const harga_jual                     = response.returndetail.detail_penjualan_return_harga_jual;
@@ -754,8 +774,21 @@
 
                         detailListBarang += `<tr>
                                                 <td>` + no + `</td>
-                                                <td>` + barangkode + `</td>
-                                                <td>` + barangnama + `</td>
+                                                <td>
+                                                    <div class="media align-items-center">
+                                                            <div class="media-head me-2">
+                                                                <div class="avatar avatar-xs avatar-rounded">
+                                                                    <a href="${'storage/foto_barang/' + barangfoto}" download>
+                                                                        <img src="${'storage/foto_barang/' + barangfoto}" alt="user" class="avatar-img">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <div class="text-high-em">${barangnama}</div>
+                                                                <div class="fs-7" class="table-link-text link-medium-em">${barangkode}</div>
+                                                            </div>
+                                                        </div>
+                                                </td>
                                                 <td>` + barangberat + `</td>
                                                 <td>
                                                     <input class="form-control barang_id" type="hidden" value="` +  barangid + `"
@@ -842,13 +875,239 @@
                 $(this).html('Sending..');
 
                 var kondisi = $('.return_kondisi').val();
+                var edit = $(this).hasClass('edit')
 
                 if(kondisi == 'REPARASI' || kondisi == 'CUCI'){
 
                     var supplier = $('#supplier_id').val();
 
                     if(supplier != null){
+
+                        if(edit){
+
+                            const swalWithBootstrapButtons = Swal.mixin({
+                                customClass: {
+                                    confirmButton: "btn btn-success",
+                                    cancelButton: "btn btn-danger me-2",
+                                },
+                                buttonsStyling: false,
+                            });
+            
+                            var order_id  = $(this).attr('data-id')
+            
+                            swalWithBootstrapButtons
+                                .fire({
+                                    title: "Apakah Anda Yakin Akan Mengubah Data?",
+                                    text: "Data Akan Diubah!",
+                                    icon: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonClass: "me-2",
+                                    cancelButtonText: "Tidak",
+                                    confirmButtonText: "Ya",
+                                    reverseButtons: true,
+                                })
+                                .then((result) => {
+
+                                    if (result.value) {
+            
+                                        $.ajax({
+                                            url: "{{ route('penjualan.return.store') }}",
+                                            data: new FormData(this.form),
+                                            cache: false,
+                                            processData: false,
+                                            contentType: false,
+                                            type: "POST",
                         
+                                            success: function(response) {
+                                                console.log(response)
+                                                if (response.errors) {
+                                                    $('.alert').html('');
+                                                    $.each(response.errors, function(key, value) {
+                                                        $('.alert-danger').show();
+                                                        $('.alert-danger').append('<strong><li>' + value +
+                                                            '</li></strong>');
+                                                    });
+                                                    $('#submitPenjualanReturn').html('Simpan');
+                        
+                                                } else {
+                                                    $('.btn-warning').hide();
+                        
+                                                    const Toast = Swal.mixin({
+                                                        toast: true,
+                                                        position: 'top-end',
+                                                        showConfirmButton: false,
+                                                        timer: 2000,
+                                                        timerProgressBar: true,
+                                                    });
+                        
+                                                    Toast.fire({
+                                                        icon: 'success',
+                                                        title: `${response.message}`,
+                                                    })
+                        
+                                                    $('#penjualanreturnForm').trigger("reset");
+                                                    $('#submitPenjualanReturn').html('Simpan');
+                                                    $('#penjualanreturnModal').modal('hide');
+                        
+                                                    listbarang.draw();
+                                                    transaksiPenjualanReturn.draw();
+                                                    setInterval(function() {
+                                                        window.location.reload();
+                                                    }, 1000);
+                                                }
+                                            }
+                                        });
+            
+                                    } else {
+                                        $('#submitPenjualanReturn').html('Simpan');
+                                        Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
+                                    }
+                                });
+                        }else{
+                            $.ajax({
+                                url: "{{ route('penjualan.return.store') }}",
+                                data: new FormData(this.form),
+                                cache: false,
+                                processData: false,
+                                contentType: false,
+                                type: "POST",
+            
+                                success: function(response) {
+                                    console.log(response)
+                                    if (response.errors) {
+                                        $('.alert').html('');
+                                        $.each(response.errors, function(key, value) {
+                                            $('.alert-danger').show();
+                                            $('.alert-danger').append('<strong><li>' + value +
+                                                '</li></strong>');
+                                        });
+                                        $('#submitPenjualanReturn').html('Simpan');
+            
+                                    } else {
+                                        $('.btn-warning').hide();
+            
+                                        const Toast = Swal.mixin({
+                                            toast: true,
+                                            position: 'top-end',
+                                            showConfirmButton: false,
+                                            timer: 2000,
+                                            timerProgressBar: true,
+                                        });
+            
+                                        Toast.fire({
+                                            icon: 'success',
+                                            title: `${response.message}`,
+                                        })
+            
+                                        $('#penjualanreturnForm').trigger("reset");
+                                        $('#submitPenjualanReturn').html('Simpan');
+                                        $('#penjualanreturnModal').modal('hide');
+            
+                                        listbarang.draw();
+                                        transaksiPenjualanReturn.draw();
+                                        setInterval(function() {
+                                            window.location.reload();
+                                        }, 1000);
+                                    }
+                                }
+                            });
+                        }
+
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Supplier Must Be Included!',
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+
+                        $('#submitPenjualanReturn').html('Simpan');
+                    }
+
+                }else{
+
+                    if(edit){
+                        const swalWithBootstrapButtons = Swal.mixin({
+                            customClass: {
+                                confirmButton: "btn btn-success",
+                                cancelButton: "btn btn-danger me-2",
+                            },
+                            buttonsStyling: false,
+                        });
+        
+                        var order_id  = $(this).attr('data-id')
+        
+                        swalWithBootstrapButtons
+                            .fire({
+                                title: "Apakah Anda Yakin Akan Mengubah Data?",
+                                text: "Data Akan Diubah!",
+                                icon: "warning",
+                                showCancelButton: true,
+                                confirmButtonClass: "me-2",
+                                cancelButtonText: "Tidak",
+                                confirmButtonText: "Ya",
+                                reverseButtons: true,
+                            })
+                            .then((result) => {
+
+                                if (result.value) {
+        
+                                    $.ajax({
+                                        url: "{{ route('penjualan.return.store') }}",
+                                        data: new FormData(this.form),
+                                        cache: false,
+                                        processData: false,
+                                        contentType: false,
+                                        type: "POST",
+                    
+                                        success: function(response) {
+                                            console.log(response)
+                                            if (response.errors) {
+                                                $('.alert').html('');
+                                                $.each(response.errors, function(key, value) {
+                                                    $('.alert-danger').show();
+                                                    $('.alert-danger').append('<strong><li>' + value +
+                                                        '</li></strong>');
+                                                });
+                                                $('#submitPenjualanReturn').html('Simpan');
+                    
+                                            } else {
+                                                $('.btn-warning').hide();
+                    
+                                                const Toast = Swal.mixin({
+                                                    toast: true,
+                                                    position: 'top-end',
+                                                    showConfirmButton: false,
+                                                    timer: 2000,
+                                                    timerProgressBar: true,
+                                                });
+                    
+                                                Toast.fire({
+                                                    icon: 'success',
+                                                    title: `${response.message}`,
+                                                })
+                    
+                                                $('#penjualanreturnForm').trigger("reset");
+                                                $('#submitPenjualanReturn').html('Simpan');
+                                                $('#penjualanreturnModal').modal('hide');
+                    
+                                                listbarang.draw();
+                                                transaksiPenjualanReturn.draw();
+                                                setInterval(function() {
+                                                    window.location.reload();
+                                                }, 1000);
+                                            }
+                                        }
+                                    });
+        
+                                } else {
+                                    $('#submitPenjualanReturn').html('Simpan');
+                                    Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
+                                }
+                            });
+                    }else{
+
                         $.ajax({
                             url: "{{ route('penjualan.return.store') }}",
                             data: new FormData(this.form),
@@ -896,68 +1155,7 @@
                                 }
                             }
                         });
-
-                    }else{
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Supplier Must Be Included!',
-                            showConfirmButton: false,
-                            timer: 2000
-                        });
-
-                        $('#submitPenjualanReturn').html('Simpan');
                     }
-
-                }else{
-
-                    $.ajax({
-                        url: "{{ route('penjualan.return.store') }}",
-                        data: new FormData(this.form),
-                        cache: false,
-                        processData: false,
-                        contentType: false,
-                        type: "POST",
-    
-                        success: function(response) {
-                            console.log(response)
-                            if (response.errors) {
-                                $('.alert').html('');
-                                $.each(response.errors, function(key, value) {
-                                    $('.alert-danger').show();
-                                    $('.alert-danger').append('<strong><li>' + value +
-                                        '</li></strong>');
-                                });
-                                $('#submitPenjualanReturn').html('Simpan');
-    
-                            } else {
-                                $('.btn-warning').hide();
-    
-                                const Toast = Swal.mixin({
-                                    toast: true,
-                                    position: 'top-end',
-                                    showConfirmButton: false,
-                                    timer: 2000,
-                                    timerProgressBar: true,
-                                });
-    
-                                Toast.fire({
-                                    icon: 'success',
-                                    title: `${response.message}`,
-                                })
-    
-                                $('#penjualanreturnForm').trigger("reset");
-                                $('#submitPenjualanReturn').html('Simpan');
-                                $('#penjualanreturnModal').modal('hide');
-    
-                                listbarang.draw();
-                                transaksiPenjualanReturn.draw();
-                                setInterval(function() {
-                                    window.location.reload();
-                                }, 1000);
-                            }
-                        }
-                    });
                 }
 
             });
@@ -983,11 +1181,12 @@
                     dataType: "JSON",
                     success: function(response) {
                         console.log(response)
-                         const keterangan                     = response.penjualan_return_keterangan;
+                        const keterangan                     = response.penjualan_return_keterangan;
                         const grandtotal                     = response.returndetail.detail_penjualan_return_jml_harga;
                         const grandTotalFormatted            = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_jml_harga);
                         const barangkode                     = response.returndetail.barang.barang_kode;
                         const barangnama                     = response.returndetail.barang.barang_nama;
+                        const barangfoto                     = response.returndetail.barang.barang_foto;
                         const barangberat                    = response.returndetail.detail_penjualan_barang_berat;
                         const beratreturn                    = response.returndetail.detail_penjualan_return_berat;
                         const harga_jual                     = response.returndetail.detail_penjualan_return_harga_jual;
@@ -1011,8 +1210,21 @@
 
                         detailListBarang += `<tr>
                                                 <td>` + no + `</td>
-                                                <td>` + barangkode + `</td>
-                                                <td>` + barangnama + `</td>
+                                                <td>
+                                                    <div class="media align-items-center">
+                                                            <div class="media-head me-2">
+                                                                <div class="avatar avatar-xs avatar-rounded">
+                                                                    <a href="${'storage/foto_barang/' + barangfoto}" download>
+                                                                        <img src="${'storage/foto_barang/' + barangfoto}" alt="user" class="avatar-img">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <div class="text-high-em">${barangnama}</div>
+                                                                <div class="fs-7" class="table-link-text link-medium-em">${barangkode}</div>
+                                                            </div>
+                                                        </div>    
+                                                </td>
                                                 <td>` + barangberat + `</td>
                                                 <td>
                                                     <input class="form-control return_berat" type="number" value="` + beratreturn + `"

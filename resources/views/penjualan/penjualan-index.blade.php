@@ -224,7 +224,6 @@
                             <table class="table table-striped">
                                 <thead>
                                     <th>No</th>
-                                    <th>Kode Barang</th>
                                     <th>Nama Barang</th>
                                     <th>Kadar</th>
                                     <th>Berat Asli</th>
@@ -654,6 +653,7 @@
                                 const barangid     = value['barang_id']
                                 const barangkode   = value['barang_kode']
                                 const barangnama   = value['barang_nama']
+                                const barangfoto   = value['barang_foto']
                                 const barangberat  = value['barang_berat']
                                 const kadar        = value['kadar']['kadar_nama']
                                 const harga_jual_1 = value['kadar']['kadar_harga_jual_1']
@@ -671,8 +671,21 @@
 
                                 listbarang += `<tr>
                                                     <td>`+ no++ +`</td>
-                                                    <td>`+ barangkode +`</td>
-                                                    <td style="width:200px">`+ barangnama +`</td>
+                                                    <td style="width:200px">
+                                                        <div class="media align-items-center">
+                                                            <div class="media-head me-2">
+                                                                <div class="avatar avatar-xs avatar-rounded">
+                                                                    <a href="${'storage/foto_barang/' + barangfoto}" download>
+                                                                        <img src="${'storage/foto_barang/' + barangfoto}" alt="user" class="avatar-img">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <div class="text-high-em">${barangnama}</div>
+                                                                <div class="fs-7" class="table-link-text link-medium-em">${barangkode}</div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
                                                     <td>`+ kadar +`</td>
                                                     <td>`+ barangberat +`</td>
                                                     <td>
@@ -806,6 +819,7 @@
                             const barang_kode       = value['barang']['barang_kode']
                             const barang_nama       = value['barang']['barang_nama']
                             const barang_berat      = value['barang']['barang_berat']
+                            const barangfoto        = value['barang']['barang_foto']
 
                             const barangid          = value['barang_id']
 
@@ -816,8 +830,21 @@
 
                             detailListBarang += `<tr>
                                                     <td>`+ no++ +`</td>
-                                                    <td>`+ barang_kode +`</td>
-                                                    <td>`+ barang_nama +`</td>
+                                                    <td>
+                                                        <div class="media align-items-center">
+                                                            <div class="media-head me-2">
+                                                                <div class="avatar avatar-xs avatar-rounded">
+                                                                    <a href="${'storage/foto_barang/' + barangfoto}" download>
+                                                                        <img src="${'storage/foto_barang/' + barangfoto}" alt="user" class="avatar-img">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <div class="text-high-em">${barang_nama}</div>
+                                                                <div class="fs-7" class="table-link-text link-medium-em">${barang_kode}</div>
+                                                            </div>
+                                                        </div>    
+                                                    </td>
                                                     <td>`+ kadar +`</td>
                                                     <td>`+ barang_berat +`</td>
                                                     <td>
@@ -929,111 +956,253 @@
                 e.preventDefault();
                 $(this).html('Sending..');
 
-                $.ajax({
-                    url: "{{ route('penjualan.store') }}",
-                    data: new FormData(this.form),
-                    cache: false,
-                    processData: false,
-                    contentType: false,
-                    type: "POST",
+                var edit = $(this).hasClass('edit')
 
-                    success: function(response) {
-                        console.log(response)
-                        if (response.errors) {
-                            $('.alert').html('');
-                            $.each(response.errors, function(key, value) {
-                                $('.alert-danger').show();
-                                $('.alert-danger').append('<strong><li>' + value +
-                                    '</li></strong>');
-                            });
-                            $('#submitPenjualan').html('Simpan');
-
-                        } else {
-                            $('.btn-warning').hide();
-
-                            const Toast = Swal.mixin({
-                                toast: true,
-                                position: 'top-end',
-                                showConfirmButton: false,
-                                timer: 2000,
-                                timerProgressBar: true,
-                            });
-
-                            Toast.fire({
-                                icon: 'success',
-                                title: `${response.message}`,
-                            })
-
-                            $('#penjualanForm').trigger("reset");
-                            $('#submitPenjualan').html('Simpan');
-                            $('#penjualanModal').modal('hide');
-
-                            listbarang.draw();
-                            transaksiPenjualan.draw();
-
-                            
-                            setTimeout(function() {
-
+                if(edit){
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        customClass: {
+                            confirmButton: "btn btn-success",
+                            cancelButton: "btn btn-danger me-2",
+                        },
+                        buttonsStyling: false,
+    
+                    });
+    
+                    var order_id  = $(this).attr('data-id')
+    
+                    swalWithBootstrapButtons
+                        .fire({
+                            title: "Apakah Anda Yakin Akan Mengubah Data?",
+                            text: "Data Akan Diubah!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonClass: "me-2",
+                            cancelButtonText: "Tidak",
+                            confirmButtonText: "Ya",
+                            reverseButtons: true,
+                        })
+                        .then((result) => {
+                            if (result.value) {
+    
                                 $.ajax({
-                                    url: '/latest-penjualan',
-                                    type: 'GET',
-                                    success: function(data) {
-                                        var penjualan_id = data.latestPenjualanId;
-                                        // Use the penjualan_id in your code
-                                        console.log('Latest Penjualan ID: ' + penjualan_id);
+                                    url: "{{ route('penjualan.store') }}",
+                                    data: new FormData(this.form),
+                                    cache: false,
+                                    processData: false,
+                                    contentType: false,
+                                    type: "POST",
 
-                                        const swalWithBootstrapButtons = Swal.mixin({
-                                            customClass: {
-                                                confirmButton: "btn btn-success",
-                                                cancelButton: "btn btn-danger me-2",
-                                            },
-                                            buttonsStyling: false,
-                                        });
-
-                                        swalWithBootstrapButtons
-                                            .fire({
-                                                title: "Apakah kamu ingin mencetak faktur penjualan?",
-                                                text: "Faktur akan dicetak!",
-                                                icon: "warning",
-                                                showCancelButton: true,
-                                                confirmButtonClass: "me-2",
-                                                cancelButtonText: "Tidak",
-                                                confirmButtonText: "Ya",
-                                                reverseButtons: true,
-                                            })
-                                            .then((result) => {
-                                                if (result.value) {
-            
-                                                    // Convert the array to a query parameter string
-                                                    var queryString = 'data=' + JSON.stringify(penjualan_id);
-            
-                                                    // Create the URL with query parameters
-                                                    var url = "{{ route('cetak.faktur.penjualan') }}?" + queryString;
-            
-                                                    // Open the PDF in a new tab/window
-                                                    window.open(url, '_blank');
-            
-                                                    // Introduce a delay of, for example, 2 seconds (2000 milliseconds) before reloading
-                                                    setTimeout(function() {
-                                                        window.location.reload();
-                                                    }, 2000);
-
-                                                } else {
-                                                    Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
-                                                    // Introduce a delay of, for example, 2 seconds (2000 milliseconds) before reloading
-                                                    setTimeout(function() {
-                                                        window.location.reload();
-                                                    }, 2000);
-                                                }
+                                    success: function(response) {
+                                        console.log(response)
+                                        if (response.errors) {
+                                            $('.alert').html('');
+                                            $.each(response.errors, function(key, value) {
+                                                $('.alert-danger').show();
+                                                $('.alert-danger').append('<strong><li>' + value +
+                                                    '</li></strong>');
                                             });
+                                            $('#submitPenjualan').html('Simpan');
+
+                                        } else {
+                                            $('.btn-warning').hide();
+
+                                            const Toast = Swal.mixin({
+                                                toast: true,
+                                                position: 'top-end',
+                                                showConfirmButton: false,
+                                                timer: 2000,
+                                                timerProgressBar: true,
+                                            });
+
+                                            Toast.fire({
+                                                icon: 'success',
+                                                title: `${response.message}`,
+                                            })
+
+                                            $('#penjualanForm').trigger("reset");
+                                            $('#submitPenjualan').html('Simpan');
+                                            $('#penjualanModal').modal('hide');
+
+                                            listbarang.draw();
+                                            transaksiPenjualan.draw();
+
+                                            
+                                            setTimeout(function() {
+
+                                                $.ajax({
+                                                    url: '/latest-penjualan',
+                                                    type: 'GET',
+                                                    success: function(data) {
+                                                        var penjualan_id = data.latestPenjualanId;
+                                                        // Use the penjualan_id in your code
+                                                        console.log('Latest Penjualan ID: ' + penjualan_id);
+
+                                                        const swalWithBootstrapButtons = Swal.mixin({
+                                                            customClass: {
+                                                                confirmButton: "btn btn-success",
+                                                                cancelButton: "btn btn-danger me-2",
+                                                            },
+                                                            buttonsStyling: false,
+                                                        });
+
+                                                        swalWithBootstrapButtons
+                                                            .fire({
+                                                                title: "Apakah kamu ingin mencetak faktur penjualan?",
+                                                                text: "Faktur akan dicetak!",
+                                                                icon: "warning",
+                                                                showCancelButton: true,
+                                                                confirmButtonClass: "me-2",
+                                                                cancelButtonText: "Tidak",
+                                                                confirmButtonText: "Ya",
+                                                                reverseButtons: true,
+                                                            })
+                                                            .then((result) => {
+                                                                if (result.value) {
+                            
+                                                                    // Convert the array to a query parameter string
+                                                                    var queryString = 'data=' + JSON.stringify(penjualan_id);
+                            
+                                                                    // Create the URL with query parameters
+                                                                    var url = "{{ route('cetak.faktur.penjualan') }}?" + queryString;
+                            
+                                                                    // Open the PDF in a new tab/window
+                                                                    window.open(url, '_blank');
+                            
+                                                                    // Introduce a delay of, for example, 2 seconds (2000 milliseconds) before reloading
+                                                                    setTimeout(function() {
+                                                                        window.location.reload();
+                                                                    }, 2000);
+
+                                                                } else {
+                                                                    Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
+                                                                    // Introduce a delay of, for example, 2 seconds (2000 milliseconds) before reloading
+                                                                    setTimeout(function() {
+                                                                        window.location.reload();
+                                                                    }, 2000);
+                                                                }
+                                                            });
+                                                    }
+                                                });
+                    
+                                            }, 2000);
+
+                                        }
                                     }
                                 });
     
-                            }, 2000);
-
+                            } else {
+                                $('#submitPenjualan').html('Simpan');
+                                Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
+                            }
+                        });
+                }else{
+                    $.ajax({
+                        url: "{{ route('penjualan.store') }}",
+                        data: new FormData(this.form),
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        type: "POST",
+    
+                        success: function(response) {
+                            console.log(response)
+                            if (response.errors) {
+                                $('.alert').html('');
+                                $.each(response.errors, function(key, value) {
+                                    $('.alert-danger').show();
+                                    $('.alert-danger').append('<strong><li>' + value +
+                                        '</li></strong>');
+                                });
+                                $('#submitPenjualan').html('Simpan');
+    
+                            } else {
+                                $('.btn-warning').hide();
+    
+                                const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timer: 2000,
+                                    timerProgressBar: true,
+                                });
+    
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: `${response.message}`,
+                                })
+    
+                                $('#penjualanForm').trigger("reset");
+                                $('#submitPenjualan').html('Simpan');
+                                $('#penjualanModal').modal('hide');
+    
+                                listbarang.draw();
+                                transaksiPenjualan.draw();
+    
+                                
+                                setTimeout(function() {
+    
+                                    $.ajax({
+                                        url: '/latest-penjualan',
+                                        type: 'GET',
+                                        success: function(data) {
+                                            var penjualan_id = data.latestPenjualanId;
+                                            // Use the penjualan_id in your code
+                                            console.log('Latest Penjualan ID: ' + penjualan_id);
+    
+                                            const swalWithBootstrapButtons = Swal.mixin({
+                                                customClass: {
+                                                    confirmButton: "btn btn-success",
+                                                    cancelButton: "btn btn-danger me-2",
+                                                },
+                                                buttonsStyling: false,
+                                            });
+    
+                                            swalWithBootstrapButtons
+                                                .fire({
+                                                    title: "Apakah kamu ingin mencetak faktur penjualan?",
+                                                    text: "Faktur akan dicetak!",
+                                                    icon: "warning",
+                                                    showCancelButton: true,
+                                                    confirmButtonClass: "me-2",
+                                                    cancelButtonText: "Tidak",
+                                                    confirmButtonText: "Ya",
+                                                    reverseButtons: true,
+                                                })
+                                                .then((result) => {
+                                                    if (result.value) {
+                
+                                                        // Convert the array to a query parameter string
+                                                        var queryString = 'data=' + JSON.stringify(penjualan_id);
+                
+                                                        // Create the URL with query parameters
+                                                        var url = "{{ route('cetak.faktur.penjualan') }}?" + queryString;
+                
+                                                        // Open the PDF in a new tab/window
+                                                        window.open(url, '_blank');
+                
+                                                        // Introduce a delay of, for example, 2 seconds (2000 milliseconds) before reloading
+                                                        setTimeout(function() {
+                                                            window.location.reload();
+                                                        }, 2000);
+    
+                                                    } else {
+                                                        Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
+                                                        // Introduce a delay of, for example, 2 seconds (2000 milliseconds) before reloading
+                                                        setTimeout(function() {
+                                                            window.location.reload();
+                                                        }, 2000);
+                                                    }
+                                                });
+                                        }
+                                    });
+        
+                                }, 2000);
+    
+                            }
                         }
-                    }
-                });
+                    });
+                }
+
             });
 
             // DETAIL PENJUALAN
@@ -1110,11 +1279,25 @@
                             const barang_kode   = value['barang']['barang_kode']
                             const barang_nama   = value['barang']['barang_nama']
                             const barang_berat  = value['barang']['barang_berat']
+                            const barangfoto    = value['barang']['barang_foto']
 
                             detailListBarang += `<tr>
                                                     <td>`+ no++ +`</td>
-                                                    <td>`+ barang_kode +`</td>
-                                                    <td>`+ barang_nama +`</td>
+                                                    <td>
+                                                        <div class="media align-items-center">
+                                                            <div class="media-head me-2">
+                                                                <div class="avatar avatar-xs avatar-rounded">
+                                                                    <a href="${'storage/foto_barang/' + barangfoto}" download>
+                                                                        <img src="${'storage/foto_barang/' + barangfoto}" alt="user" class="avatar-img">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <div class="text-high-em">${barang_nama}</div>
+                                                                <div class="fs-7" class="table-link-text link-medium-em">${barang_kode}</div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
                                                     <td>`+ kadar +`</td>
                                                     <td>`+ barang_berat +`</td>
                                                     <td>

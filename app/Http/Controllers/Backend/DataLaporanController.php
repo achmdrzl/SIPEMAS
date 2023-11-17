@@ -1101,7 +1101,7 @@ class DataLaporanController extends Controller
     public function sortingStock(Request $request)
     {
         // dd($request->all());
-        $barangs = Barang::with(['supplier', 'kadar', 'model', 'pabrik']);
+        $barangs = Barang::with(['supplier', 'kadar', 'model', 'pabrik', 'transaksipembeliandetail.pembelian', 'transaksipenjualandetail.penjualan', 'transaksipenjualanreturndetail.return']);
 
         // Check if barang nama
         if ($request->namabarang !== null) {
@@ -1149,9 +1149,33 @@ class DataLaporanController extends Controller
 
         // Retrieve the filtered results
         $barangs = $barangs->get();
-
+        // dd($barangs);
         $barang = [];
         $index     = 1;
+        // foreach ($barangs as $item) {
+        //     $barang_id             = $item->barang_id;
+        //     $barang_kode           = $item->barang_kode;
+        //     $barang_nama           = $item->barang_nama;
+        //     $barang_berat          = $item->barang_berat;
+        //     $kadar_nama            = $item->kadar->kadar_nama;
+        //     $model_nama            = $item->model->model_nama;
+        //     $pabrik_nama           = $item->pabrik->pabrik_nama;
+        //     $supplier_nama         = $item->supplier->supplier_nama;
+        //     $barang_lokasi         = $item->barang_lokasi;
+
+        //     $barang[] = [
+        //         'DT_RowIndex'            => $index++, // Add DT_RowIndex as the index plus 1
+        //         'barang_kode'            => $barang_kode,
+        //         'barang_nama'            => $barang_nama,
+        //         'barang_berat'           => $barang_berat,
+        //         'kadar'                  => $kadar_nama,
+        //         'model'                  => $model_nama,
+        //         'pabrik'                 => $pabrik_nama,
+        //         'supplier'               => $supplier_nama,
+        //         'barang_lokasi'          => $barang_lokasi,
+        //     ];
+        // }
+
         foreach ($barangs as $item) {
             $barang_id             = $item->barang_id;
             $barang_kode           = $item->barang_kode;
@@ -1163,17 +1187,75 @@ class DataLaporanController extends Controller
             $supplier_nama         = $item->supplier->supplier_nama;
             $barang_lokasi         = $item->barang_lokasi;
 
-            $barang[] = [
-                'DT_RowIndex'            => $index++, // Add DT_RowIndex as the index plus 1
-                'barang_kode'            => $barang_kode,
-                'barang_nama'            => $barang_nama,
-                'barang_berat'           => $barang_berat,
-                'kadar'                  => $kadar_nama,
-                'model'                  => $model_nama,
-                'pabrik'                 => $pabrik_nama,
-                'supplier'               => $supplier_nama,
-                'barang_lokasi'          => $barang_lokasi,
-            ];
+            // Loop through pembelian relationships
+            foreach ($item->transaksipembeliandetail as $pembelianDetail) {
+                $tanggal_beli = $pembelianDetail->pembelian->created_at;
+                $nobukti_beli = $pembelianDetail->pembelian->pembelian_nobukti;
+                $harga_beli   = $pembelianDetail->detail_pembelian_harga_beli;
+                $berat_beli   = $pembelianDetail->detail_pembelian_berat;
+
+                // Add pembelian data to barang
+                $barang[] = [
+                    'DT_RowIndex'            => $index++, // Add DT_RowIndex as the index plus 1
+                    'barang_kode'            => $barang_kode,
+                    'barang_nama'            => $barang_nama,
+                    'barang_berat'           => $barang_berat,
+                    'kadar'                  => $kadar_nama,
+                    'model'                  => $model_nama,
+                    'pabrik'                 => $pabrik_nama,
+                    'supplier'               => $supplier_nama,
+                    'barang_lokasi'          => $barang_lokasi,
+                    'harga'                  => $harga_beli,
+                    'jenis'                  => 'Beli',
+                ];
+            }
+
+            // Loop through penjualan relationships
+            foreach ($item->transaksipenjualandetail as $penjualanDetail) {
+                $tanggal_jual = $penjualanDetail->penjualan->created_at;
+                $nobukti_jual = $penjualanDetail->penjualan->penjualan_nobukti;
+                $harga_jual = $penjualanDetail->detail_penjualan_harga;
+                $berat_jual = $penjualanDetail->detail_penjualan_berat_jual;
+
+                // Add penjualan data to barang
+                $barang[] = [
+                    'DT_RowIndex'            => $index++, // Add DT_RowIndex as the index plus 1
+                    'barang_kode'            => $barang_kode,
+                    'barang_nama'            => $barang_nama,
+                    'barang_berat'           => $barang_berat,
+                    'kadar'                  => $kadar_nama,
+                    'model'                  => $model_nama,
+                    'pabrik'                 => $pabrik_nama,
+                    'supplier'               => $supplier_nama,
+                    'barang_lokasi'          => $barang_lokasi,
+                    'harga'                  => $harga_jual,
+                    'jenis'                  => 'Jual',
+                ];
+            }
+
+            // Loop through return relationships
+            foreach ($item->transaksipenjualanreturndetail as $returnDetail) {
+                $tanggal_return = $returnDetail->return->created_at;
+                $nobukti_return = $returnDetail->return->penjualan_return_nobukti;
+                $harga_return   = $returnDetail->detail_penjualan_return_harga_return;
+                $kondisi_return = $returnDetail->detail_penjualan_return_kondisi;
+                $berat_return   = $returnDetail->detail_penjualan_return_berat;
+
+                // Add return data to barang
+                $barang[] = [
+                    'DT_RowIndex'            => $index++, // Add DT_RowIndex as the index plus 1
+                    'barang_kode'            => $barang_kode,
+                    'barang_nama'            => $barang_nama,
+                    'barang_berat'           => $barang_berat,
+                    'kadar'                  => $kadar_nama,
+                    'model'                  => $model_nama,
+                    'pabrik'                 => $pabrik_nama,
+                    'supplier'               => $supplier_nama,
+                    'barang_lokasi'          => $barang_lokasi,
+                    'harga'                  => $harga_beli,
+                    'jenis'                  => 'Return',
+                ];
+            }
         }
 
         return DataTables::of($barang)
@@ -1208,59 +1290,65 @@ class DataLaporanController extends Controller
 
             // Loop through pembelian relationships
             foreach ($item->transaksipembeliandetail as $pembelianDetail) {
-                $tanggal_beli = $pembelianDetail->pembelian->pembelian_tanggal;
+                $tanggal_beli = $pembelianDetail->pembelian->created_at;
                 $nobukti_beli = $pembelianDetail->pembelian->pembelian_nobukti;
-                $harga_beli = $pembelianDetail->pembelian->pembelian_grandtotal;
+                $harga_beli   = $pembelianDetail->detail_pembelian_harga_beli;
+                $berat_beli   = $pembelianDetail->detail_pembelian_berat;
 
                 // Add pembelian data to barang
                 $barang[] = [
                     'DT_RowIndex' => $index++,
                     'barang_kode' => $barang_kode,
                     'barang_nama' => $barang_nama,
-                    'tanggal' => $tanggal_beli,
-                    'nobukti' => $nobukti_beli,
-                    'harga' => $harga_beli,
-                    'jenis' => 'PEMBELIAN',
-                    'kondisi' => '-',
+                    'tanggal'     => Carbon::parse($tanggal_beli)->format('d-m-y - H:i:s'),
+                    'nobukti'     => $nobukti_beli,
+                    'harga'       => $harga_beli,
+                    'jenis'       => 'PEMBELIAN',
+                    'kondisi'     => '-',
+                    'berat'       => $berat_beli,
                 ];
             }
 
             // Loop through penjualan relationships
             foreach ($item->transaksipenjualandetail as $penjualanDetail) {
-                $tanggal_jual = $penjualanDetail->penjualan->penjualan_tanggal;
+                $tanggal_jual = $penjualanDetail->penjualan->created_at;
                 $nobukti_jual = $penjualanDetail->penjualan->penjualan_nobukti;
-                $harga_jual = $penjualanDetail->penjualan->penjualan_grandtotal;
+                $harga_jual = $penjualanDetail->detail_penjualan_harga;
+                $berat_jual = $penjualanDetail->detail_penjualan_berat_jual;
 
                 // Add penjualan data to barang
                 $barang[] = [
                     'DT_RowIndex' => $index++,
                     'barang_kode' => $barang_kode,
                     'barang_nama' => $barang_nama,
-                    'tanggal' => $tanggal_jual,
-                    'nobukti' => $nobukti_jual,
-                    'harga' => $harga_jual,
-                    'jenis' => 'PENJUALAN',
-                    'kondisi' => '-',
+                    'tanggal'     => Carbon::parse($tanggal_jual)->format('d M Y - H:i:s'),
+                    'nobukti'     => $nobukti_jual,
+                    'harga'       => $harga_jual,
+                    'jenis'       => 'PENJUALAN',
+                    'kondisi'     => '-',
+                    'berat'       => $berat_jual,
                 ];
             }
 
             // Loop through return relationships
             foreach ($item->transaksipenjualanreturndetail as $returnDetail) {
-                $tanggal_return = $returnDetail->return->penjualan_return_tanggal;
+                $tanggal_return = $returnDetail->return->created_at;
                 $nobukti_return = $returnDetail->return->penjualan_return_nobukti;
-                $harga_return = $returnDetail->detail_penjualan_return_jml_harga;
+                $harga_return   = $returnDetail->detail_penjualan_return_harga_return;
                 $kondisi_return = $returnDetail->detail_penjualan_return_kondisi;
+                $berat_return   = $returnDetail->detail_penjualan_return_berat;
 
                 // Add return data to barang
                 $barang[] = [
                     'DT_RowIndex' => $index++,
                     'barang_kode' => $barang_kode,
                     'barang_nama' => $barang_nama,
-                    'tanggal' => $tanggal_return,
-                    'nobukti' => $nobukti_return,
-                    'harga' => $harga_return,
-                    'jenis' => 'RETURN PENJUALAN',
-                    'kondisi' => $kondisi_return,
+                    'tanggal'     => Carbon::parse($tanggal_return)->format('d M Y - H:i:s'),
+                    'nobukti'     => $nobukti_return,
+                    'harga'       => $harga_return,
+                    'jenis'       => 'RETURN PENJUALAN',
+                    'kondisi'     => $kondisi_return,
+                    'berat'       => $berat_return,
                 ];
             }
         }
@@ -1348,7 +1436,7 @@ class DataLaporanController extends Controller
             $options = new Options();
             $options->set('isHtml5ParserEnabled', true); // Enable HTML5 parser
             $options->set('isPhpEnabled', true); // Enable PHP
-            
+
             // Create a new Dompdf instance
             $dompdf = new Dompdf($options);
 
@@ -1624,7 +1712,7 @@ class DataLaporanController extends Controller
     {
         $data = $request->query('data');
         $dataArray = json_decode($data, true);
-        
+
         $pengeluarans = TransaksiPengeluaran::with(['pengeluarandetail.barang'])->where('jenis', 'pengeluaran');
 
         // Check if startDate and endDate are provided
@@ -1965,7 +2053,7 @@ class DataLaporanController extends Controller
         $data = $request->query('data');
         $dataArray = json_decode($data, true);
 
-        $barangs = Barang::with(['supplier', 'pabrik', 'kadar', 'model']);
+        $barangs = Barang::with(['supplier', 'pabrik', 'kadar', 'model','transaksipembeliandetail.pembelian', 'transaksipenjualandetail.penjualan', 'transaksipenjualanreturndetail.return']);
 
         // Check if barang nama
         if ($dataArray[0] !== null && $dataArray[0] !== '') {
@@ -2010,12 +2098,96 @@ class DataLaporanController extends Controller
         // Retrieve the filtered results
         $barangs = $barangs->get();
 
+        $barang = [];
+        $index = 1;
+        foreach ($barangs as $item) {
+            $barang_id             = $item->barang_id;
+            $barang_kode           = $item->barang_kode;
+            $barang_nama           = $item->barang_nama;
+            $barang_berat          = $item->barang_berat;
+            $kadar_nama            = $item->kadar->kadar_nama;
+            $model_nama            = $item->model->model_nama;
+            $pabrik_nama           = $item->pabrik->pabrik_nama;
+            $supplier_nama         = $item->supplier->supplier_nama;
+            $barang_lokasi         = $item->barang_lokasi;
+
+            // Loop through pembelian relationships
+            foreach ($item->transaksipembeliandetail as $pembelianDetail) {
+                $tanggal_beli = $pembelianDetail->pembelian->created_at;
+                $nobukti_beli = $pembelianDetail->pembelian->pembelian_nobukti;
+                $harga_beli   = $pembelianDetail->detail_pembelian_harga_beli;
+                $berat_beli   = $pembelianDetail->detail_pembelian_berat;
+
+                // Add pembelian data to barang
+                $barang[] = [
+                    'DT_RowIndex'            => $index++, // Add DT_RowIndex as the index plus 1
+                    'barang_kode'            => $barang_kode,
+                    'barang_nama'            => $barang_nama,
+                    'barang_berat'           => $barang_berat,
+                    'kadar'                  => $kadar_nama,
+                    'model'                  => $model_nama,
+                    'pabrik'                 => $pabrik_nama,
+                    'supplier'               => $supplier_nama,
+                    'barang_lokasi'          => $barang_lokasi,
+                    'harga'                  => $harga_beli,
+                    'jenis'                  => 'Beli',
+                ];
+            }
+
+            // Loop through penjualan relationships
+            foreach ($item->transaksipenjualandetail as $penjualanDetail) {
+                $tanggal_jual = $penjualanDetail->penjualan->created_at;
+                $nobukti_jual = $penjualanDetail->penjualan->penjualan_nobukti;
+                $harga_jual = $penjualanDetail->detail_penjualan_harga;
+                $berat_jual = $penjualanDetail->detail_penjualan_berat_jual;
+
+                // Add penjualan data to barang
+                $barang[] = [
+                    'DT_RowIndex'            => $index++, // Add DT_RowIndex as the index plus 1
+                    'barang_kode'            => $barang_kode,
+                    'barang_nama'            => $barang_nama,
+                    'barang_berat'           => $barang_berat,
+                    'kadar'                  => $kadar_nama,
+                    'model'                  => $model_nama,
+                    'pabrik'                 => $pabrik_nama,
+                    'supplier'               => $supplier_nama,
+                    'barang_lokasi'          => $barang_lokasi,
+                    'harga'                  => $harga_jual,
+                    'jenis'                  => 'Jual',
+                ];
+            }
+
+            // Loop through return relationships
+            foreach ($item->transaksipenjualanreturndetail as $returnDetail) {
+                $tanggal_return = $returnDetail->return->created_at;
+                $nobukti_return = $returnDetail->return->penjualan_return_nobukti;
+                $harga_return   = $returnDetail->detail_penjualan_return_harga_return;
+                $kondisi_return = $returnDetail->detail_penjualan_return_kondisi;
+                $berat_return   = $returnDetail->detail_penjualan_return_berat;
+
+                // Add return data to barang
+                $barang[] = [
+                    'DT_RowIndex'            => $index++, // Add DT_RowIndex as the index plus 1
+                    'barang_kode'            => $barang_kode,
+                    'barang_nama'            => $barang_nama,
+                    'barang_berat'           => $barang_berat,
+                    'kadar'                  => $kadar_nama,
+                    'model'                  => $model_nama,
+                    'pabrik'                 => $pabrik_nama,
+                    'supplier'               => $supplier_nama,
+                    'barang_lokasi'          => $barang_lokasi,
+                    'harga'                  => $harga_beli,
+                    'jenis'                  => 'Return',
+                ];
+            }
+        }
+
         if ($dataArray[6] === 'pdf') {
 
             $filename = 'Laporan Rekap Stock Lokasi ' . strtoupper($dataArray[7]) . ' ';
             $formatPaper = 'landscape';
             // Load the HTML view with the data
-            $html = view('layout-print.rekap-stock', ['barangs' => $barangs])->render();
+            $html = view('layout-print.rekap-stock', ['barangs' => $barang, 'jumlah' => $barangs])->render();
 
             // Create Dompdf instance
             $options = new Options();
@@ -2044,7 +2216,7 @@ class DataLaporanController extends Controller
         } else {
 
             // Send to Exports Function
-            $export = new RekapStock($barangs);
+            $export = new RekapStock($barang);
 
             return Excel::download($export, 'Laporan Rekap Stock Lokasi ' . strtoupper($dataArray[7]) . ' .xlsx');
         }
@@ -2055,7 +2227,7 @@ class DataLaporanController extends Controller
     {
         $data = $request->query('data');
         $dataArray = json_decode($data, true);
-        
+
         $barangs = Barang::with(['transaksipembeliandetail.pembelian', 'transaksipenjualandetail.penjualan', 'transaksipenjualanreturndetail.return']);
 
         // Check if barang nama
@@ -2070,7 +2242,7 @@ class DataLaporanController extends Controller
 
         // Retrieve the filtered results
         $barangss = $barangs->get();
-        
+
         $barang = [];
         $index = 1;
         foreach ($barangss as $item) {
@@ -2082,7 +2254,7 @@ class DataLaporanController extends Controller
             foreach ($item->transaksipembeliandetail as $pembelianDetail) {
                 $tanggal_beli = $pembelianDetail->pembelian->pembelian_tanggal;
                 $nobukti_beli = $pembelianDetail->pembelian->pembelian_nobukti;
-                $harga_beli = $pembelianDetail->pembelian->pembelian_grandtotal;
+                $harga_beli   = $pembelianDetail->detail_pembelian_harga_beli;
 
                 // Add pembelian data to barang
                 $barang[] = [
@@ -2101,7 +2273,7 @@ class DataLaporanController extends Controller
             foreach ($item->transaksipenjualandetail as $penjualanDetail) {
                 $tanggal_jual = $penjualanDetail->penjualan->penjualan_tanggal;
                 $nobukti_jual = $penjualanDetail->penjualan->penjualan_nobukti;
-                $harga_jual = $penjualanDetail->penjualan->penjualan_grandtotal;
+                $harga_jual   = $penjualanDetail->detail_penjualan_harga;
 
                 // Add penjualan data to barang
                 $barang[] = [
@@ -2120,7 +2292,7 @@ class DataLaporanController extends Controller
             foreach ($item->transaksipenjualanreturndetail as $returnDetail) {
                 $tanggal_return = $returnDetail->return->penjualan_return_tanggal;
                 $nobukti_return = $returnDetail->return->penjualan_return_nobukti;
-                $harga_return = $returnDetail->detail_penjualan_return_jml_harga;
+                $harga_return   = $returnDetail->detail_penjualan_return_harga_return;
                 $kondisi_return = $returnDetail->detail_penjualan_return_kondisi;
 
                 // Add return data to barang
@@ -2136,10 +2308,10 @@ class DataLaporanController extends Controller
                 ];
             }
         }
-        
+
         if ($dataArray[3] === 'pdf') {
 
-            $filename = 'Laporan Rekap History Barang '. $dataArray[0] .' ';
+            $filename = 'Laporan Rekap History Barang ' . $dataArray[0] . ' ';
             $formatPaper = 'landscape';
             // Load the HTML view with the data
             $html = view('layout-print.rekap-history', ['barangs' => $barang])->render();
@@ -2173,7 +2345,7 @@ class DataLaporanController extends Controller
             // Send to Exports Function
             $export = new RekapHistory($barang);
 
-            return Excel::download($export, 'Laporan Rekap History Barang '. $dataArray[0] .' .xlsx');
+            return Excel::download($export, 'Laporan Rekap History Barang ' . $dataArray[0] . ' .xlsx');
         }
     }
 }

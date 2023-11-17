@@ -80,6 +80,7 @@ class ReturnPenjualanController extends Controller
                                 <div class="media-body">
                                     <div class="text-high-em">' . ucfirst($item->barang_nama) . '</div>
                                     <div class="fs-7" class="table-link-text link-medium-em">' . $item->barang_kode . ' </div>
+                                    <p style="font-size:1px;">' . $item->barang_id . '</p>
                                 </div>
                             </div>';
 

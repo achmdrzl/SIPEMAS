@@ -107,6 +107,7 @@
                                                                 <th>Tanggal</th>
                                                                 <th>Keterangan</th>
                                                                 <th>No Transaksi</th>
+                                                                <th>Berat</th>
                                                                 <th>Harga Transaksi</th>
                                                                 <th>Kondisi</th>
                                                             </tr>
@@ -182,7 +183,7 @@
             }
 
             // Define an array of column indexes that need formatting
-            var columnsToFormat = [5];
+            var columnsToFormat = [6];
 
             // Loop through the columns and apply the rendering function
             var columnDefs = columnsToFormat.map(function(columnIndex) {
@@ -270,6 +271,10 @@
                                     {
                                         data: 'nobukti',
                                         name: 'nobukti'
+                                    },
+                                    {
+                                        data: 'berat',
+                                        name: 'berat'
                                     },
                                     {
                                         data: 'harga',

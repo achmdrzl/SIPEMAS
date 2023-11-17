@@ -167,10 +167,27 @@
                                                                 <th>Pabrik</th>
                                                                 <th>Supplier</th>
                                                                 <th>Lokasi</th>
+                                                                <th>Harga Transaksi</th>
+                                                                <th>Ket</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                         </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th></th><!-- Empty cell for alignment -->
+                                                                <th></th><!-- Empty cell for alignment -->
+                                                                <th></th><!-- Empty cell for alignment -->
+                                                                <th></th><!-- Empty cell for alignment -->
+                                                                <th></th><!-- Empty cell for alignment -->
+                                                                <th></th><!-- Empty cell for alignment -->
+                                                                <th></th><!-- Empty cell for alignment -->
+                                                                <th></th><!-- Empty cell for alignment -->
+                                                                <th></th><!-- Empty cell for alignment -->
+                                                                <th>Grand Total:</th><!-- Label for total -->
+                                                                <th></th><!-- Empty cell for alignment -->
+                                                            </tr>
+                                                        </tfoot>
                                                     </table>
                                                 </div>
                                             </div>
@@ -241,7 +258,7 @@
             }
 
             // Define an array of column indexes that need formatting
-            var columnsToFormat = [4, 5, 6, 7];
+            var columnsToFormat = [9];
 
             // Loop through the columns and apply the rendering function
             var columnDefs = columnsToFormat.map(function(columnIndex) {
@@ -422,7 +439,33 @@
                                         data: 'barang_lokasi',
                                         name: 'barang_lokasi'
                                     },
-                                ]
+                                    {
+                                        data: 'harga',
+                                        name: 'harga'
+                                    },
+                                    {
+                                        data: 'jenis',
+                                        name: 'jenis'
+                                    },
+                                ],
+                                columnDefs: columnDefs,
+                                footerCallback: function(row, data, start, end, display) {
+                                    var api = this.api();
+
+                                    // Convert to float if data is coming as strings
+                                    var harga = api
+                                        .column('harga:name', {
+                                            search: 'applied',
+                                            filter: 'applied'
+                                        })
+                                        .data()
+                                        .reduce(function(acc, value) {
+                                            return acc + parseFloat(value);
+                                        }, 0);
+
+                                    // Update the footer cells with the calculated sums
+                                    $(api.column('harga:name').footer()).html(rupiah(harga));
+                                },
                             });
 
                             // Hide the loading state

@@ -235,7 +235,6 @@
                             <table class="table">
                                 <thead>
                                     <th>No</th>
-                                    <th>Kode</th>
                                     <th>Nama Barang</th>
                                     <th>Kadar</th>
                                     <th>Berat</th>
@@ -676,11 +675,25 @@
                                 const barangnama = value['barang_nama']
                                 const barangberat = value['barang_berat']
                                 const kadar = value['kadar']['kadar_nama']
+                                const barangfoto   = value['barang_foto']
 
                                 listbarang += `<tr>
                                                     <td>` + no++ + `</td>
-                                                    <td>` + barangkode + `</td>
-                                                    <td style="width:200px">` + barangnama + `</td>
+                                                    <td style="width:200px">
+                                                        <div class="media align-items-center">
+                                                            <div class="media-head me-2">
+                                                                <div class="avatar avatar-xs avatar-rounded">
+                                                                    <a href="${'storage/foto_barang/' + barangfoto}" download>
+                                                                        <img src="${'storage/foto_barang/' + barangfoto}" alt="user" class="avatar-img">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <div class="text-high-em">${barangnama}</div>
+                                                                <div class="fs-7" class="table-link-text link-medium-em">${barangkode}</div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
                                                     <td>` + kadar + `</td>
                                                     <td>` + barangberat + `</td>
                                                     <td>
@@ -787,11 +800,25 @@
 
                             const barang_kode  = value['barang']['barang_kode']
                             const barang_nama  = value['barang']['barang_nama']
+                            const barang_foto  = value['barang']['barang_foto']
 
                             detailListBarang += `<tr>
                                                     <td>` + no++ + `</td>
-                                                    <td>` + barang_kode + `</td>
-                                                    <td>` + barang_nama + `</td>
+                                                    <td>
+                                                        <div class="media align-items-center">
+                                                            <div class="media-head me-2">
+                                                                <div class="avatar avatar-xs avatar-rounded">
+                                                                    <a href="${'storage/foto_barang/' + barang_foto}" download>
+                                                                        <img src="${'storage/foto_barang/' + barang_foto}" alt="user" class="avatar-img">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <div class="text-high-em">${barang_nama}</div>
+                                                                <div class="fs-7" class="table-link-text link-medium-em">${barang_kode}</div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
                                                     <td>` + kadar + `</td>
                                                     <td>` + berat + `</td>
                                                     <td>
@@ -892,61 +919,153 @@
                 e.preventDefault();
                 $(this).html('Sending..');
 
-                $.ajax({
-                    url: "{{ route('pembelian.store') }}",
-                    data: new FormData(this.form),
-                    cache: false,
-                    processData: false,
-                    contentType: false,
-                    type: "POST",
+                var edit = $(this).hasClass('edit')
 
-                    success: function(response) {
-                        console.log(response)
-                        if (response.errors) {
-                            $('.alert').html('');
-                            $.each(response.errors, function(key, value) {
-                                $('.alert-danger').show();
-                                $('.alert-danger').append('<strong><li>' + value +
-                                    '</li></strong>');
-                            });
-                            $('#submitPembelian').html('Simpan');
-
-                        } else {
-                            $('.btn-warning').hide();
-
-                            const Toast = Swal.mixin({
-                                toast: true,
-                                position: 'top-end',
-                                showConfirmButton: false,
-                                timer: 2000,
-                                timerProgressBar: true,
-                            });
-
-                            Toast.fire({
-                                icon: 'success',
-                                title: `${response.message}`,
-                            })
-
-                            $('#pembelianForm').trigger("reset");
-                            $('#submitPembelian').html('Simpan');
-                            $('#pembelianModal').modal('hide');
-
-                            // CHECK IF EDIT DONT REFRESH PAGE
-                            var edit = $(this).hasClass('edit')
-
-                            if(edit){
-                                transaksiPembelian.draw();
-                                listbarang.draw();
-                            }else{
-                                transaksiPembelian.draw();
-                                listbarang.draw();
-                                setInterval(function() {
-                                    window.location.reload();
-                                }, 1000);
+                if(edit){
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        customClass: {
+                            confirmButton: "btn btn-success",
+                            cancelButton: "btn btn-danger me-2",
+                        },
+                        buttonsStyling: false,
+    
+                    });
+    
+                    var order_id  = $(this).attr('data-id')
+    
+                    swalWithBootstrapButtons
+                        .fire({
+                            title: "Apakah Anda Yakin Akan Mengubah Data?",
+                            text: "Data Akan Diubah!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonClass: "me-2",
+                            cancelButtonText: "Tidak",
+                            confirmButtonText: "Ya",
+                            reverseButtons: true,
+                        })
+                        .then((result) => {
+                            if (result.value) {
+    
+                                $.ajax({
+                                    url: "{{ route('pembelian.store') }}",
+                                    data: new FormData(this.form),
+                                    cache: false,
+                                    processData: false,
+                                    contentType: false,
+                                    type: "POST",
+                
+                                    success: function(response) {
+                                        console.log(response)
+                                        if (response.errors) {
+                                            $('.alert').html('');
+                                            $.each(response.errors, function(key, value) {
+                                                $('.alert-danger').show();
+                                                $('.alert-danger').append('<strong><li>' + value +
+                                                    '</li></strong>');
+                                            });
+                                            $('#submitPembelian').html('Simpan');
+                
+                                        } else {
+                                            $('.btn-warning').hide();
+                
+                                            const Toast = Swal.mixin({
+                                                toast: true,
+                                                position: 'top-end',
+                                                showConfirmButton: false,
+                                                timer: 2000,
+                                                timerProgressBar: true,
+                                            });
+                
+                                            Toast.fire({
+                                                icon: 'success',
+                                                title: `${response.message}`,
+                                            })
+                
+                                            $('#pembelianForm').trigger("reset");
+                                            $('#submitPembelian').html('Simpan');
+                                            $('#pembelianModal').modal('hide');
+                
+                                            // CHECK IF EDIT DONT REFRESH PAGE
+                                            var edit = $(this).hasClass('edit')
+                
+                                            if(edit){
+                                                transaksiPembelian.draw();
+                                                listbarang.draw();
+                                            }else{
+                                                transaksiPembelian.draw();
+                                                listbarang.draw();
+                                                setInterval(function() {
+                                                    window.location.reload();
+                                                }, 1000);
+                                            }
+                                        }
+                                    }
+                                });
+    
+                            } else {
+                                $('#submitPembelian').html('Simpan');
+                                Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
+                            }
+                        });
+                }else{
+                    $.ajax({
+                        url: "{{ route('pembelian.store') }}",
+                        data: new FormData(this.form),
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        type: "POST",
+    
+                        success: function(response) {
+                            console.log(response)
+                            if (response.errors) {
+                                $('.alert').html('');
+                                $.each(response.errors, function(key, value) {
+                                    $('.alert-danger').show();
+                                    $('.alert-danger').append('<strong><li>' + value +
+                                        '</li></strong>');
+                                });
+                                $('#submitPembelian').html('Simpan');
+    
+                            } else {
+                                $('.btn-warning').hide();
+    
+                                const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timer: 2000,
+                                    timerProgressBar: true,
+                                });
+    
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: `${response.message}`,
+                                })
+    
+                                $('#pembelianForm').trigger("reset");
+                                $('#submitPembelian').html('Simpan');
+                                $('#pembelianModal').modal('hide');
+    
+                                // CHECK IF EDIT DONT REFRESH PAGE
+                                var edit = $(this).hasClass('edit')
+    
+                                if(edit){
+                                    transaksiPembelian.draw();
+                                    listbarang.draw();
+                                }else{
+                                    transaksiPembelian.draw();
+                                    listbarang.draw();
+                                    setInterval(function() {
+                                        window.location.reload();
+                                    }, 1000);
+                                }
                             }
                         }
-                    }
-                });
+                    });
+                }
+
             });
 
             // DETAIL PEMBELIAN
@@ -1015,11 +1134,25 @@
 
                             const barang_kode  = value['barang']['barang_kode']
                             const barang_nama  = value['barang']['barang_nama']
+                            const barang_foto  = value['barang']['barang_foto']
 
                             detailListBarang += `<tr>
                                                     <td>` + no++ + `</td>
-                                                    <td>` + barang_kode + `</td>
-                                                    <td>` + barang_nama + `</td>
+                                                    <td>
+                                                        <div class="media align-items-center">
+                                                            <div class="media-head me-2">
+                                                                <div class="avatar avatar-xs avatar-rounded">
+                                                                    <a href="${'storage/foto_barang/' + barang_foto}" download>
+                                                                        <img src="${'storage/foto_barang/' + barang_foto}" alt="user" class="avatar-img">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <div class="text-high-em">${barang_nama}</div>
+                                                                <div class="fs-7" class="table-link-text link-medium-em">${barang_kode}</div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
                                                     <td>` + kadar + `</td>
                                                     <td>` + berat + `</td>
                                                     <td>

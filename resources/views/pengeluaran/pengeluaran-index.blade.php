@@ -162,7 +162,7 @@
         {{-- Modal Tambah Penjualan --}}
         <div class="modal fade" id="pengeluaranModal" tabindex="-1" role="dialog" aria-labelledby="modalSupplier"
             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered custom-modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h6 id="tambahpenjualanreturnHeading"></h6>
@@ -204,7 +204,6 @@
                             <table class="table table-striped">
                                 <thead>
                                     <th>No</th>
-                                    <th>Kode Barang</th>
                                     <th>Nama Barang</th>
                                     <th>Berat Asli</th>
                                     <th>Kondisi</th>
@@ -307,7 +306,7 @@
                 },
                 // processing: true,
                 // serverSide: true,
-                ajax: "{{ route('penerimaan.barang.index') }}",
+                ajax: "{{ route('pengeluaran.barang.index') }}",
                 columns: [{
                         data: 'select',
                         name: 'select',
@@ -511,6 +510,9 @@
                 $("#submitPengeluaran").prop('hidden', false);
                 $("#list-barang").html('')
 
+                var submitPengeluaran = $('#submitPengeluaran'); // Note the '#' for selecting by ID
+                submitPengeluaran.removeClass('edit');
+
                 var selectedValues = [];
 
                 $('.row-checkbox:checked').each(function() {
@@ -541,11 +543,25 @@
                                 const barangnama = value['barang_nama']
                                 const barangberat = value['barang_berat']
                                 const kadar = value['kadar']['kadar_id']
+                                const barangfoto   = value['barang_foto']
 
                                 listbarang += `<tr>
                                                     <td>` + no++ + `</td>
-                                                    <td>` + barangkode + `</td>
-                                                    <td style="width:200px">` + barangnama + `</td>
+                                                    <td style="width:200px">
+                                                        <div class="media align-items-center">
+                                                            <div class="media-head me-2">
+                                                                <div class="avatar avatar-xs avatar-rounded">
+                                                                    <a href="${'storage/foto_barang/' + barangfoto}" download>
+                                                                        <img src="${'storage/foto_barang/' + barangfoto}" alt="user" class="avatar-img">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <div class="text-high-em">${barangnama}</div>
+                                                                <div class="fs-7" class="table-link-text link-medium-em">${barangkode}</div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
                                                     <td>` + barangberat + `</td>
                                                     <td>
                                                         <input class="form-control" id="barang_id" type="hidden" value="` + barangid + `"
@@ -622,6 +638,9 @@
                 $('#submitPengeluaran').html('Simpan');
                 $('#tambahpenjualanreturnHeading').html("EDIT DATA PENGELUARAN BARANG")
 
+                var submitPengeluaran = $('#submitPengeluaran'); // Note the '#' for selecting by ID
+                submitPengeluaran.addClass('edit');
+
                 $("#list-barang").html('')
                 $('#pengeluaranModal').modal('show');
 
@@ -633,27 +652,59 @@
                     },
                     dataType: "JSON",
                     success: function(response) {
-                        console.log(response)
+                        console.log('edit', response)
                         const pengeluarantanggal    = response.pengeluaran_tanggal
                         const supplierdata          = response.supplier_id
                         const keterangan            = response.pengeluaran_keterangan;
                         
-                        $('#pengeluaran_tanggal').val(pengeluarantanggal).prop('readonly', true)
+                        $('#pengeluaran_tanggal').val(pengeluarantanggal).prop('readonly', false)
                         
                         var detailListBarang = '';
                         var no = 1;
                         
                         $.each(response.pengeluarandetail, function (index, value) { 
-                            const barangkode        = value.barang['barang_kode'];
-                            const barangnama        = value.barang['barang_nama'];
-                            const barangberat       = value['detail_pengeluaran_berat'];
-                            const kondisi           = value['detail_pengeluaran_kondisi'];
+                            const barangkode            = value.barang['barang_kode'];
+                            const barangnama            = value.barang['barang_nama'];
+                            const barangfoto            = value.barang['barang_foto'];
+                            const barangberat           = value['detail_pengeluaran_berat'];
+                            const barangberatkembali    = value['detail_pengeluaran_kembali'];
+                            const kondisi               = value['detail_pengeluaran_kondisi'];
+                            const pengeluaran_nobukti   = value['pengeluaran_nobukti'];
+                            const pengeluaran_id        = value['pengeluaran_id'];
+                            const barang_id             = value['barang_id'];
+                            const kadar                 = value['kadar_id'];
 
                              detailListBarang += `<tr>
                                                      <td>` + no++ + `</td>
-                                                     <td>` + barangkode + `</td>
-                                                     <td>` + barangnama + `</td>
-                                                     <td>` + barangberat + `</td>
+                                                     <td>
+                                                        <div class="media align-items-center">
+                                                            <div class="media-head me-2">
+                                                                <div class="avatar avatar-xs avatar-rounded">
+                                                                    <a href="${'storage/foto_barang/' + barangfoto}" download>
+                                                                        <img src="${'storage/foto_barang/' + barangfoto}" alt="user" class="avatar-img">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <div class="text-high-em">${barangnama}</div>
+                                                                <div class="fs-7" class="table-link-text link-medium-em">${barangkode}</div>
+                                                            </div>
+                                                        </div>
+                                                     </td>
+                                                     <td>
+                                                        <input class="form-control pengeluaran_nobukti" type="hidden" value="` + pengeluaran_nobukti + `"
+                                                            placeholder="Berat Kembali" name="pengeluaran_nobukti[]" />
+                                                        <input class="form-control barang_id" type="hidden" value="` + barang_id + `"
+                                                            placeholder="Berat Kembali" name="barang_id[]" />
+                                                        <input class="form-control kadar" type="hidden" value="` + kadar + `"
+                                                            placeholder="Harga Beli" name="kadar_id[]" />
+                                                        <input class="form-control barang_berat" type="number" value="` + barangberat + `"
+                                                            placeholder="Harga Beli" name="detail_pengeluaran_berat[]" />
+                                                        <input class="form-control detail_pengeluaran_kondisi" type="hidden" value="` + kondisi + `"
+                                                            placeholder="Harga Beli" name="detail_pengeluaran_kondisi[]" />
+                                                        <input class="form-control pengeluaran_id" type="hidden" value="` + pengeluaran_id + `"
+                                                            placeholder="Harga Beli" name="pengeluaran_id[]" />
+                                                    </td>
                                                      <td>` + kondisi + `</td>
                                                  </tr>`;
                         });
@@ -689,11 +740,11 @@
                         $("#supplier-data").html(supplier)
                         $("#keterangan-label").html(labelket)
                         $("#keterangan-data").html(dataketerangan)
-                        $('#supplier_id').val(supplierdata).prop('disabled', true)
+                        $('#supplier_id').val(supplierdata).prop('disabled', false)
                         $('#pengeluaran_keterangan').val(keterangan)
 
                         $("#list-barang").html(detailListBarang)
-                        $("#submitPenerimaan").prop('hidden', false);
+                        $("#submitPengeluaran").prop('hidden', false);
                     }
 
                 });
@@ -738,53 +789,136 @@
                 e.preventDefault();
                 $(this).html('Sending..');
 
-                $.ajax({
-                    url: "{{ route('pengeluaran.store') }}",
-                    data: new FormData(this.form),
-                    cache: false,
-                    processData: false,
-                    contentType: false,
-                    type: "POST",
+                var edit = $(this).hasClass('edit')
 
-                    success: function(response) {
-                        console.log(response)
-                        if (response.errors) {
-                            $('.alert').html('');
-                            $.each(response.errors, function(key, value) {
-                                $('.alert-danger').show();
-                                $('.alert-danger').append('<strong><li>' + value +
-                                    '</li></strong>');
-                            });
-                            $('#submitPengeluaran').html('Simpan');
+                if(edit){
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        customClass: {
+                            confirmButton: "btn btn-success",
+                            cancelButton: "btn btn-danger me-2",
+                        },
+                        buttonsStyling: false,
+                    });
+    
+                    var order_id  = $(this).attr('data-id')
+    
+                    swalWithBootstrapButtons
+                        .fire({
+                            title: "Apakah Anda Yakin Akan Mengubah Data?",
+                            text: "Data Akan Diubah!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonClass: "me-2",
+                            cancelButtonText: "Tidak",
+                            confirmButtonText: "Ya",
+                            reverseButtons: true,
+                        })
+                        .then((result) => {
 
-                        } else {
-                            $('.btn-warning').hide();
-
-                            const Toast = Swal.mixin({
-                                toast: true,
-                                position: 'top-end',
-                                showConfirmButton: false,
-                                timer: 2000,
-                                timerProgressBar: true,
-                            });
-
-                            Toast.fire({
-                                icon: 'success',
-                                title: `${response.message}`,
-                            })
-
-                            $('#penjualanreturnForm').trigger("reset");
-                            $('#submitPengeluaran').html('Simpan');
-                            $('#pengeluaranModal').modal('hide');
-
-                            listbarang.draw();
-                            transaksiPengeluaran.draw();
-                            setInterval(function() {
-                                window.location.reload();
-                            }, 1000);
+                            if (result.value) {
+    
+                                $.ajax({
+                                    url: "{{ route('pengeluaran.store') }}",
+                                    data: new FormData(this.form),
+                                    cache: false,
+                                    processData: false,
+                                    contentType: false,
+                                    type: "POST",
+                
+                                    success: function(response) {
+                                        console.log(response)
+                                        if (response.errors) {
+                                            $('.alert').html('');
+                                            $.each(response.errors, function(key, value) {
+                                                $('.alert-danger').show();
+                                                $('.alert-danger').append('<strong><li>' + value +
+                                                    '</li></strong>');
+                                            });
+                                            $('#submitPengeluaran').html('Simpan');
+                
+                                        } else {
+                                            $('.btn-warning').hide();
+                
+                                            const Toast = Swal.mixin({
+                                                toast: true,
+                                                position: 'top-end',
+                                                showConfirmButton: false,
+                                                timer: 2000,
+                                                timerProgressBar: true,
+                                            });
+                
+                                            Toast.fire({
+                                                icon: 'success',
+                                                title: `${response.message}`,
+                                            })
+                
+                                            $('#penjualanreturnForm').trigger("reset");
+                                            $('#submitPengeluaran').html('Simpan');
+                                            $('#pengeluaranModal').modal('hide');
+                
+                                            listbarang.draw();
+                                            transaksiPengeluaran.draw();
+                                            setInterval(function() {
+                                                window.location.reload();
+                                            }, 1000);
+                                        }
+                                    }
+                                });
+    
+                            } else {
+                                $('#submitPengeluaran').html('Simpan');
+                                Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
+                            }
+                        });
+                }else{
+                    $.ajax({
+                        url: "{{ route('pengeluaran.store') }}",
+                        data: new FormData(this.form),
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        type: "POST",
+    
+                        success: function(response) {
+                            console.log(response)
+                            if (response.errors) {
+                                $('.alert').html('');
+                                $.each(response.errors, function(key, value) {
+                                    $('.alert-danger').show();
+                                    $('.alert-danger').append('<strong><li>' + value +
+                                        '</li></strong>');
+                                });
+                                $('#submitPengeluaran').html('Simpan');
+    
+                            } else {
+                                $('.btn-warning').hide();
+    
+                                const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timer: 2000,
+                                    timerProgressBar: true,
+                                });
+    
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: `${response.message}`,
+                                })
+    
+                                $('#penjualanreturnForm').trigger("reset");
+                                $('#submitPengeluaran').html('Simpan');
+                                $('#pengeluaranModal').modal('hide');
+    
+                                listbarang.draw();
+                                transaksiPengeluaran.draw();
+                                setInterval(function() {
+                                    window.location.reload();
+                                }, 1000);
+                            }
                         }
-                    }
-                });
+                    });
+                }
             });
 
             // DETAIL PENGELUARAN
@@ -820,13 +954,27 @@
                         $.each(response.pengeluarandetail, function (index, value) { 
                             const barangkode        = value.barang['barang_kode'];
                             const barangnama        = value.barang['barang_nama'];
+                            const barangfoto        = value.barang['barang_foto'];
                             const barangberat       = value['detail_pengeluaran_berat'];
                             const kondisi           = value['detail_pengeluaran_kondisi'];
 
                              detailListBarang += `<tr>
                                                      <td>` + no++ + `</td>
-                                                     <td>` + barangkode + `</td>
-                                                     <td>` + barangnama + `</td>
+                                                     <td>
+                                                        <div class="media align-items-center">
+                                                            <div class="media-head me-2">
+                                                                <div class="avatar avatar-xs avatar-rounded">
+                                                                    <a href="${'storage/foto_barang/' + barangfoto}" download>
+                                                                        <img src="${'storage/foto_barang/' + barangfoto}" alt="user" class="avatar-img">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <div class="text-high-em">${barangnama}</div>
+                                                                <div class="fs-7" class="table-link-text link-medium-em">${barangkode}</div>
+                                                            </div>
+                                                        </div>
+                                                     </td>
                                                      <td>` + barangberat + `</td>
                                                      <td>` + kondisi + `</td>
                                                  </tr>`;
@@ -867,7 +1015,7 @@
                         $('#pengeluaran_keterangan').val(keterangan)
 
                         $("#list-barang").html(detailListBarang)
-                        $("#submitPenerimaan").prop('hidden', true);
+                        $("#submitPengeluaran").prop('hidden', true);
                     }
 
                 });

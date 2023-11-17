@@ -52,8 +52,8 @@
             >
                 <h1>REKAP STOCK</h1>
                 <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                    <h5 style="font-size: larger; text-align: left; margin: 0;">Jumlah Barang : {{ $barangs->count() }}</h5>
-                    <h5 style="font-size: larger; text-align: left; margin: 0;">Berat Total : {{ $barangs->sum('barang_berat') }}</h5>
+                    {{-- <h5 style="font-size: larger; text-align: left; margin: 0;">Jumlah Barang : {{ $jumlah->count() }}</h5>
+                    <h5 style="font-size: larger; text-align: left; margin: 0;">Berat Total : {{ $jumlah->sum('barang_berat') }}</h5> --}}
                 </div>
             </div>
             <hr />
@@ -69,22 +69,35 @@
                         <td>Pabrik</td>
                         <td>Supplier</td>
                         <td>Lokasi</td>
+                        <td>Harga</td>
+                        <td>Ket</td>
                     </tr>
                 </thead>
                 <tbody>
+                    @php($totalHarga = 0)
                     @foreach($barangs as $item)
+                        {{ $totalHarga += $item['harga'] }}
                         <tr>
-                            <td>{{ $item->barang_kode }}</td>
-                            <td style="width:100px">{{ $item->barang_nama }}</td>
-                            <td>{{ $item->barang_berat }}</td>
-                            <td>{{ $item->kadar->kadar_nama }}</td>
-                            <td>{{ $item->model->model_nama }}</td>
-                            <td>{{ $item->pabrik->pabrik_nama }}</td>
-                            <td>{{ $item->supplier->supplier_nama }}</td>
-                            <td>{{ $item->barang_lokasi }}</td>
+                            <td>{{ $item['barang_kode'] }}</td>
+                            <td style="width:100px">{{ $item['barang_nama'] }}</td>
+                            <td>{{ $item['barang_berat'] }}</td>
+                            <td>{{ $item['kadar'] }}</td>
+                            <td>{{ $item['model'] }}</td>
+                            <td>{{ $item['pabrik'] }}</td>
+                            <td>{{ $item['supplier'] }}</td>
+                            <td>{{ $item['barang_lokasi'] }}</td>
+                            <td style="text-align: right">Rp. {{ number_format($item['harga']) }}</td>
+                            <td>{{ $item['jenis'] }}</td>
                         </tr>
                     @endforeach
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="8" style="text-align: right"><strong>Grand Total</strong></td>
+                        <td style="text-align: right"><strong>Rp. {{ number_format($totalHarga) }}</strong></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
         {{-- Footer --}}
