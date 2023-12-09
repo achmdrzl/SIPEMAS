@@ -1027,6 +1027,11 @@
                             $('#barangForm').trigger("reset");
                             $('#submitBarang').html('Simpan');
                             $('#barangModal').modal('hide');
+
+                            setInterval(function() {
+                                window.location.reload();
+                            }, 1000);
+                            
                             datatable.draw();
                             loadBerat();
 
