@@ -195,7 +195,7 @@
                                                         <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <label class="form-label">Berat</label>
-                                                                <input class="form-control" type="number" step=0.01 value="0.01" min="0"
+                                                                <input class="form-control" type="number" step=0.05 value="0.01" min="0"
                                                                     placeholder="Masukkan Berat" name="data[berat][]"
                                                                     id="barang_berat_1" onchange="remakekodeberat(this, 1)"/>
                                                             </div>

@@ -114,12 +114,14 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::post('/pengeluaranDetail', TransaksiPengeluaranController::class . '@pengeluaranDetail')->name('pengeluaran.detail');
     Route::post('/pengeluaranStore', TransaksiPengeluaranController::class . '@pengeluaranStore')->name('pengeluaran.store');
     Route::get('/pengeluaranBarang', TransaksiPengeluaranController::class . '@barangIndex')->name('pengeluaran.barang.index');
+    Route::post('/pengeluaranDestroy', TransaksiPengeluaranController::class . '@pengeluaranDestroy')->name('pengeluaran.destroy');
     Route::post('filterDatePengeluaran', TransaksiPengeluaranController::class . '@filterdata')->name('filtered.data.pengeluaran');
 
     // TRANSAKSI PENERIMAAN BARANG
     Route::get('/penerimaan', TransaksiPenerimaanController::class . '@penerimaanIndex')->name('penerimaan.index');
     Route::get('/penerimaanBarang', TransaksiPenerimaanController::class . '@barangIndex')->name('penerimaan.barang.index');
     Route::post('/penerimaanStore', TransaksiPenerimaanController::class . '@penerimaanStore')->name('penerimaan.store');
+    Route::post('/penerimaanDestroy', TransaksiPenerimaanController::class . '@penerimaanDestroy')->name('penerimaan.destroy');
     Route::post('/filteredDatePenerimaan', TransaksiPenerimaanController::class . '@filterdata')->name('filtered.data.penerimaan');
 
 

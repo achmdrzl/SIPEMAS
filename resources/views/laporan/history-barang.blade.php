@@ -287,7 +287,7 @@
                                 ],
                                 columnDefs: columnDefs,
                                 order: [
-                                    [2, 'asc'] // Column index 2 (tanggal), ascending order
+                                    [2, 'desc'] // Column index 2 (tanggal), ascending order
                                 ],
                             });
 

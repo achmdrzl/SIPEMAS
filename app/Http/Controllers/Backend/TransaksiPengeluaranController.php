@@ -38,16 +38,18 @@ class TransaksiPengeluaranController extends Controller
                     return \Carbon\Carbon::parse($item->pengeluaran_tanggal)->format('d-M-Y');
                 })
                 ->addColumn('supplier_nama', function ($item) {
-                    return $item->supplier->supplier_nama;
+                    return $item->supplier_id != null ? $item->supplier->supplier_nama : '-';
                 })
                 ->addColumn('pengeluaran_keterangan', function ($item) {
-                    return strtoupper($item->pengeluaran_keterangan);
+                    return ucfirst($item->pengeluaran_keterangan);
                 })
                 ->addColumn('action', function ($item) {
 
                     $btn = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Return Penjualan" id="detail-pengeluaran"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
                     $btn = $btn . '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Edit Pengeluaran" id="edit-pengeluaran"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">edit</span></button>';
+
+                    $btn = $btn . '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Delete Pengeluaran" id="delete-pengeluaran"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">delete</span></button>';
 
                     return $btn;
                 })
@@ -82,7 +84,7 @@ class TransaksiPengeluaranController extends Controller
                                     <p style="font-size:1px;">' . $item->barang_id . '</p>
                                 </div>
                             </div>';
-            $barang_berat   = $item->barang_berat;
+            $barang_berat   = number_format($item->barang_berat, 2);
             $barang_jenis   = 'Perhiasan';
             $barang_satuan  = 'Pcs';
             $barang_lokasi  = $item->barang_lokasi;
@@ -100,8 +102,8 @@ class TransaksiPengeluaranController extends Controller
         }
 
         return DataTables::of($barang)
-        ->rawColumns(['select', 'barang_nama']) // Specify the columns containing HTML
-        ->toJson();
+            ->rawColumns(['select', 'barang_nama']) // Specify the columns containing HTML
+            ->toJson();
     }
 
     // DETAIL TRANSAKSI PENGELUARAN BARANG
@@ -117,12 +119,12 @@ class TransaksiPengeluaranController extends Controller
     {
         //define validation rules
         $validator = Validator::make($request->all(), [
-            'supplier_id'                  => 'required',
             'pengeluaran_tanggal'          => 'required',
             'detail_pengeluaran_berat'     => 'required|array',
             'detail_pengeluaran_berat.*'   => 'required|numeric',
             'detail_pengeluaran_kondisi'   => 'required|array',
-            'detail_pengeluaran_kondisi.*' => 'required|in:LEBUR,CUCI,ETALASE,REPARASI',
+            'detail_pengeluaran_kondisi.*' => 'required|in:LEBUR,CUCI,ETALASE,REPARASI,BLM_DIPAJANG',
+            'supplier_id'                  => 'required_if:detail_pengeluaran_kondisi,REPARASI',
         ], [
             'supplier_id.required'                  => 'Supplier must be included.',
             'pengeluaran_tanggal.required'          => 'Tanggal Pengeluaran must be included.',
@@ -133,7 +135,8 @@ class TransaksiPengeluaranController extends Controller
             'detail_pengeluaran_kondisi.required'   => 'Kondisi must be included.',
             'detail_pengeluaran_kondisi.array'      => 'Kondisi must be an array.',
             'detail_pengeluaran_kondisi.*.required' => 'Each value in Kondisi must be present.',
-            'detail_pengeluaran_kondisi.*.in'       => 'Invalid value in Kondisi. Allowed values are: LEBUR, CUCI, ETALASE, REPARASI.',
+            'detail_pengeluaran_kondisi.*.in'       => 'Invalid value in Kondisi. Allowed values are: LEBUR, CUCI, ETALASE, REPARASI, BLM DIPAJANG',
+            'supplier_id.required_if'               => 'The supplier is required when the condition is REPARASI.',
         ]);
 
         //check if validation fails
@@ -156,7 +159,7 @@ class TransaksiPengeluaranController extends Controller
 
                 // CHECK STATUS KONDISI BARANG
                 $detail         = TransaksiPengeluaranDetail::updateOrCreate([
-                    'pengeluaran_id'         => $request->pengeluaran_id[$x], 'barang_id' => $request->barang_id[$x],
+                    'pengeluaran_id'                => $request->pengeluaran_id[$x], 'barang_id' => $request->barang_id[$x],
                 ], [
                     'pengeluaran_id'                => $pengeluaran->pengeluaran_id,
                     'barang_id'                     => $request->barang_id[$x],
@@ -226,6 +229,7 @@ class TransaksiPengeluaranController extends Controller
                     'detail_pengeluaran_id'         => $request->detail_pengeluaran_id,
                 ], [
                     'pengeluaran_id'                => $pengeluaran->pengeluaran_id,
+                    'pengeluaran_nobukti'           => $nobuktipengeluaran,
                     'barang_id'                     => $request->barang_id[$x],
                     'kadar_id'                      => $request->kadar_id[$x],
                     'detail_pengeluaran_berat'      => $request->detail_pengeluaran_berat[$x],
@@ -271,6 +275,8 @@ class TransaksiPengeluaranController extends Controller
 
             $action                  .= '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Edit Pengeluaran" id="edit-pengeluaran"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">edit</span></button>';
 
+            $action                  .= '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Delete Pengeluaran" id="delete-pengeluaran"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">delete</span></button>';
+
             $pengeluaran[] = [
                 'DT_RowIndex'            => $index++, // Add DT_RowIndex as the index plus 1
                 'pengeluaran_id'         => $pengeluaran_id,
@@ -285,5 +291,28 @@ class TransaksiPengeluaranController extends Controller
         return DataTables::of($pengeluaran)
             ->rawColumns(['action']) // Specify the columns containing HTML
             ->toJson();
+    }
+
+    // DELETE PENGELUARAN
+    public function pengeluaranDestroy(Request $request)
+    {
+        $pengeluarans = TransaksiPengeluaranDetail::where('pengeluaran_id', $request->pengeluaran_id)->get();
+
+        foreach ($pengeluarans as $data) {
+            $barang = Barang::where('barang_id', $data->barang_id)->first();
+
+            if ($barang) {
+                $barang->update([
+                    'barang_lokasi' => 'BLM DIPAJANG',
+                ]);
+            }
+
+            $data->delete();
+        }
+
+        $pengeluaran = TransaksiPengeluaran::find($request->pengeluaran_id);
+        $pengeluaran->delete();
+
+        return response()->json(['status' => 'Data Deleted Successfully!']);
     }
 }

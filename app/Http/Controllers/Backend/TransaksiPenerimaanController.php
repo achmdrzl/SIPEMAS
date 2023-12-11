@@ -38,16 +38,18 @@ class TransaksiPenerimaanController extends Controller
                     return \Carbon\Carbon::parse($item->pengeluaran_tanggal)->format('d-M-Y');
                 })
                 ->addColumn('supplier_nama', function ($item) {
-                    return $item->supplier->supplier_nama;
+                    return $item->supplier_id != null ? $item->supplier->supplier_nama : '-';
                 })
                 ->addColumn('pengeluaran_keterangan', function ($item) {
-                    return strtoupper($item->pengeluaran_keterangan);
+                    return ucfirst($item->pengeluaran_keterangan);
                 })
                 ->addColumn('action', function ($item) {
 
                     $btn = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Penerimaan" id="detail-penerimaan"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
                     $btn = $btn . '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Edit Penerimaan" id="edit-penerimaan"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">edit</span></button>';
+                    
+                    $btn = $btn . '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Delete Penerimaan" id="delete-penerimaan"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">delete</span></button>';
 
                     return $btn;
                 })
@@ -82,7 +84,7 @@ class TransaksiPenerimaanController extends Controller
                                     <p style="font-size:1px;">' . $item->barang_id . '</p>
                                 </div>
                             </div>';
-            $barang_berat   = $item->barang_berat;
+            $barang_berat   = number_format($item->barang_berat, 2);
             $barang_jenis   = 'Perhiasan';
             $barang_satuan  = 'Pcs';
             $barang_lokasi  = $item->barang_lokasi;
@@ -107,15 +109,14 @@ class TransaksiPenerimaanController extends Controller
     // PENERIMAAN STORE
     public function penerimaanStore(Request $request)
     {
-
         //define validation rules
         $validator = Validator::make($request->all(), [
-            'supplier_id'                  => 'required',
             'pengeluaran_tanggal'          => 'required',
             'detail_pengeluaran_berat'     => 'required|array',
             'detail_pengeluaran_berat.*'   => 'required|numeric',
             'detail_pengeluaran_kondisi'   => 'required|array',
-            'detail_pengeluaran_kondisi.*' => 'required|in:LEBUR,CUCI,ETALASE,REPARASI',
+            'detail_pengeluaran_kondisi.*' => 'required|in:LEBUR,CUCI,ETALASE,REPARASI,BLM_DIPAJANG',
+            'supplier_id'                  => 'required_if:detail_pengeluaran_kondisi,REPARASI',
         ], [
             'supplier_id.required'                  => 'Supplier must be included.',
             'pengeluaran_tanggal.required'          => 'Tanggal Pengeluaran must be included.',
@@ -126,7 +127,8 @@ class TransaksiPenerimaanController extends Controller
             'detail_pengeluaran_kondisi.required'   => 'Kondisi must be included.',
             'detail_pengeluaran_kondisi.array'      => 'Kondisi must be an array.',
             'detail_pengeluaran_kondisi.*.required' => 'Each value in Kondisi must be present.',
-            'detail_pengeluaran_kondisi.*.in'       => 'Invalid value in Kondisi. Allowed values are: LEBUR, CUCI, ETALASE, REPARASI.',
+            'detail_pengeluaran_kondisi.*.in'       => 'Invalid value in Kondisi. Allowed values are: LEBUR, CUCI, ETALASE, REPARASI & BLM DIPAJANG',
+            'supplier_id.required_if'               => 'The supplier is required when the condition is CUCI or REPARASI.',
         ]);
 
         //check if validation fails
@@ -150,7 +152,7 @@ class TransaksiPenerimaanController extends Controller
                 // UPDATE STATUS BARANG 
                 $barang     = Barang::where('barang_id', $request->barang_id[$x])->first();
                 // UPDATE LOKASI
-                $barang->update(['barang_lokasi'    => $request->detail_pengeluaran_kondisi[$x]]);
+                $barang->update(['barang_lokasi'    => $request->detail_pengeluaran_kondisi[$x] === 'BLM_DIPAJANG' ? 'BLM DIPAJANG' : $request->detail_pengeluaran_kondisi[$x]]);
                 // UPDATE BERAT BARANG
                 $barang->update(['barang_berat'     => $request->detail_pengeluaran_berat_kembali[$x]]);
 
@@ -161,7 +163,7 @@ class TransaksiPenerimaanController extends Controller
                     'barang_id'                     => $request->barang_id[$x],
                     'detail_pengeluaran_berat'      => $request->detail_pengeluaran_berat[$x],
                     'detail_pengeluaran_kembali'    => $request->detail_pengeluaran_berat_kembali[$x],
-                    'detail_pengeluaran_kondisi'    => $request->detail_pengeluaran_kondisi[$x],
+                    'detail_pengeluaran_kondisi'    => $request->detail_pengeluaran_kondisi[$x] === 'BLM_DIPAJANG' ? 'BLM DIPAJANG' : $request->detail_pengeluaran_kondisi[$x],
                 ]);
             }
         } else {
@@ -250,7 +252,7 @@ class TransaksiPenerimaanController extends Controller
                 // UPDATE STATUS BARANG 
                 $barang     = Barang::where('barang_id', $request->barang_id[$x])->first();
                 // UPDATE LOKASI
-                $barang->update(['barang_lokasi'    => $request->detail_pengeluaran_kondisi[$x]]);
+                $barang->update(['barang_lokasi'    => $request->detail_pengeluaran_kondisi[$x] === 'BLM_DIPAJANG' ? 'BLM DIPAJANG' : $request->detail_pengeluaran_kondisi[$x]]);
                 // UPDATE BERAT BARANG
                 $barang->update(['barang_berat'     => $request->detail_pengeluaran_berat_kembali[$x]]);
 
@@ -264,7 +266,7 @@ class TransaksiPenerimaanController extends Controller
                     'kadar_id'                      => $request->kadar_id[$x],
                     'detail_pengeluaran_berat'      => $request->detail_pengeluaran_berat[$x],
                     'detail_pengeluaran_kembali'    => $request->detail_pengeluaran_berat_kembali[$x],
-                    'detail_pengeluaran_kondisi'    => $request->detail_pengeluaran_kondisi[$x],
+                    'detail_pengeluaran_kondisi'    => $request->detail_pengeluaran_kondisi[$x] === 'BLM_DIPAJANG' ? 'BLM DIPAJANG' : $request->detail_pengeluaran_kondisi[$x],
                 ]);
 
                 // CHECK STATUS KONDISI BARANG
@@ -329,6 +331,8 @@ class TransaksiPenerimaanController extends Controller
             $action                   = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Return Penjualan" id="detail-penerimaan"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">visibility</span></button>';
 
             $action                  .= '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Edit Penerimaan" id="edit-penerimaan"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">edit</span></button>';
+            
+            $action                  .= '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Delete Penerimaan" id="delete-penerimaan"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">delete</span></button>';
 
             $pengeluaran[] = [
                 'DT_RowIndex'            => $index++, // Add DT_RowIndex as the index plus 1
@@ -344,5 +348,28 @@ class TransaksiPenerimaanController extends Controller
         return DataTables::of($pengeluaran)
             ->rawColumns(['action']) // Specify the columns containing HTML
             ->toJson();
+    }
+
+    // DELETE PENERIMAAN
+    public function penerimaanDestroy(Request $request)
+    {
+        $penerimaans = TransaksiPengeluaranDetail::where('pengeluaran_id', $request->pengeluaran_id)->get();
+
+        foreach ($penerimaans as $data) {
+            $barang = Barang::where('barang_id', $data->barang_id)->first();
+
+            if ($barang) {
+                $barang->update([
+                    'barang_lokasi' => 'BLM DIPAJANG',
+                ]);
+            }
+
+            $data->delete();
+        }
+
+        $penerimaan = TransaksiPengeluaran::find($request->pengeluaran_id);
+        $penerimaan->delete();
+
+        return response()->json(['status' => 'Data Deleted Successfully!']);
     }
 }

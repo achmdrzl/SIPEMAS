@@ -1180,7 +1180,7 @@ class DataLaporanController extends Controller
             $barang_id             = $item->barang_id;
             $barang_kode           = $item->barang_kode;
             $barang_nama           = $item->barang_nama;
-            $barang_berat          = $item->barang_berat;
+            $barang_berat          = number_format($item->barang_berat, 2);
             $kadar_nama            = $item->kadar->kadar_nama;
             $model_nama            = $item->model->model_nama;
             $pabrik_nama           = $item->pabrik->pabrik_nama;
@@ -1192,7 +1192,7 @@ class DataLaporanController extends Controller
                 $tanggal_beli = $pembelianDetail->pembelian->created_at;
                 $nobukti_beli = $pembelianDetail->pembelian->pembelian_nobukti;
                 $harga_beli   = $pembelianDetail->detail_pembelian_harga_beli;
-                $berat_beli   = $pembelianDetail->detail_pembelian_berat;
+                $berat_beli   = number_format($pembelianDetail->detail_pembelian_berat, 2);
 
                 // Add pembelian data to barang
                 $barang[] = [
@@ -1212,10 +1212,10 @@ class DataLaporanController extends Controller
 
             // Loop through penjualan relationships
             foreach ($item->transaksipenjualandetail as $penjualanDetail) {
-                $tanggal_jual = $penjualanDetail->penjualan->created_at;
-                $nobukti_jual = $penjualanDetail->penjualan->penjualan_nobukti;
-                $harga_jual = $penjualanDetail->detail_penjualan_harga;
-                $berat_jual = $penjualanDetail->detail_penjualan_berat_jual;
+                $tanggal_jual   = $penjualanDetail->penjualan->created_at;
+                $nobukti_jual   = $penjualanDetail->penjualan->penjualan_nobukti;
+                $harga_jual     = $penjualanDetail->detail_penjualan_harga;
+                $berat_jual     = number_format($penjualanDetail->detail_penjualan_berat_jual, 2);
 
                 // Add penjualan data to barang
                 $barang[] = [
@@ -1239,7 +1239,7 @@ class DataLaporanController extends Controller
                 $nobukti_return = $returnDetail->return->penjualan_return_nobukti;
                 $harga_return   = $returnDetail->detail_penjualan_return_harga_return;
                 $kondisi_return = $returnDetail->detail_penjualan_return_kondisi;
-                $berat_return   = $returnDetail->detail_penjualan_return_berat;
+                $berat_return   = number_format($returnDetail->detail_penjualan_return_berat, 2);
 
                 // Add return data to barang
                 $barang[] = [
@@ -1293,14 +1293,14 @@ class DataLaporanController extends Controller
                 $tanggal_beli = $pembelianDetail->pembelian->created_at;
                 $nobukti_beli = $pembelianDetail->pembelian->pembelian_nobukti;
                 $harga_beli   = $pembelianDetail->detail_pembelian_harga_beli;
-                $berat_beli   = $pembelianDetail->detail_pembelian_berat;
+                $berat_beli   = number_format($pembelianDetail->detail_pembelian_berat, 2);
 
                 // Add pembelian data to barang
                 $barang[] = [
                     'DT_RowIndex' => $index++,
                     'barang_kode' => $barang_kode,
                     'barang_nama' => $barang_nama,
-                    'tanggal'     => Carbon::parse($tanggal_beli)->format('d-m-y - H:i:s'),
+                    'tanggal'     => Carbon::parse($tanggal_beli)->format('d M Y - H:i:s'),
                     'nobukti'     => $nobukti_beli,
                     'harga'       => $harga_beli,
                     'jenis'       => 'PEMBELIAN',
@@ -1314,7 +1314,7 @@ class DataLaporanController extends Controller
                 $tanggal_jual = $penjualanDetail->penjualan->created_at;
                 $nobukti_jual = $penjualanDetail->penjualan->penjualan_nobukti;
                 $harga_jual = $penjualanDetail->detail_penjualan_harga;
-                $berat_jual = $penjualanDetail->detail_penjualan_berat_jual;
+                $berat_jual = number_format($penjualanDetail->detail_penjualan_berat_jual, 2);
 
                 // Add penjualan data to barang
                 $barang[] = [
@@ -1336,7 +1336,7 @@ class DataLaporanController extends Controller
                 $nobukti_return = $returnDetail->return->penjualan_return_nobukti;
                 $harga_return   = $returnDetail->detail_penjualan_return_harga_return;
                 $kondisi_return = $returnDetail->detail_penjualan_return_kondisi;
-                $berat_return   = $returnDetail->detail_penjualan_return_berat;
+                $berat_return   = number_format($returnDetail->detail_penjualan_return_berat, 2);
 
                 // Add return data to barang
                 $barang[] = [
@@ -2104,7 +2104,7 @@ class DataLaporanController extends Controller
             $barang_id             = $item->barang_id;
             $barang_kode           = $item->barang_kode;
             $barang_nama           = $item->barang_nama;
-            $barang_berat          = $item->barang_berat;
+            $barang_berat          = number_format($item->barang_berat, 2);
             $kadar_nama            = $item->kadar->kadar_nama;
             $model_nama            = $item->model->model_nama;
             $pabrik_nama           = $item->pabrik->pabrik_nama;
@@ -2116,7 +2116,7 @@ class DataLaporanController extends Controller
                 $tanggal_beli = $pembelianDetail->pembelian->created_at;
                 $nobukti_beli = $pembelianDetail->pembelian->pembelian_nobukti;
                 $harga_beli   = $pembelianDetail->detail_pembelian_harga_beli;
-                $berat_beli   = $pembelianDetail->detail_pembelian_berat;
+                $berat_beli   = number_format($pembelianDetail->detail_pembelian_berat, 2);
 
                 // Add pembelian data to barang
                 $barang[] = [
@@ -2139,7 +2139,7 @@ class DataLaporanController extends Controller
                 $tanggal_jual = $penjualanDetail->penjualan->created_at;
                 $nobukti_jual = $penjualanDetail->penjualan->penjualan_nobukti;
                 $harga_jual = $penjualanDetail->detail_penjualan_harga;
-                $berat_jual = $penjualanDetail->detail_penjualan_berat_jual;
+                $berat_jual = number_format($penjualanDetail->detail_penjualan_berat_jual, 2);
 
                 // Add penjualan data to barang
                 $barang[] = [
@@ -2163,7 +2163,7 @@ class DataLaporanController extends Controller
                 $nobukti_return = $returnDetail->return->penjualan_return_nobukti;
                 $harga_return   = $returnDetail->detail_penjualan_return_harga_return;
                 $kondisi_return = $returnDetail->detail_penjualan_return_kondisi;
-                $berat_return   = $returnDetail->detail_penjualan_return_berat;
+                $berat_return   = number_format($returnDetail->detail_penjualan_return_berat, 2);
 
                 // Add return data to barang
                 $barang[] = [

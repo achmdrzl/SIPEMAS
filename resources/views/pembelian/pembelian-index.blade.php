@@ -673,7 +673,7 @@
                                 const barangid = value['barang_id']
                                 const barangkode = value['barang_kode']
                                 const barangnama = value['barang_nama']
-                                const barangberat = value['barang_berat']
+                                const barangberat = parseFloat(value['barang_berat']).toFixed(2);
                                 const kadar = value['kadar']['kadar_nama']
                                 const barangfoto   = value['barang_foto']
 
@@ -788,7 +788,7 @@
                         var no = 1;
                         $.each(response.pembeliandetail, function(index, value) {
                             const kadar        = value['detail_pembelian_kadar']
-                            const berat        = value['detail_pembelian_berat']
+                            const berat        = parseFloat(value['detail_pembelian_berat']).toFixed(2);
                             const harga_beliFormatted   = formatWithCommaSeparator(value['detail_pembelian_harga_beli'])
                             const harga_beli   = value['detail_pembelian_harga_beli']
                             const nilai_tukar  = value['detail_pembelian_nilai_tukar']
@@ -1122,7 +1122,7 @@
                         var no = 1;
                         $.each(response.pembeliandetail, function(index, value) {
                             const kadar        = value['detail_pembelian_kadar']
-                            const berat        = value['detail_pembelian_berat']
+                            const berat        = parseFloat(value['detail_pembelian_berat']).toFixed(2);
                             const harga_beliFormatted   = formatWithCommaSeparator(value['detail_pembelian_harga_beli'])
                             const harga_beli   = value['detail_pembelian_harga_beli']
                             const nilai_tukar  = value['detail_pembelian_nilai_tukar']

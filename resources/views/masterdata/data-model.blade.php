@@ -300,8 +300,6 @@
 
             });
 
-
-
         })
     </script>
 @endpush

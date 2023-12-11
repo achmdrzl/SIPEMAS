@@ -654,7 +654,7 @@
                                 const barangkode   = value['barang_kode']
                                 const barangnama   = value['barang_nama']
                                 const barangfoto   = value['barang_foto']
-                                const barangberat  = value['barang_berat']
+                                const barangberat  = parseFloat(value['barang_berat']).toFixed(2);
                                 const kadar        = value['kadar']['kadar_nama']
                                 const harga_jual_1 = value['kadar']['kadar_harga_jual_1']
                                 const harga_jual_2 = value['kadar']['kadar_harga_jual_2']
@@ -818,7 +818,7 @@
 
                             const barang_kode       = value['barang']['barang_kode']
                             const barang_nama       = value['barang']['barang_nama']
-                            const barang_berat      = value['barang']['barang_berat']
+                            const barang_berat      = parseFloat(value['barang']['barang_berat']).toFixed(2);
                             const barangfoto        = value['barang']['barang_foto']
 
                             const barangid          = value['barang_id']
@@ -1278,7 +1278,7 @@
 
                             const barang_kode   = value['barang']['barang_kode']
                             const barang_nama   = value['barang']['barang_nama']
-                            const barang_berat  = value['barang']['barang_berat']
+                            const barang_berat  = parseFloat(value['barang']['barang_berat']).toFixed(2);
                             const barangfoto    = value['barang']['barang_foto']
 
                             detailListBarang += `<tr>

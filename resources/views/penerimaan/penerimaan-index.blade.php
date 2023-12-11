@@ -543,7 +543,7 @@
                                 const barangid    = value['barang_id']
                                 const barangkode  = value['barang_kode']
                                 const barangnama  = value['barang_nama']
-                                const barangberat = value['barang_berat']
+                                const barangberat = parseFloat(value['barang_berat']).toFixed(2);
                                 const kadar       = value['kadar']['kadar_id']
                                 const barangfoto  = value['barang_foto']
 
@@ -566,7 +566,7 @@
                                                     </td>
                                                     <td>` + barangberat + `</td>
                                                     <td><input class="form-control barang_berat" type="number" value="` + barangberat + `"
-                                                            placeholder="Berat Kembali" name="detail_pengeluaran_berat_kembali[]" /></td>
+                                                            placeholder="Berat Kembali" name="detail_pengeluaran_berat_kembali[]" step="0.05" /></td>
                                                     <td>
                                                         <input class="form-control" id="barang_id" type="hidden" value="` + barangid + `"
                                                             placeholder="Harga Beli" name="barang_id[]" />
@@ -580,6 +580,7 @@
                                                             <option value="LEBUR">Lebur</option>
                                                             <option value="REPARASI">Reparasi</option>
                                                             <option value="ETALASE">Etalase</option>
+                                                            <option value="BLM_DIPAJANG">Blm Dipajang</option>
                                                         </select>
                                                     </td>
                                                 </tr>`;
@@ -599,25 +600,7 @@
                     });
                 }
 
-                // ADDING KETERANGAN AND SUPPLIER
-                var supplierData    = @json($supplier);
-                
-                var labelsupplier   = `<div class="col-xl-auto mb-xl-0 mb-2">
-                                            <label class="form-label mb-xl-0">Supplier:</label>
-                                        </div>`;
-
-                var supplier        = `<div class="col-xl-auto mb-xl-0 mb-2">
-                                            <select class="form-select" id="supplier_id" name="supplier_id">
-                                                <option value="" selected disabled>--</option>`;
-
-                                        // Loop through the values of $supplier and generate <option> elements
-                                        $.each(supplierData, function(index, value) {
-                                            supplier += `<option value="${value.supplier_id}">${value.supplier_nama}</option>`;
-                                        });
-
-                                        supplier += `</select>
-                                                    </div>`;
-
+                // ADDING KETERANGAN
                 var labelket    = ` <div class="col-xl-auto mb-xl-0 mb-2">
                                     <label class="form-label mb-xl-0">Keterangan :</label>
                                 </div>`;
@@ -626,8 +609,6 @@
                                       <textarea class="form-control" id="pengeluaran_keterangan" name="pengeluaran_keterangan"></textarea>
                                    </div>`;
 
-                $("#supplier-label").html(labelsupplier)
-                $("#supplier-data").html(supplier)
                 $("#keterangan-label").html(labelket)
                 $("#keterangan-data").html(keterangan)
                 $("#submitPenerimaan").prop('hidden', false);
@@ -670,8 +651,8 @@
                             const barangkode            = value.barang['barang_kode'];
                             const barangnama            = value.barang['barang_nama'];
                             const barangfoto            = value.barang['barang_foto'];
-                            const barangberat           = value['detail_pengeluaran_berat'];
-                            const barangberatkembali    = value['detail_pengeluaran_kembali'];
+                            const barangberat           = parseFloat(value['detail_pengeluaran_berat']).toFixed(2);
+                            const barangberatkembali    = parseFloat(value['detail_pengeluaran_kembali']).toFixed(2);
                             const kondisi               = value['detail_pengeluaran_kondisi'];
                             const pengeluaran_nobukti   = value['pengeluaran_nobukti'];
                             const barang_id             = value['barang_id'];
@@ -705,7 +686,7 @@
                                                             placeholder="Harga Beli" name="detail_pengeluaran_kondisi[]" />
 
                                                         <input class="form-control barang_berat" type="number" value="` + barangberatkembali + `"
-                                                            placeholder="Berat Kembali" name="detail_pengeluaran_berat_kembali[]" />
+                                                            placeholder="Berat Kembali" name="detail_pengeluaran_berat_kembali[]" step="0.05" />
                                                     </td>
                                                      <td>` + kondisi + `</td>
                                                  </tr>`;
@@ -735,7 +716,7 @@
                                         </div>`;
 
                         var dataketerangan  = `<div class="col-xl-auto mb-xl-0 mb-2">
-                                            <textarea class="form-control" id="pengeluaran_keterangan" name="pengeluaran_keterangan" value="` + keterangan + `" disabled></textarea>
+                                            <textarea class="form-control" id="pengeluaran_keterangan" name="pengeluaran_keterangan" value="` + keterangan + `"></textarea>
                                         </div>`;
 
                         $("#supplier-label").html(labelsupplier)
@@ -793,133 +774,285 @@
 
                 var edit = $(this).hasClass('edit');
 
-                if(edit){
-                    const swalWithBootstrapButtons = Swal.mixin({
-                        customClass: {
-                            confirmButton: "btn btn-success",
-                            cancelButton: "btn btn-danger me-2",
-                        },
-                        buttonsStyling: false,
-                    });
-    
-                    var order_id  = $(this).attr('data-id')
-    
-                    swalWithBootstrapButtons
-                        .fire({
-                            title: "Apakah Anda Yakin Akan Mengubah Data?",
-                            text: "Data Akan Diubah!",
-                            icon: "warning",
-                            showCancelButton: true,
-                            confirmButtonClass: "me-2",
-                            cancelButtonText: "Tidak",
-                            confirmButtonText: "Ya",
-                            reverseButtons: true,
-                        })
-                        .then((result) => {
+                var kondisi = $('.return_kondisi').val();
 
-                            if (result.value) {
-    
-                               $.ajax({
-                                    url: "{{ route('penerimaan.store') }}",
-                                    data: new FormData(this.form),
-                                    cache: false,
-                                    processData: false,
-                                    contentType: false,
-                                    type: "POST",
+                if(kondisi == 'REPARASI'){
 
-                                    success: function(response) {
-                                        console.log(response)
-                                        if (response.errors) {
-                                            $('.alert').html('');
-                                            $.each(response.errors, function(key, value) {
-                                                $('.alert-danger').show();
-                                                $('.alert-danger').append('<strong><li>' + value +
-                                                    '</li></strong>');
-                                            });
-                                            $('#submitPenerimaan').html('Simpan');
+                    var supplier = $('#supplier_id').val();
 
-                                        } else {
-                                            $('.btn-warning').hide();
+                    if(supplier != null){
 
-                                            const Toast = Swal.mixin({
-                                                toast: true,
-                                                position: 'top-end',
-                                                showConfirmButton: false,
-                                                timer: 2000,
-                                                timerProgressBar: true,
-                                            });
+                        if(edit){
+                            const swalWithBootstrapButtons = Swal.mixin({
+                                customClass: {
+                                    confirmButton: "btn btn-success",
+                                    cancelButton: "btn btn-danger me-2",
+                                },
+                                buttonsStyling: false,
+                            });
+            
+                            var order_id  = $(this).attr('data-id')
+            
+                            swalWithBootstrapButtons
+                                .fire({
+                                    title: "Apakah Anda Yakin Akan Mengubah Data?",
+                                    text: "Data Akan Diubah!",
+                                    icon: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonClass: "me-2",
+                                    cancelButtonText: "Tidak",
+                                    confirmButtonText: "Ya",
+                                    reverseButtons: true,
+                                })
+                                .then((result) => {
 
-                                            Toast.fire({
-                                                icon: 'success',
-                                                title: `${response.message}`,
-                                            })
+                                    if (result.value) {
+            
+                                    $.ajax({
+                                            url: "{{ route('penerimaan.store') }}",
+                                            data: new FormData(this.form),
+                                            cache: false,
+                                            processData: false,
+                                            contentType: false,
+                                            type: "POST",
 
-                                            $('#penerimaanForm').trigger("reset");
-                                            $('#submitPenerimaan').html('Simpan');
-                                            $('#penerimaanModal').modal('hide');
+                                            success: function(response) {
+                                                console.log(response)
+                                                if (response.errors) {
+                                                    $('.alert').html('');
+                                                    $.each(response.errors, function(key, value) {
+                                                        $('.alert-danger').show();
+                                                        $('.alert-danger').append('<strong><li>' + value +
+                                                            '</li></strong>');
+                                                    });
+                                                    $('#submitPenerimaan').html('Simpan');
 
-                                            listbarang.draw();
-                                            transaksiPenerimaan.draw();
-                                            setInterval(function() {
-                                                window.location.reload();
-                                            }, 1000);
-                                        }
+                                                } else {
+                                                    $('.btn-warning').hide();
+
+                                                    const Toast = Swal.mixin({
+                                                        toast: true,
+                                                        position: 'top-end',
+                                                        showConfirmButton: false,
+                                                        timer: 2000,
+                                                        timerProgressBar: true,
+                                                    });
+
+                                                    Toast.fire({
+                                                        icon: 'success',
+                                                        title: `${response.message}`,
+                                                    })
+
+                                                    $('#penerimaanForm').trigger("reset");
+                                                    $('#submitPenerimaan').html('Simpan');
+                                                    $('#penerimaanModal').modal('hide');
+
+                                                    listbarang.draw();
+                                                    transaksiPenerimaan.draw();
+                                                    setInterval(function() {
+                                                        window.location.reload();
+                                                    }, 1000);
+                                                }
+                                            }
+                                        });
+            
+                                    } else {
+                                        $('#submitPenerimaan').html('Simpan');
+                                        Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
                                     }
                                 });
-    
-                            } else {
-                                $('#submitPenerimaan').html('Simpan');
-                                Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
+                        }else{
+                            $.ajax({
+                                url: "{{ route('penerimaan.store') }}",
+                                data: new FormData(this.form),
+                                cache: false,
+                                processData: false,
+                                contentType: false,
+                                type: "POST",
+
+                                success: function(response) {
+                                    console.log(response)
+                                    if (response.errors) {
+                                        $('.alert').html('');
+                                        $.each(response.errors, function(key, value) {
+                                            $('.alert-danger').show();
+                                            $('.alert-danger').append('<strong><li>' + value +
+                                                '</li></strong>');
+                                        });
+                                        $('#submitPenerimaan').html('Simpan');
+
+                                    } else {
+                                        $('.btn-warning').hide();
+
+                                        const Toast = Swal.mixin({
+                                            toast: true,
+                                            position: 'top-end',
+                                            showConfirmButton: false,
+                                            timer: 2000,
+                                            timerProgressBar: true,
+                                        });
+
+                                        Toast.fire({
+                                            icon: 'success',
+                                            title: `${response.message}`,
+                                        })
+
+                                        $('#penerimaanForm').trigger("reset");
+                                        $('#submitPenerimaan').html('Simpan');
+                                        $('#penerimaanModal').modal('hide');
+
+                                        listbarang.draw();
+                                        transaksiPenerimaan.draw();
+                                        setInterval(function() {
+                                            window.location.reload();
+                                        }, 1000);
+                                    }
+                                }
+                            });
+                        }
+
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Supplier Must Be Included!',
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+
+                        $('#submitPenerimaan').html('Simpan');
+                    }
+
+                }else{
+
+                    if(edit){
+                        const swalWithBootstrapButtons = Swal.mixin({
+                            customClass: {
+                                confirmButton: "btn btn-success",
+                                cancelButton: "btn btn-danger me-2",
+                            },
+                            buttonsStyling: false,
+                        });
+        
+                        var order_id  = $(this).attr('data-id')
+        
+                        swalWithBootstrapButtons
+                            .fire({
+                                title: "Apakah Anda Yakin Akan Mengubah Data?",
+                                text: "Data Akan Diubah!",
+                                icon: "warning",
+                                showCancelButton: true,
+                                confirmButtonClass: "me-2",
+                                cancelButtonText: "Tidak",
+                                confirmButtonText: "Ya",
+                                reverseButtons: true,
+                            })
+                            .then((result) => {
+
+                                if (result.value) {
+        
+                                $.ajax({
+                                        url: "{{ route('penerimaan.store') }}",
+                                        data: new FormData(this.form),
+                                        cache: false,
+                                        processData: false,
+                                        contentType: false,
+                                        type: "POST",
+
+                                        success: function(response) {
+                                            console.log(response)
+                                            if (response.errors) {
+                                                $('.alert').html('');
+                                                $.each(response.errors, function(key, value) {
+                                                    $('.alert-danger').show();
+                                                    $('.alert-danger').append('<strong><li>' + value +
+                                                        '</li></strong>');
+                                                });
+                                                $('#submitPenerimaan').html('Simpan');
+
+                                            } else {
+                                                $('.btn-warning').hide();
+
+                                                const Toast = Swal.mixin({
+                                                    toast: true,
+                                                    position: 'top-end',
+                                                    showConfirmButton: false,
+                                                    timer: 2000,
+                                                    timerProgressBar: true,
+                                                });
+
+                                                Toast.fire({
+                                                    icon: 'success',
+                                                    title: `${response.message}`,
+                                                })
+
+                                                $('#penerimaanForm').trigger("reset");
+                                                $('#submitPenerimaan').html('Simpan');
+                                                $('#penerimaanModal').modal('hide');
+
+                                                listbarang.draw();
+                                                transaksiPenerimaan.draw();
+                                                setInterval(function() {
+                                                    window.location.reload();
+                                                }, 1000);
+                                            }
+                                        }
+                                    });
+        
+                                } else {
+                                    $('#submitPenerimaan').html('Simpan');
+                                    Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
+                                }
+                            });
+                    }else{
+                        $.ajax({
+                            url: "{{ route('penerimaan.store') }}",
+                            data: new FormData(this.form),
+                            cache: false,
+                            processData: false,
+                            contentType: false,
+                            type: "POST",
+
+                            success: function(response) {
+                                console.log(response)
+                                if (response.errors) {
+                                    $('.alert').html('');
+                                    $.each(response.errors, function(key, value) {
+                                        $('.alert-danger').show();
+                                        $('.alert-danger').append('<strong><li>' + value +
+                                            '</li></strong>');
+                                    });
+                                    $('#submitPenerimaan').html('Simpan');
+
+                                } else {
+                                    $('.btn-warning').hide();
+
+                                    const Toast = Swal.mixin({
+                                        toast: true,
+                                        position: 'top-end',
+                                        showConfirmButton: false,
+                                        timer: 2000,
+                                        timerProgressBar: true,
+                                    });
+
+                                    Toast.fire({
+                                        icon: 'success',
+                                        title: `${response.message}`,
+                                    })
+
+                                    $('#penerimaanForm').trigger("reset");
+                                    $('#submitPenerimaan').html('Simpan');
+                                    $('#penerimaanModal').modal('hide');
+
+                                    listbarang.draw();
+                                    transaksiPenerimaan.draw();
+                                    setInterval(function() {
+                                        window.location.reload();
+                                    }, 1000);
+                                }
                             }
                         });
-                }else{
-                    $.ajax({
-                        url: "{{ route('penerimaan.store') }}",
-                        data: new FormData(this.form),
-                        cache: false,
-                        processData: false,
-                        contentType: false,
-                        type: "POST",
-
-                        success: function(response) {
-                            console.log(response)
-                            if (response.errors) {
-                                $('.alert').html('');
-                                $.each(response.errors, function(key, value) {
-                                    $('.alert-danger').show();
-                                    $('.alert-danger').append('<strong><li>' + value +
-                                        '</li></strong>');
-                                });
-                                $('#submitPenerimaan').html('Simpan');
-
-                            } else {
-                                $('.btn-warning').hide();
-
-                                const Toast = Swal.mixin({
-                                    toast: true,
-                                    position: 'top-end',
-                                    showConfirmButton: false,
-                                    timer: 2000,
-                                    timerProgressBar: true,
-                                });
-
-                                Toast.fire({
-                                    icon: 'success',
-                                    title: `${response.message}`,
-                                })
-
-                                $('#penerimaanForm').trigger("reset");
-                                $('#submitPenerimaan').html('Simpan');
-                                $('#penerimaanModal').modal('hide');
-
-                                listbarang.draw();
-                                transaksiPenerimaan.draw();
-                                setInterval(function() {
-                                    window.location.reload();
-                                }, 1000);
-                            }
-                        }
-                    });
+                    }
                 }
             });
 
@@ -956,8 +1089,8 @@
                             const barangkode            = value.barang['barang_kode'];
                             const barangnama            = value.barang['barang_nama'];
                             const barangfoto            = value.barang['barang_foto'];
-                            const barangberat           = value['detail_pengeluaran_berat'];
-                            const barangberatkembali    = value['detail_pengeluaran_kembali'];
+                            const barangberat           = parseFloat(value['detail_pengeluaran_berat']).toFixed(2);
+                            const barangberatkembali    = parseFloat(value['detail_pengeluaran_kembali']).toFixed(2);
                             const kondisi               = value['detail_pengeluaran_kondisi'];
 
                              detailListBarang += `<tr>
@@ -1024,6 +1157,94 @@
                 });
 
             })
+
+            // ADDING SUPPLIER SECTION IF SELECTION CONDITION IN : LEBUR or REPARASI
+            $('body').on('change', '.return_kondisi', function(){
+                var condition       = $(".return_kondisi").val();
+
+                var supplierData    = @json($supplier);
+                
+                var labelsupplier   = `<div class="col-xl-auto mb-xl-0 mb-2">
+                                            <label class="form-label mb-xl-0">Supplier:</label>
+                                        </div>`;
+
+                var supplier        = `<div class="col-xl-auto mb-xl-0 mb-2">
+                                            <select class="form-select" id="supplier_id" name="supplier_id">
+                                                <option value="" selected disabled>--</option>`;
+
+                                        // Loop through the values of $supplier and generate <option> elements
+                                        $.each(supplierData, function(index, value) {
+                                            supplier += `<option value="${value.supplier_id}">${value.supplier_nama}</option>`;
+                                        });
+
+                                        supplier += `</select>
+                                                    </div>`;
+
+                if(condition == 'REPARASI'){
+                    $("#supplier-label").html(labelsupplier)
+                    $("#supplier-data").html(supplier)
+                }else{
+                    $("#supplier-label").html('')
+                    $("#supplier-data").html('')    
+                }
+            })
+
+            // DELETE PENERIMAAN
+            $('body').on('click', '#delete-penerimaan', function() {
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: "btn btn-success",
+                        cancelButton: "btn btn-danger me-2",
+                    },
+                    buttonsStyling: false,
+
+                });
+
+                var penerimaan_id = $(this).attr('data-id');
+
+                swalWithBootstrapButtons
+                    .fire({
+                        title: "Do you want to delete, this data?",
+                        text: "This data will be delete!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonClass: "me-2",
+                        cancelButtonText: "Tidak",
+                        confirmButtonText: "Ya",
+                        reverseButtons: true,
+                    })
+                    .then((result) => {
+                        if (result.value) {
+                            $.ajax({
+                                type: "POST",
+                                url: "{{ route('penerimaan.destroy') }}",
+                                data: {
+                                    pengeluaran_id: penerimaan_id,
+                                },
+                                dataType: "json",
+                                success: function(response) {
+                                    const Toast = Swal.mixin({
+                                        toast: true,
+                                        position: 'top-end',
+                                        showConfirmButton: false,
+                                        timer: 3000,
+                                        timerProgressBar: true,
+                                    });
+
+                                    Toast.fire({
+                                        icon: 'success',
+                                        title: `${response.status}`,
+                                    })
+                                    transaksiPenerimaan.draw();
+                                }
+                            });
+                        } else {
+                            Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
+                        }
+                    });
+
+            });
 
         })
     </script>

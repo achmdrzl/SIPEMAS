@@ -346,7 +346,7 @@ class TransaksiPenjualanController extends Controller
         foreach ($penjualan->penjualandetail as $detail) {
             $barcodeHtml2[] = $detail->barang;
             // Generate a barcode for each item using its unique identifier
-            $barcodeHtml[] = DNS1D::getBarcodeHTML($detail->barang->barang_id, 'CODABAR', 2, 50);
+            $barcodeHtml[] = DNS1D::getBarcodeHTML($detail->barang->barang_id, 'CODABAR', 1, 25);
         }
         
         // Load the HTML view with the data

@@ -478,7 +478,7 @@ class MasterBarangController extends Controller
                 <table class="table">
                     <tr>
                         <td class="centered-content2">
-                            ' . $barang->barang_berat . ' Gr
+                            ' . number_format($barang->barang_berat, 2) . ' Gr
                         </td>
                     </tr>
                     <tr>

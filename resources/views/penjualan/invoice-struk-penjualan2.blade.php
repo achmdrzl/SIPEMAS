@@ -94,9 +94,14 @@
         }
         .gambar {
             display: block;
-            max-width: 50px;
-            max-height: 50px;
+            max-width: 100px;
+            max-height: 100px;
             margin-top: -50px;
+        }
+        .gambar {
+            display: block;
+            max-width: 100px;
+            max-height: 100px;
         }
     </style>
 </head>
@@ -133,7 +138,9 @@
                             {{ $item->barang->barang_nama }}
                         </div>
                         <div class="left">
-                            {!! $barcode[$key] !!}
+                            <div class="gambar2">
+                                {!! $barcode[$key] !!}
+                            </div>
                             <div>{{ $item->barang->barang_kode }}</div>
                         </div>
                         <div class="right">
@@ -145,15 +152,17 @@
                         </div>
                     </td>
                     <td>{{ $item->barang->kadar->kadar_nama }}</td>
-                    <td>{{ $item->detail_penjualan_berat_jual }}</td>
+                    <td>{{ number_format($item->detail_penjualan_berat_jual, 2) }}</td>
                     <td>Rp. {{ number_format($item->detail_penjualan_harga) }}</td>
                     <td>Rp. {{ number_format($item->detail_penjualan_jml_harga) }}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-    <div id="keterangan">
-        <p style="font-size: 10px; width:200px;">Keterangan: {{ $penjualans->penjualan_keterangan }}</p>
+    <div id="perhatian" style="width: 200px; max-height: 400px; overflow-y: auto;">
+        <p style="width: 400px; overflow-wrap: break-word;">
+            Keterangan: {{ $penjualans->penjualan_keterangan }}
+        </p>
     </div>
     <div class="subtotal-perhatian">
         <div id="perhatian" style="width: 450px">

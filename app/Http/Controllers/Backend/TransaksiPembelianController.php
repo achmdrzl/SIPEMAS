@@ -83,7 +83,7 @@ class TransaksiPembelianController extends Controller
                                 </div>
                             </div>';
 
-            $barang_berat   = $item->barang_berat;
+            $barang_berat   = number_format($item->barang_berat, 2);
             $barang_kadar   = $item->kadar->kadar_nama;
             $barang_jenis   = 'Perhiasan';
             $barang_satuan  = 'Pcs';

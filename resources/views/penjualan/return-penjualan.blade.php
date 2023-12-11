@@ -607,7 +607,7 @@
                                 const kadar         = value['kadar_id']
                                 const barangkode    = value['barang_kode']
                                 const barangnama    = value['barang_nama']
-                                const barangberat   = value['barang_berat']
+                                const barangberat   = parseFloat(value['barang_berat']).toFixed(2);
                                 const barangfoto    = value['barang_foto']
 
                                 const harga_jual = value.transaksipenjualandetail
@@ -670,7 +670,7 @@
                                                             <input class="form-control penjualan_berat_jual" type="hidden" value="` + berat_jual + `"
                                                                 placeholder="Barang Id" name="penjualan_berat_jual[]" />
                                                             <input class="form-control return_berat" type="number" value="`+ berat_jual +`"
-                                                                placeholder="Berat Return" name="detail_penjualan_return_berat[]" />
+                                                                placeholder="Berat Return" name="detail_penjualan_return_berat[]" step="0.05" />
                                                         </td>
                                                         <td> <input class="form-control return_harga_jual" type="text" value="` + formatWithCommaSeparator(harga_jual) + `"
                                                                 placeholder="Harga Jual" name="detail_penjualan_return_harga_jual[]" readonly />
@@ -751,8 +751,8 @@
                         const barangkode                     = response.returndetail.barang.barang_kode;
                         const barangnama                     = response.returndetail.barang.barang_nama;
                         const barangfoto                     = response.returndetail.barang.barang_foto;
-                        const barangberat                    = response.returndetail.detail_penjualan_barang_berat;
-                        const beratreturn                    = response.returndetail.detail_penjualan_return_berat;
+                        const barangberat                    = parseFloat(response.returndetail.detail_penjualan_barang_berat).toFixed(2);
+                        const beratreturn                    = parseFloat(response.returndetail.detail_penjualan_return_berat).toFixed(2);
                         const harga_jual                     = response.returndetail.detail_penjualan_return_harga_jual;
                         const harga_jualFormatted            = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_harga_jual);
                         const harga_return                   = response.returndetail.detail_penjualan_return_harga_return;
@@ -796,7 +796,7 @@
                                                     <input class="form-control penjualan_return_nobukti" type="hidden" value="` +  penjualan_return_nobukti + `"
                                                                 placeholder="Barang Id" name="penjualan_return_nobukti[]" />
                                                     <input class="form-control return_berat" type="number" value="` + beratreturn + `"
-                                                        placeholder="Berat Return" name="detail_penjualan_return_berat[]"/>
+                                                        placeholder="Berat Return" name="detail_penjualan_return_berat[]" step="0.05"/>
                                                 </td>
                                                 <td> <input class="form-control return_harga_jual" type="text" value="` + harga_jualFormatted + `" data-value="${harga_jual}"
                                                         placeholder="Harga Jual" name="detail_penjualan_return_harga_jual[]" readonly />
@@ -877,7 +877,7 @@
                 var kondisi = $('.return_kondisi').val();
                 var edit = $(this).hasClass('edit')
 
-                if(kondisi == 'REPARASI' || kondisi == 'CUCI'){
+                if(kondisi == 'REPARASI'){
 
                     var supplier = $('#supplier_id').val();
 
@@ -1187,8 +1187,8 @@
                         const barangkode                     = response.returndetail.barang.barang_kode;
                         const barangnama                     = response.returndetail.barang.barang_nama;
                         const barangfoto                     = response.returndetail.barang.barang_foto;
-                        const barangberat                    = response.returndetail.detail_penjualan_barang_berat;
-                        const beratreturn                    = response.returndetail.detail_penjualan_return_berat;
+                        const barangberat                    = parseFloat(response.returndetail.detail_penjualan_barang_berat).toFixed(2);
+                        const beratreturn                    = parseFloat(response.returndetail.detail_penjualan_return_berat).toFixed(2);
                         const harga_jual                     = response.returndetail.detail_penjualan_return_harga_jual;
                         const harga_jualFormatted            = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_harga_jual);
                         const harga_return                   = response.returndetail.detail_penjualan_return_harga_return;
@@ -1286,7 +1286,7 @@
                                       <textarea class="form-control" id="pengeluaran_keterangan" name="pengeluaran_keterangan"></textarea>
                                    </div>`;
 
-                if(condition == 'CUCI' || condition == 'REPARASI'){
+                if(condition == 'REPARASI'){
                     $("#supplier-label").html(labelsupplier)
                     $("#supplier-data").html(supplier)
                     $("#keterangan-label").html(labelket)
