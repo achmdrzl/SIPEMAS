@@ -608,7 +608,7 @@
                                 const barangkode    = value['barang_kode']
                                 const barangnama    = value['barang_nama']
                                 const barangberat   = parseFloat(value['barang_berat']).toFixed(2);
-                                const barangfoto    = value['barang_foto']
+                                const barangfoto    = value['barang_foto'] ?? null
 
                                 const harga_jual = value.transaksipenjualandetail
                                     .length > 0 ?
@@ -750,7 +750,7 @@
                         const grandTotalFormatted            = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_jml_harga);
                         const barangkode                     = response.returndetail.barang.barang_kode;
                         const barangnama                     = response.returndetail.barang.barang_nama;
-                        const barangfoto                     = response.returndetail.barang.barang_foto;
+                        const barangfoto                     = response.returndetail.barang.barang_foto ?? null;
                         const barangberat                    = parseFloat(response.returndetail.detail_penjualan_barang_berat).toFixed(2);
                         const beratreturn                    = parseFloat(response.returndetail.detail_penjualan_return_berat).toFixed(2);
                         const harga_jual                     = response.returndetail.detail_penjualan_return_harga_jual;
@@ -1186,7 +1186,7 @@
                         const grandTotalFormatted            = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_jml_harga);
                         const barangkode                     = response.returndetail.barang.barang_kode;
                         const barangnama                     = response.returndetail.barang.barang_nama;
-                        const barangfoto                     = response.returndetail.barang.barang_foto;
+                        const barangfoto                     = response.returndetail.barang.barang_foto ?? null;
                         const barangberat                    = parseFloat(response.returndetail.detail_penjualan_barang_berat).toFixed(2);
                         const beratreturn                    = parseFloat(response.returndetail.detail_penjualan_return_berat).toFixed(2);
                         const harga_jual                     = response.returndetail.detail_penjualan_return_harga_jual;

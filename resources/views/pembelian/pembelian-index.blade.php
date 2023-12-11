@@ -675,7 +675,7 @@
                                 const barangnama = value['barang_nama']
                                 const barangberat = parseFloat(value['barang_berat']).toFixed(2);
                                 const kadar = value['kadar']['kadar_nama']
-                                const barangfoto   = value['barang_foto']
+                                const barangfoto   = value['barang_foto'] ?? null
 
                                 listbarang += `<tr>
                                                     <td>` + no++ + `</td>
@@ -800,7 +800,7 @@
 
                             const barang_kode  = value['barang']['barang_kode']
                             const barang_nama  = value['barang']['barang_nama']
-                            const barang_foto  = value['barang']['barang_foto']
+                            const barang_foto  = value['barang']['barang_foto'] ?? null
 
                             detailListBarang += `<tr>
                                                     <td>` + no++ + `</td>
@@ -1134,7 +1134,7 @@
 
                             const barang_kode  = value['barang']['barang_kode']
                             const barang_nama  = value['barang']['barang_nama']
-                            const barang_foto  = value['barang']['barang_foto']
+                            const barang_foto  = value['barang']['barang_foto'] ?? null
 
                             detailListBarang += `<tr>
                                                     <td>` + no++ + `</td>

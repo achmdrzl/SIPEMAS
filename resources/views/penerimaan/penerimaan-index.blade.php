@@ -545,7 +545,7 @@
                                 const barangnama  = value['barang_nama']
                                 const barangberat = parseFloat(value['barang_berat']).toFixed(2);
                                 const kadar       = value['kadar']['kadar_id']
-                                const barangfoto  = value['barang_foto']
+                                const barangfoto  = value['barang_foto'] ?? null
 
                                 listbarang += `<tr>
                                                     <td>` + no++ + `</td>
@@ -650,7 +650,7 @@
                         $.each(response.pengeluarandetail, function (index, value) { 
                             const barangkode            = value.barang['barang_kode'];
                             const barangnama            = value.barang['barang_nama'];
-                            const barangfoto            = value.barang['barang_foto'];
+                            const barangfoto            = value.barang['barang_foto'] ?? null;
                             const barangberat           = parseFloat(value['detail_pengeluaran_berat']).toFixed(2);
                             const barangberatkembali    = parseFloat(value['detail_pengeluaran_kembali']).toFixed(2);
                             const kondisi               = value['detail_pengeluaran_kondisi'];
@@ -1088,7 +1088,7 @@
                         $.each(response.pengeluarandetail, function (index, value) { 
                             const barangkode            = value.barang['barang_kode'];
                             const barangnama            = value.barang['barang_nama'];
-                            const barangfoto            = value.barang['barang_foto'];
+                            const barangfoto            = value.barang['barang_foto'] ?? null;
                             const barangberat           = parseFloat(value['detail_pengeluaran_berat']).toFixed(2);
                             const barangberatkembali    = parseFloat(value['detail_pengeluaran_kembali']).toFixed(2);
                             const kondisi               = value['detail_pengeluaran_kondisi'];
