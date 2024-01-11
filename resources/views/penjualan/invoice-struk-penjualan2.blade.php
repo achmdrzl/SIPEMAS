@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Faktur Penjualan</title>
@@ -9,66 +10,83 @@
         }
 
         @page {
-            size: A5 landscape; /* Set the page size to half A4 (A5) */
-            margin: 0.5cm; /* Set the page margins (adjust as needed) */
+            size: A5 landscape;
+            /* Set the page size to half A4 (A5) */
+            margin: 0.5cm;
+            /* Set the page margins (adjust as needed) */
         }
 
         #header {
             margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
-            align-items: flex-start; /* Align items at the top of the header */
+            align-items: flex-start;
+            /* Align items at the top of the header */
         }
 
         #toko {
             /* font-weight: bold; */
-            text-align: left; /* Align text to the left within the toko div */
+            text-align: left;
+            /* Align text to the left within the toko div */
         }
 
         #faktur {
             text-align: right;
             margin-bottom: 20px;
             margin-top: -80px;
-            text-align: right; /* Align text to the right within the faktur div */
+            text-align: right;
+            /* Align text to the right within the faktur div */
         }
 
         #alamat {
             font-size: 12px;
             margin-bottom: 10px;
             margin-top: -17px;
-            text-align: left; /* Align text to the left within the alamat div */
+            text-align: left;
+            /* Align text to the left within the alamat div */
         }
+
         #tables {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
             font-size: 10px;
         }
-        #tables th, #tables td {
+
+        #tables th,
+        #tables td {
             border: 1px solid #000;
             padding: 8px;
             text-align: center;
             font-size: 12px;
         }
+
         #tables th {
             background-color: #f0f0f0;
         }
-        #subtotal, #disc, #total {
+
+        #subtotal,
+        #disc,
+        #total {
             text-align: right;
             /* font-weight: bold; */
         }
+
         #keterangan {
             font-style: italic;
             margin-bottom: 20px;
         }
+
         #perhatian {
             font-size: 12px;
         }
+
         #subtotal {
             position: absolute;
             margin-left: 480px;
             margin-top: -100px;
         }
+
         .subtotal-perhatian {
             display: flex;
             justify-content: space-between;
@@ -79,32 +97,39 @@
             align-items: center;
             padding: 15px;
         }
+
         .left {
             flex: 1;
             text-align: left;
         }
+
         .center {
             flex: 1;
             text-align: left;
+            max-width: 300px;
         }
+
         .right {
             flex: 1;
-            text-align: right;
-            margin-left: 30px;
+            /* text-align: right; */
+            /* margin-left: 30px; */
         }
+
         .gambar {
             display: block;
-            max-width: 100px;
-            max-height: 100px;
-            margin-top: -50px;
+            max-width: 80px;
+            max-height: 80px;
+            /* margin-top: -50px; */
         }
+
         .gambar {
             display: block;
-            max-width: 100px;
-            max-height: 100px;
+            max-width: 80px;
+            max-height: 80px;
         }
     </style>
 </head>
+
 <body>
     <div id="header">
         <div id="toko">
@@ -122,7 +147,7 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>Nama Barang</th>
+                <th colspan="2">Nama Barang</th>
                 <th>Kadar</th>
                 <th>Berat</th>
                 <th>Harga/gr</th>
@@ -130,7 +155,7 @@
             </tr>
         </thead>
         <tbody>
-           @foreach($penjualans->penjualandetail as $key => $item)
+            @foreach ($penjualans->penjualandetail as $key => $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>
@@ -143,9 +168,12 @@
                             </div>
                             <div>{{ $item->barang->barang_kode }}</div>
                         </div>
+                    </td>
+                    <td>
                         <div class="right">
-                            @if($item->barang->barang_foto)
-                                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('storage/foto_barang/' . $item->barang->barang_foto))) }}" alt="Gambar Barang" class="gambar">
+                            @if ($item->barang->barang_foto)
+                                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('storage/foto_barang/' . $item->barang->barang_foto))) }}"
+                                    alt="Gambar Barang" class="gambar">
                             @else
                                 <span>no photo</span>
                             @endif
@@ -216,4 +244,5 @@
         </div>
     </div>
 </body>
+
 </html>

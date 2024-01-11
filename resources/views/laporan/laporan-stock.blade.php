@@ -11,7 +11,8 @@
         }
 
         .custom-width-column {
-            width: 20px; /* Set your desired width here */
+            width: 300px;
+            /* Set your desired width here */
         }
     </style>
 @endpush
@@ -116,7 +117,8 @@
                             <ul class="nav nav-light">
                                 <li class="nav-item nav-link">
                                     <button class="btn btn-sm btn-primary show-data"><span><span class="icon"><span
-                                                    class="feather-icon"><i data-feather="calendar"></i></span></span><span
+                                                    class="feather-icon"><i
+                                                        data-feather="calendar"></i></span></span><span
                                                 class="btn-text">Tampilkan</span></span></button>
                                 </li>
                                 <li class="nav-item nav-link">
@@ -184,7 +186,7 @@
                                                                 <th></th><!-- Empty cell for alignment -->
                                                                 <th></th><!-- Empty cell for alignment -->
                                                                 <th></th><!-- Empty cell for alignment -->
-                                                                <th>Grand Total:</th><!-- Label for total -->
+                                                                <th></th><!-- Label for total -->
                                                                 <th></th><!-- Empty cell for alignment -->
                                                             </tr>
                                                         </tfoot>
@@ -222,8 +224,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-primary float-end" id="submit-print" data-jenis="rekap-stock"
-                                    data-bs-dismiss="modal">Print</button>
+                                <button type="button" class="btn btn-primary float-end" id="submit-print"
+                                    data-jenis="rekap-stock" data-bs-dismiss="modal">Print</button>
                             </form>
                         </div>
                     </div>
@@ -234,7 +236,6 @@
         </div>
     </div>
     <!-- /Page Body -->
-    
 @endsection
 
 @push('script-alt')
@@ -335,7 +336,7 @@
             // });
 
             var stockBarang = ''
-            
+
             // FILTERED DATA
             $('.show-data').on('click', function() {
                 var startDate = $('#start_date').val();
@@ -449,22 +450,43 @@
                                     },
                                 ],
                                 columnDefs: columnDefs,
-                                footerCallback: function(row, data, start, end, display) {
+                                footerCallback: function(row, data, start, end,
+                                    display) {
                                     var api = this.api();
 
                                     // Convert to float if data is coming as strings
-                                    var harga = api
-                                        .column('harga:name', {
+                                    var harga = api.column('harga:name', {
+                                        search: 'applied',
+                                        filter: 'applied'
+                                    }).data().reduce(function(acc, value) {
+                                        return acc + parseFloat(value);
+                                    }, 0);
+
+                                    // Convert to float if data is coming as strings
+                                    var barang_berat = api.column(
+                                        'barang_berat:name', {
                                             search: 'applied',
                                             filter: 'applied'
-                                        })
-                                        .data()
-                                        .reduce(function(acc, value) {
-                                            return acc + parseFloat(value);
-                                        }, 0);
+                                        }).data().reduce(function(acc, value) {
+                                        return acc + parseFloat(value);
+                                    }, 0);
+
+                                    // Convert to float if data is coming as strings
+                                    var total_item = api.rows({
+                                        search: 'applied',
+                                        filter: 'applied'
+                                    }).count();
 
                                     // Update the footer cells with the calculated sums
-                                    $(api.column('harga:name').footer()).html(rupiah(harga));
+                                    $(api.column('DT_RowIndex:name').footer()).html(
+                                        'Total Item: ' + total_item);
+                                    // Update the footer cells with the calculated sums
+                                    $(api.column('barang_berat:name').footer())
+                                        .html('Total Berat: ' + barang_berat
+                                            .toFixed(2));
+                                    // Update the footer cells with the calculated sums
+                                    $(api.column('harga:name').footer()).html(
+                                        'Grand Total: ' + rupiah(harga));
                                 },
                             });
 
@@ -651,16 +673,18 @@
 
                                 model += `</select>`;
 
-                            } else if(selectId === 'lokasi_id'){
-                                 lokasi += `<select name="lokasi" id="lokasi" class="form-control">
+                            } else if (selectId === 'lokasi_id') {
+                                lokasi += `<select name="lokasi" id="lokasi" class="form-control">
                                           <option value="-" selected>-- SELECT LOKASI --</option>`;
 
-                                lokasi += `<option value="tampilkan-semua">TAMPILKAN SEMUA</option>`;
+                                lokasi +=
+                                    `<option value="tampilkan-semua">TAMPILKAN SEMUA</option>`;
                                 lokasi += `<option value="etalase">ETALASE</option>`;
                                 lokasi += `<option value="cuci">CUCI</option>`;
                                 lokasi += `<option value="lebur">LEBUR</option>`;
                                 lokasi += `<option value="reparasi">REPARASI</option>`;
-                                lokasi += `<option value="tdk-ada-catatan">TDK ADA CATATAN</option>`;
+                                lokasi +=
+                                    `<option value="tdk-ada-catatan">TDK ADA CATATAN</option>`;
 
                                 lokasi += `</select>`;
 
@@ -679,7 +703,7 @@
 
                             } else if (selectId === 'model_id') {
                                 $('#model-data').html(model)
-                            }else if(selectId === 'lokasi_id'){
+                            } else if (selectId === 'lokasi_id') {
                                 $('#lokasi-data').html(lokasi)
                             }
                         }
@@ -711,39 +735,39 @@
             })
 
             // CETAK LAPORAN
-            $('body').on('click', '#submit-print', function(){
-                var namabarang   = $('#namabarang').val();
-                var supplier     = $('#supplier').val();
-                var pabrik       = $('#pabrik').val();
-                var kadar        = $('#kadar').val();
-                var model        = $('#model').val();
-                var jenis        = $(this).attr('data-jenis');
+            $('body').on('click', '#submit-print', function() {
+                var namabarang = $('#namabarang').val();
+                var supplier = $('#supplier').val();
+                var pabrik = $('#pabrik').val();
+                var kadar = $('#kadar').val();
+                var model = $('#model').val();
+                var jenis = $(this).attr('data-jenis');
                 var format_print = $('#format_print').val();
-                var lokasi       = $('#lokasi').val();
+                var lokasi = $('#lokasi').val();
 
                 var myArray = [
                     namabarang, supplier, pabrik, kadar, model, jenis, format_print, lokasi
                 ];
 
-                if(format_print === null){
+                if (format_print === null) {
                     Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Data format has not been selected!',
-                            showConfirmButton: false,
-                            timer: 2000
-                        });
-                }else{
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Data format has not been selected!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                } else {
                     // Convert the array to a query parameter string
                     var queryString = 'data=' + JSON.stringify(myArray);
-    
+
                     // Create the URL with query parameters
                     var url = "{{ route('cetak.stock') }}?" + queryString;
-    
-                    
+
+
                     // Open the PDF in a new tab/window
                     window.open(url, '_blank');
-                    
+
                     $('#form-print').trigger("reset");
                 }
             })

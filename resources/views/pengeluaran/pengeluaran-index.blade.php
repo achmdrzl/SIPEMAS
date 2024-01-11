@@ -214,7 +214,7 @@
                         </div>
                         <div class="modal-footer align-items-center">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                            <button type="submit" id="submitPengeluaran" class="btn btn-primary">Simpan</button>
+                            <button type="button" id="submitPengeluaran" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
                 </div>

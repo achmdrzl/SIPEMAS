@@ -247,7 +247,7 @@
                                     </div>
                                     <div class="modal-footer align-items-center">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-primary" id="submitBarang">Simpan</button>
+                                        <button type="button" class="btn btn-primary" id="submitBarang">Simpan</button>
                                     </div> 
                                 </form>
                             <!-- coba multi -->

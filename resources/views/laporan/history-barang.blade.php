@@ -11,7 +11,8 @@
         }
 
         .custom-width-column {
-            width: 100px; /* Set your desired width here */
+            width: 300px;
+            /* Set your desired width here */
         }
     </style>
 @endpush
@@ -148,8 +149,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-primary float-end" id="submit-print" data-jenis="rekap-stock"
-                                    data-bs-dismiss="modal">Print</button>
+                                <button type="button" class="btn btn-primary float-end" id="submit-print"
+                                    data-jenis="rekap-stock" data-bs-dismiss="modal">Print</button>
                             </form>
                         </div>
                     </div>
@@ -182,8 +183,22 @@
                 }).format(number);
             }
 
+            // Custom function to format the date
+            function formatCustomDate(dateString) {
+                const [fullDate, timePart] = dateString.split(' ');
+                const [year, month, day] = fullDate.split('-');
+
+                // Map month abbreviation to full month name
+                const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov',
+                    'Des'
+                ];
+                const monthName = monthNames[parseInt(month) - 1];
+
+                return `${day}-${monthName}-${year} ${timePart.split('.')[0]}`;
+            }
+
             // Define an array of column indexes that need formatting
-            var columnsToFormat = [6];
+            var columnsToFormat = [2, 6];
 
             // Loop through the columns and apply the rendering function
             var columnDefs = columnsToFormat.map(function(columnIndex) {
@@ -191,8 +206,12 @@
                     targets: columnIndex,
                     render: function(data, type, row) {
                         if (type === 'display') {
-                            // Format as Rupiah
-                            return 'Rp ' + parseFloat(data).toLocaleString('id-ID');
+                            if (columnIndex === 2) {
+                                return formatCustomDate(data);
+                            } else {
+                                // Format as Rupiah
+                                return 'Rp ' + parseFloat(data).toLocaleString('id-ID');
+                            }
                         }
                         return data;
                     },
@@ -224,7 +243,7 @@
                         if (response.data.length > 0) {
 
                             // Destroy if the existing DataTable is true
-                            if(historyBarang){
+                            if (historyBarang) {
                                 historyBarang.destroy();
                             }
 
@@ -232,6 +251,7 @@
                             historyBarang = $('#datatable_7').DataTable({
                                 scrollX: true,
                                 autoWidth: false,
+                                orderable: true, // Enable sorting for this column
                                 language: {
                                     search: "",
                                     searchPlaceholder: "Search",
@@ -249,8 +269,7 @@
                                 // Other DataTable options
                                 data: response
                                     .data, // Pass the updated data to the DataTable
-                                columns: [
-                                    {
+                                columns: [{
                                         data: 'barang_kode',
                                         name: 'barang_kode'
                                     },
@@ -260,8 +279,8 @@
                                         className: 'custom-width-column' // Add a class for styling
                                     },
                                     {
-                                        data: 'tanggal',
-                                        name: 'tanggal',
+                                        data: 'tanggal.date',
+                                        name: 'tanggal.date',
                                         orderable: true // Enable sorting for this column
                                     },
                                     {
@@ -287,7 +306,9 @@
                                 ],
                                 columnDefs: columnDefs,
                                 order: [
-                                    [2, 'desc'] // Column index 2 (tanggal), ascending order
+                                    [2,
+                                        'desc'
+                                    ] // Column index 2 (tanggal), ascending order
                                 ],
                             });
 
@@ -329,35 +350,35 @@
             })
 
             // CETAK LAPORAN
-            $('body').on('click', '#submit-print', function(){
-                var namabarang   = $('#namabarang').val();
-                var kodebarang   = $('#kodebarang').val();
-                var jenis        = $(this).attr('data-jenis');
+            $('body').on('click', '#submit-print', function() {
+                var namabarang = $('#namabarang').val();
+                var kodebarang = $('#kodebarang').val();
+                var jenis = $(this).attr('data-jenis');
                 var format_print = $('#format_print').val();
 
                 var myArray = [
                     namabarang, kodebarang, jenis, format_print
                 ];
 
-                if(format_print === null){
+                if (format_print === null) {
                     Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Data format has not been selected!',
-                            showConfirmButton: false,
-                            timer: 2000
-                        });
-                }else{
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Data format has not been selected!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                } else {
                     // Convert the array to a query parameter string
                     var queryString = 'data=' + JSON.stringify(myArray);
-    
+
                     // Create the URL with query parameters
                     var url = "{{ route('cetak.history') }}?" + queryString;
-    
-                    
+
+
                     // Open the PDF in a new tab/window
                     window.open(url, '_blank');
-                    
+
                     $('#form-print').trigger("reset");
                 }
             })

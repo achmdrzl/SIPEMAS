@@ -64,6 +64,6 @@ class Barang extends Model
 
     public function transaksipengeluarandetail()
     {
-        return $this->hasOne(TransaksiPengeluaranDetail::class, 'barang_id');
+        return $this->hasMany(TransaksiPengeluaranDetail::class, 'barang_id');
     }
 }

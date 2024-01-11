@@ -107,7 +107,7 @@
                                 </div>
                                 <div class="modal-footer align-items-center">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-primary" id="submitKadar">Simpan</button>
+                                    <button type="button" class="btn btn-primary" id="submitKadar">Simpan</button>
                                 </div>
                             </form>
                         </div>

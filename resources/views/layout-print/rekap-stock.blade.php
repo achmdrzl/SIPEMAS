@@ -79,7 +79,7 @@
                         {{ $totalHarga += $item['harga'] }}
                         <tr>
                             <td>{{ $item['barang_kode'] }}</td>
-                            <td style="width:100px">{{ $item['barang_nama'] }}</td>
+                            <td style="width:300px; text-align:left;">{{ $item['barang_nama'] }}</td>
                             <td>{{ $item['barang_berat'] }}</td>
                             <td>{{ $item['kadar'] }}</td>
                             <td>{{ $item['model'] }}</td>

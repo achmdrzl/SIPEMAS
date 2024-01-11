@@ -97,7 +97,7 @@
                                     @endif
                                 </td>   
                                 <td>{{ $item->returndetail->barang->barang_kode }}</td>
-                                <td style="width:100px">{{ $item->returndetail->barang->barang_nama }}</td>
+                                <td style="width:300px; text-align:left;">{{ $item->returndetail->barang->barang_nama }}</td>
                                 <td>{{ $item->returndetail->detail_penjualan_return_berat }}</td>
                                 <td style="text-align: right">Rp.{{ number_format($item->returndetail->detail_penjualan_return_harga_return) }}</td>
                             </tr>

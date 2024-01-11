@@ -67,7 +67,7 @@ class TransaksiPenjualanController extends Controller
         $no = 1;
         foreach ($barangs as $item) {
             $barang_id      = $item->barang_id;
-            $select         = '<input type="checkbox" class="row-checkbox form-check-input is-valid" value="' . $barang_id . '">';
+            $select         = '<input type="checkbox" class="row-checkbox form-check-input is-valid checklistBtn" value="' . $barang_id . '">';
             $barang_nama    = '<div class="media align-items-center">
                                 <div class="media-head me-2">
                                     <div class="avatar avatar-xs avatar-rounded">

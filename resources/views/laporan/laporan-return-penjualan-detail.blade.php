@@ -8,6 +8,14 @@
             width: 100%;
             margin: 1.75rem auto;
         }
+        .custom-width-column {
+            width: 300px;
+            /* Set your desired width here */
+        }
+        .custom-width-column2 {
+            width: 100px;
+            /* Set your desired width here */
+        }
     </style>
 @endpush
 
@@ -130,7 +138,8 @@
                             <ul class="nav nav-light">
                                 <li class="nav-item nav-link">
                                     <button class="btn btn-sm btn-primary show-data"><span><span class="icon"><span
-                                                    class="feather-icon"><i data-feather="calendar"></i></span></span><span
+                                                    class="feather-icon"><i
+                                                        data-feather="calendar"></i></span></span><span
                                                 class="btn-text">Tampilkan</span></span></button>
                                 </li>
                                 <li class="nav-item nav-link">
@@ -157,12 +166,16 @@
                                 <h4>Laporan Detail Return Penjualan</h4>
                                 <div class="d-flex">
                                     <h6>Periode :</h6>
-                                    <h6 id="startDate" style="margin-right: 5px; margin-left:5px;">{{ date('d M y') }}</h6>
+                                    <h6 id="startDate" style="margin-right: 5px; margin-left:5px;">{{ date('d M y') }}
+                                    </h6>
                                     <h6>s/d</h6>
                                     <h6 id="endDate" style="margin-left: 5px;">{{ date('d M y') }}</h6>
                                 </div>
                             </div>
                             <div class="email-options-wrap">
+                                <button class="btn btn-sm btn-primary preview-btn me-2"><span><span class="icon"><span
+                                                class="feather-icon"><i data-feather="eye"></i></span></span><span
+                                            class="btn-text">Preview</span></span></button>
                                 <button class="btn btn-sm btn-primary print-btn"><span><span class="icon"><span
                                                 class="feather-icon"><i data-feather="printer"></i></span></span><span
                                             class="btn-text">Print</span></span></button>
@@ -220,8 +233,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-primary float-end" id="submit-print" data-jenis="detail-returnpenjualan"
-                                    data-bs-dismiss="modal">Print</button>
+                                <button type="button" class="btn btn-primary float-end" id="submit-print"
+                                    data-jenis="detail-returnpenjualan" data-bs-dismiss="modal">Print</button>
                             </form>
                         </div>
                     </div>
@@ -278,11 +291,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <table class="table nowrap table-striped">
+                                <table class="table table-striped">
                                     <thead>
                                         <th>No</th>
-                                        <th>Kode Barang</th>
-                                        <th>Nama Barang</th>
+                                        <th class="custom-width-column2">Kode Barang</th>
+                                        <th class="custom-width-column">Nama Barang</th>
                                         <th>Berat Asli</th>
                                         <th>Berat Return</th>
                                         <th>Harga Jual</th>
@@ -306,7 +319,7 @@
                                                                 <span class="text-dark">Total</span>
                                                             </td>
                                                             <td class="rounded-bottom-end  bg-primary-light-5"><input
-                                                                    type="number"
+                                                                    type="text"
                                                                     class="form-control bg-transparent border-0 p-0"
                                                                     value="0" id="penjualan_return_grandtotal"
                                                                     name="penjualan_return_grandtotal" readonly></td>
@@ -351,19 +364,43 @@
                 }).format(number);
             }
 
+            // Function to format a number with a comma separator per 1,000
+            function formatWithCommaSeparator(number) {
+                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }  
+
+            // Custom function to format the date
+            function formatCustomDate(dateString) {
+                const [fullDate, timePart] = dateString.split(' ');
+                const [year, month, day] = fullDate.split('-');
+
+                // Map month abbreviation to full month name
+                const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov',
+                    'Des'
+                ];
+                const monthName = monthNames[parseInt(month) - 1];
+
+                return `${day}-${monthName}-${year}`;
+            }
+
             // Define an array of column indexes that need formatting
-            var columnsToFormat = [4, 5, 6];
+            var columnsToFormat = [2];
 
             // Loop through the columns and apply the rendering function
             var columnDefs = columnsToFormat.map(function(columnIndex) {
                 return {
                     targets: columnIndex,
                     render: function(data, type, row) {
-                        if (type === 'display') {
+                        if (columnIndex === 2 && type === 'sort') {
+                            // Return the raw date data for sorting
+                            return data;
+                        } else if (columnIndex === 2 && type === 'display') {
+                            // Format the date for display
+                            return formatCustomDate(data);
+                        } else {
                             // Format as Rupiah
                             return 'Rp ' + parseFloat(data).toLocaleString('id-ID');
                         }
-                        return data;
                     },
                 };
             });
@@ -412,21 +449,22 @@
                         name: 'action'
                     },
                 ],
+                columnDefs: columnDefs,
             });
 
             // FILTERED DATA
             $('.show-data').on('click', function() {
-                var startDate   = $('#start_date').val();
-                var endDate     = $('#end_date').val();
-                var filterdata  = $('#filterdata').val();
-                var nobukti     = $('#nobukti').val();
-                var nofaktur    = $('#nofaktur').val();
-                var namabarang  = $('#namabarang').val();
-                var filter      = $('#filter_data').val();
-                var supplier    = $('#supplier').val();
-                var pabrik      = $('#pabrik').val();
-                var kadar       = $('#kadar').val();
-                var model       = $('#model').val();
+                var startDate = $('#start_date').val();
+                var endDate = $('#end_date').val();
+                var filterdata = $('#filterdata').val();
+                var nobukti = $('#nobukti').val();
+                var nofaktur = $('#nofaktur').val();
+                var namabarang = $('#namabarang').val();
+                var filter = $('#filter_data').val();
+                var supplier = $('#supplier').val();
+                var pabrik = $('#pabrik').val();
+                var kadar = $('#kadar').val();
+                var model = $('#model').val();
 
                 // Convert startDate and endDate into d-M-y format
                 var formattedStartDate = new Date(startDate).toLocaleDateString('en-GB', {
@@ -518,6 +556,7 @@
                                         name: 'action'
                                     },
                                 ],
+                                columnDefs: columnDefs,
                             });
 
                             // Hide the loading state
@@ -771,17 +810,17 @@
                     success: function(response) {
                         console.log(response)
                         const keterangan    = response.penjualan_return_keterangan;
-                        const grandtotal    = response.returndetail.detail_penjualan_return_jml_harga;
                         const barangkode    = response.returndetail.barang.barang_kode;
                         const barangnama    = response.returndetail.barang.barang_nama;
                         const barangberat   = response.returndetail.detail_penjualan_barang_berat;
                         const beratreturn   = response.returndetail.detail_penjualan_return_berat;
-                        const harga_jual    = response.returndetail.detail_penjualan_return_harga_jual;
-                        const harga_return  = response.returndetail.detail_penjualan_return_harga_return;
-                        const potongan      = response.returndetail.detail_penjualan_return_potongan;
-                        const jml_harga     = response.returndetail.detail_penjualan_return_jml_harga;
+                        const harga_jual    = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_harga_jual);
+                        const harga_return  = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_harga_return);
+                        const potongan      = response.returndetail.detail_penjualan_return_potongan !== null ? formatWithCommaSeparator(response.returndetail.detail_penjualan_return_potongan) : '0';
+                        const jml_harga     = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_jml_harga);
+                        const grandtotal    = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_jml_harga);
                         const kondisi       = response.returndetail.detail_penjualan_return_kondisi;
-                        
+
                         $('#penjualan_return_grandtotal').val(grandtotal)
                         $('#penjualan_return_keterangan').val(keterangan).prop('readonly', true)
 
@@ -797,20 +836,20 @@
                                                     <input class="form-control return_berat" type="number" value="` + beratreturn + `"
                                                         placeholder="Berat Return" name="detail_penjualan_return_berat[]" readonly/>
                                                 </td>
-                                                <td> <input class="form-control return_harga_jual" type="number" value="` + harga_jual + `"
+                                                <td> <input class="form-control return_harga_jual" type="text" value="` + harga_jual + `"
                                                         placeholder="Harga Jual" name="detail_penjualan_return_harga_jual[]" readonly />
                                                 </td>
-                                                <td> <input class="form-control return_harga_return" type="number" value="` + harga_return + `"
+                                                <td> <input class="form-control return_harga_return" type="text" value="` + harga_return + `"
                                                         placeholder="Harga Return" name="detail_penjualan_return_harga_return[]" readonly />
                                                 </td>
-                                                <td> <input class="form-control return_potongan" type="number" value="` + potongan + `"
+                                                <td> <input class="form-control return_potongan" type="text" value="` + potongan + `"
                                                         placeholder="Potongan" name="detail_penjualan_return_potongan[]" readonly />
                                                 </td>
-                                                <td> <input class="form-control return_total" type="number" value="` + jml_harga + `"
+                                                <td> <input class="form-control return_total" type="text" value="` + jml_harga + `"
                                                         placeholder="Jumlah Harga" name="detail_penjualan_return_total[]" readonly />
                                                 </td>
                                                     <td> 
-                                                    <input class="form-control return_berat" type="text" value="` + kondisi + `"
+                                                    <input class="form-control return_berat" type="text" value="` +  kondisi + `"
                                                         placeholder="Berat Return" name="detail_penjualan_return_kondisi[]" readonly />
                                                 </td>
                                             </tr>`;
@@ -833,45 +872,78 @@
             })
 
             // CETAK LAPORAN
-            $('body').on('click', '#submit-print', function(){
-                var startDate    = $('#start_date').val();
-                var endDate      = $('#end_date').val();
-                var nobukti      = $('#nobukti').val();
-                var namabarang   = $('#namabarang').val();
-                var filter       = $('#filter_data').val();
-                var supplier     = $('#supplier').val();
-                var pabrik       = $('#pabrik').val();
-                var kadar        = $('#kadar').val();
-                var model        = $('#model').val();
-                var jenis        = $(this).attr('data-jenis');
+            $('body').on('click', '#submit-print', function() {
+                var startDate = $('#start_date').val();
+                var endDate = $('#end_date').val();
+                var nobukti = $('#nobukti').val();
+                var namabarang = $('#namabarang').val();
+                var filter = $('#filter_data').val();
+                var supplier = $('#supplier').val();
+                var pabrik = $('#pabrik').val();
+                var kadar = $('#kadar').val();
+                var model = $('#model').val();
+                var jenis = $(this).attr('data-jenis');
                 var format_print = $('#format_print').val();
-                var nofaktur     = $('#nofaktur').val();
+                var nofaktur = $('#nofaktur').val();
 
                 var myArray = [
-                    startDate, endDate, nobukti, namabarang, filter, supplier, pabrik, kadar, model, jenis, format_print, nofaktur
+                    startDate, endDate, nobukti, namabarang, filter, supplier, pabrik, kadar, model,
+                    jenis, format_print, nofaktur
                 ];
 
-                if(format_print === null){
+                if (format_print === null) {
                     Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Data format has not been selected!',
-                            showConfirmButton: false,
-                            timer: 2000
-                        });
-                }else{
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Data format has not been selected!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                } else {
                     // Convert the array to a query parameter string
                     var queryString = 'data=' + JSON.stringify(myArray);
-    
+
                     // Create the URL with query parameters
                     var url = "{{ route('cetak.return') }}?" + queryString;
-    
-                    
+
+
                     // Open the PDF in a new tab/window
                     window.open(url, '_blank');
-                    
+
                     $('#form-print').trigger("reset");
                 }
+            })
+
+            // PREVIEW LAPORAN
+            $('body').on('click', '.preview-btn', function(e) {
+                e.preventDefault();
+
+                var startDate = $('#start_date').val();
+                var endDate = $('#end_date').val();
+                var nobukti = $('#nobukti').val();
+                var namabarang = $('#namabarang').val();
+                var filter = $('#filter_data').val();
+                var supplier = $('#supplier').val();
+                var pabrik = $('#pabrik').val();
+                var kadar = $('#kadar').val();
+                var model = $('#model').val();
+                var nofaktur = $('#nofaktur').val();
+
+                var myArray = [
+                    startDate, endDate, nobukti, namabarang, filter, supplier, pabrik, kadar, model,
+                    nofaktur
+                ];
+
+                // Convert the array to a query parameter string
+                var queryString = 'data=' + JSON.stringify(myArray);
+
+                // Create the URL with query parameters
+                var url = "{{ route('preview.return') }}?" + queryString;
+
+
+                // Open the PDF in a new tab/window
+                window.open(url, '_blank');
+
             })
 
         })

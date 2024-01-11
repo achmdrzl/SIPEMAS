@@ -87,7 +87,7 @@
                                 </div>
                                 <div class="modal-footer align-items-center">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-primary" id="submitMerk">Simpan</button>
+                                    <button type="button" class="btn btn-primary" id="submitMerk">Simpan</button>
                                 </div>
                             </form>
                         </div>

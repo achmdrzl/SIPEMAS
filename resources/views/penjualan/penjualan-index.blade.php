@@ -3,16 +3,20 @@
 @push('style-alt')
     <style>
         .custom-modal-dialog {
-            max-width: 1420px; /* Set your desired width */
+            max-width: 1420px;
+            /* Set your desired width */
             width: 100%;
             margin: 1.75rem auto;
         }
+
         .custom-width-column {
-            width: 10px; /* Set your desired width here */
+            width: 10px;
+            /* Set your desired width here */
         }
 
         #datatable_8 tbody td {
-            font-size: 16px; /*Adjust the font size as needed*/
+            font-size: 16px;
+            /*Adjust the font size as needed*/
             text-align: center;
             padding: 4px;
         }
@@ -83,13 +87,15 @@
                                                         <label class="form-label mb-xl-0">Tanggal :</label>
                                                     </div>
                                                     <div class="col-xl-auto mb-xl-0 mb-2">
-                                                        <input class="form-control" name="start_date" id="start_date" type="date" />
+                                                        <input class="form-control" name="start_date" id="start_date"
+                                                            type="date" />
                                                     </div>
                                                     <div class="col-xl-auto mb-xl-0 mb-2">
                                                         <label class="form-label mb-xl-0">s/d</label>
                                                     </div>
                                                     <div class="col-xl-auto mb-xl-0 mb-2">
-                                                        <input class="form-control" name="end_date" id="end_date" type="date" />
+                                                        <input class="form-control" name="end_date" id="end_date"
+                                                            type="date" />
                                                     </div>
                                                     <div class="col-xl-auto mb-xl-0 mb-2">
                                                         <button class="btn btn-sm btn-primary show-data"><span><span
@@ -97,7 +103,7 @@
                                                                             data-feather="calendar"></i></span></span><span
                                                                     class="btn-text">Tampilkan</span></span></button>
                                                     </div>
-                                                     <div class="col-xl-auto mb-xl-0 mb-2">
+                                                    <div class="col-xl-auto mb-xl-0 mb-2">
                                                         <button class="btn btn-sm btn-secondary restart-sorting"><span><span
                                                                     class="icon"><span class="feather-icon"><i
                                                                             data-feather="refresh-ccw"></i></span></span><span
@@ -134,7 +140,8 @@
                                                             <span class="badge badge-sm badge-light ms-1">5</span>
                                                         </h6>
                                                         <div class="card-action-wrap">
-                                                            <button class="btn btn-sm btn-primary ms-3 create-penjualan"><span><span
+                                                            <button
+                                                                class="btn btn-sm btn-primary ms-3 create-penjualan"><span><span
                                                                         class="icon"><span class="feather-icon"><i
                                                                                 data-feather="plus"></i></span></span><span
                                                                         class="btn-text">Tambah
@@ -189,7 +196,7 @@
                     </div>
                     <form id="penjualanForm">
                         <div class="modal-body">
-                             <div class="alert alert-danger alert-dismissible fade show" role="alert"
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert"
                                 style="display: none;" style="color: red"></div>
                             <div class="row">
                                 <div class="col-md p-2 bg-grey-light-5 rounded">
@@ -198,7 +205,8 @@
                                             <label class="form-label mb-xl-0">Tanggal :</label>
                                         </div>
                                         <div class="col-xl-auto mb-xl-0 mb-2">
-                                            <input class="form-control" type="date" id="penjualan_tanggal" name="penjualan_tanggal" value="{{ date('Y-m-d') }}" />
+                                            <input class="form-control" type="date" id="penjualan_tanggal"
+                                                name="penjualan_tanggal" value="{{ date('Y-m-d') }}" />
                                         </div>
                                         <div class="col-xl-auto mb-xl-0 mb-2">
                                             <label class="form-label mb-xl-0">Keterangan :</label>
@@ -244,48 +252,64 @@
                                                 <tbody>
                                                     <tr>
                                                         <td colspan="3"
-                                                            class="rounded-top-start border-end-0 border-bottom-0">Subtotal :
+                                                            class="rounded-top-start border-end-0 border-bottom-0">Subtotal
+                                                            :
                                                         </td>
-                                                        <td class="rounded-top-end border-bottom-0 w-30 bg-primary-light-5">
+                                                        <td
+                                                            class="rounded-top-end border-bottom-0 w-30 bg-primary-light-5">
                                                             <input type="text"
                                                                 class="form-control bg-transparent border-0 p-0 gross-total"
-                                                                value="0" id="penjualan_subtotal" name="penjualan_subtotal" readonly>
+                                                                value="0" id="penjualan_subtotal"
+                                                                name="penjualan_subtotal" readonly>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td class="border-end-0 border-bottom-0">Diskon : </td>
-                                                        <td colspan="2" class="border-end-0 border-bottom-0 w-25"><input
-                                                                type="text" oninput="test(this);" class="form-control"
-                                                                value="0" id="inputdiskon" name="inputdiskon"></td>
-                                                        <td class="border-bottom-0  bg-primary-light-5"><input type="text"
+                                                        <td colspan="2" class="border-end-0 border-bottom-0 w-25">
+                                                            <input type="text" oninput="test(this);"
+                                                                class="form-control" value="0" id="inputdiskon"
+                                                                name="inputdiskon">
+                                                        </td>
+                                                        <td class="border-bottom-0  bg-primary-light-5"><input
+                                                                type="text"
                                                                 class="form-control bg-transparent border-0 p-0"
-                                                                value="0" id="penjualan_diskon" name="penjualan_diskon" readonly></td>
+                                                                value="0" id="penjualan_diskon"
+                                                                name="penjualan_diskon" readonly></td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="3"
-                                                            class="rounded-bottom-start border-end-0 bg-primary-light-5"><span
-                                                                class="text-dark">Total</span></td>
+                                                            class="rounded-bottom-start border-end-0 bg-primary-light-5">
+                                                            <span class="text-dark">Total</span>
+                                                        </td>
                                                         <td class="rounded-bottom-end  bg-primary-light-5"><input
                                                                 type="text"
                                                                 class="form-control bg-transparent border-0 p-0"
-                                                                value="0" id="penjualan_grandtotal" name="penjualan_grandtotal" readonly></td>
+                                                                value="0" id="penjualan_grandtotal"
+                                                                name="penjualan_grandtotal" readonly></td>
                                                     </tr>
                                                     <tr>
                                                         <td class="border-end-0 border-bottom-0">Tunai : </td>
-                                                        <td colspan="2" class="border-end-0 border-bottom-0 w-25"><input
-                                                                type="text" oninput="test(this);" class="form-control" id="inputtunai" name="inputtunai"></td>
-                                                        <td class="border-bottom-0  bg-primary-light-5"><input type="text"
+                                                        <td colspan="2" class="border-end-0 border-bottom-0 w-25">
+                                                            <input type="text" oninput="test(this);"
+                                                                class="form-control" id="inputtunai" name="inputtunai">
+                                                        </td>
+                                                        <td class="border-bottom-0  bg-primary-light-5"><input
+                                                                type="text"
                                                                 class="form-control bg-transparent border-0 p-0"
-                                                                value="0" id="penjualan_tunai" name="penjualan_tunai" readonly></td>
+                                                                value="0" id="penjualan_tunai"
+                                                                name="penjualan_tunai" readonly></td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="3"
-                                                            class="rounded-top-start border-end-0 border-bottom-0">Kembalian :
+                                                            class="rounded-top-start border-end-0 border-bottom-0">
+                                                            Kembalian :
                                                         </td>
-                                                        <td class="rounded-top-end border-bottom-0 w-30 bg-primary-light-5">
+                                                        <td
+                                                            class="rounded-top-end border-bottom-0 w-30 bg-primary-light-5">
                                                             <input type="text"
                                                                 class="form-control bg-transparent border-0 p-0"
-                                                                value="0" id="penjualan_kembalian" name="penjualan_kembalian" readonly>
+                                                                value="0" id="penjualan_kembalian"
+                                                                name="penjualan_kembalian" readonly>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -297,7 +321,7 @@
                         </div>
                         <div class="modal-footer align-items-center">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                            <button type="submit" id="submitPenjualan" class="btn btn-primary">Simpan</button>
+                            <button type="button" id="submitPenjualan" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -314,9 +338,9 @@
 
 @push('script-alt')
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
 
-             $.ajaxSetup({
+            $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
@@ -366,15 +390,14 @@
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('penjualan.index') }}",
-                 columns: [
-                    {
+                columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
                     },
                     {
                         data: 'penjualan_tanggal',
                         name: 'penjualan_tanggal'
-                    },  
+                    },
                     {
                         data: 'penjualan_nobukti',
                         name: 'penjualan_nobukti'
@@ -396,8 +419,8 @@
 
             var listbarang = $('#datatable_8').DataTable({
                 dom: "<'row'<'col-sm-6'l><'col-sm-3'p><'col-sm-3'f>>" +
-                     "<'row'<'col-sm-12'tr>>" +
-                     "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 scrollX: true,
                 autoWidth: false,
                 language: {
@@ -416,7 +439,7 @@
                 // processing: true,
                 // serverSide: true,
                 ajax: "{{ route('penjualan.barang.index') }}",
-                 columns: [{
+                columns: [{
                         data: 'select',
                         name: 'select',
                     },
@@ -428,7 +451,7 @@
                         data: 'barang_nama',
                         name: 'barang_nama',
                         className: 'custom-width-column' // Add a class for styling
-                    },  
+                    },
                     {
                         data: 'barang_berat',
                         name: 'barang_berat'
@@ -450,10 +473,18 @@
                 lengthMenu: [10, 20, 50, 100, 1000, 10000, 100000, 1000000],
             });
 
+            console.log('check', $('.checklistBtn'));
+
+            // Auto clear search when already checklist the button
+            $('.checklistBtn').on('change', function() {
+                // Clear the DataTable search input
+                listbarang.search('').draw();
+            });
+
             // FILTERED DATA
-           $('.show-data').on('click', function() {
-                var startDate   = $('#start_date').val();
-                var endDate     = $('#end_date').val();
+            $('.show-data').on('click', function() {
+                var startDate = $('#start_date').val();
+                var endDate = $('#end_date').val();
 
                 // Perform validation checks
                 if (startDate === '' || endDate === '') {
@@ -479,16 +510,16 @@
                     url: "{{ route('filtered.data.penjualan') }}",
                     data: {
                         startDate: startDate,
-                        endDate: endDate, 
+                        endDate: endDate,
                     },
                     dataType: "JSON",
-                    success: function (response) {
-                        
-                        if(response.data.length > 0){
+                    success: function(response) {
+
+                        if (response.data.length > 0) {
 
                             // Destroy the existing DataTable
                             transaksiPenjualan.destroy();
-    
+
                             // Reinitialize the DataTable with the updated data
                             transaksiPenjualan = $('#datatable_7').DataTable({
                                 scrollX: true,
@@ -503,45 +534,46 @@
                                     }
                                 },
                                 "drawCallback": function() {
-                                    $('.dataTables_paginate > .pagination').addClass(
-                                        'custom-pagination pagination-simple');
+                                    $('.dataTables_paginate > .pagination')
+                                        .addClass(
+                                            'custom-pagination pagination-simple');
                                 },
                                 // Other DataTable options
-                                data: response.data, // Pass the updated data to the DataTable
-                                  columns: [
-                                        {
-                                            data: 'DT_RowIndex',
-                                            name: 'DT_RowIndex'
-                                        },
-                                        {
-                                            data: 'penjualan_tanggal',
-                                            name: 'penjualan_tanggal'
-                                        },  
-                                        {
-                                            data: 'penjualan_nobukti',
-                                            name: 'penjualan_nobukti'
-                                        },
-                                        {
-                                            data: 'penjualan_grandtotal',
-                                            name: 'penjualan_grandtotal'
-                                        },
-                                        {
-                                            data: 'penjualan_jenis',
-                                            name: 'penjualan_jenis'
-                                        },
-                                        {
-                                            data: 'action',
-                                            name: 'action'
-                                        },
-                                    ],
-                                    columnDefs: columnDefs,
+                                data: response
+                                    .data, // Pass the updated data to the DataTable
+                                columns: [{
+                                        data: 'DT_RowIndex',
+                                        name: 'DT_RowIndex'
+                                    },
+                                    {
+                                        data: 'penjualan_tanggal',
+                                        name: 'penjualan_tanggal'
+                                    },
+                                    {
+                                        data: 'penjualan_nobukti',
+                                        name: 'penjualan_nobukti'
+                                    },
+                                    {
+                                        data: 'penjualan_grandtotal',
+                                        name: 'penjualan_grandtotal'
+                                    },
+                                    {
+                                        data: 'penjualan_jenis',
+                                        name: 'penjualan_jenis'
+                                    },
+                                    {
+                                        data: 'action',
+                                        name: 'action'
+                                    },
+                                ],
+                                columnDefs: columnDefs,
                             });
-    
+
                             // Hide the loading state
                             $('#datatable_7').removeClass('loading');
 
-                        }else{
-                             Swal.fire({
+                        } else {
+                            Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
                                 text: 'Data based on input date is null!',
@@ -554,7 +586,7 @@
             });
 
             // RESTART FILTER
-            $(".restart-sorting").on('click', function(){
+            $(".restart-sorting").on('click', function() {
                 $('#start_date').val('');
                 $('#end_date').val('');
                 // Destroy the existing DataTable
@@ -579,15 +611,14 @@
                     processing: true,
                     serverSide: true,
                     ajax: "{{ route('penjualan.index') }}",
-                    columns: [
-                        {
+                    columns: [{
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex'
                         },
                         {
                             data: 'penjualan_tanggal',
                             name: 'penjualan_tanggal'
-                        },  
+                        },
                         {
                             data: 'penjualan_nobukti',
                             name: 'penjualan_nobukti'
@@ -606,7 +637,7 @@
                         },
                     ]
                 });
-            
+
             })
 
             //  CREATE DATA PENJUALAN.
@@ -628,13 +659,13 @@
                 var selectedValues = [];
 
                 $('.row-checkbox:checked').each(function() {
-                    var row         = $(this).closest('tr');
-                    var rowData     = listbarang.row(row).data();
-                    var barang_id   = rowData.barang_id;
+                    var row = $(this).closest('tr');
+                    var rowData = listbarang.row(row).data();
+                    var barang_id = rowData.barang_id;
                     selectedValues.push(barang_id);
                 });
 
-                if(selectedValues.length > 0){
+                if (selectedValues.length > 0) {
                     $('#penjualanModal').modal('show');
                     // REQUEST SELECTED BARANG
                     $.ajax({
@@ -644,33 +675,38 @@
                             barang_id: selectedValues,
                         },
                         dataType: "JSON",
-                        success: function (response) {
+                        success: function(response) {
                             console.log(response)
                             var listbarang = '';
                             var no = 1;
                             // LOOPING BARANG
-                            $.each(response, function (index, value) { 
-                                const barangid     = value['barang_id']
-                                const barangkode   = value['barang_kode']
-                                const barangnama   = value['barang_nama']
-                                const barangfoto   = value['barang_foto'] ?? null
-                                const barangberat  = parseFloat(value['barang_berat']).toFixed(2);
-                                const kadar        = value['kadar']['kadar_nama']
-                                const harga_jual_1 = value['kadar']['kadar_harga_jual_1']
-                                const harga_jual_2 = value['kadar']['kadar_harga_jual_2']
+                            $.each(response, function(index, value) {
+                                const barangid = value['barang_id']
+                                const barangkode = value['barang_kode']
+                                const barangnama = value['barang_nama']
+                                const barangfoto = value['barang_foto'] ?? null
+                                const barangberat = parseFloat(value['barang_berat'])
+                                    .toFixed(2);
+                                const kadar = value['kadar']['kadar_nama']
+                                const harga_jual_1 = value['kadar'][
+                                    'kadar_harga_jual_1'
+                                ]
+                                const harga_jual_2 = value['kadar'][
+                                    'kadar_harga_jual_2'
+                                ]
 
                                 let ppn; // Declare the ppn variable
 
                                 if (value.transaksipenjualandetail.length > 0) {
-                                // If the length is greater than 0, set ppn to 1.65
-                                ppn = 1.65;
+                                    // If the length is greater than 0, set ppn to 1.65
+                                    ppn = 1.65;
                                 } else {
-                                // If the length is not greater than 0, set ppn to 1.15
-                                ppn = 1.15;
+                                    // If the length is not greater than 0, set ppn to 1.15
+                                    ppn = 1.15;
                                 }
 
                                 listbarang += `<tr>
-                                                    <td>`+ no++ +`</td>
+                                                    <td>` + no++ + `</td>
                                                     <td style="width:200px">
                                                         <div class="media align-items-center">
                                                             <div class="media-head me-2">
@@ -686,20 +722,25 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>`+ kadar +`</td>
-                                                    <td>`+ barangberat +`</td>
+                                                    <td>` + kadar + `</td>
+                                                    <td>` + barangberat + `</td>
                                                     <td>
-                                                        <input class="form-control barang_id" type="hidden" value="`+ barangid +`"
+                                                        <input class="form-control barang_id" type="hidden" value="` +
+                                    barangid + `"
                                                             placeholder="Barang Id" name="barang_id[]" />
-                                                        <input class="form-control ppn" type="hidden" value="`+ ppn +`"
+                                                        <input class="form-control ppn" type="hidden" value="` + ppn +
+                                    `"
                                                             placeholder="ppn" name="ppn[]" />
-                                                        <input class="form-control penjualan_berat_jual" type="number" value="`+ barangberat +`"
+                                                        <input class="form-control penjualan_berat_jual" type="number" value="` +
+                                    barangberat + `"
                                                             placeholder="Berat Jual" name="detail_penjualan_berat_jual[]" />
                                                     </td>
                                                     <td> <select class="form-select penjualan_harga" name="detail_penjualan_harga[]">
                                                                 <option value="" selected disabled>--</option>
-                                                                <option value="`+ harga_jual_1 +`">`+ rupiah(harga_jual_1) +`</option>
-                                                                <option value="`+ harga_jual_2 +`">`+ rupiah(harga_jual_2) +`</option>
+                                                                <option value="` + harga_jual_1 + `">` + rupiah(
+                                        harga_jual_1) + `</option>
+                                                                <option value="` + harga_jual_2 + `">` + rupiah(
+                                        harga_jual_2) + `</option>
                                                             </select>
                                                     </td>
                                                     <td> <input class="form-control penjualan_ongkos" type="text" oninput="test(this);" value=""
@@ -712,7 +753,7 @@
                                                             placeholder="Jumlah Harga" name="detail_penjualan_total[]" readonly />
                                                     </td>
                                              </tr>`;
-    
+
                             });
                             $("#list-barang").html(listbarang)
                             $("#submitPenjualan").prop('hidden', false);
@@ -720,7 +761,7 @@
                         }
                     });
 
-                }else{
+                } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -733,7 +774,7 @@
             });
 
             // EDIT PENJUALAN
-            $('body').on('click', '#edit-penjualan', function(){
+            $('body').on('click', '#edit-penjualan', function() {
                 var penjualan_id = $(this).attr('data-id')
                 $('.alert').hide();
                 $('#saveBtn').val("create-barang");
@@ -754,20 +795,25 @@
                         penjualan_id: penjualan_id,
                     },
                     dataType: "JSON",
-                    success: function (response) {
+                    success: function(response) {
                         console.log(response)
-                        const penjualan_tanggal     = response.penjualan_tanggal;
-                        const keterangan            = response.penjualan_keterangan;
-                        const subtotal              = response.penjualan_subtotal;
-                        const subtotalFormatted     = formatWithCommaSeparator(response.penjualan_subtotal);
-                        const diskon                = response.penjualan_diskon ?? 0;
-                        const diskonFormatted       = formatWithCommaSeparator(response.penjualan_diskon ?? 0);
-                        const bayar                 = response.penjualan_bayar;
-                        const bayarFormatted        = formatWithCommaSeparator(response.penjualan_bayar);
-                        const grandtotal            = response.penjualan_grandtotal;
-                        const grandTotalFormatted   = formatWithCommaSeparator(response.penjualan_grandtotal);
-                        const kembalian             = response.penjualan_kembalian;
-                        const kembalianFormatted    = formatWithCommaSeparator(response.penjualan_kembalian);
+                        const penjualan_tanggal = response.penjualan_tanggal;
+                        const keterangan = response.penjualan_keterangan;
+                        const subtotal = response.penjualan_subtotal;
+                        const subtotalFormatted = formatWithCommaSeparator(response
+                            .penjualan_subtotal);
+                        const diskon = response.penjualan_diskon ?? 0;
+                        const diskonFormatted = formatWithCommaSeparator(response
+                            .penjualan_diskon ?? 0);
+                        const bayar = response.penjualan_bayar;
+                        const bayarFormatted = formatWithCommaSeparator(response
+                            .penjualan_bayar);
+                        const grandtotal = response.penjualan_grandtotal;
+                        const grandTotalFormatted = formatWithCommaSeparator(response
+                            .penjualan_grandtotal);
+                        const kembalian = response.penjualan_kembalian;
+                        const kembalianFormatted = formatWithCommaSeparator(response
+                            .penjualan_kembalian);
 
                         $("#penjualan_tanggal").val(penjualan_tanggal).prop('readonly', false)
                         $("#penjualan_keterangan").val(keterangan).prop('readonly', false)
@@ -775,11 +821,11 @@
                         $('#inputdiskon').val(diskonFormatted).prop('readonly', false);
                         $('#inputdiskon').attr('data-value', diskon);
 
-                        $('#inputtunai').val(bayarFormatted).prop('readonly', false);             
-                        $('#inputtunai').attr('data-value', bayar);             
+                        $('#inputtunai').val(bayarFormatted).prop('readonly', false);
+                        $('#inputtunai').attr('data-value', bayar);
 
-                        $('#penjualan_subtotal').val(subtotalFormatted)                
-                        $('#penjualan_subtotal').attr('data-value', subtotal)       
+                        $('#penjualan_subtotal').val(subtotalFormatted)
+                        $('#penjualan_subtotal').attr('data-value', subtotal)
 
                         $('#penjualan_diskon').val(diskonFormatted)
                         $('#penjualan_diskon').attr('data-value', diskon)
@@ -805,31 +851,40 @@
 
                         var detailListBarang = '';
                         var no = 1;
-                        $.each(response.penjualandetail, function (index, value) {
-                            const kadar             = value['barang']['kadar']['kadar_nama']
-                            const berat_jual        = value['detail_penjualan_berat_jual']
-                            const harga             = value['detail_penjualan_harga']
-                            const ongkos            = value['detail_penjualan_ongkos'] ?? 0
-                            const ongkosFormatted   = formatWithCommaSeparator(value['detail_penjualan_ongkos'] ?? 0) 
-                            const diskon            = value['detail_penjualan_diskon'] ?? 0
-                            const diskonFormatted   = formatWithCommaSeparator(value['detail_penjualan_diskon'] ?? 0) 
-                            const total             = value['detail_penjualan_jml_harga']
-                            const totalFormatted    = formatWithCommaSeparator(value['detail_penjualan_jml_harga']) 
+                        $.each(response.penjualandetail, function(index, value) {
+                            const kadar = value['barang']['kadar']['kadar_nama']
+                            const berat_jual = value['detail_penjualan_berat_jual']
+                            const harga = value['detail_penjualan_harga']
+                            const ongkos = value['detail_penjualan_ongkos'] ?? 0
+                            const ongkosFormatted = formatWithCommaSeparator(value[
+                                'detail_penjualan_ongkos'] ?? 0)
+                            const diskon = value['detail_penjualan_diskon'] ?? 0
+                            const diskonFormatted = formatWithCommaSeparator(value[
+                                'detail_penjualan_diskon'] ?? 0)
+                            const total = value['detail_penjualan_jml_harga']
+                            const totalFormatted = formatWithCommaSeparator(value[
+                                'detail_penjualan_jml_harga'])
 
-                            const barang_kode       = value['barang']['barang_kode']
-                            const barang_nama       = value['barang']['barang_nama']
-                            const barang_berat      = parseFloat(value['barang']['barang_berat']).toFixed(2);
-                            const barangfoto        = value['barang']['barang_foto'] ?? null
+                            const barang_kode = value['barang']['barang_kode']
+                            const barang_nama = value['barang']['barang_nama']
+                            const barang_berat = parseFloat(value['barang'][
+                                'barang_berat'
+                            ]).toFixed(2);
+                            const barangfoto = value['barang']['barang_foto'] ?? null
 
-                            const barangid          = value['barang_id']
+                            const barangid = value['barang_id']
 
-                            const harga_jual_1      = value['barang']['kadar']['kadar_harga_jual_1']
-                            const harga_jual_2      = value['barang']['kadar']['kadar_harga_jual_2']
+                            const harga_jual_1 = value['barang']['kadar'][
+                                'kadar_harga_jual_1'
+                            ]
+                            const harga_jual_2 = value['barang']['kadar'][
+                                'kadar_harga_jual_2'
+                            ]
 
-                            const penjualan_id      = value['penjualan_id']
+                            const penjualan_id = value['penjualan_id']
 
                             detailListBarang += `<tr>
-                                                    <td>`+ no++ +`</td>
+                                                    <td>` + no++ + `</td>
                                                     <td>
                                                         <div class="media align-items-center">
                                                             <div class="media-head me-2">
@@ -845,34 +900,49 @@
                                                             </div>
                                                         </div>    
                                                     </td>
-                                                    <td>`+ kadar +`</td>
-                                                    <td>`+ barang_berat +`</td>
+                                                    <td>` + kadar + `</td>
+                                                    <td>` + barang_berat + `</td>
                                                     <td>
-                                                        <input class="form-control barang_id" type="hidden" value="`+ barangid +`"
+                                                        <input class="form-control barang_id" type="hidden" value="` +
+                                barangid + `"
                                                             placeholder="Barang Id" name="barang_id[]" />
-                                                        <input class="form-control ppn" type="hidden" value="`+ ppn +`"
+                                                        <input class="form-control ppn" type="hidden" value="` + ppn +
+                                `"
                                                             placeholder="ppn" name="ppn[]" />
-                                                        <input class="form-control penjualan_id" type="hidden" value="`+ penjualan_id +`"
+                                                        <input class="form-control penjualan_id" type="hidden" value="` +
+                                penjualan_id +
+                                `"
                                                             placeholder="Barang Id" name="penjualan_id[]" />
 
                                                         <input class="form-control penjualan_berat_jual" type="number"
-                                                            placeholder="Berat Jual" name="detail_penjualan_berat_jual[]" value="`+ berat_jual +`" />
+                                                            placeholder="Berat Jual" name="detail_penjualan_berat_jual[]" value="` +
+                                berat_jual + `" />
                                                     </td>
                                                     <td>
                                                         <select class="form-select penjualan_harga" name="detail_penjualan_harga[]">
                                                             <option value="" selected disabled>--</option>
-                                                            <option value="` + harga_jual_1 + `" ` + (harga === harga_jual_1 ? "selected" : "") + `>` + rupiah(harga_jual_1) + `</option>
-                                                            <option value="` + harga_jual_2 + `" ` + (harga === harga_jual_2 ? "selected" : "") + `>` + rupiah(harga_jual_2) + `</option>
+                                                            <option value="` + harga_jual_1 + `" ` + (harga ===
+                                    harga_jual_1 ? "selected" : "") + `>` + rupiah(
+                                    harga_jual_1) + `</option>
+                                                            <option value="` + harga_jual_2 + `" ` + (harga ===
+                                    harga_jual_2 ? "selected" : "") + `>` + rupiah(
+                                    harga_jual_2) +
+                                `</option>
                                                         </select>
                                                     </td>
                                                     </td>
-                                                    <td> <input class="form-control penjualan_ongkos" type="text" oninput="test(this);" value="`+ ongkosFormatted +`" data-value="${ongkos}"
+                                                    <td> <input class="form-control penjualan_ongkos" type="text" oninput="test(this);" value="` +
+                                ongkosFormatted +
+                                `" data-value="${ongkos}"
                                                             placeholder="Ongkos" name="detail_penjualan_ongkos[]" />
                                                     </td>
-                                                    <td> <input class="form-control penjualan_diskon" type="text" oninput="test(this);" value="`+ diskonFormatted +`" data-value="${diskon}"
+                                                    <td> <input class="form-control penjualan_diskon" type="text" oninput="test(this);" value="` +
+                                diskonFormatted +
+                                `" data-value="${diskon}"
                                                             placeholder="Diskon" name="detail_penjualan_diskon[]" />
                                                     </td>
-                                                    <td> <input class="form-control penjualan_total" type="text" value="`+ totalFormatted +`" data-value="${total}"
+                                                    <td> <input class="form-control penjualan_total" type="text" value="` +
+                                totalFormatted + `" data-value="${total}"
                                                             placeholder="Jumlah Harga" name="detail_penjualan_total[]" readonly />
                                                     </td>
                                              </tr>`;
@@ -889,55 +959,59 @@
             // Function to format a number with a comma separator per 1,000
             function formatWithCommaSeparator(number) {
                 return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            }   
+            }
 
             // Calculate and update the totals for each row
-           $('body').on('input', '.penjualan_berat_jual, .penjualan_harga, .penjualan_ongkos, .penjualan_diskon, #inputdiskon, #inputtunai', function() {
-                var row         = $(this).closest('tr');
-                var beratJual   = parseFloat(row.find('.penjualan_berat_jual').val()) || 0;
-                var hargaJual   = parseFloat(row.find('.penjualan_harga').val()) || 0;
-                // var ongkos   = parseFloat(row.find('.penjualan_ongkos').val()) || 0;
-                var ongkos      = parseFloat(row.find('.penjualan_ongkos').attr('data-value')) || 0;
-                // var diskon   = parseFloat(row.find('.penjualan_diskon').val()) || 0;
-                var diskon      = parseFloat(row.find('.penjualan_diskon').attr('data-value')) || 0;
+            $('body').on('input',
+                '.penjualan_berat_jual, .penjualan_harga, .penjualan_ongkos, .penjualan_diskon, #inputdiskon, #inputtunai',
+                function() {
+                    var row = $(this).closest('tr');
+                    var beratJual = parseFloat(row.find('.penjualan_berat_jual').val()) || 0;
+                    var hargaJual = parseFloat(row.find('.penjualan_harga').val()) || 0;
+                    // var ongkos   = parseFloat(row.find('.penjualan_ongkos').val()) || 0;
+                    var ongkos = parseFloat(row.find('.penjualan_ongkos').attr('data-value')) || 0;
+                    // var diskon   = parseFloat(row.find('.penjualan_diskon').val()) || 0;
+                    var diskon = parseFloat(row.find('.penjualan_diskon').attr('data-value')) || 0;
 
-                var total       = ((beratJual * hargaJual + ongkos) - diskon); // Barang Berat * Harga Beli * Nilai Tukar
-                var decimalPlaces = 0; // Change this number to round to a different number of decimal places
+                    var total = ((beratJual * hargaJual + ongkos) -
+                        diskon); // Barang Berat * Harga Beli * Nilai Tukar
+                    var decimalPlaces =
+                        0; // Change this number to round to a different number of decimal places
 
-                // Round the total value to the specified decimal places
-                total = parseFloat(total.toFixed(decimalPlaces));
+                    // Round the total value to the specified decimal places
+                    total = parseFloat(total.toFixed(decimalPlaces));
 
-                var totalFormatted = formatWithCommaSeparator(total);
+                    var totalFormatted = formatWithCommaSeparator(total);
 
-                row.find('.penjualan_total').val(totalFormatted);
-                row.find('.penjualan_total').attr('data-value', total);
-                calculateGrandTotal();
-            });
+                    row.find('.penjualan_total').val(totalFormatted);
+                    row.find('.penjualan_total').attr('data-value', total);
+                    calculateGrandTotal();
+                });
 
             // Calculate the grandtotal
             function calculateGrandTotal() {
                 var subtotal = 0;
                 $('.penjualan_total').each(function() {
                     // var totalValue  = parseFloat($(this).val()) || 0;
-                    var totalValue  = parseFloat($(this).attr('data-value')) || 0;
+                    var totalValue = parseFloat($(this).attr('data-value')) || 0;
                     subtotal += totalValue;
                 });
 
                 // var inputdiskon  = parseFloat($("#inputdiskon").val()) || 0;
-                var inputdiskon     = parseFloat($("#inputdiskon").attr('data-value')) || 0;
+                var inputdiskon = parseFloat($("#inputdiskon").attr('data-value')) || 0;
                 // var inputtunai   = parseFloat($("#inputtunai").val()) || 0;
-                var inputtunai      = parseFloat($("#inputtunai").attr('data-value')) || 0;
-                var grandTotal      = subtotal - inputdiskon; // Grand Total Formula
-                var kembalian       = inputtunai - grandTotal; // Kembalian Formula
+                var inputtunai = parseFloat($("#inputtunai").attr('data-value')) || 0;
+                var grandTotal = subtotal - inputdiskon; // Grand Total Formula
+                var kembalian = inputtunai - grandTotal; // Kembalian Formula
 
-                var diskonFormatted     = formatWithCommaSeparator(inputdiskon)
-                var tunaiFormatted      = formatWithCommaSeparator(inputtunai)
-                var subtotalFormatted   = formatWithCommaSeparator(subtotal)
+                var diskonFormatted = formatWithCommaSeparator(inputdiskon)
+                var tunaiFormatted = formatWithCommaSeparator(inputtunai)
+                var subtotalFormatted = formatWithCommaSeparator(subtotal)
                 var grandTotalFormatted = formatWithCommaSeparator(grandTotal)
-                var kembalianFormatted  = formatWithCommaSeparator(kembalian)
+                var kembalianFormatted = formatWithCommaSeparator(kembalian)
 
-                $('#penjualan_subtotal').val(subtotalFormatted);           
-                $('#penjualan_subtotal').attr('data-value', subtotal);           
+                $('#penjualan_subtotal').val(subtotalFormatted);
+                $('#penjualan_subtotal').attr('data-value', subtotal);
                 $('#penjualan_diskon').val(diskonFormatted);
                 $('#penjualan_diskon').attr('data-value', inputdiskon);
                 $('#penjualan_grandtotal').val(grandTotalFormatted);
@@ -947,7 +1021,7 @@
                 $("#penjualan_kembalian").val(kembalianFormatted)
                 $("#penjualan_kembalian").attr('data-value', kembalian)
             }
-            
+
             // RUNNING FUNCTION SUM GRAND TOTAL
             calculateGrandTotal();
 
@@ -958,18 +1032,18 @@
 
                 var edit = $(this).hasClass('edit')
 
-                if(edit){
+                if (edit) {
                     const swalWithBootstrapButtons = Swal.mixin({
                         customClass: {
                             confirmButton: "btn btn-success",
                             cancelButton: "btn btn-danger me-2",
                         },
                         buttonsStyling: false,
-    
+
                     });
-    
-                    var order_id  = $(this).attr('data-id')
-    
+
+                    var order_id = $(this).attr('data-id')
+
                     swalWithBootstrapButtons
                         .fire({
                             title: "Apakah Anda Yakin Akan Mengubah Data?",
@@ -983,7 +1057,7 @@
                         })
                         .then((result) => {
                             if (result.value) {
-    
+
                                 $.ajax({
                                     url: "{{ route('penjualan.store') }}",
                                     data: new FormData(this.form),
@@ -998,7 +1072,8 @@
                                             $('.alert').html('');
                                             $.each(response.errors, function(key, value) {
                                                 $('.alert-danger').show();
-                                                $('.alert-danger').append('<strong><li>' + value +
+                                                $('.alert-danger').append(
+                                                    '<strong><li>' + value +
                                                     '</li></strong>');
                                             });
                                             $('#submitPenjualan').html('Simpan');
@@ -1026,24 +1101,32 @@
                                             listbarang.draw();
                                             transaksiPenjualan.draw();
 
-                                            
+
                                             setTimeout(function() {
 
                                                 $.ajax({
                                                     url: '/latest-penjualan',
                                                     type: 'GET',
-                                                    success: function(data) {
-                                                        var penjualan_id = data.latestPenjualanId;
+                                                    success: function(
+                                                        data) {
+                                                        var penjualan_id =
+                                                            data
+                                                            .latestPenjualanId;
                                                         // Use the penjualan_id in your code
-                                                        console.log('Latest Penjualan ID: ' + penjualan_id);
+                                                        console.log(
+                                                            'Latest Penjualan ID: ' +
+                                                            penjualan_id
+                                                        );
 
-                                                        const swalWithBootstrapButtons = Swal.mixin({
-                                                            customClass: {
-                                                                confirmButton: "btn btn-success",
-                                                                cancelButton: "btn btn-danger me-2",
-                                                            },
-                                                            buttonsStyling: false,
-                                                        });
+                                                        const
+                                                            swalWithBootstrapButtons =
+                                                            Swal.mixin({
+                                                                customClass: {
+                                                                    confirmButton: "btn btn-success",
+                                                                    cancelButton: "btn btn-danger me-2",
+                                                                },
+                                                                buttonsStyling: false,
+                                                            });
 
                                                         swalWithBootstrapButtons
                                                             .fire({
@@ -1056,46 +1139,75 @@
                                                                 confirmButtonText: "Ya",
                                                                 reverseButtons: true,
                                                             })
-                                                            .then((result) => {
-                                                                if (result.value) {
-                            
+                                                            .then((
+                                                                result
+                                                                ) => {
+                                                                if (result
+                                                                    .value
+                                                                ) {
+
                                                                     // Convert the array to a query parameter string
-                                                                    var queryString = 'data=' + JSON.stringify(penjualan_id);
-                            
+                                                                    var queryString =
+                                                                        'data=' +
+                                                                        JSON
+                                                                        .stringify(
+                                                                            penjualan_id
+                                                                        );
+
                                                                     // Create the URL with query parameters
-                                                                    var url = "{{ route('cetak.faktur.penjualan') }}?" + queryString;
-                            
+                                                                    var url =
+                                                                        "{{ route('cetak.faktur.penjualan') }}?" +
+                                                                        queryString;
+
                                                                     // Open the PDF in a new tab/window
-                                                                    window.open(url, '_blank');
-                            
+                                                                    window
+                                                                        .open(
+                                                                            url,
+                                                                            '_blank'
+                                                                        );
+
                                                                     // Introduce a delay of, for example, 2 seconds (2000 milliseconds) before reloading
-                                                                    setTimeout(function() {
-                                                                        window.location.reload();
-                                                                    }, 2000);
+                                                                    setTimeout
+                                                                        (function() {
+                                                                                window
+                                                                                    .location
+                                                                                    .reload();
+                                                                            },
+                                                                            2000
+                                                                        );
 
                                                                 } else {
-                                                                    Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
+                                                                    Swal.fire(
+                                                                        "Cancel!",
+                                                                        "Perintah dibatalkan!",
+                                                                        "error"
+                                                                    );
                                                                     // Introduce a delay of, for example, 2 seconds (2000 milliseconds) before reloading
-                                                                    setTimeout(function() {
-                                                                        window.location.reload();
-                                                                    }, 2000);
+                                                                    setTimeout
+                                                                        (function() {
+                                                                                window
+                                                                                    .location
+                                                                                    .reload();
+                                                                            },
+                                                                            2000
+                                                                        );
                                                                 }
                                                             });
                                                     }
                                                 });
-                    
+
                                             }, 2000);
 
                                         }
                                     }
                                 });
-    
+
                             } else {
                                 $('#submitPenjualan').html('Simpan');
                                 Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
                             }
                         });
-                }else{
+                } else {
                     $.ajax({
                         url: "{{ route('penjualan.store') }}",
                         data: new FormData(this.form),
@@ -1103,7 +1215,7 @@
                         processData: false,
                         contentType: false,
                         type: "POST",
-    
+
                         success: function(response) {
                             console.log(response)
                             if (response.errors) {
@@ -1114,10 +1226,10 @@
                                         '</li></strong>');
                                 });
                                 $('#submitPenjualan').html('Simpan');
-    
+
                             } else {
                                 $('.btn-warning').hide();
-    
+
                                 const Toast = Swal.mixin({
                                     toast: true,
                                     position: 'top-end',
@@ -1125,38 +1237,42 @@
                                     timer: 2000,
                                     timerProgressBar: true,
                                 });
-    
+
                                 Toast.fire({
                                     icon: 'success',
                                     title: `${response.message}`,
                                 })
-    
+
                                 $('#penjualanForm').trigger("reset");
                                 $('#submitPenjualan').html('Simpan');
                                 $('#penjualanModal').modal('hide');
-    
+
                                 listbarang.draw();
                                 transaksiPenjualan.draw();
-    
-                                
+
+
                                 setTimeout(function() {
-    
+
                                     $.ajax({
                                         url: '/latest-penjualan',
                                         type: 'GET',
                                         success: function(data) {
-                                            var penjualan_id = data.latestPenjualanId;
+                                            var penjualan_id = data
+                                                .latestPenjualanId;
                                             // Use the penjualan_id in your code
-                                            console.log('Latest Penjualan ID: ' + penjualan_id);
-    
-                                            const swalWithBootstrapButtons = Swal.mixin({
-                                                customClass: {
-                                                    confirmButton: "btn btn-success",
-                                                    cancelButton: "btn btn-danger me-2",
-                                                },
-                                                buttonsStyling: false,
-                                            });
-    
+                                            console.log(
+                                                'Latest Penjualan ID: ' +
+                                                penjualan_id);
+
+                                            const swalWithBootstrapButtons =
+                                                Swal.mixin({
+                                                    customClass: {
+                                                        confirmButton: "btn btn-success",
+                                                        cancelButton: "btn btn-danger me-2",
+                                                    },
+                                                    buttonsStyling: false,
+                                                });
+
                                             swalWithBootstrapButtons
                                                 .fire({
                                                     title: "Apakah kamu ingin mencetak faktur penjualan?",
@@ -1170,34 +1286,52 @@
                                                 })
                                                 .then((result) => {
                                                     if (result.value) {
-                
+
                                                         // Convert the array to a query parameter string
-                                                        var queryString = 'data=' + JSON.stringify(penjualan_id);
-                
+                                                        var queryString =
+                                                            'data=' +
+                                                            JSON
+                                                            .stringify(
+                                                                penjualan_id
+                                                            );
+
                                                         // Create the URL with query parameters
-                                                        var url = "{{ route('cetak.faktur.penjualan') }}?" + queryString;
-                
+                                                        var url =
+                                                            "{{ route('cetak.faktur.penjualan') }}?" +
+                                                            queryString;
+
                                                         // Open the PDF in a new tab/window
-                                                        window.open(url, '_blank');
-                
+                                                        window.open(url,
+                                                            '_blank'
+                                                        );
+
                                                         // Introduce a delay of, for example, 2 seconds (2000 milliseconds) before reloading
-                                                        setTimeout(function() {
-                                                            window.location.reload();
-                                                        }, 2000);
-    
+                                                        setTimeout(
+                                                            function() {
+                                                                window
+                                                                    .location
+                                                                    .reload();
+                                                            }, 2000);
+
                                                     } else {
-                                                        Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
+                                                        Swal.fire(
+                                                            "Cancel!",
+                                                            "Perintah dibatalkan!",
+                                                            "error");
                                                         // Introduce a delay of, for example, 2 seconds (2000 milliseconds) before reloading
-                                                        setTimeout(function() {
-                                                            window.location.reload();
-                                                        }, 2000);
+                                                        setTimeout(
+                                                            function() {
+                                                                window
+                                                                    .location
+                                                                    .reload();
+                                                            }, 2000);
                                                     }
                                                 });
                                         }
                                     });
-        
+
                                 }, 2000);
-    
+
                             }
                         }
                     });
@@ -1206,7 +1340,7 @@
             });
 
             // DETAIL PENJUALAN
-            $('body').on('click', '#detail-penjualan', function(){
+            $('body').on('click', '#detail-penjualan', function() {
                 var penjualan_id = $(this).attr('data-id')
                 $('.alert').hide();
                 $('#saveBtn').val("create-barang");
@@ -1224,20 +1358,25 @@
                         penjualan_id: penjualan_id,
                     },
                     dataType: "JSON",
-                    success: function (response) {
+                    success: function(response) {
                         console.log(response)
-                        const penjualan_tanggal     = response.penjualan_tanggal;
-                        const keterangan            = response.penjualan_keterangan;
-                        const subtotal              = response.penjualan_subtotal;
-                        const subtotalFormatted     = formatWithCommaSeparator(response.penjualan_subtotal);
-                        const diskon                = response.penjualan_diskon ?? 0;
-                        const diskonFormatted       = formatWithCommaSeparator(response.penjualan_diskon ?? 0);
-                        const bayar                 = response.penjualan_bayar;
-                        const bayarFormatted        = formatWithCommaSeparator(response.penjualan_bayar);
-                        const grandtotal            = response.penjualan_grandtotal;
-                        const grandTotalFormatted   = formatWithCommaSeparator(response.penjualan_grandtotal);
-                        const kembalian             = response.penjualan_kembalian;
-                        const kembalianFormatted    = formatWithCommaSeparator(response.penjualan_kembalian);
+                        const penjualan_tanggal = response.penjualan_tanggal;
+                        const keterangan = response.penjualan_keterangan;
+                        const subtotal = response.penjualan_subtotal;
+                        const subtotalFormatted = formatWithCommaSeparator(response
+                            .penjualan_subtotal);
+                        const diskon = response.penjualan_diskon ?? 0;
+                        const diskonFormatted = formatWithCommaSeparator(response
+                            .penjualan_diskon ?? 0);
+                        const bayar = response.penjualan_bayar;
+                        const bayarFormatted = formatWithCommaSeparator(response
+                            .penjualan_bayar);
+                        const grandtotal = response.penjualan_grandtotal;
+                        const grandTotalFormatted = formatWithCommaSeparator(response
+                            .penjualan_grandtotal);
+                        const kembalian = response.penjualan_kembalian;
+                        const kembalianFormatted = formatWithCommaSeparator(response
+                            .penjualan_kembalian);
 
                         $("#penjualan_tanggal").val(penjualan_tanggal).prop('readonly', true)
                         $("#penjualan_keterangan").val(keterangan).prop('readonly', true)
@@ -1245,11 +1384,11 @@
                         $('#inputdiskon').val(diskonFormatted).prop('readonly', true);
                         $('#inputdiskon').attr('data-value', diskon);
 
-                        $('#inputtunai').val(bayarFormatted).prop('readonly', true);             
-                        $('#inputtunai').attr('data-value', bayar);             
+                        $('#inputtunai').val(bayarFormatted).prop('readonly', true);
+                        $('#inputtunai').attr('data-value', bayar);
 
-                        $('#penjualan_subtotal').val(subtotalFormatted)                
-                        $('#penjualan_subtotal').attr('data-value', subtotal)       
+                        $('#penjualan_subtotal').val(subtotalFormatted)
+                        $('#penjualan_subtotal').attr('data-value', subtotal)
 
                         $('#penjualan_diskon').val(diskonFormatted)
                         $('#penjualan_diskon').attr('data-value', diskon)
@@ -1265,24 +1404,30 @@
 
                         var detailListBarang = '';
                         var no = 1;
-                        $.each(response.penjualandetail, function (index, value) {
-                            const kadar             = value['barang']['kadar']['kadar_nama']
-                            const berat_jual        = value['detail_penjualan_berat_jual']
-                            const harga             = formatWithCommaSeparator(value['detail_penjualan_harga']) 
-                            const ongkos            = value['detail_penjualan_ongkos'] ?? 0
-                            const ongkosFormatted   = formatWithCommaSeparator(value['detail_penjualan_ongkos'] ?? 0) 
-                            const diskon            = value['detail_penjualan_diskon'] ?? 0
-                            const diskonFormatted   = formatWithCommaSeparator(value['detail_penjualan_diskon'] ?? 0) 
-                            const total             = value['detail_penjualan_jml_harga']
-                            const totalFormatted    = formatWithCommaSeparator(value['detail_penjualan_jml_harga']) 
+                        $.each(response.penjualandetail, function(index, value) {
+                            const kadar = value['barang']['kadar']['kadar_nama']
+                            const berat_jual = value['detail_penjualan_berat_jual']
+                            const harga = formatWithCommaSeparator(value[
+                                'detail_penjualan_harga'])
+                            const ongkos = value['detail_penjualan_ongkos'] ?? 0
+                            const ongkosFormatted = formatWithCommaSeparator(value[
+                                'detail_penjualan_ongkos'] ?? 0)
+                            const diskon = value['detail_penjualan_diskon'] ?? 0
+                            const diskonFormatted = formatWithCommaSeparator(value[
+                                'detail_penjualan_diskon'] ?? 0)
+                            const total = value['detail_penjualan_jml_harga']
+                            const totalFormatted = formatWithCommaSeparator(value[
+                                'detail_penjualan_jml_harga'])
 
-                            const barang_kode   = value['barang']['barang_kode']
-                            const barang_nama   = value['barang']['barang_nama']
-                            const barang_berat  = parseFloat(value['barang']['barang_berat']).toFixed(2);
-                            const barangfoto    = value['barang']['barang_foto'] ?? null
+                            const barang_kode = value['barang']['barang_kode']
+                            const barang_nama = value['barang']['barang_nama']
+                            const barang_berat = parseFloat(value['barang'][
+                                'barang_berat'
+                            ]).toFixed(2);
+                            const barangfoto = value['barang']['barang_foto'] ?? null
 
                             detailListBarang += `<tr>
-                                                    <td>`+ no++ +`</td>
+                                                    <td>` + no++ + `</td>
                                                     <td>
                                                         <div class="media align-items-center">
                                                             <div class="media-head me-2">
@@ -1298,22 +1443,32 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>`+ kadar +`</td>
-                                                    <td>`+ barang_berat +`</td>
+                                                    <td>` + kadar + `</td>
+                                                    <td>` + barang_berat +
+                                `</td>
                                                     <td>
                                                         <input class="form-control penjualan_berat_jual" type="number"
-                                                            placeholder="Berat Jual" name="detail_penjualan_berat_jual[]" value="`+ berat_jual +`" readonly />
+                                                            placeholder="Berat Jual" name="detail_penjualan_berat_jual[]" value="` +
+                                berat_jual +
+                                `" readonly />
                                                     </td>
-                                                    <td> <input class="form-control penjualan_harga" type="text" value="`+ harga +`"
+                                                    <td> <input class="form-control penjualan_harga" type="text" value="` +
+                                harga +
+                                `"
                                                             placeholder="Harga" name="detail_penjualan_harga[]" readonly />
                                                     </td>
-                                                    <td> <input class="form-control penjualan_ongkos" type="text" value="`+ ongkosFormatted +`"
+                                                    <td> <input class="form-control penjualan_ongkos" type="text" value="` +
+                                ongkosFormatted +
+                                `"
                                                             placeholder="Ongkos" name="detail_penjualan_ongkos[]" readonly />
                                                     </td>
-                                                    <td> <input class="form-control penjualan_diskon" type="text" value="`+ diskonFormatted +`"
+                                                    <td> <input class="form-control penjualan_diskon" type="text" value="` +
+                                diskonFormatted +
+                                `"
                                                             placeholder="Diskon" name="detail_penjualan_diskon[]" readonly />
                                                     </td>
-                                                    <td> <input class="form-control penjualan_total" type="text" value="`+ totalFormatted +`"
+                                                    <td> <input class="form-control penjualan_total" type="text" value="` +
+                                totalFormatted + `"
                                                             placeholder="Jumlah Harga" name="detail_penjualan_total[]" readonly />
                                                     </td>
                                              </tr>`;
@@ -1339,7 +1494,7 @@
 
                 });
 
-                var penjualan_id  = $(this).attr('data-id')
+                var penjualan_id = $(this).attr('data-id')
 
                 swalWithBootstrapButtons
                     .fire({
@@ -1369,7 +1524,7 @@
                         }
                     });
 
-            });            
+            });
         })
     </script>
 @endpush

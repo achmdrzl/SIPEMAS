@@ -3,16 +3,24 @@
 @push('style-alt')
     <style>
         .custom-modal-dialog {
-            max-width: 1280px;
+            max-width: 1500px;
             /* Set your desired width */
             width: 100%;
             margin: 1.75rem auto;
+        }
+        .custom-width-column {
+            width: 300px;
+            /* Set your desired width here */
+        }
+        .custom-width-column2 {
+            width: 100px;
+            /* Set your desired width here */
         }
     </style>
 @endpush
 
 @section('content')
- <!-- Main Content -->
+    <!-- Main Content -->
     <div class="hk-pg-wrapper pb-0">
         <!-- Page Body -->
         <div class="hk-pg-body py-0">
@@ -122,7 +130,8 @@
                             <ul class="nav nav-light">
                                 <li class="nav-item nav-link">
                                     <button class="btn btn-sm btn-primary show-data"><span><span class="icon"><span
-                                                    class="feather-icon"><i data-feather="calendar"></i></span></span><span
+                                                    class="feather-icon"><i
+                                                        data-feather="calendar"></i></span></span><span
                                                 class="btn-text">Tampilkan</span></span></button>
                                 </li>
                                 <li class="nav-item nav-link">
@@ -149,12 +158,16 @@
                                 <h4>Laporan Detail Penjualan</h4>
                                 <div class="d-flex">
                                     <h6>Periode :</h6>
-                                    <h6 id="startDate" style="margin-right: 5px; margin-left:5px;">{{ date('d M y') }}</h6>
+                                    <h6 id="startDate" style="margin-right: 5px; margin-left:5px;">{{ date('d M y') }}
+                                    </h6>
                                     <h6>s/d</h6>
                                     <h6 id="endDate" style="margin-left: 5px;">{{ date('d M y') }}</h6>
                                 </div>
                             </div>
                             <div class="email-options-wrap">
+                                <button class="btn btn-sm btn-primary preview-btn me-2"><span><span class="icon"><span
+                                                class="feather-icon"><i data-feather="eye"></i></span></span><span
+                                            class="btn-text">Preview</span></span></button>
                                 <button class="btn btn-sm btn-primary print-btn"><span><span class="icon"><span
                                                 class="feather-icon"><i data-feather="printer"></i></span></span><span
                                             class="btn-text">Print</span></span></button>
@@ -226,8 +239,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-primary float-end" id="submit-print" data-jenis="detail-penjualan"
-                                    data-bs-dismiss="modal">Print</button>
+                                <button type="button" class="btn btn-primary float-end" id="submit-print"
+                                    data-jenis="detail-penjualan" data-bs-dismiss="modal">Print</button>
                             </form>
                         </div>
                     </div>
@@ -257,7 +270,8 @@
                                                 <label class="form-label mb-xl-0">Tanggal :</label>
                                             </div>
                                             <div class="col-xl-auto mb-xl-0 mb-2">
-                                                <input class="form-control" type="date" id="penjualan_tanggal" name="penjualan_tanggal" value="{{ date('Y-m-d') }}" />
+                                                <input class="form-control" type="date" id="penjualan_tanggal"
+                                                    name="penjualan_tanggal" value="{{ date('Y-m-d') }}" />
                                             </div>
                                             <div class="col-xl-auto mb-xl-0 mb-2">
                                                 <label class="form-label mb-xl-0">Keterangan :</label>
@@ -280,12 +294,12 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                                <table class="table nowrap table-striped">
+                                <table class="table table-striped">
                                     <thead>
                                         <th>No</th>
-                                        <th>Kode Barang</th>
-                                        <th>Nama Barang</th>
-                                        <th>Kadar</th>
+                                        <th class="custom-width-column2">Kode Barang</th>
+                                        <th class="custom-width-column">Nama Barang</th>
+                                        <th >Kadar</th>
                                         <th>Berat Asli</th>
                                         <th>Berat Jual</th>
                                         <th>Harga</th>
@@ -304,49 +318,60 @@
                                                     <tbody>
                                                         <tr>
                                                             <td colspan="3"
-                                                                class="rounded-top-start border-end-0 border-bottom-0">Subtotal :
+                                                                class="rounded-top-start border-end-0 border-bottom-0">
+                                                                Subtotal :
                                                             </td>
-                                                            <td class="rounded-top-end border-bottom-0 w-30 bg-primary-light-5">
+                                                            <td
+                                                                class="rounded-top-end border-bottom-0 w-30 bg-primary-light-5">
                                                                 <input type="number"
                                                                     class="form-control bg-transparent border-0 p-0 gross-total"
-                                                                    value="0" id="penjualan_subtotal" name="penjualan_subtotal" readonly>
+                                                                    value="0" id="penjualan_subtotal"
+                                                                    name="penjualan_subtotal" readonly>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td class="border-end-0 border-bottom-0">Diskon : </td>
-                                                            <td colspan="2" class="border-end-0 border-bottom-0 w-25"><input
-                                                                    type="number" class="form-control"
-                                                                    value="0" id="inputdiskon" name="inputdiskon"></td>
-                                                            <td class="border-bottom-0  bg-primary-light-5"><input type="number"
+                                                            <td colspan="2" class="border-end-0 border-bottom-0 w-25">
+                                                                <input type="text" class="form-control" value="0"
+                                                                    id="inputdiskon" name="inputdiskon"></td>
+                                                            <td class="border-bottom-0  bg-primary-light-5"><input
+                                                                    type="text"
                                                                     class="form-control bg-transparent border-0 p-0"
-                                                                    value="0" id="penjualan_diskon" name="penjualan_diskon" readonly></td>
+                                                                    value="0" id="penjualan_diskon"
+                                                                    name="penjualan_diskon" readonly></td>
                                                         </tr>
                                                         <tr>
                                                             <td colspan="3"
-                                                                class="rounded-bottom-start border-end-0 bg-primary-light-5"><span
-                                                                    class="text-dark">Total</span></td>
+                                                                class="rounded-bottom-start border-end-0 bg-primary-light-5">
+                                                                <span class="text-dark">Total</span></td>
                                                             <td class="rounded-bottom-end  bg-primary-light-5"><input
-                                                                    type="number"
+                                                                    type="text"
                                                                     class="form-control bg-transparent border-0 p-0"
-                                                                    value="0" id="penjualan_grandtotal" name="penjualan_grandtotal" readonly></td>
+                                                                    value="0" id="penjualan_grandtotal"
+                                                                    name="penjualan_grandtotal" readonly></td>
                                                         </tr>
                                                         <tr>
                                                             <td class="border-end-0 border-bottom-0">Tunai : </td>
-                                                            <td colspan="2" class="border-end-0 border-bottom-0 w-25"><input
-                                                                    type="number" class="form-control"
-                                                                    value="0" id="inputtunai" name="inputtunai"></td>
-                                                            <td class="border-bottom-0  bg-primary-light-5"><input type="number"
+                                                            <td colspan="2" class="border-end-0 border-bottom-0 w-25">
+                                                                <input type="text" class="form-control" value="0"
+                                                                    id="inputtunai" name="inputtunai"></td>
+                                                            <td class="border-bottom-0  bg-primary-light-5"><input
+                                                                    type="text"
                                                                     class="form-control bg-transparent border-0 p-0"
-                                                                    value="0" id="penjualan_tunai" name="penjualan_tunai" readonly></td>
+                                                                    value="0" id="penjualan_tunai"
+                                                                    name="penjualan_tunai" readonly></td>
                                                         </tr>
                                                         <tr>
                                                             <td colspan="3"
-                                                                class="rounded-top-start border-end-0 border-bottom-0">Kembalian :
+                                                                class="rounded-top-start border-end-0 border-bottom-0">
+                                                                Kembalian :
                                                             </td>
-                                                            <td class="rounded-top-end border-bottom-0 w-30 bg-primary-light-5">
-                                                                <input type="number"
+                                                            <td
+                                                                class="rounded-top-end border-bottom-0 w-30 bg-primary-light-5">
+                                                                <input type="text"
                                                                     class="form-control bg-transparent border-0 p-0"
-                                                                    value="0" id="penjualan_kembalian" name="penjualan_kembalian" readonly>
+                                                                    value="0" id="penjualan_kembalian"
+                                                                    name="penjualan_kembalian" readonly>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -389,19 +414,43 @@
                 }).format(number);
             }
 
+            // Function to format a number with a comma separator per 1,000
+            function formatWithCommaSeparator(number) {
+                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }  
+
+            // Custom function to format the date
+            function formatCustomDate(dateString) {
+                const [fullDate, timePart] = dateString.split(' ');
+                const [year, month, day] = fullDate.split('-');
+
+                // Map month abbreviation to full month name
+                const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov',
+                    'Des'
+                ];
+                const monthName = monthNames[parseInt(month) - 1];
+
+                return `${day}-${monthName}-${year}`;
+            }
+
             // Define an array of column indexes that need formatting
-            var columnsToFormat = [4, 5, 6];
+            var columnsToFormat = [2, 4, 5, 6];
 
             // Loop through the columns and apply the rendering function
-            var columnDefs = columnsToFormat.map(function (columnIndex) {
+            var columnDefs = columnsToFormat.map(function(columnIndex) {
                 return {
                     targets: columnIndex,
-                    render: function (data, type, row) {
-                        if (type === 'display') {
+                    render: function(data, type, row) {
+                        if (columnIndex === 2 && type === 'sort') {
+                            // Return the raw date data for sorting
+                            return data;
+                        } else if (columnIndex === 2 && type === 'display') {
+                            // Format the date for display
+                            return formatCustomDate(data);
+                        } else {
                             // Format as Rupiah
                             return 'Rp ' + parseFloat(data).toLocaleString('id-ID');
                         }
-                        return data;
                     },
                 };
             });
@@ -425,8 +474,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('laporan.penjualanDetail.index') }}",
-                columns: [
-                    {
+                columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
                     },
@@ -437,7 +485,7 @@
                     {
                         data: 'penjualan_tanggal',
                         name: 'penjualan_tanggal'
-                    },  
+                    },
                     {
                         data: 'penjualan_jenis',
                         name: 'penjualan_jenis'
@@ -503,20 +551,28 @@
 
             // FILTERED DATA
             $('.show-data').on('click', function() {
-                var startDate  = $('#start_date').val();
-                var endDate    = $('#end_date').val();
+                var startDate = $('#start_date').val();
+                var endDate = $('#end_date').val();
                 var filterdata = $('#filterdata').val();
-                var nobukti    = $('#nobukti').val();
+                var nobukti = $('#nobukti').val();
                 var namabarang = $('#namabarang').val();
-                var filter     = $('#filter_data').val();
-                var supplier   = $('#supplier').val();
-                var pabrik     = $('#pabrik').val();
-                var kadar      = $('#kadar').val();
-                var model      = $('#model').val();
+                var filter = $('#filter_data').val();
+                var supplier = $('#supplier').val();
+                var pabrik = $('#pabrik').val();
+                var kadar = $('#kadar').val();
+                var model = $('#model').val();
 
                 // Convert startDate and endDate into d-M-y format
-                var formattedStartDate = new Date(startDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' });
-                var formattedEndDate = new Date(endDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' });
+                var formattedStartDate = new Date(startDate).toLocaleDateString('en-GB', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: '2-digit'
+                });
+                var formattedEndDate = new Date(endDate).toLocaleDateString('en-GB', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: '2-digit'
+                });
 
                 $("#startDate").html(formattedStartDate)
                 $("#endDate").html(formattedEndDate)
@@ -569,9 +625,8 @@
                                 },
                                 // Other DataTable options
                                 data: response
-                                .data, // Pass the updated data to the DataTable
-                                columns: [
-                                    {
+                                    .data, // Pass the updated data to the DataTable
+                                columns: [{
                                         data: 'DT_RowIndex',
                                         name: 'DT_RowIndex'
                                     },
@@ -582,7 +637,7 @@
                                     {
                                         data: 'penjualan_tanggal',
                                         name: 'penjualan_tanggal'
-                                    },  
+                                    },
                                     {
                                         data: 'penjualan_jenis',
                                         name: 'penjualan_jenis'
@@ -605,7 +660,8 @@
                                     },
                                 ],
                                 columnDefs: columnDefs,
-                                footerCallback: function(row, data, start, end, display) {
+                                footerCallback: function(row, data, start, end,
+                                display) {
                                     var api = this.api();
 
                                     // Convert to float if data is coming as strings
@@ -640,9 +696,12 @@
                                         }, 0);
 
                                     // Update the footer cells with the calculated sums
-                                    $(api.column('penjualan_subtotal:name').footer()).html(rupiah(subtotal));
-                                    $(api.column('penjualan_ppn:name').footer()).html(rupiah(ppn));
-                                    $(api.column('penjualan_grandtotal:name').footer()).html(rupiah(grandTotal));
+                                    $(api.column('penjualan_subtotal:name')
+                                    .footer()).html(rupiah(subtotal));
+                                    $(api.column('penjualan_ppn:name').footer())
+                                        .html(rupiah(ppn));
+                                    $(api.column('penjualan_grandtotal:name')
+                                        .footer()).html(rupiah(grandTotal));
                                 },
                             });
 
@@ -673,15 +732,24 @@
                 var currentDate = new Date();
 
                 // Format the current date as 'yyyy-MM-dd'
-                var formattedDate = currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1).toString().padStart(2, '0') + '-' + currentDate.getDate().toString().padStart(2, '0');
+                var formattedDate = currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1)
+                .toString().padStart(2, '0') + '-' + currentDate.getDate().toString().padStart(2, '0');
 
                 // Set the values of startDate and endDate inputs
                 $('#start_date').val(formattedDate);
                 $('#end_date').val(formattedDate);
 
                 // Convert startDate and endDate into d-M-y format
-                var formattedStartDate = new Date(currentDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' });
-                var formattedEndDate = new Date(currentDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' });
+                var formattedStartDate = new Date(currentDate).toLocaleDateString('en-GB', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: '2-digit'
+                });
+                var formattedEndDate = new Date(currentDate).toLocaleDateString('en-GB', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: '2-digit'
+                });
 
                 // Set the HTML content of startDate and endDate elements
                 $("#startDate").text(formattedStartDate);
@@ -709,8 +777,7 @@
                     processing: true,
                     serverSide: true,
                     ajax: "{{ route('laporan.penjualanDetail.index') }}",
-                    columns: [
-                        {
+                    columns: [{
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex'
                         },
@@ -721,7 +788,7 @@
                         {
                             data: 'penjualan_tanggal',
                             name: 'penjualan_tanggal'
-                        },  
+                        },
                         {
                             data: 'penjualan_jenis',
                             name: 'penjualan_jenis'
@@ -779,9 +846,11 @@
                             }, 0);
 
                         // Update the footer cells with the calculated sums
-                        $(api.column('penjualan_subtotal:name').footer()).html(rupiah(subtotal));
+                        $(api.column('penjualan_subtotal:name').footer()).html(rupiah(
+                        subtotal));
                         $(api.column('penjualan_ppn:name').footer()).html(rupiah(ppn));
-                        $(api.column('penjualan_grandtotal:name').footer()).html(rupiah(grandTotal));
+                        $(api.column('penjualan_grandtotal:name').footer()).html(rupiah(
+                            grandTotal));
                     },
                 });
 
@@ -916,7 +985,7 @@
             });
 
             // DETAIL PEMBELIAN
-            $('body').on('click', '#detail-penjualan', function(){
+            $('body').on('click', '#detail-penjualan', function() {
                 var penjualan_id = $(this).attr('data-id')
                 $('.alert').hide();
                 $('#saveBtn').val("create-barang");
@@ -934,21 +1003,21 @@
                         penjualan_id: penjualan_id,
                     },
                     dataType: "JSON",
-                    success: function (response) {
+                    success: function(response) {
                         console.log(response)
-                        const penjualan_tanggal = response.penjualan_tanggal;
-                        const keterangan        = response.penjualan_keterangan;
-                        const subtotal          = response.penjualan_subtotal;
-                        const diskon            = response.penjualan_diskon ?? 0;
-                        const bayar             = response.penjualan_bayar;
-                        const grandtotal        = response.penjualan_grandtotal;
-                        const kembalian         = response.penjualan_kembalian;
+                        const penjualan_tanggal     = response.penjualan_tanggal;
+                        const keterangan            = response.penjualan_keterangan;
+                        const subtotal              = formatWithCommaSeparator(response.penjualan_subtotal);
+                        const diskon                = response.penjualan_diskon !== null ? formatWithCommaSeparator(response.penjualan_diskon) : '0';
+                        const bayar                 = formatWithCommaSeparator(response.penjualan_bayar);
+                        const grandtotal            = formatWithCommaSeparator(response.penjualan_grandtotal);
+                        const kembalian             = response.penjualan_diskon !== null ? formatWithCommaSeparator(response.penjualan_kembalian) : '0';
 
                         $("#penjualan_tanggal").val(penjualan_tanggal).prop('readonly', true)
                         $("#penjualan_keterangan").val(keterangan).prop('readonly', true)
                         $('#inputdiskon').val(diskon).prop('readonly', true);
-                        $('#inputtunai').val(bayar).prop('readonly', true);               
-                        $('#penjualan_subtotal').val(subtotal)                
+                        $('#inputtunai').val(bayar).prop('readonly', true);
+                        $('#penjualan_subtotal').val(subtotal)
                         $('#penjualan_diskon').val(diskon)
                         $('#penjualan_kembalian').val(kembalian)
                         $('#penjualan_tunai').val(bayar)
@@ -956,38 +1025,43 @@
 
                         var detailListBarang = '';
                         var no = 1;
-                        $.each(response.penjualandetail, function (index, value) {
-                            const kadar         = value['barang']['kadar']['kadar_nama']
-                            const berat_jual    = value['detail_penjualan_berat_jual']
-                            const harga         = value['detail_penjualan_harga']
-                            const ongkos        = value['detail_penjualan_ongkos'] ?? 0
-                            const diskondetail  = value['detail_penjualan_diskon'] ?? 0
-                            const total         = value['detail_penjualan_jml_harga']
+                        $.each(response.penjualandetail, function(index, value) {
+                            const kadar          = value['barang']['kadar']['kadar_nama']
+                            const berat_jual     = value['detail_penjualan_berat_jual']
+                            const harga          = formatWithCommaSeparator(value['detail_penjualan_harga']) 
+                            const ongkos         = value['detail_penjualan_ongkos'] !== null
+                                                    ? formatWithCommaSeparator(value['detail_penjualan_ongkos'])
+                                                    : "0";
 
-                            const barang_kode   = value['barang']['barang_kode']
-                            const barang_nama   = value['barang']['barang_nama']
-                            const barang_berat  = value['barang']['barang_berat']
+                            const diskondetail   = value['detail_penjualan_diskon'] !== null
+                                                    ? formatWithCommaSeparator(value['detail_penjualan_diskon'])
+                                                    : "0";
+                            const total          = formatWithCommaSeparator(value['detail_penjualan_jml_harga'])
+
+                            const barang_kode    = value['barang']['barang_kode']
+                            const barang_nama    = value['barang']['barang_nama']
+                            const barang_berat   = value['barang']['barang_berat']
 
                             detailListBarang += `<tr>
-                                                    <td>`+ no++ +`</td>
-                                                    <td>`+ barang_kode +`</td>
-                                                    <td>`+ barang_nama +`</td>
-                                                    <td>`+ kadar +`</td>
-                                                    <td>`+ barang_berat +`</td>
+                                                    <td>` + no++ + `</td>
+                                                    <td>` + barang_kode + `</td>
+                                                    <td>` + barang_nama + `</td>
+                                                    <td>` + kadar + `</td>
+                                                    <td>` + barang_berat + `</td>
                                                     <td>
                                                         <input class="form-control penjualan_berat_jual" type="number"
-                                                            placeholder="Berat Jual" name="detail_penjualan_berat_jual[]" value="`+ berat_jual +`" readonly />
+                                                            placeholder="Berat Jual" name="detail_penjualan_berat_jual[]" value="` + berat_jual + `" readonly />
                                                     </td>
-                                                    <td> <input class="form-control penjualan_harga" type="number" value="`+ harga +`"
+                                                    <td> <input class="form-control penjualan_harga" type="text" value="` + harga +`"
                                                             placeholder="Harga" name="detail_penjualan_harga[]" readonly />
                                                     </td>
-                                                    <td> <input class="form-control penjualan_ongkos" type="number" value="`+ ongkos +`"
+                                                    <td> <input class="form-control penjualan_ongkos" type="text" value="` +ongkos + `"
                                                             placeholder="Ongkos" name="detail_penjualan_ongkos[]" readonly />
                                                     </td>
-                                                    <td> <input class="form-control penjualan_diskon" type="number" value="`+ diskondetail +`"
+                                                    <td> <input class="form-control penjualan_diskon" type="text" value="` + diskondetail + `"
                                                             placeholder="Diskon" name="detail_penjualan_diskon[]" readonly />
                                                     </td>
-                                                    <td> <input class="form-control penjualan_total" type="number" value="`+ total +`"
+                                                    <td> <input class="form-control penjualan_total" type="text" value="` + total + `"
                                                             placeholder="Jumlah Harga" name="detail_penjualan_total[]" readonly />
                                                     </td>
                                              </tr>`;
@@ -1002,7 +1076,7 @@
             })
 
             // PRINT SELECTION
-            $('body').on('click', '.print-btn', function(){
+            $('body').on('click', '.print-btn', function() {
                 $('#saveBtn').val("create-barang");
                 $('#cetaikForm').trigger("reset");
                 $('#submitCetak').html('Simpan');
@@ -1012,44 +1086,75 @@
             })
 
             // CETAK LAPORAN
-            $('body').on('click', '#submit-print', function(){
-                var startDate    = $('#start_date').val();
-                var endDate      = $('#end_date').val();
-                var nobukti      = $('#nobukti').val();
-                var namabarang   = $('#namabarang').val();
-                var filter       = $('#filter_data').val();
-                var supplier     = $('#supplier').val();
-                var pabrik       = $('#pabrik').val();
-                var kadar        = $('#kadar').val();
-                var model        = $('#model').val();
-                var jenis        = $(this).attr('data-jenis');
+            $('body').on('click', '#submit-print', function() {
+                var startDate = $('#start_date').val();
+                var endDate = $('#end_date').val();
+                var nobukti = $('#nobukti').val();
+                var namabarang = $('#namabarang').val();
+                var filter = $('#filter_data').val();
+                var supplier = $('#supplier').val();
+                var pabrik = $('#pabrik').val();
+                var kadar = $('#kadar').val();
+                var model = $('#model').val();
+                var jenis = $(this).attr('data-jenis');
                 var format_print = $('#format_print').val();
 
                 var myArray = [
-                    startDate, endDate, nobukti, namabarang, filter, supplier, pabrik, kadar, model, jenis, format_print
+                    startDate, endDate, nobukti, namabarang, filter, supplier, pabrik, kadar, model,
+                    jenis, format_print
                 ];
 
-                if(format_print === null){
+                if (format_print === null) {
                     Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Data format has not been selected!',
-                            showConfirmButton: false,
-                            timer: 2000
-                        });
-                }else{
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Data format has not been selected!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                } else {
                     // Convert the array to a query parameter string
                     var queryString = 'data=' + JSON.stringify(myArray);
-    
+
                     // Create the URL with query parameters
                     var url = "{{ route('cetak.penjualan') }}?" + queryString;
-    
-                    
+
+
                     // Open the PDF in a new tab/window
                     window.open(url, '_blank');
-                    
+
                     $('#form-print').trigger("reset");
                 }
+            })
+
+            // PREVIEW LAPORAN
+            $('body').on('click', '.preview-btn', function(e) {
+                e.preventDefault();
+
+                var startDate = $('#start_date').val();
+                var endDate = $('#end_date').val();
+                var nobukti = $('#nobukti').val();
+                var namabarang = $('#namabarang').val();
+                var filter = $('#filter_data').val();
+                var supplier = $('#supplier').val();
+                var pabrik = $('#pabrik').val();
+                var kadar = $('#kadar').val();
+                var model = $('#model').val();
+
+                var myArray = [
+                    startDate, endDate, nobukti, namabarang, filter, supplier, pabrik, kadar, model
+                ];
+
+                // Convert the array to a query parameter string
+                var queryString = 'data=' + JSON.stringify(myArray);
+
+                // Create the URL with query parameters
+                var url = "{{ route('preview.pembelian') }}?" + queryString;
+
+
+                // Open the PDF in a new tab/window
+                window.open(url, '_blank');
+
             })
 
         })

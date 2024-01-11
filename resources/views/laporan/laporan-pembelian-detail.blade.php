@@ -8,6 +8,14 @@
             width: 100%;
             margin: 1.75rem auto;
         }
+        .custom-width-column {
+            width: 400px;
+            /* Set your desired width here */
+        }
+        .custom-width-column2 {
+            width: 100px;
+            /* Set your desired width here */
+        }
     </style>
 @endpush
 
@@ -157,6 +165,9 @@
                                 </div>
                             </div>
                             <div class="email-options-wrap">
+                                <button class="btn btn-sm btn-primary preview-btn me-2"><span><span class="icon"><span
+                                                class="feather-icon"><i data-feather="eye"></i></span></span><span
+                                            class="btn-text">Preview</span></span></button>
                                 <button class="btn btn-sm btn-primary print-btn"><span><span class="icon"><span
                                                 class="feather-icon"><i data-feather="printer"></i></span></span><span
                                             class="btn-text">Print</span></span></button>
@@ -232,8 +243,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-primary float-end" id="submit-print" data-jenis="detail-pembelian"
-                                    data-bs-dismiss="modal">Print</button>
+                                <button type="button" class="btn btn-primary float-end" id="submit-print"
+                                    data-jenis="detail-pembelian" data-bs-dismiss="modal">Print</button>
                             </form>
                         </div>
                     </div>
@@ -242,148 +253,144 @@
             <!-- /PRINT SELECTION -->
 
             {{-- Modal Tambah Pembelian --}}
-                <div class="modal fade" id="pembelianModal" tabindex="-1" role="dialog"
-                    aria-labelledby="modalSupplier" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered custom-modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h6 id="tambahpembelianHeading"></h6>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                            <form id="pembelianForm">
-                                <div class="modal-body">
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert"
-                                        style="display: none;" style="color: red">
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md p-2 bg-grey-light-5 rounded">
-                                            <div class="row align-items-center">
-                                                <div class="col-xl-auto mb-xl-0 mb-2">
-                                                    <label class="form-label mb-xl-0">Tanggal :</label>
-                                                </div>
-                                                <div class="col-xl-auto mb-xl-0 mb-2">
-                                                    <input class="form-control" type="date" name="pembelian_tanggal"
-                                                        id="tanggal" value="{{ date('Y-m-d') }}" />
-                                                </div>
-                                                <div class="col-xl-auto mb-xl-0 mb-2">
-                                                    <label class="form-label mb-xl-0">Supplier
-                                                        :</label>
-                                                </div>
-                                                <div class="col-xl-auto mb-xl-0 mb-2">
-                                                    <select class="form-select" id="supplier_id"
-                                                        name="pembelian_supplier_id">
-                                                        <option value="" selected disabled>--</option>
-                                                        @foreach ($supplier as $item)
-                                                            <option value="{{ $item->supplier_id }}">
-                                                                {{ $item->supplier_nama }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="col-xl-auto mb-xl-0 mb-2">
-                                                    <label class="form-label mb-xl-0">Keterangan
-                                                        :</label>
-                                                </div>
-                                                <div class="col-xl-auto mb-xl-0 mb-2">
-                                                    <textarea name="pembelian_keterangan" class="form-control" id="keterangan"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <table class="table">
-                                        <thead>
-                                            <th>No</th>
-                                            <th>Kode</th>
-                                            <th>Nama Barang</th>
-                                            <th>Kadar</th>
-                                            <th>Berat</th>
-                                            <th>Harga Beli</th>
-                                            <th>Nilai Tukar</th>
-                                            <th>Jumlah Harga</th>
-                                        </thead>
-                                        <tbody id="list-barang">
-                                            {{-- List Barang Selected --}}
-                                        </tbody>
-                                    </table>
-                                    <div class="row justify-content-end">
-                                        <div class="col-xxl-10 mt-5">
-                                            <div class="table-wrap">
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td colspan="3"
-                                                                    class="rounded-top-start border-end-0 border-bottom-0">
-                                                                    Subtotal
-                                                                    :
-                                                                </td>
-                                                                <td
-                                                                    class="rounded-top-end border-bottom-0 w-30 bg-primary-light-5">
-                                                                    <input type="number"
-                                                                        class="form-control bg-transparent border-0 p-0"
-                                                                        value="0" id="subtotal"
-                                                                        name="pembelian_subtotal" readonly>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border-end-0 border-bottom-0">Diskon : </td>
-                                                                <td colspan="2"
-                                                                    class="border-end-0 border-bottom-0 w-25">
-                                                                    <input type="number" class="form-control"
-                                                                        value="0" id="inputdiskon"
-                                                                        name="inputdiskon">
-                                                                </td>
-                                                                <td class="border-bottom-0  bg-primary-light-5"><input
-                                                                        type="number"
-                                                                        class="form-control bg-transparent border-0 p-0"
-                                                                        value="0" id="diskon"
-                                                                        name="pembelian_diskon" readonly></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border-end-0 border-bottom-0">PPN : </td>
-                                                                <td colspan="2"
-                                                                    class="border-end-0 border-bottom-0 w-25">
-                                                                    <input type="number" class="form-control"
-                                                                        value="0" id="inputppn" name="inputppn">
-                                                                </td>
-                                                                <td class="border-bottom-0  bg-primary-light-5">
-                                                                    <input type="number"
-                                                                        class="form-control bg-transparent border-0 p-0"
-                                                                        value="0" id="ppn"
-                                                                        name="pembelian_ppn" readonly>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td colspan="3"
-                                                                    class="rounded-bottom-start border-end-0 bg-primary-light-5">
-                                                                    <span class="text-dark">Grand Total</span>
-                                                                </td>
-                                                                <td class="rounded-bottom-end  bg-primary-light-5">
-                                                                    <input type="number"
-                                                                        class="form-control bg-transparent border-0 p-0"
-                                                                        value="0" id="grandtotal"
-                                                                        name="pembelian_grandtotal" readonly>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer align-items-center">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Back</button>
-                                    <button type="submit" id="submitPembelian" class="btn btn-primary">Simpan</button>
-                                </div>
-                            </form>
+            <div class="modal fade" id="pembelianModal" tabindex="-1" role="dialog" aria-labelledby="modalSupplier"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered custom-modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h6 id="tambahpembelianHeading"></h6>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
                         </div>
+                        <form id="pembelianForm">
+                            <div class="modal-body">
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert"
+                                    style="display: none;" style="color: red">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md p-2 bg-grey-light-5 rounded">
+                                        <div class="row align-items-center">
+                                            <div class="col-xl-auto mb-xl-0 mb-2">
+                                                <label class="form-label mb-xl-0">Tanggal :</label>
+                                            </div>
+                                            <div class="col-xl-auto mb-xl-0 mb-2">
+                                                <input class="form-control" type="date" name="pembelian_tanggal"
+                                                    id="tanggal" value="{{ date('Y-m-d') }}" />
+                                            </div>
+                                            <div class="col-xl-auto mb-xl-0 mb-2">
+                                                <label class="form-label mb-xl-0">Supplier
+                                                    :</label>
+                                            </div>
+                                            <div class="col-xl-auto mb-xl-0 mb-2">
+                                                <select class="form-select" id="supplier_id"
+                                                    name="pembelian_supplier_id">
+                                                    <option value="" selected disabled>--</option>
+                                                    @foreach ($supplier as $item)
+                                                        <option value="{{ $item->supplier_id }}">
+                                                            {{ $item->supplier_nama }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-xl-auto mb-xl-0 mb-2">
+                                                <label class="form-label mb-xl-0">Keterangan
+                                                    :</label>
+                                            </div>
+                                            <div class="col-xl-auto mb-xl-0 mb-2">
+                                                <textarea name="pembelian_keterangan" class="form-control" id="keterangan"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <table class="table table-striped">
+                                    <thead>
+                                        <th>No</th>
+                                        <th class="custom-width-column2">Kode</th>
+                                        <th class="custom-width-column">Nama Barang</th>
+                                        <th>Kadar</th>
+                                        <th>Berat</th>
+                                        <th>Harga Beli</th>
+                                        <th>Nilai Tukar</th>
+                                        <th>Jumlah Harga</th>
+                                    </thead>
+                                    <tbody id="list-barang">
+                                        {{-- List Barang Selected --}}
+                                    </tbody>
+                                </table>
+                                <div class="row justify-content-end">
+                                    <div class="col-xxl-10 mt-5">
+                                        <div class="table-wrap">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td colspan="3"
+                                                                class="rounded-top-start border-end-0 border-bottom-0">
+                                                                Subtotal
+                                                                :
+                                                            </td>
+                                                            <td
+                                                                class="rounded-top-end border-bottom-0 w-30 bg-primary-light-5">
+                                                                <input type="text"
+                                                                    class="form-control bg-transparent border-0 p-0"
+                                                                    value="0" id="subtotal"
+                                                                    name="pembelian_subtotal" readonly>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="border-end-0 border-bottom-0">Diskon : </td>
+                                                            <td colspan="2" class="border-end-0 border-bottom-0 w-25">
+                                                                <input type="text" class="form-control" value="0"
+                                                                    id="inputdiskon" name="inputdiskon">
+                                                            </td>
+                                                            <td class="border-bottom-0  bg-primary-light-5"><input
+                                                                    type="text"
+                                                                    class="form-control bg-transparent border-0 p-0"
+                                                                    value="0" id="diskon" name="pembelian_diskon"
+                                                                    readonly></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="border-end-0 border-bottom-0">PPN : </td>
+                                                            <td colspan="2" class="border-end-0 border-bottom-0 w-25">
+                                                                <input type="text" class="form-control" value="0"
+                                                                    id="inputppn" name="inputppn">
+                                                            </td>
+                                                            <td class="border-bottom-0  bg-primary-light-5">
+                                                                <input type="text"
+                                                                    class="form-control bg-transparent border-0 p-0"
+                                                                    value="0" id="ppn" name="pembelian_ppn"
+                                                                    readonly>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="3"
+                                                                class="rounded-bottom-start border-end-0 bg-primary-light-5">
+                                                                <span class="text-dark">Grand Total</span>
+                                                            </td>
+                                                            <td class="rounded-bottom-end  bg-primary-light-5">
+                                                                <input type="text"
+                                                                    class="form-control bg-transparent border-0 p-0"
+                                                                    value="0" id="grandtotal"
+                                                                    name="pembelian_grandtotal" readonly>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer align-items-center">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
+                                <button type="submit" id="submitPembelian" class="btn btn-primary">Simpan</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
+            </div>
         </div>
     </div>
     <!-- /Page Body -->
@@ -409,19 +416,43 @@
                 }).format(number);
             }
 
+            // Function to format a number with a comma separator per 1,000
+            function formatWithCommaSeparator(number) {
+                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }  
+
+            // Custom function to format the date
+            function formatCustomDate(dateString) {
+                const [fullDate, timePart] = dateString.split(' ');
+                const [year, month, day] = fullDate.split('-');
+
+                // Map month abbreviation to full month name
+                const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov',
+                    'Des'
+                ];
+                const monthName = monthNames[parseInt(month) - 1];
+
+                return `${day}-${monthName}-${year}`;
+            }
+
             // Define an array of column indexes that need formatting
-            var columnsToFormat = [4, 5, 6, 7];
+            var columnsToFormat = [2, 4, 5, 6, 7];
 
             // Loop through the columns and apply the rendering function
             var columnDefs = columnsToFormat.map(function(columnIndex) {
                 return {
                     targets: columnIndex,
                     render: function(data, type, row) {
-                        if (type === 'display') {
+                        if (columnIndex === 2 && type === 'sort') {
+                            // Return the raw date data for sorting
+                            return data;
+                        } else if (columnIndex === 2 && type === 'display') {
+                            // Format the date for display
+                            return formatCustomDate(data);
+                        } else {
                             // Format as Rupiah
                             return 'Rp ' + parseFloat(data).toLocaleString('id-ID');
                         }
-                        return data;
                     },
                 };
             });
@@ -580,6 +611,13 @@
                                         .addClass(
                                             'custom-pagination pagination-simple');
                                 },
+                                "createdRow": function(row, data, dataIndex) {
+                                    // Assuming 'order_status' column index is 7, adjust this as needed
+                                    var orderStatusCell = $(row).find('td:eq(5)');
+                                    orderStatusCell.addClass('custom-width-column');
+                                },
+                                processing: true,
+                                serverSide: false,
                                 // Other DataTable options
                                 data: response
                                     .data, // Pass the updated data to the DataTable
@@ -623,7 +661,7 @@
                                 // Define column rendering for 'pembelian_grandtotal'
                                 columnDefs: columnDefs,
                                 footerCallback: function(row, data, start, end,
-                                display) {
+                                    display) {
                                     var api = this.api();
 
                                     // Convert to float if data is coming as strings
@@ -669,7 +707,7 @@
 
                 // Format the current date as 'yyyy-MM-dd'
                 var formattedDate = currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1)
-                .toString().padStart(2, '0') + '-' + currentDate.getDate().toString().padStart(2, '0');
+                    .toString().padStart(2, '0') + '-' + currentDate.getDate().toString().padStart(2, '0');
 
                 // Set the values of startDate and endDate inputs
                 $('#start_date').val(formattedDate);
@@ -1048,12 +1086,12 @@
                     success: function(response) {
                         console.log(response)
                         const pembelian_tanggal = response.pembelian_tanggal;
-                        const supplier_id = response.supplier_id;
-                        const keterangan = response.pembelian_keterangan;
-                        const subtotal = response.pembelian_subtotal;
-                        const diskon = response.pembelian_diskon;
-                        const ppn = response.pembelian_ppn;
-                        const grandtotal = response.pembelian_grandtotal;
+                        const supplier_id       = response.supplier_id;
+                        const keterangan        = response.pembelian_keterangan;
+                        const subtotal          = formatWithCommaSeparator(response.pembelian_subtotal);
+                        const diskon            = formatWithCommaSeparator(response.pembelian_diskon);
+                        const ppn               = formatWithCommaSeparator(response.pembelian_ppn);
+                        const grandtotal        = formatWithCommaSeparator(response.pembelian_grandtotal);
 
                         $("#tanggal").val(pembelian_tanggal).prop('readonly', true)
                         $("#supplier_id").val(supplier_id).prop('readonly', true)
@@ -1068,11 +1106,11 @@
                         var detailListBarang = '';
                         var no = 1;
                         $.each(response.pembeliandetail, function(index, value) {
-                            const kadar = value['detail_pembelian_kadar']
-                            const berat = value['detail_pembelian_berat']
-                            const harga_beli = value['detail_pembelian_harga_beli']
-                            const nilai_tukar = value['detail_pembelian_nilai_tukar']
-                            const total = value['detail_pembelian_total']
+                            const kadar         = value['detail_pembelian_kadar']
+                            const berat         = value['detail_pembelian_berat']
+                            const harga_beli    = formatWithCommaSeparator(value['detail_pembelian_harga_beli']) 
+                            const nilai_tukar   = value['detail_pembelian_nilai_tukar']
+                            const total         = formatWithCommaSeparator(value['detail_pembelian_total']) 
 
                             const barang_kode = value['barang']['barang_kode']
                             const barang_nama = value['barang']['barang_nama']
@@ -1082,21 +1120,15 @@
                                                     <td>` + barang_kode + `</td>
                                                     <td>` + barang_nama + `</td>
                                                     <td>` + kadar + `</td>
-                                                    <td>` + berat +
-                                `</td>
+                                                    <td>` + berat + `</td>
                                                     <td>
-                                                        <input class="form-control harga_beli" type="number"
-                                                            placeholder="Harga Beli" name="detail_pembelian_harga_beli[]" value="` +
-                                harga_beli +
-                                `" readonly />
+                                                        <input class="form-control harga_beli" type="text"
+                                                            placeholder="Harga Beli" name="detail_pembelian_harga_beli[]" value="` + harga_beli + `" readonly />
                                                     </td>
-                                                    <td> <input class="form-control nilai_tukar" type="number"
-                                                            placeholder="Nilai Tukar" name="detail_pembelian_nilai_tukar[]" value="` +
-                                nilai_tukar +
-                                `" readonly /></td>
-                                                    <td> <input class="form-control total" type="number"
-                                                            placeholder="Jumlah Harga" name="detail_pembelian_total[]" value="` +
-                                total + `" readonly /></td>
+                                                    <td> <input class="form-control nilai_tukar" type="text"
+                                                            placeholder="Nilai Tukar" name="detail_pembelian_nilai_tukar[]" value="` + nilai_tukar + `" readonly /></td>
+                                                    <td> <input class="form-control total" type="text"
+                                                            placeholder="Jumlah Harga" name="detail_pembelian_total[]" value="` + total + `" readonly /></td>
                                                 </tr>`;
                         });
                         $("#list-barang").html(detailListBarang)
@@ -1116,52 +1148,83 @@
                 $('#print_selection').modal('show');
             })
 
-            $('#supplier').on('change', function(){
+            $('#supplier').on('change', function() {
                 console.log($(this).val())
             })
 
             // CETAK LAPORAN
-            $('body').on('click', '#submit-print', function(e){
+            $('body').on('click', '#submit-print', function(e) {
                 e.preventDefault();
 
-                var startDate    = $('#start_date').val();
-                var endDate      = $('#end_date').val();
-                var nobukti      = $('#nobukti').val();
-                var namabarang   = $('#namabarang').val();
-                var filter       = $('#filter_data').val();
-                var supplier     = $('#supplier').val();
-                var pabrik       = $('#pabrik').val();
-                var kadar        = $('#kadar').val();
-                var model        = $('#model').val();
-                var jenis        = $(this).attr('data-jenis');
+                var startDate = $('#start_date').val();
+                var endDate = $('#end_date').val();
+                var nobukti = $('#nobukti').val();
+                var namabarang = $('#namabarang').val();
+                var filter = $('#filter_data').val();
+                var supplier = $('#supplier').val();
+                var pabrik = $('#pabrik').val();
+                var kadar = $('#kadar').val();
+                var model = $('#model').val();
+                var jenis = $(this).attr('data-jenis');
                 var format_print = $('#format_print').val();
 
                 var myArray = [
-                    startDate, endDate, nobukti, namabarang, filter, supplier, pabrik, kadar, model, jenis, format_print
+                    startDate, endDate, nobukti, namabarang, filter, supplier, pabrik, kadar, model,
+                    jenis, format_print
                 ];
 
-                if(format_print === null){
+                if (format_print === null) {
                     Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Data format has not been selected!',
-                            showConfirmButton: false,
-                            timer: 2000
-                        });
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Data format has not been selected!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
                     $('#print_selection').modal('show');
-                }else{
+                } else {
                     // Convert the array to a query parameter string
                     var queryString = 'data=' + JSON.stringify(myArray);
-    
+
                     // Create the URL with query parameters
                     var url = "{{ route('cetak.pembelian') }}?" + queryString;
-    
-                    
+
+
                     // Open the PDF in a new tab/window
                     window.open(url, '_blank');
-                    
+
                     $('#form-print').trigger("reset");
                 }
+            })
+
+            // PREVIEW LAPORAN
+            $('body').on('click', '.preview-btn', function(e) {
+                e.preventDefault();
+
+                var startDate = $('#start_date').val();
+                var endDate = $('#end_date').val();
+                var nobukti = $('#nobukti').val();
+                var namabarang = $('#namabarang').val();
+                var filter = $('#filter_data').val();
+                var supplier = $('#supplier').val();
+                var pabrik = $('#pabrik').val();
+                var kadar = $('#kadar').val();
+                var model = $('#model').val();
+
+                var myArray = [
+                    startDate, endDate, nobukti, namabarang, filter, supplier, pabrik, kadar, model
+                ];
+
+                // Convert the array to a query parameter string
+                var queryString = 'data=' + JSON.stringify(myArray);
+
+                // Create the URL with query parameters
+                var url = "{{ route('preview.pembelian') }}?" + queryString;
+
+
+                // Open the PDF in a new tab/window
+                window.open(url, '_blank');
+
             })
 
         })

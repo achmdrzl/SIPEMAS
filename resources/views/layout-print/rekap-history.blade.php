@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Laporan Lain-Lain</title>
+        <title>Laporan History Barang</title>
         <style>
             body {
                 font-family: "Arial", sans-serif;
@@ -70,7 +70,7 @@
                     @foreach($barangs as $data)
                         <tr>
                             <td>{{ $data['barang_kode'] }}</td>
-                            <td style="width:100px">{{ $data['barang_nama'] }}</td>
+                            <td style="width:300px; text-align:left;">{{ $data['barang_nama'] }}</td>
                             <td>{{ date('d-M-y', strtotime($data['tanggal'])) }}</td>
                             <td>{{ $data['jenis'] }}</td>
                             <td>{{ $data['nobukti'] }}</td>

@@ -153,26 +153,31 @@ Route::group(['middleware' => ['role:admin', 'auth']], function () {
     Route::get('/laporanPembelian', DataLaporanController::class . '@laporanPembelianIndex')->name('laporan.pembelian.index');
     Route::get('/laporanPembelianDetail', DataLaporanController::class . '@laporanPembelianIndexDetail')->name('laporan.pembelianDetail.index');
     Route::get('/cetakPembelian', DataLaporanController::class . '@cetakPembelian')->name('cetak.pembelian');
+    Route::get('/previewPembelian', DataLaporanController::class. '@previewPembelian')->name('preview.pembelian');
 
     // PENJUALAN
     Route::get('/laporanPenjualan', DataLaporanController::class . '@laporanPenjualanIndex')->name('laporan.penjualan.index');
     Route::get('/laporanPenjualanDetail', DataLaporanController::class . '@laporanPenjualanIndexDetail')->name('laporan.penjualanDetail.index');
     Route::get('/cetakPenjualan', DataLaporanController::class . '@cetakPenjualan')->name('cetak.penjualan');
+    Route::get('/previewPenjualan', DataLaporanController::class . '@previewPenjualan')->name('preview.penjualan');
 
     // RETURNPENJUALAN
     Route::get('/laporanReturnPenjualan', DataLaporanController::class . '@laporanReturnPenjualanIndex')->name('laporan.returnPenjualan.index');
     Route::get('/laporanReturnPenjualanDetail', DataLaporanController::class . '@laporanReturnPenjualanIndexDetail')->name('laporan.returnPenjualanDetail.index');
     Route::get('/cetakReturn', DataLaporanController::class . '@cetakReturn')->name('cetak.return');
+    Route::get('/previewReturn', DataLaporanController::class . '@previewReturn')->name('preview.return');
 
     // PENGELUARAN
     Route::get('/laporanPengeluaran', DataLaporanController::class . '@laporanPengeluaranIndex')->name('laporan.pengeluaran.index');
     Route::get('/laporanPengeluaranDetail', DataLaporanController::class . '@laporanPengeluaranIndexDetail')->name('laporan.pengeluaranDetail.index');
     Route::get('/cetakPengeluaran', DataLaporanController::class . '@cetakPengeluaran')->name('cetak.pengeluaran');
+    Route::get('/previewPengeluaran', DataLaporanController::class . '@previewPengeluaran')->name('preview.pengeluaran');
 
     // PENERIMAAN
     Route::get('/laporanPenerimaan', DataLaporanController::class . '@laporanPenerimaanIndex')->name('laporan.penerimaan.index');
     Route::get('/laporanPenerimaanDetail', DataLaporanController::class . '@laporanPenerimaanIndexDetail')->name('laporan.penerimaanDetail.index');
     Route::get('/cetakPenerimaan', DataLaporanController::class . '@cetakPenerimaan')->name('cetak.penerimaan');
+    Route::get('/previewPenerimaan', DataLaporanController::class . '@previewPenerimaan')->name('preview.penerimaan');
 
     // HUTANG
     Route::get('/laporanHutang', DataLaporanController::class . '@laporanHutang')->name('laporan.hutang.index');

@@ -325,7 +325,7 @@ class TransaksiPenerimaanController extends Controller
             $pengeluaran_id           = $item->pengeluaran_id;
             $pengeluaran_nobukti      = $item->pengeluaran_nobukti;
             $pengeluaran_tanggal      = \Carbon\Carbon::parse($item->pengeluaran_tanggal)->format('d-M-Y');
-            $supplier_nama            = ucfirst($item->supplier->supplier_nama);
+            $supplier_nama            = $item->supplier_id != null ? ucfirst($item->supplier->supplier_nama) : '-';
             $pengeluaran_keterangan   = $item->pengeluaran_keterangan;
 
             $action                   = '<button class="btn btn-icon btn-primary btn-rounded flush-soft-hover me-1" title="Detail Return Penjualan" id="detail-penerimaan"  data-id="' . $item->pengeluaran_id . '"><span class="material-icons btn-sm">visibility</span></button>';

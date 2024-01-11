@@ -9,7 +9,7 @@
     <title>BINTANG KENCANA - MANAGEMENT</title>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="description" content="SIPEMAS" />
-    
+
     <!-- Favicon -->
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -31,7 +31,7 @@
     <link href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.bootstrap5.min.css" rel="stylesheet"
         type="text/css" />
 
-   
+
     <!-- CSS -->
     <link href="{{ asset('backend/dist/css/style.css') }}" rel="stylesheet" type="text/css">
 
@@ -52,8 +52,8 @@
                     <a class="navbar-brand d-xl-flex d-none flex-shrink-0" href="{{ route('dashboard.index') }}">
                         <img class="brand-img img-fluid" src="{{ asset('backend/dist/img/bintangkencana.svg') }}"
                             alt="brand" />
-                        <img class="brand-img img-fluid" src="{{ asset('backend/dist/img/bintangkencana3.svg') }}" style="margin-top: 5px;"
-                            alt="brand" />
+                        <img class="brand-img img-fluid" src="{{ asset('backend/dist/img/bintangkencana3.svg') }}"
+                            style="margin-top: 5px;" alt="brand" />
                     </a>
                     <!-- /Brand -->
                     <button
@@ -67,10 +67,11 @@
                         <div class="menu-header d-xl-none">
                             <span>
                                 <a class="navbar-brand" href="{{ route('dashboard.index') }}">
-                                    <img class="brand-img img-fluid" src="{{ asset('backend/dist/img/bintangkencana.svg') }}"
-                                        alt="brand" />
-                                    <img class="brand-img img-fluid" src="{{ asset('backend/dist/img/bintangkencana3.svg') }}" style="margin-top: 5px;"
-                                        alt="brand" />
+                                    <img class="brand-img img-fluid"
+                                        src="{{ asset('backend/dist/img/bintangkencana.svg') }}" alt="brand" />
+                                    <img class="brand-img img-fluid"
+                                        src="{{ asset('backend/dist/img/bintangkencana3.svg') }}"
+                                        style="margin-top: 5px;" alt="brand" />
                                 </a>
                                 <button class="btn btn-icon btn-rounded btn-flush-dark flush-soft-hover navbar-toggle">
                                     <span class="icon">
@@ -420,9 +421,9 @@
                                             <div class="media-head me-2">
                                                 <div class="avatar avatar-primary avatar-sm avatar-rounded">
                                                     @php
-                                                        if(Auth::user()->role == 'admin'){
+                                                        if (Auth::user()->role == 'admin') {
                                                             $name = 'ADM';
-                                                        }else{
+                                                        } else {
                                                             $name = 'USR';
                                                         }
 
@@ -432,8 +433,7 @@
                                             </div>
                                             <div class="media-body">
                                                 <div class="dropdown">
-                                                    <a href="#"
-                                                        class="d-block link-dark fw-medium"
+                                                    <a href="#" class="d-block link-dark fw-medium"
                                                         data-bs-toggle="dropdown" data-dropdown-animation
                                                         data-bs-auto-close="inside">{{ Auth::user()->name }}</a>
                                                 </div>
@@ -467,6 +467,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
         crossorigin="anonymous"></script>
+
 
     <!-- barcode -->
 

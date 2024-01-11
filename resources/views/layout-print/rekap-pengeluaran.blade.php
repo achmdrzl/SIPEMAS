@@ -71,7 +71,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->pengeluaran_nobukti }}</td>
                             <td>{{ date('d-M-y', strtotime($item->pengeluaran_tanggal)) }}</td>
-                            <td>{{ $item->supplier->supplier_nama }}</td>
+                            <td>{{ $item->supplier_id != null ? ucfirst($item->supplier->supplier_nama) : '-' }}</td>
                             <td>{{ strtoupper($item->pengeluaran_keterangan) }}</td>
                         </tr>
                     @endforeach

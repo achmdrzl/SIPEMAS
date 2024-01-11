@@ -8,12 +8,15 @@
             width: 100%;
             margin: 1.75rem auto;
         }
+
         .custom-width-column {
-            width: 10px; /* Set your desired width here */
+            width: 10px;
+            /* Set your desired width here */
         }
 
         #datatable_8 tbody td {
-            font-size: 16px; /*Adjust the font size as needed*/
+            font-size: 16px;
+            /*Adjust the font size as needed*/
             text-align: center;
             padding: 4px;
         }
@@ -269,7 +272,8 @@
                                                         <td class="border-end-0 border-bottom-0">Diskon : </td>
                                                         <td colspan="2" class="border-end-0 border-bottom-0 w-25">
                                                             <input type="text" class="form-control" value="0"
-                                                                id="inputdiskon" name="inputdiskon" oninput="test(this);">
+                                                                id="inputdiskon" name="inputdiskon"
+                                                                oninput="test(this);">
                                                         </td>
                                                         <td class="border-bottom-0  bg-primary-light-5"><input
                                                                 type="text"
@@ -293,7 +297,8 @@
                                                     <tr>
                                                         <td colspan="3"
                                                             class="rounded-bottom-start border-end-0 bg-primary-light-5">
-                                                            <span class="text-dark">Grand Total</span></td>
+                                                            <span class="text-dark">Grand Total</span>
+                                                        </td>
                                                         <td class="rounded-bottom-end  bg-primary-light-5">
                                                             <input type="text"
                                                                 class="form-control bg-transparent border-0 p-0"
@@ -310,7 +315,7 @@
                         </div>
                         <div class="modal-footer align-items-center">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                            <button type="submit" id="submitPembelian" class="btn btn-primary">Simpan</button>
+                            <button type="button" id="submitPembelian" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -327,7 +332,7 @@
 
 @push('script-alt')
     <script>
-    $(document).ready(function() {
+        $(document).ready(function() {
 
             $.ajaxSetup({
                 headers: {
@@ -458,7 +463,7 @@
                                 },
                                 // Other DataTable options
                                 data: response
-                                .data, // Pass the updated data to the DataTable
+                                    .data, // Pass the updated data to the DataTable
                                 columns: [{
                                         data: 'DT_RowIndex',
                                         name: 'DT_RowIndex'
@@ -561,8 +566,8 @@
             // DISPLAY DATA BARANG
             var listbarang = $('#datatable_8').DataTable({
                 dom: "<'row'<'col-sm-6'l><'col-sm-3'p><'col-sm-3'f>>" +
-                     "<'row'<'col-sm-12'tr>>" +
-                     "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 scrollX: true,
                 autoWidth: false,
                 language: {
@@ -644,7 +649,7 @@
 
                 var submitPembelian = $('#submitPembelian'); // Note the '#' for selecting by ID
                 submitPembelian.removeClass('edit');
-                
+
                 var selectedValues = [];
 
                 $('.row-checkbox:checked').each(function() {
@@ -673,9 +678,10 @@
                                 const barangid = value['barang_id']
                                 const barangkode = value['barang_kode']
                                 const barangnama = value['barang_nama']
-                                const barangberat = parseFloat(value['barang_berat']).toFixed(2);
+                                const barangberat = parseFloat(value['barang_berat'])
+                                    .toFixed(2);
                                 const kadar = value['kadar']['kadar_nama']
-                                const barangfoto   = value['barang_foto'] ?? null
+                                const barangfoto = value['barang_foto'] ?? null
 
                                 listbarang += `<tr>
                                                     <td>` + no++ + `</td>
@@ -695,13 +701,18 @@
                                                         </div>
                                                     </td>
                                                     <td>` + kadar + `</td>
-                                                    <td>` + barangberat + `</td>
+                                                    <td>` + barangberat +
+                                    `</td>
                                                     <td>
-                                                        <input class="form-control" id="barang_id" type="hidden" value="` + barangid + `"
+                                                        <input class="form-control" id="barang_id" type="hidden" value="` +
+                                    barangid +
+                                    `"
                                                             placeholder="Harga Beli" name="barang_id[]" />
-                                                        <input class="form-control barang_berat" type="hidden" value="` + barangberat + `"
+                                                        <input class="form-control barang_berat" type="hidden" value="` +
+                                    barangberat + `"
                                                             placeholder="Harga Beli" name="detail_pembelian_barang_berat[]" />
-                                                        <input class="form-control kadar" type="hidden" value="` + kadar + `"
+                                                        <input class="form-control kadar" type="hidden" value="` +
+                                    kadar + `"
                                                             placeholder="Harga Beli" name="detail_pembelian_kadar[]" />
                                                         <input class="form-control jmlbeli" type="hidden" value=""
                                                             placeholder="Harga Beli" name="detail_pembelian_jml_beli[]" />
@@ -755,16 +766,19 @@
                     success: function(response) {
                         console.log(response)
                         const pembelian_tanggal = response.pembelian_tanggal;
-                        const supplier_id       = response.supplier_id;
-                        const keterangan        = response.pembelian_keterangan;
-                        const subtotalFormatted          = formatWithCommaSeparator(response.pembelian_subtotal);
-                        const diskonFormatted            = formatWithCommaSeparator(response.pembelian_diskon);
-                        const ppnFormatted               = formatWithCommaSeparator(response.pembelian_ppn);
-                        const grandTotalFormatted        = formatWithCommaSeparator(response.pembelian_grandtotal);
-                        const subtotal          = response.pembelian_subtotal;
-                        const diskon            = response.pembelian_diskon;
-                        const ppn               = response.pembelian_ppn;
-                        const grandtotal        = response.pembelian_grandtotal;
+                        const supplier_id = response.supplier_id;
+                        const keterangan = response.pembelian_keterangan;
+                        const subtotalFormatted = formatWithCommaSeparator(response
+                            .pembelian_subtotal);
+                        const diskonFormatted = formatWithCommaSeparator(response
+                            .pembelian_diskon);
+                        const ppnFormatted = formatWithCommaSeparator(response.pembelian_ppn);
+                        const grandTotalFormatted = formatWithCommaSeparator(response
+                            .pembelian_grandtotal);
+                        const subtotal = response.pembelian_subtotal;
+                        const diskon = response.pembelian_diskon;
+                        const ppn = response.pembelian_ppn;
+                        const grandtotal = response.pembelian_grandtotal;
 
                         $("#tanggal").val(pembelian_tanggal).prop('readonly', false)
                         $("#supplier_id").val(supplier_id).prop('readonly', false)
@@ -787,20 +801,23 @@
                         var detailListBarang = '';
                         var no = 1;
                         $.each(response.pembeliandetail, function(index, value) {
-                            const kadar        = value['detail_pembelian_kadar']
-                            const berat        = parseFloat(value['detail_pembelian_berat']).toFixed(2);
-                            const harga_beliFormatted   = formatWithCommaSeparator(value['detail_pembelian_harga_beli'])
-                            const harga_beli   = value['detail_pembelian_harga_beli']
-                            const nilai_tukar  = value['detail_pembelian_nilai_tukar']
-                            const jml_beli     = value['detail_pembelian_jml_beli']
-                            const totalFormatted        = formatWithCommaSeparator(value['detail_pembelian_total'])
-                            const total        = value['detail_pembelian_total']
+                            const kadar = value['detail_pembelian_kadar']
+                            const berat = parseFloat(value['detail_pembelian_berat'])
+                                .toFixed(2);
+                            const harga_beliFormatted = formatWithCommaSeparator(value[
+                                'detail_pembelian_harga_beli'])
+                            const harga_beli = value['detail_pembelian_harga_beli']
+                            const nilai_tukar = value['detail_pembelian_nilai_tukar']
+                            const jml_beli = value['detail_pembelian_jml_beli']
+                            const totalFormatted = formatWithCommaSeparator(value[
+                                'detail_pembelian_total'])
+                            const total = value['detail_pembelian_total']
                             const pembelian_id = value['pembelian_id']
-                            const barang_id    = value['barang_id']
+                            const barang_id = value['barang_id']
 
-                            const barang_kode  = value['barang']['barang_kode']
-                            const barang_nama  = value['barang']['barang_nama']
-                            const barang_foto  = value['barang']['barang_foto'] ?? null
+                            const barang_kode = value['barang']['barang_kode']
+                            const barang_nama = value['barang']['barang_nama']
+                            const barang_foto = value['barang']['barang_foto'] ?? null
 
                             detailListBarang += `<tr>
                                                     <td>` + no++ + `</td>
@@ -820,25 +837,36 @@
                                                         </div>
                                                     </td>
                                                     <td>` + kadar + `</td>
-                                                    <td>` + berat + `</td>
+                                                    <td>` + berat +
+                                `</td>
                                                     <td>
-                                                        <input class="form-control" id="barang_id" type="hidden" value="` + barang_id + `"
+                                                        <input class="form-control" id="barang_id" type="hidden" value="` +
+                                barang_id +
+                                `"
                                                             placeholder="Harga Beli" name="barang_id[]" />
                                                         <input class="form-control barang_berat" type="hidden" value="` + berat + `"
                                                             placeholder="Harga Beli" name="detail_pembelian_barang_berat[]" />
-                                                        <input class="form-control kadar" type="hidden" value="` + kadar + `"
+                                                        <input class="form-control kadar" type="hidden" value="` +
+                                kadar + `"
                                                             placeholder="Harga Beli" name="detail_pembelian_kadar[]" />
                                                         <input class="form-control jmlbeli" type="hidden" value="${jml_beli}"
                                                             placeholder="Harga Beli" name="detail_pembelian_jml_beli[]" />
                                                         <input class="form-control pembelian_id" type="hidden"
-                                                            placeholder="Harga Beli" name="pembelian_id[]" value="` + pembelian_id + `" />
+                                                            placeholder="Harga Beli" name="pembelian_id[]" value="` +
+                                pembelian_id +
+                                `" />
                                                         <input class="form-control harga_beli" type="text" oninput="test(this);"
-                                                            placeholder="Harga Beli" name="detail_pembelian_harga_beli[]" value="` + harga_beliFormatted + `" data-value="${harga_beli}" />
+                                                            placeholder="Harga Beli" name="detail_pembelian_harga_beli[]" value="` +
+                                harga_beliFormatted +
+                                `" data-value="${harga_beli}" />
                                                     </td>
                                                     <td> <input class="form-control nilai_tukar" type="number"
-                                                            placeholder="Nilai Tukar" name="detail_pembelian_nilai_tukar[]" value="` + nilai_tukar + `" /></td>
+                                                            placeholder="Nilai Tukar" name="detail_pembelian_nilai_tukar[]" value="` +
+                                nilai_tukar +
+                                `" /></td>
                                                     <td> <input class="form-control total" type="text"
-                                                            placeholder="Jumlah Harga" name="detail_pembelian_total[]" value="` + totalFormatted + `" data-value="${total}" /></td>
+                                                            placeholder="Jumlah Harga" name="detail_pembelian_total[]" value="` +
+                                totalFormatted + `" data-value="${total}" /></td>
                                                 </tr>`;
                         });
                         $("#list-barang").html(detailListBarang)
@@ -852,20 +880,21 @@
             // Function to format a number with a comma separator per 1,000
             function formatWithCommaSeparator(number) {
                 return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            }      
+            }
 
             // Calculate and update the totals for each row
             $('body').on('input', '.harga_beli, .nilai_tukar, #inputdiskon, #inputppn', function() {
-                var row           = $(this).closest('tr');
-                var hargaBeli     = parseFloat(row.find('.harga_beli').attr('data-value')) || 0;
+                var row = $(this).closest('tr');
+                var hargaBeli = parseFloat(row.find('.harga_beli').attr('data-value')) || 0;
                 console.log('harga beli', hargaBeli)
-                var nilaiTukar    = parseFloat(row.find('.nilai_tukar').val()) || 0;
+                var nilaiTukar = parseFloat(row.find('.nilai_tukar').val()) || 0;
                 console.log('nilai tukar', nilaiTukar)
-                var barangBerat   = parseFloat(row.find('.barang_berat').val()) || 0;
-                var jmlbeli       = hargaBeli * nilaiTukar; // Harga Beli * Nilai Tukar
+                var barangBerat = parseFloat(row.find('.barang_berat').val()) || 0;
+                var jmlbeli = hargaBeli * nilaiTukar; // Harga Beli * Nilai Tukar
                 console.log('jml beli', jmlbeli)
-                var total         = barangBerat * hargaBeli * nilaiTukar; // Barang Berat * Harga Beli * Nilai Tukar
-                var decimalPlaces = 0; // Change this number to round to a different number of decimal places
+                var total = barangBerat * hargaBeli * nilaiTukar; // Barang Berat * Harga Beli * Nilai Tukar
+                var decimalPlaces =
+                0; // Change this number to round to a different number of decimal places
 
                 // Round the total value to the specified decimal places
                 total = parseFloat(total.toFixed(decimalPlaces));
@@ -891,8 +920,8 @@
 
                 // var diskon     = parseFloat($("#inputdiskon").val()) || 0;
                 // var ppn        = parseFloat($("#inputppn").val()) || 0;
-                var diskon     = parseFloat($("#inputdiskon").attr('data-value')) || 0;
-                var ppn        = parseFloat($("#inputppn").attr('data-value')) || 0;
+                var diskon = parseFloat($("#inputdiskon").attr('data-value')) || 0;
+                var ppn = parseFloat($("#inputppn").attr('data-value')) || 0;
 
                 var grandTotal = (subtotal - diskon) + ppn;
 
@@ -921,18 +950,18 @@
 
                 var edit = $(this).hasClass('edit')
 
-                if(edit){
+                if (edit) {
                     const swalWithBootstrapButtons = Swal.mixin({
                         customClass: {
                             confirmButton: "btn btn-success",
                             cancelButton: "btn btn-danger me-2",
                         },
                         buttonsStyling: false,
-    
+
                     });
-    
-                    var order_id  = $(this).attr('data-id')
-    
+
+                    var order_id = $(this).attr('data-id')
+
                     swalWithBootstrapButtons
                         .fire({
                             title: "Apakah Anda Yakin Akan Mengubah Data?",
@@ -946,7 +975,7 @@
                         })
                         .then((result) => {
                             if (result.value) {
-    
+
                                 $.ajax({
                                     url: "{{ route('pembelian.store') }}",
                                     data: new FormData(this.form),
@@ -954,21 +983,22 @@
                                     processData: false,
                                     contentType: false,
                                     type: "POST",
-                
+
                                     success: function(response) {
                                         console.log(response)
                                         if (response.errors) {
                                             $('.alert').html('');
                                             $.each(response.errors, function(key, value) {
                                                 $('.alert-danger').show();
-                                                $('.alert-danger').append('<strong><li>' + value +
+                                                $('.alert-danger').append(
+                                                    '<strong><li>' + value +
                                                     '</li></strong>');
                                             });
                                             $('#submitPembelian').html('Simpan');
-                
+
                                         } else {
                                             $('.btn-warning').hide();
-                
+
                                             const Toast = Swal.mixin({
                                                 toast: true,
                                                 position: 'top-end',
@@ -976,23 +1006,23 @@
                                                 timer: 2000,
                                                 timerProgressBar: true,
                                             });
-                
+
                                             Toast.fire({
                                                 icon: 'success',
                                                 title: `${response.message}`,
                                             })
-                
+
                                             $('#pembelianForm').trigger("reset");
                                             $('#submitPembelian').html('Simpan');
                                             $('#pembelianModal').modal('hide');
-                
+
                                             // CHECK IF EDIT DONT REFRESH PAGE
                                             var edit = $(this).hasClass('edit')
-                
-                                            if(edit){
+
+                                            if (edit) {
                                                 transaksiPembelian.draw();
                                                 listbarang.draw();
-                                            }else{
+                                            } else {
                                                 transaksiPembelian.draw();
                                                 listbarang.draw();
                                                 setInterval(function() {
@@ -1002,13 +1032,13 @@
                                         }
                                     }
                                 });
-    
+
                             } else {
                                 $('#submitPembelian').html('Simpan');
                                 Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
                             }
                         });
-                }else{
+                } else {
                     $.ajax({
                         url: "{{ route('pembelian.store') }}",
                         data: new FormData(this.form),
@@ -1016,7 +1046,7 @@
                         processData: false,
                         contentType: false,
                         type: "POST",
-    
+
                         success: function(response) {
                             console.log(response)
                             if (response.errors) {
@@ -1027,10 +1057,10 @@
                                         '</li></strong>');
                                 });
                                 $('#submitPembelian').html('Simpan');
-    
+
                             } else {
                                 $('.btn-warning').hide();
-    
+
                                 const Toast = Swal.mixin({
                                     toast: true,
                                     position: 'top-end',
@@ -1038,23 +1068,23 @@
                                     timer: 2000,
                                     timerProgressBar: true,
                                 });
-    
+
                                 Toast.fire({
                                     icon: 'success',
                                     title: `${response.message}`,
                                 })
-    
+
                                 $('#pembelianForm').trigger("reset");
                                 $('#submitPembelian').html('Simpan');
                                 $('#pembelianModal').modal('hide');
-    
+
                                 // CHECK IF EDIT DONT REFRESH PAGE
                                 var edit = $(this).hasClass('edit')
-    
-                                if(edit){
+
+                                if (edit) {
                                     transaksiPembelian.draw();
                                     listbarang.draw();
-                                }else{
+                                } else {
                                     transaksiPembelian.draw();
                                     listbarang.draw();
                                     setInterval(function() {
@@ -1089,16 +1119,19 @@
                     dataType: "JSON",
                     success: function(response) {
                         const pembelian_tanggal = response.pembelian_tanggal;
-                        const supplier_id       = response.supplier_id;
-                        const keterangan        = response.pembelian_keterangan;
-                        const subtotalFormatted          = formatWithCommaSeparator(response.pembelian_subtotal);
-                        const diskonFormatted            = formatWithCommaSeparator(response.pembelian_diskon);
-                        const ppnFormatted               = formatWithCommaSeparator(response.pembelian_ppn);
-                        const grandTotalFormatted        = formatWithCommaSeparator(response.pembelian_grandtotal);
-                        const subtotal          = response.pembelian_subtotal;
-                        const diskon            = response.pembelian_diskon;
-                        const ppn               = response.pembelian_ppn;
-                        const grandtotal        = response.pembelian_grandtotal;
+                        const supplier_id = response.supplier_id;
+                        const keterangan = response.pembelian_keterangan;
+                        const subtotalFormatted = formatWithCommaSeparator(response
+                            .pembelian_subtotal);
+                        const diskonFormatted = formatWithCommaSeparator(response
+                            .pembelian_diskon);
+                        const ppnFormatted = formatWithCommaSeparator(response.pembelian_ppn);
+                        const grandTotalFormatted = formatWithCommaSeparator(response
+                            .pembelian_grandtotal);
+                        const subtotal = response.pembelian_subtotal;
+                        const diskon = response.pembelian_diskon;
+                        const ppn = response.pembelian_ppn;
+                        const grandtotal = response.pembelian_grandtotal;
 
                         $("#tanggal").val(pembelian_tanggal).prop('readonly', true)
                         $("#supplier_id").val(supplier_id).prop('readonly', true)
@@ -1121,20 +1154,23 @@
                         var detailListBarang = '';
                         var no = 1;
                         $.each(response.pembeliandetail, function(index, value) {
-                            const kadar        = value['detail_pembelian_kadar']
-                            const berat        = parseFloat(value['detail_pembelian_berat']).toFixed(2);
-                            const harga_beliFormatted   = formatWithCommaSeparator(value['detail_pembelian_harga_beli'])
-                            const harga_beli   = value['detail_pembelian_harga_beli']
-                            const nilai_tukar  = value['detail_pembelian_nilai_tukar']
-                            const jml_beli     = value['detail_pembelian_jml_beli']
-                            const totalFormatted        = formatWithCommaSeparator(value['detail_pembelian_total'])
-                            const total        = value['detail_pembelian_total']
+                            const kadar = value['detail_pembelian_kadar']
+                            const berat = parseFloat(value['detail_pembelian_berat'])
+                                .toFixed(2);
+                            const harga_beliFormatted = formatWithCommaSeparator(value[
+                                'detail_pembelian_harga_beli'])
+                            const harga_beli = value['detail_pembelian_harga_beli']
+                            const nilai_tukar = value['detail_pembelian_nilai_tukar']
+                            const jml_beli = value['detail_pembelian_jml_beli']
+                            const totalFormatted = formatWithCommaSeparator(value[
+                                'detail_pembelian_total'])
+                            const total = value['detail_pembelian_total']
                             const pembelian_id = value['pembelian_id']
-                            const barang_id    = value['barang_id']
+                            const barang_id = value['barang_id']
 
-                            const barang_kode  = value['barang']['barang_kode']
-                            const barang_nama  = value['barang']['barang_nama']
-                            const barang_foto  = value['barang']['barang_foto'] ?? null
+                            const barang_kode = value['barang']['barang_kode']
+                            const barang_nama = value['barang']['barang_nama']
+                            const barang_foto = value['barang']['barang_foto'] ?? null
 
                             detailListBarang += `<tr>
                                                     <td>` + no++ + `</td>
@@ -1154,25 +1190,36 @@
                                                         </div>
                                                     </td>
                                                     <td>` + kadar + `</td>
-                                                    <td>` + berat + `</td>
+                                                    <td>` + berat +
+                                `</td>
                                                     <td>
-                                                        <input class="form-control" id="barang_id" type="hidden" value="` + barang_id + `"
+                                                        <input class="form-control" id="barang_id" type="hidden" value="` +
+                                barang_id +
+                                `"
                                                             placeholder="Harga Beli" name="barang_id[]" />
                                                         <input class="form-control barang_berat" type="hidden" value="` + berat + `"
                                                             placeholder="Harga Beli" name="detail_pembelian_barang_berat[]" />
-                                                        <input class="form-control kadar" type="hidden" value="` + kadar + `"
+                                                        <input class="form-control kadar" type="hidden" value="` +
+                                kadar + `"
                                                             placeholder="Harga Beli" name="detail_pembelian_kadar[]" />
                                                         <input class="form-control jmlbeli" type="hidden" value="${jml_beli}"
                                                             placeholder="Harga Beli" name="detail_pembelian_jml_beli[]" />
                                                         <input class="form-control pembelian_id" type="hidden"
-                                                            placeholder="Harga Beli" name="pembelian_id[]" value="` + pembelian_id + `" />
+                                                            placeholder="Harga Beli" name="pembelian_id[]" value="` +
+                                pembelian_id +
+                                `" />
                                                         <input class="form-control harga_beli" type="text" oninput="test(this);"
-                                                            placeholder="Harga Beli" name="detail_pembelian_harga_beli[]" value="` + harga_beliFormatted + `" data-value="${harga_beli}" readonly />
+                                                            placeholder="Harga Beli" name="detail_pembelian_harga_beli[]" value="` +
+                                harga_beliFormatted +
+                                `" data-value="${harga_beli}" readonly />
                                                     </td>
                                                     <td> <input class="form-control nilai_tukar" type="number"
-                                                            placeholder="Nilai Tukar" name="detail_pembelian_nilai_tukar[]" value="` + nilai_tukar + `" readonly /></td>
+                                                            placeholder="Nilai Tukar" name="detail_pembelian_nilai_tukar[]" value="` +
+                                nilai_tukar +
+                                `" readonly /></td>
                                                     <td> <input class="form-control total" type="text"
-                                                            placeholder="Jumlah Harga" name="detail_pembelian_total[]" value="` + totalFormatted + `" data-value="${total}" readonly /></td>
+                                                            placeholder="Jumlah Harga" name="detail_pembelian_total[]" value="` +
+                                totalFormatted + `" data-value="${total}" readonly /></td>
                                                 </tr>`;
                         });
                         $("#list-barang").html(detailListBarang)

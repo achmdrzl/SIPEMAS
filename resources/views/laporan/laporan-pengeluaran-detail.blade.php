@@ -9,6 +9,16 @@
             height: 100%;
             margin: 1.75rem auto;
         }
+
+        .custom-width-column {
+            width: 400px;
+            /* Set your desired width here */
+        }
+
+        .custom-width-column2 {
+            width: 100px;
+            /* Set your desired width here */
+        }
     </style>
 @endpush
 
@@ -123,7 +133,8 @@
                             <ul class="nav nav-light">
                                 <li class="nav-item nav-link">
                                     <button class="btn btn-sm btn-primary show-data"><span><span class="icon"><span
-                                                    class="feather-icon"><i data-feather="calendar"></i></span></span><span
+                                                    class="feather-icon"><i
+                                                        data-feather="calendar"></i></span></span><span
                                                 class="btn-text">Tampilkan</span></span></button>
                                 </li>
                                 <li class="nav-item nav-link">
@@ -150,12 +161,16 @@
                                 <h4>Laporan Detail Pengeluaran</h4>
                                 <div class="d-flex">
                                     <h6>Periode :</h6>
-                                    <h6 id="startDate" style="margin-right: 5px; margin-left:5px;">{{ date('d M y') }}</h6>
+                                    <h6 id="startDate" style="margin-right: 5px; margin-left:5px;">{{ date('d M y') }}
+                                    </h6>
                                     <h6>s/d</h6>
                                     <h6 id="endDate" style="margin-left: 5px;">{{ date('d M y') }}</h6>
                                 </div>
                             </div>
                             <div class="email-options-wrap">
+                                <button class="btn btn-sm btn-primary preview-btn me-2"><span><span class="icon"><span
+                                                class="feather-icon"><i data-feather="eye"></i></span></span><span
+                                            class="btn-text">Preview</span></span></button>
                                 <button class="btn btn-sm btn-primary print-btn"><span><span class="icon"><span
                                                 class="feather-icon"><i data-feather="printer"></i></span></span><span
                                             class="btn-text">Print</span></span></button>
@@ -215,8 +230,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-primary float-end" id="submit-print" data-jenis="detail-pengeluaran"
-                                    data-bs-dismiss="modal">Print</button>
+                                <button type="button" class="btn btn-primary float-end" id="submit-print"
+                                    data-jenis="detail-pengeluaran" data-bs-dismiss="modal">Print</button>
                             </form>
                         </div>
                     </div>
@@ -250,27 +265,27 @@
                                                     name="pengeluaran_tanggal" value="{{ date('Y-m-d') }}" />
                                             </div>
                                             <div class="col-xl-auto mb-xl-0 mb-2" id="supplier-label">
-                                                
+
                                             </div>
                                             <div class="col-xl-auto mb-xl-0 mb-2" id="supplier-data2">
-                                                
+
                                             </div>
 
                                             <div class="col-xl-auto mb-xl-0 mb-2" id="keterangan-label">
-                                                
+
                                             </div>
 
                                             <div class="col-xl-auto mb-xl-0 mb-2" id="keterangan-data">
-                                                
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <table class="table nowrap table-striped">
+                                <table class="table table-striped">
                                     <thead>
                                         <th>No</th>
-                                        <th>Kode Barang</th>
-                                        <th>Nama Barang</th>
+                                        <th class="custom-width-column2">Kode Barang</th>
+                                        <th class="custom-width-column">Nama Barang</th>
                                         <th>Berat Asli</th>
                                         <th>Kondisi</th>
                                     </thead>
@@ -311,19 +326,37 @@
                 }).format(number);
             }
 
+            function formatCustomDate(dateString) {
+                const [fullDate, timePart] = dateString.split(' ');
+                const [year, month, day] = fullDate.split('-');
+
+                // Map month abbreviation to full month name
+                const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov',
+                    'Des'
+                ];
+                const monthName = monthNames[parseInt(month) - 1];
+
+                return `${day}-${monthName}-${year}`;
+            }
+
             // Define an array of column indexes that need formatting
-            var columnsToFormat = [4, 5, 6, 7];
+            var columnsToFormat = [2];
 
             // Loop through the columns and apply the rendering function
             var columnDefs = columnsToFormat.map(function(columnIndex) {
                 return {
                     targets: columnIndex,
                     render: function(data, type, row) {
-                        if (type === 'display') {
+                        if (columnIndex === 2 && type === 'sort') {
+                            // Return the raw date data for sorting
+                            return data;
+                        } else if (columnIndex === 2 && type === 'display') {
+                            // Format the date for display
+                            return formatCustomDate(data);
+                        } else {
                             // Format as Rupiah
                             return 'Rp ' + parseFloat(data).toLocaleString('id-ID');
                         }
-                        return data;
                     },
                 };
             });
@@ -372,7 +405,8 @@
                         data: 'action',
                         name: 'action'
                     },
-                ]
+                ],
+                columnDefs: columnDefs,
             });
 
             // FILTERED DATA
@@ -477,6 +511,7 @@
                                         name: 'action'
                                     },
                                 ],
+                                columnDefs: columnDefs,
                             });
 
                             // Hide the loading state
@@ -732,19 +767,19 @@
                         const pengeluarantanggal    = response.pengeluaran_tanggal
                         const supplierdata          = response.supplier_id
                         const keterangan            = response.pengeluaran_keterangan;
-                        
+
                         $('#pengeluaran_tanggal').val(pengeluarantanggal).prop('readonly', true)
-                        
+
                         var detailListBarang = '';
                         var no = 1;
-                        
-                        $.each(response.pengeluarandetail, function (index, value) { 
-                            const barangkode        = value.barang['barang_kode'];
-                            const barangnama        = value.barang['barang_nama'];
-                            const barangberat       = value['detail_pengeluaran_berat'];
-                            const kondisi           = value['detail_pengeluaran_kondisi'];
 
-                             detailListBarang += `<tr>
+                        $.each(response.pengeluarandetail, function(index, value) {
+                            const barangkode    = value.barang['barang_kode'];
+                            const barangnama    = value.barang['barang_nama'];
+                            const barangberat   = value['detail_pengeluaran_berat'];
+                            const kondisi       = value['detail_pengeluaran_kondisi'];
+
+                            detailListBarang += `<tr>
                                                      <td>` + no++ + `</td>
                                                      <td>` + barangkode + `</td>
                                                      <td>` + barangnama + `</td>
@@ -754,30 +789,33 @@
                         });
 
                         // ADDING KETERANGAN AND SUPPLIER
-                        var supplierData    = @json($supplier);
-                        
-                        var labelsupplier   = `<div class="col-xl-auto mb-xl-0 mb-2">
+                        var supplierData = @json($supplier);
+
+                        var labelsupplier = `<div class="col-xl-auto mb-xl-0 mb-2">
                                                     <label class="form-label mb-xl-0">Supplier:</label>
                                                 </div>`;
 
-                        var supplier        = `<div class="col-xl-auto mb-xl-0 mb-2">
+                        var supplier = `<div class="col-xl-auto mb-xl-0 mb-2">
                                                     <select class="form-select" id="supplier_id2" name="supplier_id">
                                                         <option value="" selected disabled>--</option>`;
 
-                                                // Loop through the values of $supplier and generate <option> elements
-                                                $.each(supplierData, function(index, value) {
-                                                    supplier += `<option value="${value.supplier_id}">${value.supplier_nama}</option>`;
-                                                });
+                        // Loop through the values of $supplier and generate <option> elements
+                        $.each(supplierData, function(index, value) {
+                            supplier +=
+                                `<option value="${value.supplier_id}">${value.supplier_nama}</option>`;
+                        });
 
-                                                supplier += `</select>
+                        supplier += `</select>
                                                             </div>`;
 
-                        var labelket    = ` <div class="col-xl-auto mb-xl-0 mb-2">
+                        var labelket = ` <div class="col-xl-auto mb-xl-0 mb-2">
                                             <label class="form-label mb-xl-0">Keterangan :</label>
                                         </div>`;
 
-                        var dataketerangan  = `<div class="col-xl-auto mb-xl-0 mb-2">
-                                            <textarea class="form-control" id="pengeluaran_keterangan" name="pengeluaran_keterangan" value="` + keterangan + `" disabled></textarea>
+                        var dataketerangan =
+                            `<div class="col-xl-auto mb-xl-0 mb-2">
+                                            <textarea class="form-control" id="pengeluaran_keterangan" name="pengeluaran_keterangan" value="` +
+                            keterangan + `" disabled></textarea>
                                         </div>`;
 
                         $("#supplier-label").html(labelsupplier)
@@ -788,7 +826,8 @@
                         $('#pengeluaran_keterangan').val(keterangan)
 
                         $("#list-barang").html(detailListBarang)
-                        $("#submitPenerimaan").prop('hidden', true);44
+                        $("#submitPenerimaan").prop('hidden', true);
+                        44
                     }
 
                 });
@@ -806,44 +845,73 @@
             })
 
             // CETAK LAPORAN
-            $('body').on('click', '#submit-print', function(){
-                var startDate    = $('#start_date').val();
-                var endDate      = $('#end_date').val();
-                var nobukti      = $('#nobukti').val();
-                var namabarang   = $('#namabarang').val();
-                var filter       = $('#filter_data').val();
-                var supplier     = $('#supplier').val();
-                var pabrik       = $('#pabrik').val();
-                var kadar        = $('#kadar').val();
-                var model        = $('#model').val();
-                var jenis        = $(this).attr('data-jenis');
+            $('body').on('click', '#submit-print', function() {
+                var startDate = $('#start_date').val();
+                var endDate = $('#end_date').val();
+                var nobukti = $('#nobukti').val();
+                var namabarang = $('#namabarang').val();
+                var filter = $('#filter_data').val();
+                var supplier = $('#supplier').val();
+                var pabrik = $('#pabrik').val();
+                var kadar = $('#kadar').val();
+                var model = $('#model').val();
+                var jenis = $(this).attr('data-jenis');
                 var format_print = $('#format_print').val();
 
                 var myArray = [
-                    startDate, endDate, nobukti, namabarang, filter, supplier, pabrik, kadar, model, jenis, format_print
+                    startDate, endDate, nobukti, namabarang, filter, supplier, pabrik, kadar, model,
+                    jenis, format_print
                 ];
 
-                if(format_print === null){
+                if (format_print === null) {
                     Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Data format has not been selected!',
-                            showConfirmButton: false,
-                            timer: 2000
-                        });
-                }else{
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Data format has not been selected!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                } else {
                     // Convert the array to a query parameter string
                     var queryString = 'data=' + JSON.stringify(myArray);
-    
+
                     // Create the URL with query parameters
                     var url = "{{ route('cetak.pengeluaran') }}?" + queryString;
-    
-                    
+
+
                     // Open the PDF in a new tab/window
                     window.open(url, '_blank');
-                    
+
                     $('#form-print').trigger("reset");
                 }
+            })
+
+            // PREVIEW LAPORAN
+            $('body').on('click', '.preview-btn', function() {
+                var startDate = $('#start_date').val();
+                var endDate = $('#end_date').val();
+                var nobukti = $('#nobukti').val();
+                var namabarang = $('#namabarang').val();
+                var filter = $('#filter_data').val();
+                var supplier = $('#supplier').val();
+                var pabrik = $('#pabrik').val();
+                var kadar = $('#kadar').val();
+                var model = $('#model').val();
+
+                var myArray = [
+                    startDate, endDate, nobukti, namabarang, filter, supplier, pabrik, kadar, model
+                ];
+
+                // Convert the array to a query parameter string
+                var queryString = 'data=' + JSON.stringify(myArray);
+
+                // Create the URL with query parameters
+                var url = "{{ route('preview.pengeluaran') }}?" + queryString;
+
+
+                // Open the PDF in a new tab/window
+                window.open(url, '_blank');
+
             })
 
         })
