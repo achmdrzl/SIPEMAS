@@ -150,8 +150,8 @@
                 <th colspan="2">Nama Barang</th>
                 <th>Kadar</th>
                 <th>Berat</th>
-                <th>Harga/gr</th>
-                <th>Harga</th>
+                <th>Harga/gr[Rp]</th>
+                <th>Harga[Rp]</th>
             </tr>
         </thead>
         <tbody>
@@ -181,16 +181,19 @@
                     </td>
                     <td>{{ $item->barang->kadar->kadar_nama }}</td>
                     <td>{{ number_format($item->detail_penjualan_berat_jual, 2) }}</td>
-                    <td>Rp. {{ number_format($item->detail_penjualan_harga) }}</td>
-                    <td>Rp. {{ number_format($item->detail_penjualan_jml_harga) }}</td>
+                    <td>{{ number_format($item->detail_penjualan_harga) }}</td>
+                    <td>{{ number_format($item->detail_penjualan_jml_harga) }}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
     <div id="perhatian" style="width: 200px; max-height: 400px; overflow-y: auto;">
-        <p style="width: 400px; overflow-wrap: break-word;">
-            Keterangan: {{ $penjualans->penjualan_keterangan }}
+        <p style="width: 400px; overflow-wrap: break-word;" id="penjualan_keterangan">
+            Keterangan:
         </p>
+    </div>
+    <div id="perhatian" style="margin-left:80px; margin-top:-100px;">
+        {!! $penjualans->penjualan_keterangan !!}
     </div>
     <div class="subtotal-perhatian">
         <div id="perhatian" style="width: 450px">

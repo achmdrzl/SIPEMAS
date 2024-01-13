@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('tgl_transaksi');
             $table->enum('jenis_transaksi', ['Pengeluaran', 'Pemasukan']);
             $table->integer('total');
-            $table->string('keterangan');
+            $table->text('keterangan');
             $table->enum('status', ['aktif', 'non-aktif'])->default('aktif');
             $table->timestamps();
         });

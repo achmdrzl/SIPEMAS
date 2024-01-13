@@ -1149,7 +1149,7 @@
                 var queryString = 'data=' + JSON.stringify(myArray);
 
                 // Create the URL with query parameters
-                var url = "{{ route('preview.pembelian') }}?" + queryString;
+                var url = "{{ route('preview.penjualan') }}?" + queryString;
 
 
                 // Open the PDF in a new tab/window

@@ -1404,6 +1404,7 @@ class DataLaporanController extends Controller
         // dd($barangs);
         $barang = [];
         $index = 1;
+        
         foreach ($barangs as $item) {
             $barang_id = $item->barang_id;
             $barang_kode = $item->barang_kode;
@@ -1454,7 +1455,7 @@ class DataLaporanController extends Controller
                     'berat'       => $berat_jual,
                 ];
             }
-
+            
             // Loop through return relationships
             foreach ($item->transaksipenjualanreturndetail as $returnDetail) {
                 $tanggal_return = $returnDetail->return->created_at;
@@ -1481,46 +1482,53 @@ class DataLaporanController extends Controller
 
             // Loop through pengeluaran relationships
             foreach ($item->transaksipengeluarandetail as $pengeluaranDetail) {
-                $tanggal_pengeluaran = $pengeluaranDetail->pengeluaran->created_at;
-                $nobukti_pengeluaran = $pengeluaranDetail->pengeluaran->pengeluaran_nobukti;
-                $kondisi_pengeluaran = $pengeluaranDetail->detail_pengeluaran_kondisi;
-                $berat_pengeluaran   = number_format($pengeluaranDetail->detail_pengeluaran_berat, 2);
-
-                // Add pengeluaran data to barang
-                $barang[] = [
-                    'DT_RowIndex' => $index++,
-                    'barang_kode' => $barang_kode,
-                    'barang_nama' => $barang_nama,
-                    // 'tanggal'     => Carbon::parse($tanggal_pengeluaran)->format('d M Y - H:i:s'),
-                    'tanggal'     => $tanggal_pengeluaran,
-                    'nobukti'     => $nobukti_pengeluaran,
-                    'harga'       => 0,
-                    'jenis'       => 'PENGELUARAN',
-                    'kondisi'     => $kondisi_pengeluaran,
-                    'berat'       => $berat_pengeluaran,
-                ];
+                // Check if data equal pengeluaran
+                if($pengeluaranDetail->pengeluaran->jenis === 'pengeluaran'){
+                    $tanggal_pengeluaran = $pengeluaranDetail->pengeluaran->created_at;
+                    $nobukti_pengeluaran = $pengeluaranDetail->pengeluaran->pengeluaran_nobukti;
+                    $kondisi_pengeluaran = $pengeluaranDetail->detail_pengeluaran_kondisi;
+                    $berat_pengeluaran   = number_format($pengeluaranDetail->detail_pengeluaran_berat, 2);
+    
+                    // Add pengeluaran data to barang
+                    $barang[] = [
+                        'DT_RowIndex' => $index++,
+                        'barang_kode' => $barang_kode,
+                        'barang_nama' => $barang_nama,
+                        // 'tanggal'     => Carbon::parse($tanggal_pengeluaran)->format('d M Y - H:i:s'),
+                        'tanggal'     => $tanggal_pengeluaran,
+                        'nobukti'     => $nobukti_pengeluaran,
+                        'harga'       => 0,
+                        'jenis'       => 'PENGELUARAN',
+                        'kondisi'     => $kondisi_pengeluaran,
+                        'berat'       => $berat_pengeluaran,
+                    ];
+                }
             }
 
             // Loop through pengeluaran relationships
             foreach ($item->transaksipengeluarandetail as $pengeluaranDetail) {
-                $tanggal_pengeluaran = $pengeluaranDetail->pengeluaran->created_at;
-                $nobukti_pengeluaran = $pengeluaranDetail->pengeluaran->pengeluaran_nobukti;
-                $kondisi_pengeluaran = $pengeluaranDetail->detail_pengeluaran_kondisi;
-                $berat_pengeluaran   = number_format($pengeluaranDetail->detail_pengeluaran_kembali, 2);
 
-                // Add pengeluaran data to barang
-                $barang[] = [
-                    'DT_RowIndex' => $index++,
-                    'barang_kode' => $barang_kode,
-                    'barang_nama' => $barang_nama,
-                    // 'tanggal'     => Carbon::parse($tanggal_pengeluaran)->format('d M Y - H:i:s'),
-                    'tanggal'     => $tanggal_pengeluaran,
-                    'nobukti'     => $nobukti_pengeluaran,
-                    'harga'       => 0,
-                    'jenis'       => 'PENERIMAAN',
-                    'kondisi'     => $kondisi_pengeluaran,
-                    'berat'       => $berat_pengeluaran,
-                ];
+                // Check if data equal penerimaan
+                if ($pengeluaranDetail->pengeluaran->jenis === 'penerimaan') {
+                    $tanggal_pengeluaran = $pengeluaranDetail->pengeluaran->created_at;
+                    $nobukti_pengeluaran = $pengeluaranDetail->pengeluaran->pengeluaran_nobukti;
+                    $kondisi_pengeluaran = $pengeluaranDetail->detail_pengeluaran_kondisi;
+                    $berat_pengeluaran   = number_format($pengeluaranDetail->detail_pengeluaran_kembali, 2);
+    
+                    // Add pengeluaran data to barang
+                    $barang[] = [
+                        'DT_RowIndex' => $index++,
+                        'barang_kode' => $barang_kode,
+                        'barang_nama' => $barang_nama,
+                        // 'tanggal'     => Carbon::parse($tanggal_pengeluaran)->format('d M Y - H:i:s'),
+                        'tanggal'     => $tanggal_pengeluaran,
+                        'nobukti'     => $nobukti_pengeluaran,
+                        'harga'       => 0,
+                        'jenis'       => 'PENERIMAAN',
+                        'kondisi'     => $kondisi_pengeluaran,
+                        'berat'       => $berat_pengeluaran,
+                    ];
+                }
             }
         }
 

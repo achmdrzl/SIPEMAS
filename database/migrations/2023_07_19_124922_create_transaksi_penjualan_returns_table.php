@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('penjualan_return_nobukti');
             $table->string('penjualan_kode');
             $table->date('penjualan_return_tanggal');
-            $table->string('penjualan_return_keterangan');
+            $table->text('penjualan_return_keterangan');
             $table->integer('user_id')->nullable();
             $table->timestamps();
         });

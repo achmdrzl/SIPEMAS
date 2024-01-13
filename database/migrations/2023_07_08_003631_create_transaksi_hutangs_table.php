@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('kode_hutang');
             $table->date('tgl_transaksi');
             $table->integer('total');
-            $table->string('keterangan');
+            $table->text('keterangan');
             $table->enum('status', ['aktif', 'non-aktif'])->default('aktif');
             $table->timestamps();
         });

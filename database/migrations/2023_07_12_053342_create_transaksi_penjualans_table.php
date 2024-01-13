@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('penjualan_grandtotal');
             $table->integer('penjualan_bayar');
             $table->integer('penjualan_kembalian');
-            $table->string('penjualan_keterangan');
+            $table->text('penjualan_keterangan');
             $table->integer('user_id');
             $table->timestamps();
         });

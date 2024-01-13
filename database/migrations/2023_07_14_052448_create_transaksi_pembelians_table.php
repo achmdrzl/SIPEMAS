@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('pembelian_diskon');
             $table->integer('pembelian_ppn');
             $table->integer('pembelian_grandtotal');
-            $table->string('pembelian_keterangan');
+            $table->text('pembelian_keterangan');
             $table->string('supplier_id');
             $table->integer('user_id');
             $table->timestamps();

@@ -225,11 +225,10 @@
                                             </select>
                                         </div>
                                         <div class="col-xl-auto mb-xl-0 mb-2">
-                                            <label class="form-label mb-xl-0">Keterangan
-                                                :</label>
+                                            <label class="form-label mb-xl-0">Keterangan :</label>
                                         </div>
                                         <div class="col-xl-auto mb-xl-0 mb-2">
-                                            <textarea name="pembelian_keterangan" class="form-control" id="keterangan"></textarea>
+                                            <textarea name="pembelian_keterangan" class="form-control keterangan" id="keterangan"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -782,7 +781,14 @@
 
                         $("#tanggal").val(pembelian_tanggal).prop('readonly', false)
                         $("#supplier_id").val(supplier_id).prop('readonly', false)
-                        $("#keterangan").val(keterangan).prop('readonly', false)
+
+                        // PASSING INTO KETERANGAN
+                        // Set content of TinyMCE editor
+                        tinymce.get('keterangan').setContent(keterangan);
+
+                        // Disable editing in TinyMCE
+                        tinymce.get('keterangan').setMode('design');
+                        // $("#keterangan").val(keterangan).prop('readonly', false)
 
                         $('#inputdiskon').val(diskonFormatted).prop('readonly', false);
                         $('#inputdiskon').attr('data-value', diskon);
@@ -844,7 +850,8 @@
                                 barang_id +
                                 `"
                                                             placeholder="Harga Beli" name="barang_id[]" />
-                                                        <input class="form-control barang_berat" type="hidden" value="` + berat + `"
+                                                        <input class="form-control barang_berat" type="hidden" value="` +
+                                berat + `"
                                                             placeholder="Harga Beli" name="detail_pembelian_barang_berat[]" />
                                                         <input class="form-control kadar" type="hidden" value="` +
                                 kadar + `"
@@ -894,7 +901,7 @@
                 console.log('jml beli', jmlbeli)
                 var total = barangBerat * hargaBeli * nilaiTukar; // Barang Berat * Harga Beli * Nilai Tukar
                 var decimalPlaces =
-                0; // Change this number to round to a different number of decimal places
+                    0; // Change this number to round to a different number of decimal places
 
                 // Round the total value to the specified decimal places
                 total = parseFloat(total.toFixed(decimalPlaces));
@@ -975,7 +982,8 @@
                         })
                         .then((result) => {
                             if (result.value) {
-
+                                // Assuming you have a TinyMCE instance with id 'keterangan'
+                                tinymce.triggerSave();
                                 $.ajax({
                                     url: "{{ route('pembelian.store') }}",
                                     data: new FormData(this.form),
@@ -1039,6 +1047,8 @@
                             }
                         });
                 } else {
+                    // Assuming you have a TinyMCE instance with id 'keterangan'
+                    tinymce.triggerSave();
                     $.ajax({
                         url: "{{ route('pembelian.store') }}",
                         data: new FormData(this.form),
@@ -1135,7 +1145,14 @@
 
                         $("#tanggal").val(pembelian_tanggal).prop('readonly', true)
                         $("#supplier_id").val(supplier_id).prop('readonly', true)
-                        $("#keterangan").val(keterangan).prop('readonly', true)
+
+                        // PASSING INTO KETERANGAN
+                        // Set content of TinyMCE editor
+                        tinymce.get('keterangan').setContent(keterangan);
+
+                        // Disable editing in TinyMCE
+                        tinymce.get('keterangan').setMode('readonly');
+                        // $("#classic").val(keterangan).prop('readonly', true)
 
                         $('#inputdiskon').val(diskonFormatted).prop('readonly', true);
                         $('#inputdiskon').attr('data-value', diskon);
@@ -1197,7 +1214,8 @@
                                 barang_id +
                                 `"
                                                             placeholder="Harga Beli" name="barang_id[]" />
-                                                        <input class="form-control barang_berat" type="hidden" value="` + berat + `"
+                                                        <input class="form-control barang_berat" type="hidden" value="` +
+                                berat + `"
                                                             placeholder="Harga Beli" name="detail_pembelian_barang_berat[]" />
                                                         <input class="form-control kadar" type="hidden" value="` +
                                 kadar + `"
@@ -1231,5 +1249,27 @@
             })
 
         })
+    </script>
+
+    <script src="{{ asset('backend/vendors/tinymce/tinymce.min.js') }}"></script>
+
+    <script>
+        tinymce.init({
+            selector: 'textarea#keterangan',
+            autosave_ask_before_unload: true,
+            autosave_interval: '30s',
+            autosave_prefix: '{path}{query}-{id}-',
+            autosave_restore_when_empty: false,
+            autosave_retention: '2m',
+            image_advtab: true,
+            importcss_append: true,
+            template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+            template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+            image_caption: true,
+            quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+            noneditable_noneditable_class: 'mceNonEditable',
+            toolbar_mode: 'sliding',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+        });
     </script>
 @endpush

@@ -816,7 +816,15 @@
                             .penjualan_kembalian);
 
                         $("#penjualan_tanggal").val(penjualan_tanggal).prop('readonly', false)
-                        $("#penjualan_keterangan").val(keterangan).prop('readonly', false)
+
+                        // PASSING INTO KETERANGAN
+                        // Set content of TinyMCE editor
+                        tinymce.get('penjualan_keterangan').setContent(keterangan);
+
+                        // Disable editing in TinyMCE
+                        tinymce.get('penjualan_keterangan').setMode('design');
+
+                        // $("#penjualan_keterangan").val(keterangan).prop('readonly', false)
 
                         $('#inputdiskon').val(diskonFormatted).prop('readonly', false);
                         $('#inputdiskon').attr('data-value', diskon);
@@ -1057,6 +1065,8 @@
                         })
                         .then((result) => {
                             if (result.value) {
+                                // Assuming you have a TinyMCE instance with id 'keterangan'
+                                tinymce.triggerSave();
 
                                 $.ajax({
                                     url: "{{ route('penjualan.store') }}",
@@ -1141,7 +1151,7 @@
                                                             })
                                                             .then((
                                                                 result
-                                                                ) => {
+                                                            ) => {
                                                                 if (result
                                                                     .value
                                                                 ) {
@@ -1208,6 +1218,9 @@
                             }
                         });
                 } else {
+                    // Assuming you have a TinyMCE instance with id 'keterangan'
+                    tinymce.triggerSave();
+
                     $.ajax({
                         url: "{{ route('penjualan.store') }}",
                         data: new FormData(this.form),
@@ -1379,7 +1392,14 @@
                             .penjualan_kembalian);
 
                         $("#penjualan_tanggal").val(penjualan_tanggal).prop('readonly', true)
-                        $("#penjualan_keterangan").val(keterangan).prop('readonly', true)
+
+                        // PASSING INTO KETERANGAN
+                        // Set content of TinyMCE editor
+                        tinymce.get('penjualan_keterangan').setContent(keterangan);
+
+                        // Disable editing in TinyMCE
+                        tinymce.get('penjualan_keterangan').setMode('readonly');
+                        // $("#penjualan_keterangan").val(keterangan).prop('readonly', true)
 
                         $('#inputdiskon').val(diskonFormatted).prop('readonly', true);
                         $('#inputdiskon').attr('data-value', diskon);
@@ -1526,5 +1546,27 @@
 
             });
         })
+    </script>
+
+    <script src="{{ asset('backend/vendors/tinymce/tinymce.min.js') }}"></script>
+
+    <script>
+        tinymce.init({
+            selector: 'textarea#penjualan_keterangan',
+            autosave_ask_before_unload: true,
+            autosave_interval: '30s',
+            autosave_prefix: '{path}{query}-{id}-',
+            autosave_restore_when_empty: false,
+            autosave_retention: '2m',
+            image_advtab: true,
+            importcss_append: true,
+            template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+            template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+            image_caption: true,
+            quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+            noneditable_noneditable_class: 'mceNonEditable',
+            toolbar_mode: 'sliding',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+        });
     </script>
 @endpush
