@@ -528,6 +528,48 @@
                         }
                     }
                 });
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: "btn btn-success",
+                        cancelButton: "btn btn-danger me-2",
+                    },
+                    buttonsStyling: false,
+
+                });
+
+                swalWithBootstrapButtons
+                    .fire({
+                        title: "Apakah Anda Yakin Akan Preview Data?",
+                        text: "Akan menampilkan preview data!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonClass: "me-2",
+                        cancelButtonText: "Tidak",
+                        confirmButtonText: "Ya",
+                        reverseButtons: true,
+                    })
+                    .then((result) => {
+                        if (result.value) {
+                            var myArray = [
+                                startDate, endDate, nobukti, namabarang, filter, supplier, pabrik,
+                                kadar, model
+                            ];
+
+                            // Convert the array to a query parameter string
+                            var queryString = 'data=' + JSON.stringify(myArray);
+
+                            // Create the URL with query parameters
+                            var url = "{{ route('preview.pengeluaran') }}?" + queryString;
+
+
+                            // Open the PDF in a new tab/window
+                            window.open(url, '_blank');
+
+                        } else {
+                            Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
+                        }
+                    });
             });
 
             // RESTART FILTER
@@ -764,9 +806,9 @@
                     dataType: "JSON",
                     success: function(response) {
                         console.log(response)
-                        const pengeluarantanggal    = response.pengeluaran_tanggal
-                        const supplierdata          = response.supplier_id
-                        const keterangan            = response.pengeluaran_keterangan;
+                        const pengeluarantanggal = response.pengeluaran_tanggal
+                        const supplierdata = response.supplier_id
+                        const keterangan = response.pengeluaran_keterangan;
 
                         $('#pengeluaran_tanggal').val(pengeluarantanggal).prop('readonly', true)
 
@@ -774,10 +816,10 @@
                         var no = 1;
 
                         $.each(response.pengeluarandetail, function(index, value) {
-                            const barangkode    = value.barang['barang_kode'];
-                            const barangnama    = value.barang['barang_nama'];
-                            const barangberat   = value['detail_pengeluaran_berat'];
-                            const kondisi       = value['detail_pengeluaran_kondisi'];
+                            const barangkode = value.barang['barang_kode'];
+                            const barangnama = value.barang['barang_nama'];
+                            const barangberat = value['detail_pengeluaran_berat'];
+                            const kondisi = value['detail_pengeluaran_kondisi'];
 
                             detailListBarang += `<tr>
                                                      <td>` + no++ + `</td>

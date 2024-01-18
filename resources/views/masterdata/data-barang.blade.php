@@ -3,7 +3,17 @@
 @push('style-alt')
     <style>
         .custom-width-column {
-            width: 100px; /* Set your desired width here */
+            width: 200px; /* Set your desired width here */
+        }
+        .custom-width-column2 {
+            width: 50px; /* Set your desired width here */
+        }
+        .custom-width-column3 {
+            width: 30px; /* Set your desired width here */
+        }
+
+        .custom-width-column4 {
+            width: 40px; /* Set your desired width here */
         }
 
         #datatable_7 tbody td {
@@ -71,9 +81,9 @@
                                                         <th>No</th>
                                                         <th>Nama</th>
                                                         <th>Berat</th>
+                                                        <th>Supplier</th>
                                                         <th>Model</th>
                                                         <th>Pabrik</th> 
-                                                        {{-- <th>Supplier</th> --}}
                                                         <th>Kadar</th> 
                                                         <th>Lokasi</th> 
                                                         {{-- <th>Kondisi</th>  --}}
@@ -931,24 +941,29 @@
                         name: 'barang_berat'
                     },  
                     {
+                        data: 'supplier_id',
+                        name: 'supplier_id',
+                        className: 'custom-width-column2' // Add a class for styling
+                    }, 
+                    {
                         data: 'model_id',
-                        name: 'model_id'
+                        name: 'model_id',
+                        className: 'custom-width-column2' // Add a class for styling
                     }, 
                     {
                         data: 'pabrik_id',
-                        name: 'pabrik_id'
+                        name: 'pabrik_id',
+                        className: 'custom-width-column3' // Add a class for styling
                     },  
-                    // {
-                    //     data: 'supplier_id',
-                    //     name: 'supplier_id'
-                    // }, 
                     {
                         data: 'kadar_id',
-                        name: 'kadar_id'
+                        name: 'kadar_id',
+                        className: 'custom-width-column3' // Add a class for styling
                     }, 
                     {
                         data: 'barang_lokasi',
-                        name: 'barang_lokasi'
+                        name: 'barang_lokasi',
+                        className: 'custom-width-column4' // Add a class for styling
                     }, 
                     // {
                     //     data: 'barang_kondisi',

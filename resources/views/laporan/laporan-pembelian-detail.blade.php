@@ -8,10 +8,12 @@
             width: 100%;
             margin: 1.75rem auto;
         }
+
         .custom-width-column {
             width: 400px;
             /* Set your desired width here */
         }
+
         .custom-width-column2 {
             width: 100px;
             /* Set your desired width here */
@@ -419,7 +421,7 @@
             // Function to format a number with a comma separator per 1,000
             function formatWithCommaSeparator(number) {
                 return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            }  
+            }
 
             // Custom function to format the date
             function formatCustomDate(dateString) {
@@ -693,6 +695,49 @@
                         }
                     }
                 });
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: "btn btn-success",
+                        cancelButton: "btn btn-danger me-2",
+                    },
+                    buttonsStyling: false,
+
+                });
+
+                swalWithBootstrapButtons
+                    .fire({
+                        title: "Apakah Anda Yakin Akan Preview Data?",
+                        text: "Akan menampilkan preview data!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonClass: "me-2",
+                        cancelButtonText: "Tidak",
+                        confirmButtonText: "Ya",
+                        reverseButtons: true,
+                    })
+                    .then((result) => {
+                        if (result.value) {
+                            var myArray = [
+                                startDate, endDate, nobukti, namabarang, filter, supplier, pabrik,
+                                kadar, model
+                            ];
+
+                            // Convert the array to a query parameter string
+                            var queryString = 'data=' + JSON.stringify(myArray);
+
+                            // Create the URL with query parameters
+                            var url = "{{ route('preview.pembelian') }}?" + queryString;
+
+
+                            // Open the PDF in a new tab/window
+                            window.open(url, '_blank');
+
+                        } else {
+                            Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
+                        }
+                    });
+
             });
 
             // RESTART FILTER
@@ -1086,12 +1131,13 @@
                     success: function(response) {
                         console.log(response)
                         const pembelian_tanggal = response.pembelian_tanggal;
-                        const supplier_id       = response.supplier_id;
-                        const keterangan        = response.pembelian_keterangan;
-                        const subtotal          = formatWithCommaSeparator(response.pembelian_subtotal);
-                        const diskon            = formatWithCommaSeparator(response.pembelian_diskon);
-                        const ppn               = formatWithCommaSeparator(response.pembelian_ppn);
-                        const grandtotal        = formatWithCommaSeparator(response.pembelian_grandtotal);
+                        const supplier_id = response.supplier_id;
+                        const keterangan = response.pembelian_keterangan;
+                        const subtotal = formatWithCommaSeparator(response.pembelian_subtotal);
+                        const diskon = formatWithCommaSeparator(response.pembelian_diskon);
+                        const ppn = formatWithCommaSeparator(response.pembelian_ppn);
+                        const grandtotal = formatWithCommaSeparator(response
+                            .pembelian_grandtotal);
 
                         $("#tanggal").val(pembelian_tanggal).prop('readonly', true)
                         $("#supplier_id").val(supplier_id).prop('readonly', true)
@@ -1106,11 +1152,13 @@
                         var detailListBarang = '';
                         var no = 1;
                         $.each(response.pembeliandetail, function(index, value) {
-                            const kadar         = value['detail_pembelian_kadar']
-                            const berat         = value['detail_pembelian_berat']
-                            const harga_beli    = formatWithCommaSeparator(value['detail_pembelian_harga_beli']) 
-                            const nilai_tukar   = value['detail_pembelian_nilai_tukar']
-                            const total         = formatWithCommaSeparator(value['detail_pembelian_total']) 
+                            const kadar = value['detail_pembelian_kadar']
+                            const berat = value['detail_pembelian_berat']
+                            const harga_beli = formatWithCommaSeparator(value[
+                                'detail_pembelian_harga_beli'])
+                            const nilai_tukar = value['detail_pembelian_nilai_tukar']
+                            const total = formatWithCommaSeparator(value[
+                                'detail_pembelian_total'])
 
                             const barang_kode = value['barang']['barang_kode']
                             const barang_nama = value['barang']['barang_nama']
@@ -1120,15 +1168,21 @@
                                                     <td>` + barang_kode + `</td>
                                                     <td>` + barang_nama + `</td>
                                                     <td>` + kadar + `</td>
-                                                    <td>` + berat + `</td>
+                                                    <td>` + berat +
+                                `</td>
                                                     <td>
                                                         <input class="form-control harga_beli" type="text"
-                                                            placeholder="Harga Beli" name="detail_pembelian_harga_beli[]" value="` + harga_beli + `" readonly />
+                                                            placeholder="Harga Beli" name="detail_pembelian_harga_beli[]" value="` +
+                                harga_beli +
+                                `" readonly />
                                                     </td>
                                                     <td> <input class="form-control nilai_tukar" type="text"
-                                                            placeholder="Nilai Tukar" name="detail_pembelian_nilai_tukar[]" value="` + nilai_tukar + `" readonly /></td>
+                                                            placeholder="Nilai Tukar" name="detail_pembelian_nilai_tukar[]" value="` +
+                                nilai_tukar +
+                                `" readonly /></td>
                                                     <td> <input class="form-control total" type="text"
-                                                            placeholder="Jumlah Harga" name="detail_pembelian_total[]" value="` + total + `" readonly /></td>
+                                                            placeholder="Jumlah Harga" name="detail_pembelian_total[]" value="` +
+                                total + `" readonly /></td>
                                                 </tr>`;
                         });
                         $("#list-barang").html(detailListBarang)

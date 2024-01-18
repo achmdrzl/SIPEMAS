@@ -8,10 +8,12 @@
             width: 100%;
             margin: 1.75rem auto;
         }
+
         .custom-width-column {
             width: 300px;
             /* Set your desired width here */
         }
+
         .custom-width-column2 {
             width: 100px;
             /* Set your desired width here */
@@ -367,7 +369,7 @@
             // Function to format a number with a comma separator per 1,000
             function formatWithCommaSeparator(number) {
                 return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            }  
+            }
 
             // Custom function to format the date
             function formatCustomDate(dateString) {
@@ -573,6 +575,50 @@
                         }
                     }
                 });
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: "btn btn-success",
+                        cancelButton: "btn btn-danger me-2",
+                    },
+                    buttonsStyling: false,
+
+                });
+
+                swalWithBootstrapButtons
+                    .fire({
+                        title: "Apakah Anda Yakin Akan Preview Data?",
+                        text: "Akan menampilkan preview data!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonClass: "me-2",
+                        cancelButtonText: "Tidak",
+                        confirmButtonText: "Ya",
+                        reverseButtons: true,
+                    })
+                    .then((result) => {
+                        if (result.value) {
+                            var myArray = [
+                                startDate, endDate, nobukti, namabarang, filter, supplier, pabrik,
+                                kadar, model,
+                                nofaktur
+                            ];
+
+                            // Convert the array to a query parameter string
+                            var queryString = 'data=' + JSON.stringify(myArray);
+
+                            // Create the URL with query parameters
+                            var url = "{{ route('preview.return') }}?" + queryString;
+
+
+                            // Open the PDF in a new tab/window
+                            window.open(url, '_blank');
+
+                        } else {
+                            Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
+                        }
+                    });
+
             });
 
             // RESTART FILTER
@@ -809,17 +855,24 @@
                     dataType: "JSON",
                     success: function(response) {
                         console.log(response)
-                        const keterangan    = response.penjualan_return_keterangan;
-                        const barangkode    = response.returndetail.barang.barang_kode;
-                        const barangnama    = response.returndetail.barang.barang_nama;
-                        const barangberat   = response.returndetail.detail_penjualan_barang_berat;
-                        const beratreturn   = response.returndetail.detail_penjualan_return_berat;
-                        const harga_jual    = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_harga_jual);
-                        const harga_return  = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_harga_return);
-                        const potongan      = response.returndetail.detail_penjualan_return_potongan !== null ? formatWithCommaSeparator(response.returndetail.detail_penjualan_return_potongan) : '0';
-                        const jml_harga     = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_jml_harga);
-                        const grandtotal    = formatWithCommaSeparator(response.returndetail.detail_penjualan_return_jml_harga);
-                        const kondisi       = response.returndetail.detail_penjualan_return_kondisi;
+                        const keterangan = response.penjualan_return_keterangan;
+                        const barangkode = response.returndetail.barang.barang_kode;
+                        const barangnama = response.returndetail.barang.barang_nama;
+                        const barangberat = response.returndetail.detail_penjualan_barang_berat;
+                        const beratreturn = response.returndetail.detail_penjualan_return_berat;
+                        const harga_jual = formatWithCommaSeparator(response.returndetail
+                            .detail_penjualan_return_harga_jual);
+                        const harga_return = formatWithCommaSeparator(response.returndetail
+                            .detail_penjualan_return_harga_return);
+                        const potongan = response.returndetail
+                            .detail_penjualan_return_potongan !== null ?
+                            formatWithCommaSeparator(response.returndetail
+                                .detail_penjualan_return_potongan) : '0';
+                        const jml_harga = formatWithCommaSeparator(response.returndetail
+                            .detail_penjualan_return_jml_harga);
+                        const grandtotal = formatWithCommaSeparator(response.returndetail
+                            .detail_penjualan_return_jml_harga);
+                        const kondisi = response.returndetail.detail_penjualan_return_kondisi;
 
                         $('#penjualan_return_grandtotal').val(grandtotal)
                         $('#penjualan_return_keterangan').val(keterangan).prop('readonly', true)
@@ -833,23 +886,31 @@
                                                 <td>` + barangnama + `</td>
                                                 <td>` + barangberat + `</td>
                                                 <td>
-                                                    <input class="form-control return_berat" type="number" value="` + beratreturn + `"
+                                                    <input class="form-control return_berat" type="number" value="` +
+                            beratreturn +
+                            `"
                                                         placeholder="Berat Return" name="detail_penjualan_return_berat[]" readonly/>
                                                 </td>
-                                                <td> <input class="form-control return_harga_jual" type="text" value="` + harga_jual + `"
+                                                <td> <input class="form-control return_harga_jual" type="text" value="` +
+                            harga_jual +
+                            `"
                                                         placeholder="Harga Jual" name="detail_penjualan_return_harga_jual[]" readonly />
                                                 </td>
-                                                <td> <input class="form-control return_harga_return" type="text" value="` + harga_return + `"
+                                                <td> <input class="form-control return_harga_return" type="text" value="` +
+                            harga_return + `"
                                                         placeholder="Harga Return" name="detail_penjualan_return_harga_return[]" readonly />
                                                 </td>
-                                                <td> <input class="form-control return_potongan" type="text" value="` + potongan + `"
+                                                <td> <input class="form-control return_potongan" type="text" value="` +
+                            potongan + `"
                                                         placeholder="Potongan" name="detail_penjualan_return_potongan[]" readonly />
                                                 </td>
-                                                <td> <input class="form-control return_total" type="text" value="` + jml_harga + `"
+                                                <td> <input class="form-control return_total" type="text" value="` +
+                            jml_harga + `"
                                                         placeholder="Jumlah Harga" name="detail_penjualan_return_total[]" readonly />
                                                 </td>
                                                     <td> 
-                                                    <input class="form-control return_berat" type="text" value="` +  kondisi + `"
+                                                    <input class="form-control return_berat" type="text" value="` +
+                            kondisi + `"
                                                         placeholder="Berat Return" name="detail_penjualan_return_kondisi[]" readonly />
                                                 </td>
                                             </tr>`;

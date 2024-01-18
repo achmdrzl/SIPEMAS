@@ -8,10 +8,12 @@
             width: 100%;
             margin: 1.75rem auto;
         }
+
         .custom-width-column {
             width: 300px;
             /* Set your desired width here */
         }
+
         .custom-width-column2 {
             width: 100px;
             /* Set your desired width here */
@@ -299,7 +301,7 @@
                                         <th>No</th>
                                         <th class="custom-width-column2">Kode Barang</th>
                                         <th class="custom-width-column">Nama Barang</th>
-                                        <th >Kadar</th>
+                                        <th>Kadar</th>
                                         <th>Berat Asli</th>
                                         <th>Berat Jual</th>
                                         <th>Harga</th>
@@ -333,7 +335,8 @@
                                                             <td class="border-end-0 border-bottom-0">Diskon : </td>
                                                             <td colspan="2" class="border-end-0 border-bottom-0 w-25">
                                                                 <input type="text" class="form-control" value="0"
-                                                                    id="inputdiskon" name="inputdiskon"></td>
+                                                                    id="inputdiskon" name="inputdiskon">
+                                                            </td>
                                                             <td class="border-bottom-0  bg-primary-light-5"><input
                                                                     type="text"
                                                                     class="form-control bg-transparent border-0 p-0"
@@ -343,7 +346,8 @@
                                                         <tr>
                                                             <td colspan="3"
                                                                 class="rounded-bottom-start border-end-0 bg-primary-light-5">
-                                                                <span class="text-dark">Total</span></td>
+                                                                <span class="text-dark">Total</span>
+                                                            </td>
                                                             <td class="rounded-bottom-end  bg-primary-light-5"><input
                                                                     type="text"
                                                                     class="form-control bg-transparent border-0 p-0"
@@ -354,7 +358,8 @@
                                                             <td class="border-end-0 border-bottom-0">Tunai : </td>
                                                             <td colspan="2" class="border-end-0 border-bottom-0 w-25">
                                                                 <input type="text" class="form-control" value="0"
-                                                                    id="inputtunai" name="inputtunai"></td>
+                                                                    id="inputtunai" name="inputtunai">
+                                                            </td>
                                                             <td class="border-bottom-0  bg-primary-light-5"><input
                                                                     type="text"
                                                                     class="form-control bg-transparent border-0 p-0"
@@ -417,7 +422,7 @@
             // Function to format a number with a comma separator per 1,000
             function formatWithCommaSeparator(number) {
                 return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            }  
+            }
 
             // Custom function to format the date
             function formatCustomDate(dateString) {
@@ -661,7 +666,7 @@
                                 ],
                                 columnDefs: columnDefs,
                                 footerCallback: function(row, data, start, end,
-                                display) {
+                                    display) {
                                     var api = this.api();
 
                                     // Convert to float if data is coming as strings
@@ -697,7 +702,7 @@
 
                                     // Update the footer cells with the calculated sums
                                     $(api.column('penjualan_subtotal:name')
-                                    .footer()).html(rupiah(subtotal));
+                                        .footer()).html(rupiah(subtotal));
                                     $(api.column('penjualan_ppn:name').footer())
                                         .html(rupiah(ppn));
                                     $(api.column('penjualan_grandtotal:name')
@@ -719,6 +724,49 @@
                         }
                     }
                 });
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: "btn btn-success",
+                        cancelButton: "btn btn-danger me-2",
+                    },
+                    buttonsStyling: false,
+
+                });
+
+                swalWithBootstrapButtons
+                    .fire({
+                        title: "Apakah Anda Yakin Akan Preview Data?",
+                        text: "Akan menampilkan preview data!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonClass: "me-2",
+                        cancelButtonText: "Tidak",
+                        confirmButtonText: "Ya",
+                        reverseButtons: true,
+                    })
+                    .then((result) => {
+                        if (result.value) {
+                            var myArray = [
+                                startDate, endDate, nobukti, namabarang, filter, supplier, pabrik,
+                                kadar, model
+                            ];
+
+                            // Convert the array to a query parameter string
+                            var queryString = 'data=' + JSON.stringify(myArray);
+
+                            // Create the URL with query parameters
+                            var url = "{{ route('preview.penjualan') }}?" + queryString;
+
+
+                            // Open the PDF in a new tab/window
+                            window.open(url, '_blank');
+
+                        } else {
+                            Swal.fire("Cancel!", "Perintah dibatalkan!", "error");
+                        }
+                    });
+
             });
 
             // RESTART FILTER
@@ -733,7 +781,7 @@
 
                 // Format the current date as 'yyyy-MM-dd'
                 var formattedDate = currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1)
-                .toString().padStart(2, '0') + '-' + currentDate.getDate().toString().padStart(2, '0');
+                    .toString().padStart(2, '0') + '-' + currentDate.getDate().toString().padStart(2, '0');
 
                 // Set the values of startDate and endDate inputs
                 $('#start_date').val(formattedDate);
@@ -847,7 +895,7 @@
 
                         // Update the footer cells with the calculated sums
                         $(api.column('penjualan_subtotal:name').footer()).html(rupiah(
-                        subtotal));
+                            subtotal));
                         $(api.column('penjualan_ppn:name').footer()).html(rupiah(ppn));
                         $(api.column('penjualan_grandtotal:name').footer()).html(rupiah(
                             grandTotal));
@@ -1005,13 +1053,16 @@
                     dataType: "JSON",
                     success: function(response) {
                         console.log(response)
-                        const penjualan_tanggal     = response.penjualan_tanggal;
-                        const keterangan            = response.penjualan_keterangan;
-                        const subtotal              = formatWithCommaSeparator(response.penjualan_subtotal);
-                        const diskon                = response.penjualan_diskon !== null ? formatWithCommaSeparator(response.penjualan_diskon) : '0';
-                        const bayar                 = formatWithCommaSeparator(response.penjualan_bayar);
-                        const grandtotal            = formatWithCommaSeparator(response.penjualan_grandtotal);
-                        const kembalian             = response.penjualan_diskon !== null ? formatWithCommaSeparator(response.penjualan_kembalian) : '0';
+                        const penjualan_tanggal = response.penjualan_tanggal;
+                        const keterangan = response.penjualan_keterangan;
+                        const subtotal = formatWithCommaSeparator(response.penjualan_subtotal);
+                        const diskon = response.penjualan_diskon !== null ?
+                            formatWithCommaSeparator(response.penjualan_diskon) : '0';
+                        const bayar = formatWithCommaSeparator(response.penjualan_bayar);
+                        const grandtotal = formatWithCommaSeparator(response
+                            .penjualan_grandtotal);
+                        const kembalian = response.penjualan_diskon !== null ?
+                            formatWithCommaSeparator(response.penjualan_kembalian) : '0';
 
                         $("#penjualan_tanggal").val(penjualan_tanggal).prop('readonly', true)
                         $("#penjualan_keterangan").val(keterangan).prop('readonly', true)
@@ -1026,39 +1077,51 @@
                         var detailListBarang = '';
                         var no = 1;
                         $.each(response.penjualandetail, function(index, value) {
-                            const kadar          = value['barang']['kadar']['kadar_nama']
-                            const berat_jual     = value['detail_penjualan_berat_jual']
-                            const harga          = formatWithCommaSeparator(value['detail_penjualan_harga']) 
-                            const ongkos         = value['detail_penjualan_ongkos'] !== null
-                                                    ? formatWithCommaSeparator(value['detail_penjualan_ongkos'])
-                                                    : "0";
+                            const kadar = value['barang']['kadar']['kadar_nama']
+                            const berat_jual = value['detail_penjualan_berat_jual']
+                            const harga = formatWithCommaSeparator(value[
+                                'detail_penjualan_harga'])
+                            const ongkos = value['detail_penjualan_ongkos'] !== null ?
+                                formatWithCommaSeparator(value[
+                                    'detail_penjualan_ongkos']) :
+                                "0";
 
-                            const diskondetail   = value['detail_penjualan_diskon'] !== null
-                                                    ? formatWithCommaSeparator(value['detail_penjualan_diskon'])
-                                                    : "0";
-                            const total          = formatWithCommaSeparator(value['detail_penjualan_jml_harga'])
+                            const diskondetail = value['detail_penjualan_diskon'] !==
+                                null ?
+                                formatWithCommaSeparator(value[
+                                    'detail_penjualan_diskon']) :
+                                "0";
+                            const total = formatWithCommaSeparator(value[
+                                'detail_penjualan_jml_harga'])
 
-                            const barang_kode    = value['barang']['barang_kode']
-                            const barang_nama    = value['barang']['barang_nama']
-                            const barang_berat   = value['barang']['barang_berat']
+                            const barang_kode = value['barang']['barang_kode']
+                            const barang_nama = value['barang']['barang_nama']
+                            const barang_berat = value['barang']['barang_berat']
 
                             detailListBarang += `<tr>
                                                     <td>` + no++ + `</td>
                                                     <td>` + barang_kode + `</td>
                                                     <td>` + barang_nama + `</td>
                                                     <td>` + kadar + `</td>
-                                                    <td>` + barang_berat + `</td>
+                                                    <td>` + barang_berat +
+                                `</td>
                                                     <td>
                                                         <input class="form-control penjualan_berat_jual" type="number"
-                                                            placeholder="Berat Jual" name="detail_penjualan_berat_jual[]" value="` + berat_jual + `" readonly />
+                                                            placeholder="Berat Jual" name="detail_penjualan_berat_jual[]" value="` +
+                                berat_jual +
+                                `" readonly />
                                                     </td>
-                                                    <td> <input class="form-control penjualan_harga" type="text" value="` + harga +`"
+                                                    <td> <input class="form-control penjualan_harga" type="text" value="` + harga +
+                                `"
                                                             placeholder="Harga" name="detail_penjualan_harga[]" readonly />
                                                     </td>
-                                                    <td> <input class="form-control penjualan_ongkos" type="text" value="` +ongkos + `"
+                                                    <td> <input class="form-control penjualan_ongkos" type="text" value="` + ongkos +
+                                `"
                                                             placeholder="Ongkos" name="detail_penjualan_ongkos[]" readonly />
                                                     </td>
-                                                    <td> <input class="form-control penjualan_diskon" type="text" value="` + diskondetail + `"
+                                                    <td> <input class="form-control penjualan_diskon" type="text" value="` +
+                                diskondetail +
+                                `"
                                                             placeholder="Diskon" name="detail_penjualan_diskon[]" readonly />
                                                     </td>
                                                     <td> <input class="form-control penjualan_total" type="text" value="` + total + `"
