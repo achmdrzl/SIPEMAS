@@ -1293,7 +1293,7 @@ class DataLaporanController extends Controller
                 if ($latestReturn) {
                     $tanggal_return = $latestReturn->return->created_at;
                     $nobukti_return = $latestReturn->return->penjualan_return_nobukti;
-                    $harga_return   = $latestReturn->detail_penjualan_return_harga_return;
+                    $harga_return   = $latestReturn->detail_penjualan_return_jml_harga;
                     $kondisi_return = $latestReturn->detail_penjualan_return_kondisi;
                     $berat_return   = number_format($latestReturn->detail_penjualan_return_berat, 2);
 
@@ -1319,7 +1319,7 @@ class DataLaporanController extends Controller
                 if ($latestSale) {
                     $tanggal_jual = $latestSale->penjualan->created_at;
                     $nobukti_jual = $latestSale->penjualan->penjualan_nobukti;
-                    $harga_jual = $latestSale->detail_penjualan_harga;
+                    $harga_jual = $latestSale->detail_penjualan_jml_harga;
                     $berat_jual = number_format($latestSale->detail_penjualan_berat_jual, 2);
 
                     // Add sale data to barang
@@ -1344,7 +1344,7 @@ class DataLaporanController extends Controller
                 if ($latestPurchase) {
                     $tanggal_beli = $latestPurchase->pembelian->created_at;
                     $nobukti_beli = $latestPurchase->pembelian->pembelian_nobukti;
-                    $harga_beli = $latestPurchase->detail_pembelian_harga_beli;
+                    $harga_beli = $latestPurchase->detail_pembelian_total;
                     $berat_beli = number_format($latestPurchase->detail_pembelian_berat, 2);
 
                     // Add purchase data to barang
