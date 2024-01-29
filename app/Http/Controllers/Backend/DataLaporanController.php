@@ -1273,29 +1273,6 @@ class DataLaporanController extends Controller
         // dd($barangs);
         $barang = [];
         $index     = 1;
-        // foreach ($barangs as $item) {
-        //     $barang_id             = $item->barang_id;
-        //     $barang_kode           = $item->barang_kode;
-        //     $barang_nama           = $item->barang_nama;
-        //     $barang_berat          = $item->barang_berat;
-        //     $kadar_nama            = $item->kadar->kadar_nama;
-        //     $model_nama            = $item->model->model_nama;
-        //     $pabrik_nama           = $item->pabrik->pabrik_nama;
-        //     $supplier_nama         = $item->supplier->supplier_nama;
-        //     $barang_lokasi         = $item->barang_lokasi;
-
-        //     $barang[] = [
-        //         'DT_RowIndex'            => $index++, // Add DT_RowIndex as the index plus 1
-        //         'barang_kode'            => $barang_kode,
-        //         'barang_nama'            => $barang_nama,
-        //         'barang_berat'           => $barang_berat,
-        //         'kadar'                  => $kadar_nama,
-        //         'model'                  => $model_nama,
-        //         'pabrik'                 => $pabrik_nama,
-        //         'supplier'               => $supplier_nama,
-        //         'barang_lokasi'          => $barang_lokasi,
-        //     ];
-        // }
 
         foreach ($barangs as $item) {
             $barang_id             = $item->barang_id;
@@ -1308,74 +1285,83 @@ class DataLaporanController extends Controller
             $supplier_nama         = $item->supplier->supplier_nama;
             $barang_lokasi         = $item->barang_lokasi;
 
-            // Loop through pembelian relationships
-            foreach ($item->transaksipembeliandetail as $pembelianDetail) {
-                $tanggal_beli = $pembelianDetail->pembelian->created_at;
-                $nobukti_beli = $pembelianDetail->pembelian->pembelian_nobukti;
-                $harga_beli   = $pembelianDetail->detail_pembelian_harga_beli;
-                $berat_beli   = number_format($pembelianDetail->detail_pembelian_berat, 2);
 
-                // Add pembelian data to barang
-                $barang[] = [
-                    'DT_RowIndex'            => $index++, // Add DT_RowIndex as the index plus 1
-                    'barang_kode'            => $barang_kode,
-                    'barang_nama'            => $barang_nama,
-                    'barang_berat'           => $barang_berat,
-                    'kadar'                  => $kadar_nama,
-                    'model'                  => $model_nama,
-                    'pabrik'                 => $pabrik_nama,
-                    'supplier'               => $supplier_nama,
-                    'barang_lokasi'          => $barang_lokasi,
-                    'harga'                  => $harga_beli,
-                    'jenis'                  => 'Beli',
-                ];
-            }
+            if (isset($item->transaksipenjualanreturndetail)) {
+                // Get the latest return transaction
+                $latestReturn = $item->transaksipenjualanreturndetail->sortByDesc('return.created_at')->first();
 
-            // Loop through penjualan relationships
-            foreach ($item->transaksipenjualandetail as $penjualanDetail) {
-                $tanggal_jual   = $penjualanDetail->penjualan->created_at;
-                $nobukti_jual   = $penjualanDetail->penjualan->penjualan_nobukti;
-                $harga_jual     = $penjualanDetail->detail_penjualan_harga;
-                $berat_jual     = number_format($penjualanDetail->detail_penjualan_berat_jual, 2);
+                if ($latestReturn) {
+                    $tanggal_return = $latestReturn->return->created_at;
+                    $nobukti_return = $latestReturn->return->penjualan_return_nobukti;
+                    $harga_return   = $latestReturn->detail_penjualan_return_harga_return;
+                    $kondisi_return = $latestReturn->detail_penjualan_return_kondisi;
+                    $berat_return   = number_format($latestReturn->detail_penjualan_return_berat, 2);
 
-                // Add penjualan data to barang
-                $barang[] = [
-                    'DT_RowIndex'            => $index++, // Add DT_RowIndex as the index plus 1
-                    'barang_kode'            => $barang_kode,
-                    'barang_nama'            => $barang_nama,
-                    'barang_berat'           => $barang_berat,
-                    'kadar'                  => $kadar_nama,
-                    'model'                  => $model_nama,
-                    'pabrik'                 => $pabrik_nama,
-                    'supplier'               => $supplier_nama,
-                    'barang_lokasi'          => $barang_lokasi,
-                    'harga'                  => $harga_jual,
-                    'jenis'                  => 'Jual',
-                ];
-            }
+                    // Add return data to barang
+                    $barang[] = [
+                        'DT_RowIndex'   => $index++, // Add DT_RowIndex as the index plus 1
+                        'barang_kode'   => $barang_kode,
+                        'barang_nama'   => $barang_nama,
+                        'barang_berat'  => $barang_berat,
+                        'kadar'         => $kadar_nama,
+                        'model'         => $model_nama,
+                        'pabrik'        => $pabrik_nama,
+                        'supplier'      => $supplier_nama,
+                        'barang_lokasi' => $barang_lokasi,
+                        'harga'         => $harga_return,
+                        'jenis'         => 'Return',
+                    ];
+                }
+            } else if (isset($item->transaksipenjualandetail)) {
+                // Get the latest sale transaction
+                $latestSale = $item->transaksipenjualandetail->sortByDesc('penjualan.created_at')->first();
 
-            // Loop through return relationships
-            foreach ($item->transaksipenjualanreturndetail as $returnDetail) {
-                $tanggal_return = $returnDetail->return->created_at;
-                $nobukti_return = $returnDetail->return->penjualan_return_nobukti;
-                $harga_return   = $returnDetail->detail_penjualan_return_harga_return;
-                $kondisi_return = $returnDetail->detail_penjualan_return_kondisi;
-                $berat_return   = number_format($returnDetail->detail_penjualan_return_berat, 2);
+                if ($latestSale) {
+                    $tanggal_jual = $latestSale->penjualan->created_at;
+                    $nobukti_jual = $latestSale->penjualan->penjualan_nobukti;
+                    $harga_jual = $latestSale->detail_penjualan_harga;
+                    $berat_jual = number_format($latestSale->detail_penjualan_berat_jual, 2);
 
-                // Add return data to barang
-                $barang[] = [
-                    'DT_RowIndex'            => $index++, // Add DT_RowIndex as the index plus 1
-                    'barang_kode'            => $barang_kode,
-                    'barang_nama'            => $barang_nama,
-                    'barang_berat'           => $barang_berat,
-                    'kadar'                  => $kadar_nama,
-                    'model'                  => $model_nama,
-                    'pabrik'                 => $pabrik_nama,
-                    'supplier'               => $supplier_nama,
-                    'barang_lokasi'          => $barang_lokasi,
-                    'harga'                  => $harga_beli,
-                    'jenis'                  => 'Return',
-                ];
+                    // Add sale data to barang
+                    $barang[] = [
+                        'DT_RowIndex'   => $index++, // Add DT_RowIndex as the index plus 1
+                        'barang_kode'   => $barang_kode,
+                        'barang_nama'   => $barang_nama,
+                        'barang_berat'  => $barang_berat,
+                        'kadar'         => $kadar_nama,
+                        'model'         => $model_nama,
+                        'pabrik'        => $pabrik_nama,
+                        'supplier'      => $supplier_nama,
+                        'barang_lokasi' => $barang_lokasi,
+                        'harga'         => $harga_jual,
+                        'jenis'         => 'Jual',
+                    ];
+                }
+            } else if (isset($item->transaksipembeliandetail)) {
+                // Get the latest purchase transaction
+                $latestPurchase = $item->transaksipembeliandetail->sortByDesc('pembelian.created_at')->first();
+
+                if ($latestPurchase) {
+                    $tanggal_beli = $latestPurchase->pembelian->created_at;
+                    $nobukti_beli = $latestPurchase->pembelian->pembelian_nobukti;
+                    $harga_beli = $latestPurchase->detail_pembelian_harga_beli;
+                    $berat_beli = number_format($latestPurchase->detail_pembelian_berat, 2);
+
+                    // Add purchase data to barang
+                    $barang[] = [
+                        'DT_RowIndex'   => $index++, // Add DT_RowIndex as the index plus 1
+                        'barang_kode'   => $barang_kode,
+                        'barang_nama'   => $barang_nama,
+                        'barang_berat'  => $barang_berat,
+                        'kadar'         => $kadar_nama,
+                        'model'         => $model_nama,
+                        'pabrik'        => $pabrik_nama,
+                        'supplier'      => $supplier_nama,
+                        'barang_lokasi' => $barang_lokasi,
+                        'harga'         => $harga_beli,
+                        'jenis'         => 'Beli',
+                    ];
+                }
             }
         }
 
@@ -1404,7 +1390,7 @@ class DataLaporanController extends Controller
         // dd($barangs);
         $barang = [];
         $index = 1;
-        
+
         foreach ($barangs as $item) {
             $barang_id = $item->barang_id;
             $barang_kode = $item->barang_kode;
@@ -1455,7 +1441,7 @@ class DataLaporanController extends Controller
                     'berat'       => $berat_jual,
                 ];
             }
-            
+
             // Loop through return relationships
             foreach ($item->transaksipenjualanreturndetail as $returnDetail) {
                 $tanggal_return = $returnDetail->return->created_at;
@@ -1483,12 +1469,12 @@ class DataLaporanController extends Controller
             // Loop through pengeluaran relationships
             foreach ($item->transaksipengeluarandetail as $pengeluaranDetail) {
                 // Check if data equal pengeluaran
-                if($pengeluaranDetail->pengeluaran->jenis === 'pengeluaran'){
+                if ($pengeluaranDetail->pengeluaran->jenis === 'pengeluaran') {
                     $tanggal_pengeluaran = $pengeluaranDetail->pengeluaran->created_at;
                     $nobukti_pengeluaran = $pengeluaranDetail->pengeluaran->pengeluaran_nobukti;
                     $kondisi_pengeluaran = $pengeluaranDetail->detail_pengeluaran_kondisi;
                     $berat_pengeluaran   = number_format($pengeluaranDetail->detail_pengeluaran_berat, 2);
-    
+
                     // Add pengeluaran data to barang
                     $barang[] = [
                         'DT_RowIndex' => $index++,
@@ -1514,7 +1500,7 @@ class DataLaporanController extends Controller
                     $nobukti_pengeluaran = $pengeluaranDetail->pengeluaran->pengeluaran_nobukti;
                     $kondisi_pengeluaran = $pengeluaranDetail->detail_pengeluaran_kondisi;
                     $berat_pengeluaran   = number_format($pengeluaranDetail->detail_pengeluaran_kembali, 2);
-    
+
                     // Add pengeluaran data to barang
                     $barang[] = [
                         'DT_RowIndex' => $index++,

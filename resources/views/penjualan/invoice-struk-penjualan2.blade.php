@@ -192,7 +192,7 @@
             Keterangan:
         </p>
     </div>
-    <div id="perhatian" style="margin-left:80px; margin-top:-100px;">
+    <div id="perhatian" style="margin-left:80px; margin-top:-100px; width: 400px; overflow-wrap: break-word; font-size:11px;">
         {!! $penjualans->penjualan_keterangan !!}
     </div>
     <div class="subtotal-perhatian">
