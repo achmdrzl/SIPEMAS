@@ -518,7 +518,7 @@ class MasterBarangController extends Controller
         // Return the PDF content with appropriate headers
         return response($pdfContent)
             ->header('Content-Type', 'application/pdf')
-            ->header('Content-Disposition', 'attachment; filename="' . $filename . '.pdf"');
+            ->header('Content-Disposition', 'inline; filename="' . $filename . '.pdf"');
     }
 
     // BARANG SHOW BARCODE

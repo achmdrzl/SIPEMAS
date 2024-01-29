@@ -314,7 +314,7 @@
                         </div>
                         <div class="modal-footer text-center">
                             <a href="" id="generatepdf">
-                                <button class="btn btn-primary">Generate PDF</button>
+                                <button class="btn btn-primary">Cetak Barcode</button>
                             </a>
                         </div>
                     </div>
