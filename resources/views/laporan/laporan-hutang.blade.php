@@ -106,6 +106,7 @@
                                                                 <th>Kode Hutang</th>
                                                                 <th>Tanggal</th>
                                                                 <th>Total</th>
+                                                                <th>Total Bayar</th>
                                                                 <th>Keterangan</th>
                                                             </tr>
                                                         </thead>
@@ -117,6 +118,7 @@
                                                                 <th></th><!-- Empty cell for alignment -->
                                                                 <th></th><!-- Empty cell for alignment -->
                                                                 <th>Grand Total:</th><!-- Label for total -->
+                                                                <th></th><!-- Empty cell for alignment -->
                                                                 <th></th><!-- Empty cell for alignment -->
                                                                 <th></th><!-- Empty cell for alignment -->
                                                             </tr>
@@ -155,8 +157,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-primary float-end" id="submit-print" data-jenis="rekap-hutang"
-                                    data-bs-dismiss="modal">Print</button>
+                                <button type="button" class="btn btn-primary float-end" id="submit-print"
+                                    data-jenis="rekap-hutang" data-bs-dismiss="modal">Print</button>
                             </form>
                         </div>
                     </div>
@@ -189,7 +191,7 @@
             }
 
             // Define an array of column indexes that need formatting
-            var columnsToFormat = [3];
+            var columnsToFormat = [3, 4];
 
             // Loop through the columns and apply the rendering function
             var columnDefs = columnsToFormat.map(function(columnIndex) {
@@ -242,6 +244,10 @@
                         name: 'total'
                     },
                     {
+                        data: 'total_bayar',
+                        name: 'total_bayar'
+                    },
+                    {
                         data: 'keterangan',
                         name: 'keterangan'
                     },
@@ -259,13 +265,27 @@
                         })
                         .data();
 
+                    // Extract the 'total_bayar' data
+                    var grandTotalBayarData = api
+                        .column('total_bayar:name', {
+                            search: 'applied',
+                            filter: 'applied'
+                        })
+                        .data();
+
                     // Calculate the sum
                     var grandTotal = grandTotalData.reduce(function(acc, value) {
                         return acc + parseFloat(value);
                     }, 0);
 
+                    // Calculate the sum
+                    var grandTotalBayar = grandTotalBayarData.reduce(function(acc, value) {
+                        return acc + parseFloat(value);
+                    }, 0);
+
                     // Update the footer cells with the calculated sums
                     $(api.column('total:name').footer()).html(rupiah(grandTotal));
+                    $(api.column('total_bayar:name').footer()).html(rupiah(grandTotalBayar));
                 },
             });
 
@@ -347,13 +367,18 @@
                                         name: 'total'
                                     },
                                     {
+                                        data: 'total_bayar',
+                                        name: 'total_bayar'
+                                    },
+                                    {
                                         data: 'keterangan',
                                         name: 'keterangan'
                                     },
                                 ],
                                 // Define column rendering for 'pembelian_grandtotal'
                                 columnDefs: columnDefs,
-                                footerCallback: function(row, data, start, end, display) {
+                                footerCallback: function(row, data, start, end,
+                                    display) {
                                     var api = this.api();
 
                                     // Extract the 'total_hutang' data
@@ -364,13 +389,31 @@
                                         })
                                         .data();
 
+                                    // Extract the 'total_bayar' data
+                                    var grandTotalBayarData = api
+                                        .column('total_bayar:name', {
+                                            search: 'applied',
+                                            filter: 'applied'
+                                        })
+                                        .data();
+
                                     // Calculate the sum
-                                    var grandTotal = grandTotalData.reduce(function(acc, value) {
+                                    var grandTotal = grandTotalData.reduce(function(
+                                        acc, value) {
                                         return acc + parseFloat(value);
                                     }, 0);
 
+                                    // Calculate the sum
+                                    var grandTotalBayar = grandTotalBayarData
+                                        .reduce(function(acc, value) {
+                                            return acc + parseFloat(value);
+                                        }, 0);
+
                                     // Update the footer cells with the calculated sums
-                                    $(api.column('total:name').footer()).html(rupiah(grandTotal));
+                                    $(api.column('total:name').footer()).html(
+                                        rupiah(grandTotal));
+                                    $(api.column('total_bayar:name').footer()).html(
+                                        rupiah(grandTotalBayar));
                                 },
                             });
 
@@ -402,7 +445,7 @@
 
                 // Format the current date as 'yyyy-MM-dd'
                 var formattedDate = currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1)
-                .toString().padStart(2, '0') + '-' + currentDate.getDate().toString().padStart(2, '0');
+                    .toString().padStart(2, '0') + '-' + currentDate.getDate().toString().padStart(2, '0');
 
                 // Set the values of startDate and endDate inputs
                 $('#start_date').val(formattedDate);
@@ -463,6 +506,10 @@
                             name: 'total'
                         },
                         {
+                            data: 'total_bayar',
+                            name: 'total_bayar'
+                        },
+                        {
                             data: 'keterangan',
                             name: 'keterangan'
                         },
@@ -480,13 +527,27 @@
                             })
                             .data();
 
+                        // Extract the 'total_bayar' data
+                        var grandTotalBayarData = api
+                            .column('total_bayar:name', {
+                                search: 'applied',
+                                filter: 'applied'
+                            })
+                            .data();
+
                         // Calculate the sum
                         var grandTotal = grandTotalData.reduce(function(acc, value) {
                             return acc + parseFloat(value);
                         }, 0);
 
+                        // Calculate the sum
+                        var grandTotalBayar = grandTotalBayarData.reduce(function(acc, value) {
+                            return acc + parseFloat(value);
+                        }, 0);
+
                         // Update the footer cells with the calculated sums
                         $(api.column('total:name').footer()).html(rupiah(grandTotal));
+                        $(api.column('total_bayar:name').footer()).html(rupiah(grandTotalBayar));
                     },
                 });
 
@@ -502,34 +563,34 @@
             })
 
             // CETAK LAPORAN
-            $('body').on('click', '#submit-print', function(){
-                var startDate    = $('#start_date').val();
-                var endDate      = $('#end_date').val();
+            $('body').on('click', '#submit-print', function() {
+                var startDate = $('#start_date').val();
+                var endDate = $('#end_date').val();
                 var format_print = $('#format_print').val();
 
                 var myArray = [
                     startDate, endDate, format_print
                 ];
 
-                if(format_print === null){
+                if (format_print === null) {
                     Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Data format has not been selected!',
-                            showConfirmButton: false,
-                            timer: 2000
-                        });
-                }else{
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Data format has not been selected!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                } else {
                     // Convert the array to a query parameter string
                     var queryString = 'data=' + JSON.stringify(myArray);
-    
+
                     // Create the URL with query parameters
                     var url = "{{ route('cetak.hutang') }}?" + queryString;
-    
-                    
+
+
                     // Open the PDF in a new tab/window
                     window.open(url, '_blank');
-                    
+
                     $('#form-print').trigger("reset");
                 }
             })

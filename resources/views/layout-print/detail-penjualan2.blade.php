@@ -79,45 +79,50 @@
                     $totalGrandTotal = 0;
                     $prevNoBukti = null;
                 @endphp
-                
+                @dd($penjualans)
                 @foreach ($penjualans as $item)
-                    @foreach ($item->penjualandetail as $detailItem)
+                    @foreach ($item->transaksipenjualandetail as $detailItem)
                         <tr>
                             <td>
                                 @if ($loop->first)
-                                    {{ $loop->parent->iteration }}
                                 @endif
+                                {{ $loop->parent->iteration }}
                             </td>
                             <td>
-                                @if ($loop->first)
-                                    {{ $item->penjualan_nobukti }}
-                                @endif
+                                {{ $detailItem->penjualan->penjualan_nobukti }}
                             </td>
                             <td>
-                                @if ($loop->first)
-                                    {{ date('d-M-y', strtotime($item->penjualan_tanggal)) }}
-                                @endif
+                                {{ date('d-M-y', strtotime($detailItem->penjualan->penjualan_tanggal)) }}
                             </td>
-                            <td>{{ $detailItem->barang->barang_kode }}</td>
-                            <td style="width:300px; text-align:left;">{{ $detailItem->barang->barang_nama }}</td>
-                            <td>{{ $detailItem->detail_penjualan_berat_jual }}</td>
-                            <td style="text-align: right">Rp.{{ number_format($detailItem->detail_penjualan_harga) }}
+                            <td>
+                                {{ $item->barang_kode }}
                             </td>
-                            <td style="text-align: right">Rp.{{ number_format($detailItem->detail_penjualan_ongkos) }}
+                            <td style="width:300px; text-align:left;">
+                                {{ $item->barang_nama }}
                             </td>
-                            <td style="text-align: right">Rp.{{ number_format($detailItem->detail_penjualan_diskon) }}
+                            <td>
+                                {{ $detailItem->detail_penjualan_berat_jual }}
+                            </td>
+                            <td style="text-align: right">
+                                Rp.{{ number_format($detailItem->detail_penjualan_harga) }}
+                            </td>
+                            <td style="text-align: right">
+                                Rp.{{ number_format($detailItem->detail_penjualan_ongkos) }}
+                            </td>
+                            <td style="text-align: right">
+                                Rp.{{ number_format($detailItem->detail_penjualan_diskon) }}
                             </td>
                             <td style="text-align: right">
                                 Rp.{{ number_format($detailItem->detail_penjualan_jml_harga) }}</td>
                         </tr>
-                        @php
+                        {{-- @php
                             $groupTotal += $detailItem->detail_penjualan_jml_harga;
                             $beratTotal += $detailItem->detail_penjualan_berat_jual;
                             $totalGrandTotal += $detailItem->detail_penjualan_jml_harga;
-                        @endphp
+                        @endphp --}}
                     @endforeach
 
-                    @if ($prevNoBukti !== $item->penjualan_nobukti)
+                    {{-- @if ($prevNoBukti !== $item->penjualan_nobukti)
                         <tr>
                             <td colspan="5" style="text-align: right"><strong>Total</strong></td>
                             <td><strong>{{ $beratTotal }}</strong></td>
@@ -130,13 +135,13 @@
                     @endif
                     @php
                         $prevNoBukti = $item->penjualan_nobukti;
-                    @endphp
+                    @endphp --}}
                 @endforeach
             </tbody>
             <tfoot>
                 <tr>
                     <td colspan="9" style="text-align: right"><strong>Grand Total</strong></td>
-                    <td style="text-align: right"><strong>Rp. {{ number_format($totalGrandTotal) }}</strong></td>
+                    {{-- <td style="text-align: right"><strong>Rp. {{ number_format($totalGrandTotal) }}</strong></td> --}}
                 </tr>
             </tfoot>
         </table>

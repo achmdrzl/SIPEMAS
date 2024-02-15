@@ -1566,7 +1566,7 @@
             quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
             noneditable_noneditable_class: 'mceNonEditable',
             toolbar_mode: 'sliding',
-            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px; line-height: 1; margin-bottom: 10px; }'
         });
     </script>
 @endpush

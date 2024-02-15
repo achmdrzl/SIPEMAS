@@ -45,6 +45,7 @@
                                                         <th>Kode Hutang</th>
                                                         <th>Tanggal</th>
                                                         <th>Total</th>
+                                                        <th>Total Bayar</th>
                                                         <th>Keterangan</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -52,9 +53,9 @@
                                             </table>
                                         </div>
                                     </div>
-                                     <div class="card-footer">
+                                    {{-- <div class="card-footer">
                                         <p id="load-hutang" style="font-size: 18px"></p>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -84,17 +85,26 @@
                                     <div class="col-sm-12">
                                         <label class="form-label">Tanggal Transaksi</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="date" placeholder="Masukkan Tanggal Transaksi"
-                                                name="tgl_transaksi" id="tgl_transaksi" value="{{ date('Y-m-d') }}" />
+                                            <input class="form-control" type="date"
+                                                placeholder="Masukkan Tanggal Transaksi" name="tgl_transaksi"
+                                                id="tgl_transaksi" value="{{ date('Y-m-d') }}" />
                                         </div>
                                     </div>
                                 </div>
-                                 <div class="row gx-3">
+                                <div class="row gx-3">
                                     <div class="col-sm-12">
                                         <label class="form-label">Total Transaksi</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="number" placeholder="Masukkan Total Transaksi"
-                                                name="total" id="total" />
+                                            <input class="form-control" type="number"
+                                                placeholder="Masukkan Total Transaksi" name="total" id="total" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12" id="bayar">
+                                        <label class="form-label">Total Bayar</label>
+                                        <div class="form-group">
+                                            <input class="form-control" type="number"
+                                                placeholder="Masukkan Total Transaksi Terbayarkan" name="total_bayar"
+                                                id="total_bayar" />
                                         </div>
                                     </div>
                                 </div>
@@ -128,7 +138,6 @@
 
 @push('script-alt')
     <script>
-
         // CONVERT RUPIAH
         const rupiah = (number) => {
             return new Intl.NumberFormat("id-ID", {
@@ -139,12 +148,13 @@
 
         // LOAD HUTANG
         loadHutang()
-        function loadHutang(){
+
+        function loadHutang() {
             $.ajax({
                 type: "GET",
                 url: "{{ route('load.hutang') }}",
                 dataType: "JSON",
-                success: function (response) {
+                success: function(response) {
                     var hutang = `TOTAL HUTANG: <strong>` + rupiah(response) + `</strong>`;
                     $("#load-hutang").html(hutang)
                 }
@@ -195,6 +205,10 @@
                         name: 'total'
                     },
                     {
+                        data: 'total_bayar',
+                        name: 'total_bayar'
+                    },
+                    {
                         data: 'keterangan',
                         name: 'keterangan'
                     },
@@ -214,6 +228,7 @@
                 $('#hutangHeading').html("TAMBAH DATA TRANSAKSI HUTANG");
                 $('#hutangModal').modal('show');
                 $('#tgl_transaksi').attr('readonly', false);
+                $('#bayar').attr('hidden', true);
             });
 
             $('#submitHutang').on('click', function(e) {
@@ -243,25 +258,47 @@
                         } else {
                             $('.btn-warning').hide();
 
-                            const Toast = Swal.mixin({
-                                toast: true,
-                                position: 'top-end',
-                                showConfirmButton: false,
-                                timer: 3000,
-                                timerProgressBar: true,
-                            });
+                            if (response.success) {
+                                const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timer: 3000,
+                                    timerProgressBar: true,
+                                });
 
-                            Toast.fire({
-                                icon: 'success',
-                                title: `${response.message}`,
-                            })
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: `${response.message}`,
+                                })
 
-                            $('#hutangForm').trigger("reset");
-                            $('#submitHutang').html('Simpan');
-                            $('#hutangModal').modal('hide');
+                                $('#hutangForm').trigger("reset");
+                                $('#submitHutang').html('Simpan');
+                                $('#hutangModal').modal('hide');
 
-                            datatable.draw();
-                            loadHutang()
+                                datatable.draw();
+                                loadHutang()
+                            } else {
+                                const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timer: 3000,
+                                    timerProgressBar: true,
+                                });
+
+                                Toast.fire({
+                                    icon: 'error',
+                                    title: `${response.message}`,
+                                })
+
+                                $('#hutangForm').trigger("reset");
+                                $('#submitHutang').html('Simpan');
+                                $('#hutangModal').modal('hide');
+
+                                datatable.draw();
+                                loadHutang()
+                            }
 
                         }
                     }
@@ -290,6 +327,7 @@
                         $('#tgl_transaksi').val(response.tgl_transaksi).attr('readonly', true);
                         $('#total').val(response.total);
                         $('#keterangan').val(response.keterangan);
+                        $('#bayar').attr('hidden', false);
                     }
                 });
             });

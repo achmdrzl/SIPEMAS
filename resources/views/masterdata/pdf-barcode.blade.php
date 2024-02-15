@@ -1,5 +1,7 @@
+44
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title></title>
     <meta charset="UTF-8">
@@ -8,7 +10,8 @@
         /* Set the page size */
 
         body {
-            margin: 0; /* Remove default margins */
+            margin: 0;
+            /* Remove default margins */
         }
 
         .table {
@@ -18,12 +21,20 @@
 
         .centered-content2 {
             display: flex;
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically */
-            height: 100%; /* Make the div take the full height of the table cell */
+            justify-content: center;
+            /* Center horizontally */
+            align-items: center;
+            /* Center vertically */
+            height: 100%;
+            /* Make the div take the full height of the table cell */
+        }
+
+        .spacer {
+            margin-top: 20px;
         }
     </style>
 </head>
+
 <body>
     <table class="table">
         <tr>
@@ -41,6 +52,11 @@
                 {{ $barang->model->model_nama }}
             </td>
         </tr>
+        <tr class="spacer">
+            <td>
+                <!-- Spacer row with CSS class -->
+            </td>
+        </tr>
         <tr>
             <td class="centered-content2">
                 {!! $barcode !!}
@@ -53,4 +69,5 @@
         </tr>
     </table>
 </body>
+
 </html>

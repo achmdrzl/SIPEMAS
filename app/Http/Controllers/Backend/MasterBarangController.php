@@ -474,6 +474,9 @@ class MasterBarangController extends Controller
                     table, td {
                         font-size: 8px;
                     }
+                    .spacer {
+                        margin-top: 10px;
+                    }
                 </style>
                 <table class="table">
                     <tr>
@@ -489,6 +492,11 @@ class MasterBarangController extends Controller
                     <tr>
                         <td class="centered-content2">
                             ' . $barang->model->model_nama . '
+                        </td>
+                    </tr>
+                    <tr class="spacer">
+                        <td>
+                            <div style="height: 8px;"></div>
                         </td>
                     </tr>
                     <tr>

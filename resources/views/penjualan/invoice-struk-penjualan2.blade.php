@@ -193,7 +193,7 @@
         </p>
     </div>
     <div id="perhatian"
-        style="margin-left:80px; margin-top:-100px; width: 400px; overflow-wrap: break-word; font-size:11px;">
+        style="line-height: 1; margin-left:80px; margin-top:-30px; margin-bottom:50px; width: 400px; overflow-wrap: break-word; font-size:11px;">
         {!! $penjualans->penjualan_keterangan !!}
     </div>
     <div class="subtotal-perhatian">

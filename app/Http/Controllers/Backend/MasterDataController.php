@@ -1130,6 +1130,9 @@ class MasterDataController extends Controller
                 ->addColumn('total', function ($item) {
                     return 'Rp.' . number_format($item->total);
                 })
+                ->addColumn('total_bayar', function ($item) {
+                    return 'Rp.' . number_format($item->total_bayar);
+                })
                 ->addColumn('keterangan', function ($item) {
                     return ucfirst($item->keterangan);
                 })
@@ -1168,13 +1171,26 @@ class MasterDataController extends Controller
         $hutang = TransaksiHutang::find($request->hutang_id);
 
         if (isset($hutang)) {
-            TransaksiHutang::updateOrCreate([
-                'hutang_id' => $hutang->hutang_id,
-            ], [
-                'tgl_transaksi' => $request->tgl_transaksi,
-                'total' => $request->total,
-                'keterangan' => $request->keterangan,
-            ]);
+
+            $total_bayar = $hutang->total_bayar + $request->total_bayar;
+
+            if ($total_bayar > $hutang->total) {
+                //return response
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Total payment data exceeds total debt!',
+                ]);
+            } else {
+
+                TransaksiHutang::updateOrCreate([
+                    'hutang_id' => $hutang->hutang_id,
+                ], [
+                    'tgl_transaksi' => $request->tgl_transaksi,
+                    'total' => $request->total,
+                    'total_bayar' => $total_bayar,
+                    'keterangan' => $request->keterangan,
+                ]);
+            }
         } else {
 
             // Define the model name
@@ -1213,6 +1229,7 @@ class MasterDataController extends Controller
                 'kode_hutang' => $newId2,
                 'tgl_transaksi' => $request->tgl_transaksi,
                 'total' => $request->total,
+                'total_bayar' => 0,
                 'keterangan' => $request->keterangan,
             ]);
         }

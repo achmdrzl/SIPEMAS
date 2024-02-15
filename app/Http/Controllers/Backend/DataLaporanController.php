@@ -38,6 +38,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Xls\RC4;
@@ -505,6 +506,9 @@ class DataLaporanController extends Controller
                 })
                 ->addColumn('total', function ($item) {
                     return $item->total;
+                })
+                ->addColumn('total_bayar', function ($item) {
+                    return $item->total_bayar;
                 })
                 ->addColumn('keterangan', function ($item) {
                     return ucfirst($item->keterangan);
@@ -1164,6 +1168,7 @@ class DataLaporanController extends Controller
             $tgl_transaksi         = \Carbon\Carbon::parse($item->tgl_transaksi)->format('d-M-Y');
             $kode_hutang           = $item->kode_hutang;
             $total                 = $item->total;
+            $total_bayar           = $item->total_bayar;
             $keterangan            = $item->keterangan;
 
             $hutang[] = [
@@ -1171,6 +1176,7 @@ class DataLaporanController extends Controller
                 'kode_hutang'              => $kode_hutang,
                 'tgl_transaksi'            => $tgl_transaksi,
                 'total'                    => $total,
+                'total_bayar'              => $total_bayar,
                 'keterangan'               => $keterangan,
             ];
         }
@@ -1689,10 +1695,54 @@ class DataLaporanController extends Controller
         // Check if model is provided
         if ($dataArray[8] != null && $dataArray[8] !== '-') {
             $model = $dataArray[8] ? $dataArray[8] : null;
-            $penjualans->whereHas('penjualandetail.barang', function ($query) use ($model) {
+            $penjualans->whereHas('penjualandetail.barang.model', function ($query) use ($model) {
                 $query->where('model_id', $model);
             });
         }
+
+        // $penjualans = Barang::with(['transaksipenjualandetail.penjualan']);
+
+        // // Check if nama barang is provided
+        // if ($dataArray[3] !== null && $dataArray[3] !== '') {
+        //     $penjualans->where('nama_barang', $dataArray[3]);
+        // }
+
+        // // Check if supplier_id is provided
+        // if ($dataArray[5] !== null && $dataArray[5] !== '-') {
+        //     $penjualans->where('supplier_id', $dataArray[5]);
+        // }
+
+        // // Check if pabrik_id is provided
+        // if ($dataArray[6] !== null && $dataArray[6] !== '-') {
+        //     $penjualans->where('pabrik_id', $dataArray[6]);
+        // }
+
+        // // Check if kadar_id is provided
+        // if ($dataArray[7] !== null && $dataArray[7] !== '-') {
+        //     $penjualans->where('kadar_id', $dataArray[7]);
+        // }
+
+        // // Check if model_id is provided
+        // if ($dataArray[8] !== null && $dataArray[8] !== '-') {
+        //     $penjualans->where('model_id', $dataArray[8]);
+        // }
+
+        // // Check if startDate and endDate are provided
+        // if ($dataArray[0] !== null && $dataArray[1] !== null) {
+        //     $startDate  = $dataArray[0] ? $dataArray[0] : null;
+        //     $endDate    = $dataArray[1] ? $dataArray[1] : null;
+        //     $penjualans->whereHas('transaksipenjualandetail.penjualan', function ($query) use ($startDate, $endDate) {
+        //         $query->whereBetween('penjualan_tanggal', [$startDate, $endDate]);
+        //     });
+        // }
+
+        // // Check if nobukti is provided
+        // if ($dataArray[2] !== null && $dataArray[2] !== '') {
+        //     $nobukti  = $dataArray[0] ? $dataArray[0] : null;
+        //     $penjualans->whereHas('transaksipenjualandetail.penjualan', function ($query) use ($nobukti) {
+        //         $query->where('penjualan_nobukti', $nobukti);
+        //     });
+        // }
 
         // Retrieve the filtered results
         $penjualans = $penjualans->get();
@@ -1703,12 +1753,24 @@ class DataLaporanController extends Controller
                 $filename = 'Laporan Rekap Penjualan-';
                 $formatPaper = 'potrait';
                 // Load the HTML view with the data
-                $html = view('layout-print.rekap-penjualan', ['penjualans' => $penjualans, 'startDate' => $dataArray[0], 'endDate' => $dataArray[1]])->render();
+                $html = view('layout-print.rekap-penjualan', [
+                    'penjualans'    => $penjualans,
+                    'startDate'     => $dataArray[0],
+                    'endDate'       => $dataArray[1],
+                ])->render();
             } else if ($dataArray[9] === 'detail-penjualan') {
                 $filename = 'Laporan Detail Penjualan-';
                 $formatPaper = 'landscape';
                 // Load the HTML view with the data
-                $html = view('layout-print.detail-penjualan', ['penjualans' => $penjualans, 'startDate' => $dataArray[0], 'endDate' => $dataArray[1]])->render();
+                $html = view('layout-print.detail-penjualan', [
+                    'penjualans'    => $penjualans,
+                    'startDate'     => $dataArray[0],
+                    'endDate'       => $dataArray[1],
+                    'supplier_id'   => $dataArray[5] ?? null,
+                    'pabrik_id'     => $dataArray[6] ?? null,
+                    'kadar_id'      => $dataArray[7] ?? null,
+                    'model_id'      => $dataArray[8] ?? null,
+                ])->render();
             }
 
             // Create Dompdf instance
