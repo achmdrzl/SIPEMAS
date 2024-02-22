@@ -75,6 +75,7 @@
                     $groupTotal = 0;
                     $beratTotal = 0;
                     $totalGrandTotal = 0;
+                    $beratGrandTotal = 0;
                     $prevNoBukti = null;
                 @endphp
                 @foreach ($returnpenjualans as $item)
@@ -107,6 +108,7 @@
                     @php
                         $groupTotal += $item->returndetail->detail_penjualan_return_jml_harga;
                         $totalGrandTotal += $item->returndetail->detail_penjualan_return_jml_harga;
+                        $beratGrandTotal += $item->returndetail->detail_penjualan_return_berat;
                     @endphp
                     {{-- @endforeach --}}
 
@@ -128,6 +130,10 @@
                 <tr>
                     <td colspan="7" style="text-align: right"><strong>Grand Total</strong></td>
                     <td style="text-align: right"><strong>Rp. {{ number_format($totalGrandTotal) }}</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="7" style="text-align: right"><strong>Grand Total Berat</strong></td>
+                    <td style="text-align: right"><strong>{{ $beratGrandTotal }}</strong></td>
                 </tr>
             </tfoot>
         </table>

@@ -435,7 +435,7 @@ class MasterBarangController extends Controller
         $data = $request->query('data');
         $dataArray = json_decode($data, true);
 
-        $barcodeHtml = DNS1D::getBarcodeHTML($dataArray, 'CODABAR', 2, 40);
+        $barcodeHtml = DNS1D::getBarcodeHTML($dataArray, 'CODABAR', 1, 20);
 
         $barang = Barang::with(['kadar', 'model'])->where('barang_id', $dataArray)->first();
 

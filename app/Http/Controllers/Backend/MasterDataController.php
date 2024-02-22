@@ -1152,6 +1152,7 @@ class MasterDataController extends Controller
     // STORE DATA TRANSAKSI HUTANG
     public function transaksiHutangStore(Request $request)
     {
+        dd($request->all());
         //define validation rules  
         $validator = Validator::make($request->all(), [
             'tgl_transaksi' => 'required',
@@ -1186,9 +1187,9 @@ class MasterDataController extends Controller
                     'hutang_id' => $hutang->hutang_id,
                 ], [
                     'tgl_transaksi' => $request->tgl_transaksi,
-                    'total' => $request->total,
-                    'total_bayar' => $total_bayar,
-                    'keterangan' => $request->keterangan,
+                    'total'         => $request->total,
+                    'total_bayar'   => $total_bayar,
+                    'keterangan'    => $request->keterangan,
                 ]);
             }
         } else {
@@ -1226,11 +1227,11 @@ class MasterDataController extends Controller
             TransaksiHutang::updateOrCreate([
                 'hutang_id' => $newId,
             ], [
-                'kode_hutang' => $newId2,
-                'tgl_transaksi' => $request->tgl_transaksi,
-                'total' => $request->total,
-                'total_bayar' => 0,
-                'keterangan' => $request->keterangan,
+                'kode_hutang'       => $newId2,
+                'tgl_transaksi'     => $request->tgl_transaksi,
+                'total'             => $request->total,
+                'total_bayar'       => 0,
+                'keterangan'        => $request->keterangan,
             ]);
         }
 

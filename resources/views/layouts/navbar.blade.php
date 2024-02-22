@@ -103,10 +103,10 @@
                                     </li>
                                    <li class="nav-item {{ request()->segment(1) === 'laporanPembelian' || request()->segment(1) === 'laporanPembelianDetail' ? 'active' : '' }}">
                                         <a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse"
-                                            data-bs-target="#dash_wizard">
+                                            data-bs-target="#pembelian">
                                             <span class="nav-link-text">Pembelian</span>
                                         </a>
-                                        <ul id="dash_wizard" class="nav flex-column collapse nav-children">
+                                        <ul id="pembelian" class="nav flex-column collapse nav-children">
                                             <li class="nav-item">
                                                 <ul class="nav flex-column">
                                                     <li class="nav-item {{ request()->segment(1) == 'laporanPembelian' ? 'active' : '' }}">
@@ -123,10 +123,10 @@
                                     </li>
                                    <li class="nav-item {{ request()->segment(1) === 'laporanPenjualan' || request()->segment(1) === 'laporanPenjualanDetail' ? 'active' : '' }}">
                                         <a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse"
-                                            data-bs-target="#dash_wizard">
+                                            data-bs-target="#penjualan">
                                             <span class="nav-link-text">Penjualan</span>
                                         </a>
-                                        <ul id="dash_wizard" class="nav flex-column collapse nav-children">
+                                        <ul id="penjualan" class="nav flex-column collapse nav-children">
                                             <li class="nav-item">
                                                 <ul class="nav flex-column">
                                                     <li class="nav-item {{ request()->segment(1) == 'laporanPenjualan' ? 'active' : '' }}">
@@ -143,10 +143,10 @@
                                     </li>
                                    <li class="nav-item {{ request()->segment(1) === 'laporanReturnPenjualan' || request()->segment(1) === 'laporanReturnPenjualanDetail' ? 'active' : '' }}">
                                         <a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse"
-                                            data-bs-target="#dash_wizard">
+                                            data-bs-target="#return">
                                             <span class="nav-link-text">Return Penjualan</span>
                                         </a>
-                                        <ul id="dash_wizard" class="nav flex-column collapse nav-children">
+                                        <ul id="return" class="nav flex-column collapse nav-children">
                                             <li class="nav-item">
                                                 <ul class="nav flex-column">
                                                     <li class="nav-item {{ request()->segment(1) == 'laporanReturnPenjualan' ? 'active' : '' }}">
@@ -163,10 +163,10 @@
                                     </li>
                                    <li class="nav-item {{ request()->segment(1) === 'laporanPengeluaran' || request()->segment(1) === 'laporanPengeluaranDetail' ? 'active' : '' }}">
                                         <a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse"
-                                            data-bs-target="#dash_wizard">
+                                            data-bs-target="#pengeluaran">
                                             <span class="nav-link-text">Pengeluaran</span>
                                         </a>
-                                        <ul id="dash_wizard" class="nav flex-column collapse nav-children">
+                                        <ul id="pengeluaran" class="nav flex-column collapse nav-children">
                                             <li class="nav-item">
                                                 <ul class="nav flex-column">
                                                     <li class="nav-item {{ request()->segment(1) == 'laporanPengeluaran' ? 'active' : '' }}">
@@ -183,10 +183,10 @@
                                     </li>
                                    <li class="nav-item {{ request()->segment(1) === 'laporanPenerimaan' || request()->segment(1) === 'laporanPenerimaanDetail' ? 'active' : '' }}">
                                         <a class="nav-link" href="javascript:void(0);" data-bs-toggle="collapse"
-                                            data-bs-target="#dash_wizard">
+                                            data-bs-target="#penerimaan">
                                             <span class="nav-link-text">Penerimaan</span>
                                         </a>
-                                        <ul id="dash_wizard" class="nav flex-column collapse nav-children">
+                                        <ul id="penerimaan" class="nav flex-column collapse nav-children">
                                             <li class="nav-item">
                                                 <ul class="nav flex-column">
                                                     <li class="nav-item {{ request()->segment(1) == 'laporanPenerimaan' ? 'active' : '' }}">
