@@ -1152,7 +1152,6 @@ class MasterDataController extends Controller
     // STORE DATA TRANSAKSI HUTANG
     public function transaksiHutangStore(Request $request)
     {
-        dd($request->all());
         //define validation rules  
         $validator = Validator::make($request->all(), [
             'tgl_transaksi' => 'required',
