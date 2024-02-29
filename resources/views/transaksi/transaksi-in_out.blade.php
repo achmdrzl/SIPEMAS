@@ -53,10 +53,10 @@
                                             </table>
                                         </div>
                                     </div>
-                                     <div class="card-footer">
+                                    <div class="card-footer">
                                         <p id="load-pemasukan" style="font-size: 18px"></p>
                                     </div>
-                                     <div class="card-footer">
+                                    <div class="card-footer">
                                         <p id="load-pengeluaran" style="font-size: 18px"></p>
                                     </div>
                                 </div>
@@ -88,8 +88,9 @@
                                     <div class="col-sm-12">
                                         <label class="form-label">Tanggal Transaksi</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="date" placeholder="Masukkan Tanggal Transaksi"
-                                                name="tgl_transaksi" id="tgl_transaksi" value="{{ date('Y-m-d') }}" />
+                                            <input class="form-control" type="date"
+                                                placeholder="Masukkan Tanggal Transaksi" name="tgl_transaksi"
+                                                id="tgl_transaksi" value="{{ date('Y-m-d') }}" />
                                         </div>
                                     </div>
                                 </div>
@@ -98,19 +99,20 @@
                                         <label class="form-label">Jenis Transaksi</label>
                                         <div class="form-group">
                                             <select name="jenis_transaksi" class="form-control" id="jenis_transaksi">
-                                                <option value="" disabled selected>-- Select Jenis Transaksi --</option>
+                                                <option value="" disabled selected>-- Select Jenis Transaksi --
+                                                </option>
                                                 <option value="Pengeluaran">Pengeluaran</option>
                                                 <option value="Pemasukan">Pemasukan</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-                                 <div class="row gx-3">
+                                <div class="row gx-3">
                                     <div class="col-sm-12">
                                         <label class="form-label">Total Transaksi</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="number" placeholder="Masukkan Total Transaksi"
-                                                name="total" id="total" />
+                                            <input class="form-control" type="text" oninput="test(this);"
+                                                placeholder="Masukkan Total Transaksi" name="total" id="total" />
                                         </div>
                                     </div>
                                 </div>
@@ -144,29 +146,47 @@
 
 @push('script-alt')
     <script>
-
         // CONVERT RUPIAH
-         const rupiah = (number) => {
-                return new Intl.NumberFormat("id-ID", {
-                    style: "currency",
-                    currency: "IDR"
-                }).format(number);
-            }
+        const rupiah = (number) => {
+            return new Intl.NumberFormat("id-ID", {
+                style: "currency",
+                currency: "IDR"
+            }).format(number);
+        }
 
         // LOAD TOTAL PEMASUKAN
         loadInOut()
-        function loadInOut(){
+
+        function loadInOut() {
             $.ajax({
                 type: "GET",
                 url: "{{ route('load.in.out') }}",
                 dataType: "JSON",
-                success: function (response) {
+                success: function(response) {
                     var pemasukan = `TOTAL PEMASUKAN: <strong>` + rupiah(response.pemasukan) + `</strong>`;
                     var pengeluaran = `TOTAL PEMASUKAN: <strong>` + rupiah(response.pengeluaran) + `</strong>`;
                     $("#load-pemasukan").html(pemasukan)
                     $("#load-pengeluaran").html(pengeluaran)
                 }
             });
+        }
+
+        function test(element) {
+
+            var val = element.value;
+
+            // Remove commas from the input value
+            var unformattedValue = val.replace(/,/g, '');
+
+            // Add the 'data-value' attribute with the unformatted value
+            element.setAttribute('data-value', unformattedValue);
+
+            // Format the value with addCommas
+            element.value = addCommas(unformattedValue);
+        }
+
+        function addCommas(str) {
+            return str.replace(/^0+/, '').replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
         $(document).ready(function() {
@@ -311,11 +331,16 @@
                         $('#tgl_transaksi').val(response.tgl_transaksi).attr('readonly', true);
                         $('#jenis_transaksi').val(response.jenis_transaksi);
                         console.log(response.jenis_transaksi)
-                        $('#total').val(response.total);
+                        $('#total').val(formatWithCommaSeparator(response.total));
                         $('#keterangan').val(response.keterangan);
                     }
                 });
             });
+
+            // Function to format a number with a comma separator per 1,000
+            function formatWithCommaSeparator(number) {
+                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
 
             // Arsipkan Data Kadar
             $('body').on('click', '#transaksi-delete', function() {

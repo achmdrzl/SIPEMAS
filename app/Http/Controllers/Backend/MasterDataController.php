@@ -1030,10 +1030,10 @@ class MasterDataController extends Controller
             TransaksiInOut::updateOrCreate([
                 'transaksi_id' => $transaksi->transaksi_id,
             ], [
-                'tgl_transaksi' => $request->tgl_transaksi,
-                'jenis_transaksi' => $request->jenis_transaksi,
-                'total' => $request->total,
-                'keterangan' => $request->keterangan,
+                'tgl_transaksi'     => $request->tgl_transaksi,
+                'jenis_transaksi'   => $request->jenis_transaksi,
+                'total'             => (int)str_replace(',', '', $request->total),
+                'keterangan'        => $request->keterangan,
             ]);
         } else {
 
@@ -1070,11 +1070,11 @@ class MasterDataController extends Controller
             TransaksiInOut::updateOrCreate([
                 'transaksi_id' => $newId,
             ], [
-                'kode_transaksi' => $newId2,
-                'tgl_transaksi' => $request->tgl_transaksi,
-                'jenis_transaksi' => $request->jenis_transaksi,
-                'total' => $request->total,
-                'keterangan' => $request->keterangan,
+                'kode_transaksi'    => $newId2,
+                'tgl_transaksi'     => $request->tgl_transaksi,
+                'jenis_transaksi'   => $request->jenis_transaksi,
+                'total'             => (int)str_replace(',', '', $request->total),
+                'keterangan'        => $request->keterangan,
             ]);
         }
 
@@ -1172,7 +1172,7 @@ class MasterDataController extends Controller
 
         if (isset($hutang)) {
 
-            $total_bayar = $hutang->total_bayar + $request->total_bayar;
+            $total_bayar = $hutang->total_bayar + (int)str_replace(',', '', $request->total_bayar);
 
             if ($total_bayar > $hutang->total) {
                 //return response
@@ -1186,7 +1186,7 @@ class MasterDataController extends Controller
                     'hutang_id' => $hutang->hutang_id,
                 ], [
                     'tgl_transaksi' => $request->tgl_transaksi,
-                    'total'         => $request->total,
+                    'total'         => (int)str_replace(',', '', $request->total),
                     'total_bayar'   => $total_bayar,
                     'keterangan'    => $request->keterangan,
                 ]);
@@ -1228,7 +1228,7 @@ class MasterDataController extends Controller
             ], [
                 'kode_hutang'       => $newId2,
                 'tgl_transaksi'     => $request->tgl_transaksi,
-                'total'             => $request->total,
+                'total'             => (int)str_replace(',', '', $request->total),
                 'total_bayar'       => 0,
                 'keterangan'        => $request->keterangan,
             ]);

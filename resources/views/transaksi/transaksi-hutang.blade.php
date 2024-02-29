@@ -95,16 +95,23 @@
                                     <div class="col-sm-12">
                                         <label class="form-label">Total Transaksi</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="number"
-                                                placeholder="Masukkan Total Transaksi" name="total" id="total" />
+                                            <input class="form-control total" type="text"
+                                                placeholder="Masukkan Total Transaksi" name="total" id="total"
+                                                oninput="test(this);" />
                                         </div>
                                     </div>
                                     <div class="col-sm-12" id="bayar">
+                                        <label class="form-label">Total Sudah Bayar</label>
+                                        <div class="form-group">
+                                            <input class="form-control total_sudahbayar" type="text"
+                                                placeholder="Masukkan Total Transaksi Terbayarkan" name="total_sudahbayar"
+                                                id="total_sudahbayar" oninput="test(this);" />
+                                        </div>
                                         <label class="form-label">Total Bayar</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="number"
+                                            <input class="form-control total_bayar" type="text"
                                                 placeholder="Masukkan Total Transaksi Terbayarkan" name="total_bayar"
-                                                id="total_bayar" />
+                                                id="total_bayar" oninput="test(this);" />
                                         </div>
                                     </div>
                                 </div>
@@ -117,7 +124,8 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer align-items-center">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
                                     <button type="submit" class="btn btn-primary" id="submitHutang">Simpan</button>
                                 </div>
                             </form>
@@ -159,6 +167,24 @@
                     $("#load-hutang").html(hutang)
                 }
             });
+        }
+
+        function test(element) {
+
+            var val = element.value;
+
+            // Remove commas from the input value
+            var unformattedValue = val.replace(/,/g, '');
+
+            // Add the 'data-value' attribute with the unformatted value
+            element.setAttribute('data-value', unformattedValue);
+
+            // Format the value with addCommas
+            element.value = addCommas(unformattedValue);
+        }
+
+        function addCommas(str) {
+            return str.replace(/^0+/, '').replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
         $(document).ready(function() {
@@ -325,12 +351,20 @@
                         $('#hutangModal').modal('show');
                         $('#hutang_id').val(response.hutang_id);
                         $('#tgl_transaksi').val(response.tgl_transaksi).attr('readonly', true);
-                        $('#total').val(response.total);
+                        $('#total').val(formatWithCommaSeparator(response.total)).attr(
+                            'readonly', true);
+                        $('#total_sudahbayar').val(formatWithCommaSeparator(response
+                            .total_bayar)).attr('readonly', true);
                         $('#keterangan').val(response.keterangan);
                         $('#bayar').attr('hidden', false);
                     }
                 });
             });
+
+            // Function to format a number with a comma separator per 1,000
+            function formatWithCommaSeparator(number) {
+                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
 
             // Arsipkan Data Kadar
             $('body').on('click', '#hutang-delete', function() {
